@@ -1,33 +1,6 @@
-# Greenfield (V3) Starter Project
+# Digital Learn Training
 
-The purpose of this project is to speed up initializing a new Rails
-project.  Our agreed upon list of Rails gems and settings are included so
-that we don't need to discuss each choice that has been made in the past.
-
-## Starting a new project using this template
-
-* Clone this project from Github
-  - git clone git@github.com:CKDev/greenfield-v3.git
-* Create a new gemset with 'rvm gemset create <project name>'
-* Change .ruby-gemset for new project name
-* Run `bundle install`
-* Copy secrets.yml.example to secrets.yml.
-* Create a new secret_key_base, one for development and one for test with `rake secret` and put in the secrets.yml file.
-* Find and replace all instances of "greenfield" throughout the app
-* Update the git remotes
-  * `git remote -v` (should still point to greenfield)
-  * `git remote rm origin`
-  * `git remote add origin git@github.com:<new repo>`
-* Create configure the database
-  * Run `rake db:create db:migrate db:seed`
-* Configure Redis - TODO:
-* Configure Sidekiq - TODO:
-
-## Replace this README with application specific information below.
-
-# Greenfield
-
-## Running Greenfield Locally
+## Running Digital Learn Training Locally
 
 ### Ruby Version
 
