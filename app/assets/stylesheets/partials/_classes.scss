@@ -1,0 +1,307 @@
+@import "bourbon";
+@import "neat";
+
+.container {
+  @include outer-container;
+  padding-left: 1em;
+  padding-right: 1em;
+
+  @include media($desktop) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.alert {
+  color: $error-font-color;
+  border: 1px solid $error-border-color;
+  background: $error-color;
+  margin: 0 0 1em;
+  padding: 1em;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 2px 4px -2px $error-border-color;
+  border-radius: 4px;
+}
+
+.notice {
+  color: $notice-font-color;
+  border: 1px solid $notice-border-color;
+  background: $notice-color;
+  margin: 0 0 1em;
+  padding: 1em;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 2px 4px -2px $notice-border-color;
+  border-radius: 4px;
+}
+
+.note {
+  font-size: 12px;
+  color: $grey;
+  font-style: italic;
+  text-transform: none;
+  font-weight: 100;
+}
+
+.emphasis {
+  color: $grey;
+  font-style: italic;
+}
+
+.light-emphasis {
+  color: $grey;
+}
+
+.small-14 {
+  font-size: 14px;
+}
+
+.standard-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  display: inline-block;
+  padding-right: 10px;
+}
+
+small {
+  @include media($mobile-large) {
+    font-size: 1rem;
+  }
+}
+
+//Room for start course so it's not hit accidentalyt
+.course-edit-add-remove.course-edit-add-remove {
+  margin-bottom: 25px;
+  margin-top: 10px;
+}
+
+.large-top-padding {
+  margin-top: 185px;
+  @include media($mobile-xlarge) {
+    margin-top: 202px;
+    // 157px
+  }
+  @include media($mobile-large) {
+    margin-top: 80px;
+    // 35px
+  }
+}
+
+.bottom-margin {
+  margin-bottom: 10px;
+}
+
+.extra-bottom-margin {
+  margin-bottom: 3em;
+}
+
+.no-top-margin {
+  margin-top: 0;
+}
+
+.no-bottom-margin {
+  margin-bottom: 0;
+}
+
+.course-details {
+  color: $teal;
+  font-size: 2em;
+  margin: 1em 0 .5em 0;
+  font-weight: 200;
+
+  @include media($mobile-large) {
+  font-size: 1.6em;
+
+  }
+
+}
+
+.unauth-start-course-button {
+  margin-top: 2em;
+}
+
+.course-edit-add-remove {
+  margin-bottom: 0px;
+  margin-top: 0.4em;
+}
+
+.left-or-right {
+  text-align: right;
+  @include media($mobile) {
+    text-align: left;
+  }
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.border-left {
+  border-left: 1px solid $grey;
+  @include media($mobile) {
+    border-left: none;
+  }
+}
+
+.border-right {
+  border-right: 1px solid $grey;
+  @include media($mobile) {
+    border-right: none;
+  }
+}
+
+.grey {
+  color: $grey;
+}
+
+.white {
+  color: white !important;
+}
+
+.extra-padding-left {
+  padding-left: 5em;
+  @include media($mobile) {
+    padding-left: 0em;
+  }
+}
+
+.padding-right {
+  padding-right: 1em;
+}
+
+.extra-padding-right {
+  padding-right: 4em;
+  @include media($mobile) {
+    padding-right: 0em;
+  }
+}
+
+.hide-on-mobile {
+  @include media($mobile) {
+    display: none;
+  }
+}
+
+.hide-on-tablet {
+  @include media($tablet) {
+    display: none;
+  }
+}
+
+.vertical-bar {
+  display: inline-block;
+  margin-left: 1em;
+  padding-right: .5em;
+  border-left: 1px solid $grey;
+  height: 2em;
+  vertical-align: middle;
+}
+
+.story_line {
+  width: 1024px;
+  height: 716px;
+}
+
+header.lesson-listing {
+  padding-left: 66px;
+  height: 45px;
+  position: relative;
+
+  h3 {
+    margin-bottom: 5px;
+  }
+}
+
+header.lesson-listing:before {
+  content: "\e80c";
+  font-family: "fontello";
+  font-size: 2.5em;
+  left: 0;
+  position:absolute;
+  color: $grey;
+ }
+
+.cke_contents.cke_reset {
+  border: 2px solid $grey;
+  border-radius: 6px;
+}
+
+.right-third {
+  @include media($desktop) {
+    @include span-columns(4);
+    @include shift(8);
+  }
+  @include media($mobile) {
+    @include span-columns(12);
+  }
+}
+
+.left-two-thirds {
+  max-width: 676px;
+  float: left;
+  margin-right: 19px;
+}
+
+.clearfix:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+label.inline-label {
+  display: inline;
+  color: black;
+  font-size: 1.1em;
+  margin-left: 0.5em;
+}
+
+ol {
+  li.margin-v  {
+    margin: 1em auto;
+  }
+}
+
+ul.less-padding {
+  padding-left: 1.5em;
+}
+
+
+  @include media($mobile) {
+
+  .mobile-tweak.align-right {
+    text-align: left;
+  }
+}
+
+.inline-heading {
+  display: inline-block;
+}
+
+.padded {
+  padding-left: 5px;
+}
+
+.show_with_bullets {
+  ul {
+    list-style: initial;
+  }
+}
+
+.file-description {
+  margin-top: 1px;
+  margin-bottom: 5px;
+  padding-left: 2em;
+}
+
+.cleared-float {
+  float: none;
+  clear: both;
+}

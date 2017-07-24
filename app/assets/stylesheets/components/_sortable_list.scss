@@ -1,0 +1,56 @@
+.sortable_list_wrapper {
+  margin-bottom: 3rem;
+}
+
+.list-titles {
+  border-width: 2px;
+  color: $teal;
+  font-size: 1.5em;
+  font-weight: 100;
+}
+
+.cell {
+  display: table-cell;
+  width: 15%;
+  @include media($mobile-large) {
+    display: block;
+  }
+}
+
+ul.objects {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul.objects li:last-child {
+  border-bottom: none;
+}
+
+ul.reorderable li:hover {
+  cursor: move;
+}
+
+li.sortable-placeholder {
+  border: 1px dashed #CCC;
+  background-color: #f9f9f9;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+div.sortable-placeholder {
+  border: 1px dashed #CCC;
+  background-color: #f9f9f9;
+  height: 222px;
+  width: 222px;
+  color: $white;
+  margin-bottom: 2em;
+  margin-right: 2.8em;
+  position: relative;
+  cursor: pointer;
+  float: left;
+}
+
+.category_row {
+  float: none;
+  margin: 0;
+}

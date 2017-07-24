@@ -1,0 +1,69 @@
+$white: #fff;
+$lightish-grey: #efefef;
+$light-grey: #eee;
+$medium-grey: #ddd;
+$grey: #A7A5A6;
+$dark-grey: #666;
+$black: #000;
+
+$teal: #009ec5;
+
+/* Subdomain-specific colors */
+/* CPL */
+$cpl-blue: #2d63af;
+$cpl-purple: #89288c;
+$blind-man-mustard: #ae8208;
+
+/* NPL */
+$npl-blue: #004E95;
+$npl-orange: #C64918;
+
+/* KPL */
+$kpl-blue: #155999;
+$kpl-green: #0B840B;
+$kpl-gray: #4C4C4C;
+
+/* TSCPL */
+$tscpl-blue: #0073CF;
+$tscpl-orange: #A66401;
+$tscpl-gray: #464646;
+$tscpl-action-gray: #333333;
+
+/* PIMA */
+$pima-blue: #2C3590;
+$pima-light-blue: #147BBA;
+$pima-gray: #716C6B;
+
+/* EBRPL */
+$ebrpl-dark-blue: #2E388F;
+$ebrpl-light-blue: #0A57A2;
+
+$purple: #8945a1;
+$purple-2: #7b439b;
+$dark-purple: #7D3191;
+$red: #f0502c;
+$orange: #fa8c28;
+
+$error-font-color: #c94235;
+$error-border-color: #db8a83;
+$error-color: #f5dddb;
+
+$notice-font-color: #444;
+$notice-border-color: #9dbc89;
+$notice-color: #e3ecdc;
+
+$font-primary: 'Open Sans', sans-serif;
+$font-secondary: 'Roboto', sans-serif;
+
+/* Breakpoints */
+$mobile: new-breakpoint(max-width 500px 12);
+$mobile-large: new-breakpoint(max-width 700px 12);
+$mobile-xlarge: new-breakpoint(max-width 830px 12);
+$tablet: new-breakpoint(max-width 1044px 12);
+$desktop: new-breakpoint(min-width 1044px 12);
+
+/* Misc Colors (Are these needed, or should they be something else) */
+$grey-1: #e9e9e9;
+$grey-2: #f4f4f4;
+$grey-3: #c2c2c2;
+$mustard-2: #795b05;

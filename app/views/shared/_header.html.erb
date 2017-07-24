@@ -1,17 +1,22 @@
-<header>
+<header class="header-logged-out" >
   <div class="container">
-    <div class="float-left">
-      <%= link_to root_path do %>
-        <%# image_tag "logo", class: "logo-icon" %>
-      <% end %>
+    <div class="language-links">
+      English
     </div>
-    <div class="align-right desktop-menu float-right">
-      <% if user_signed_in? %>
-        <%= link_to "Log Out", destroy_user_session_path, method: "delete" %>
-      <% else %>
-        <%= link_to "Log In", new_user_session_path %>
-        <%= link_to "Sign Up", new_user_registration_path %>
-      <% end %>
+    <div class="logo-link-container">
+      <div class="html5-link">
+        <%= link_to root_url, class: 'logo-link' do %>
+          <div class="link-box">
+            <%= image_tag "dl_logo" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="signup-box">
+        Help Learners
+      </div>
+      <div class="search-box">
+        &nbsp;
+      </div>
     </div>
   </div>
 </header>

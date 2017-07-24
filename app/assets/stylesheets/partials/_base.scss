@@ -1,0 +1,79 @@
+* {
+  font-family: $font-primary;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $white;
+  color: $black;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: $purple;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a.inverted {
+  color: $white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $teal;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+p {
+  line-height: 1.5em;
+  &.shorty {
+    line-height: 1.2em;
+  }
+}
+
+small {
+  font-size: .8em;
+  padding-bottom: 1em;
+}
+
+ul {
+  list-style: none;
+  li {
+    line-height: 1.5em;
+  }
+
+  &.marked {
+    list-style-type: disc;
+  }
+
+  &.extra-padding {
+    padding-left: 45px;
+  }
+
+  &.sidebar-links {
+    padding-left: 0;
+  }
+
+  &.no-padding {
+    padding-left: 0;
+  }
+}
+
+i::before {
+  padding-right: 1em;
+}
+
+hr {
+  margin-top: 1em;
+}
