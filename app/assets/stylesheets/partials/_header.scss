@@ -1,5 +1,44 @@
 @import "bourbon";
 @import "neat";
+
+nav.primary-links {
+  color: $purple;
+  padding-bottom: 1em;
+  float: right;
+  margin-top: 27px;
+  @include clearfix;
+
+  a {
+    display: inline-block;
+
+    @include media($mobile-large) {
+      font-size: .9rem;
+    }
+  }
+
+  .divider {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+nav.secondary-links {
+  padding-bottom: 1em;
+  font-size: 13px;
+  @include clearfix;
+
+  a {
+    color: $purple;
+    display: inline-block;
+
+    @include media($mobile-large) {
+      font-size: .9rem;
+    }
+  }
+
+}
+
 .header-logged-out {
   margin-bottom: 2em;
   padding: 1em 0 1em 0;
@@ -21,9 +60,8 @@
       display: inline-block;
 
       @include media($mobile-large) {
-          font-size: .9rem;
+        font-size: .9rem;
       }
-
     }
   }
 
@@ -239,10 +277,6 @@
     }
 
   }
-}
-
-.practice-link {
-  float: right;
 }
 
 .fifty-percent-larger {
