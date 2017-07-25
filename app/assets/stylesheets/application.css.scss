@@ -15,11 +15,10 @@
  */
 
 @import "bourbon";
+@import "partials/vars";
 @import "partials/grid_settings";
 @import "neat";
 @import "mixins/*";
-@import "partials/select2";
-@import "partials/vars";
 @import "partials/normalize";
 @import "partials/base";
 @import "partials/fonts";
@@ -30,9 +29,5 @@
 @import "partials/header";
 @import "partials/footer";
 @import "partials/errors";
-@import "components/modal";
-@import "components/course_progress";
-@import "components/search_box";
-@import "components/sortable_list";
-@import "components/congratulation_banner";
+@import "components/*";
 @import "scaffolds";

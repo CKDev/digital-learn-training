@@ -6,7 +6,6 @@
   @include color_scheme($teal, $white, $purple);
   @include banner($teal, $white);
   @include buttons($purple, $white);
-  @include course_widget($purple, $purple-2);
   @include lesson_block($teal, $grey, $purple, $orange);
   @include icons($teal, $orange);
 }
@@ -81,7 +80,6 @@ small {
   }
 }
 
-//Room for start course so it's not hit accidentalyt
 .course-edit-add-remove.course-edit-add-remove {
   margin-bottom: 25px;
   margin-top: 10px;
@@ -91,27 +89,25 @@ small {
   margin-top: 185px;
   @include media($mobile-xlarge) {
     margin-top: 202px;
-    // 157px
   }
   @include media($mobile-large) {
     margin-top: 80px;
-    // 35px
   }
 }
 
-.bottom-margin {
+.margin-bottom {
   margin-bottom: 10px;
 }
 
-.extra-bottom-margin {
-  margin-bottom: 3em;
+.extra-margin-bottom {
+  margin-bottom: 30px;
 }
 
-.no-top-margin {
+.no-margin-top {
   margin-top: 0;
 }
 
-.no-bottom-margin {
+.no-margin-bottom {
   margin-bottom: 0;
 }
 
@@ -122,10 +118,8 @@ small {
   font-weight: 200;
 
   @include media($mobile-large) {
-  font-size: 1.6em;
-
+    font-size: 1.6em;
   }
-
 }
 
 .unauth-start-course-button {
@@ -284,8 +278,7 @@ ul.less-padding {
 }
 
 
-  @include media($mobile) {
-
+@include media($mobile) {
   .mobile-tweak.align-right {
     text-align: left;
   }
@@ -314,4 +307,35 @@ ul.less-padding {
 .cleared-float {
   float: none;
   clear: both;
+}
+
+// New for training site //
+
+.size-200 {
+  max-width: 200px;
+}
+
+.centered {
+  text-align: center;
+}
+
+a.link-wrapper {
+  text-decoration: none;
+  color: inherit;
+}
+
+a.link-wrapper:hover {
+  text-decoration: none;
+}
+
+.padding-right {
+  padding-right: 20px;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.align-right {
+  text-align: right;
 }

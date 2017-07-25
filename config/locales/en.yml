@@ -30,4 +30,4 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  course_materials_description: "Each class contains a minimum of three supporting documents, which generally include a Design Document (Instructor's Guide), an Activity Sheet, and a Handout. PowerPoint presentations, practice files and additional documents may also accompany classes when applicable.  With these items, and a bit of preparation and practice, you will be ready to teach any of our classes in no time!"

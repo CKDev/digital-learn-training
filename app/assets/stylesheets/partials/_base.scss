@@ -75,5 +75,12 @@ i::before {
 }
 
 hr {
-  margin-top: 1em;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-width: 0;
+  border-top: 1px solid $medium-grey;
+
+  &.black {
+    border-top: 1px solid $black;
+  }
 }

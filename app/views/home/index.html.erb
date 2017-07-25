@@ -1,14 +1,88 @@
 <div class="container">
-  <a class="course-widget" href="/courses/why-use-a-computer">
+  <div class="info-widget">
     <header>
-      <h3>Why Use a Computer?</h3>
+      <h2>Course Materials: Tracks & Classes</h2>
     </header>
-    <div class="description">
-      <p>Reasons why you should take the time to learn about computers.</p>
-      <div class="percent-complete"></div>
-      <div class="duration">
-        <i class="icon-clock grey"></i>15 mins
+    <div class="content">
+      <div class="row">
+        <div class="fourcol">
+          <div class="centered">
+            <%= image_tag "gnome", class: "size-200 extra-margin-bottom" %>
+          </div>
+          <p class="padding-right"><%= t("course_materials_description") %></p>
+        </div>
+
+        <div class="eightcol last">
+          <%= render "course_materials" %>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="row">
+        <div class="eightcol">
+          <h3 class="inline-block padding-right">Design Your Own Classroom Materials?</h3><%= link_to "Get Blank Templates", "#" %>
+        </div>
+
+        <div class="fourcol last">
+          <h3 class="inline-block padding-right">Want to Contribute?</h3><%= link_to "Learn How", "#" %>
+        </div>
+      </div>
+
+      <hr />
+    </div>
+  </div>
+
+  <div class="info-widget">
+    <header>
+      <h2>Learning In Libraries</h2>
+    </header>
+    <div class="content">
+      <div class="row">
+        <div class="fourcol">
+          <p class="padding-right">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+            laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+        </div>
+        <div class="eightcol last">
+          <%= render "learning_in_libraries" %>
+        </div>
       </div>
     </div>
-  </a>
+  </div>
+
+  <div class="row">
+    <div class="sixcol">
+      <div class="info-widget">
+        <header>
+          <h2>Latest Peer Discussions</h2>
+        </header>
+        <div class="content">
+          <div>Last 3 posts from the Discourse site.</div>
+          <hr />
+          <div class="align-right">
+            <%= link_to "All Peer Discussions >", "#" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sixcol">
+      <div class="info-widget">
+        <header>
+          <h2>News & Events</h2>
+        </header>
+        <div class="content">
+          <div>&nbsp;</div>
+          <hr />
+          <div class="align-right">
+            <%= link_to "Newsletter Signup >", "#" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
