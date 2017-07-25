@@ -2,9 +2,28 @@
   <div class="container">
     <div class="row">
       <div class="threecol">
-        &nbsp;
+        <ul class="cms_nav">
+          <!-- TODO: this should be a header -->
+          <strong>LEARN MORE</strong>
+          <li><a href="#">Privacy Policy | Terms</a></li>
+          <li><a href="#">About DigitalLearn.org</a></li>
+          <li><a href="#">Bibliography</a></li>
+        </ul>
       </div>
-      <%= render "shared/logo_footer" %>
+      <div class="threecol">
+        <ul class="cms_nav">
+          <!-- TODO: this should be a header -->
+          <strong>&nbsp;</strong>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">News and Events</a></li>
+        </ul>
+      </div>
+      <div class="threecol footer-box license">
+        This work is licensed under a Creative Commons Attribution Sharealike 3.0 Unported License.
+      </div>
+      <div class="threecol footer-box">
+        <%= render "shared/logo_footer" %>
+      </div>
     </div>
   </div>
 </footer>
