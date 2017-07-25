@@ -17,6 +17,7 @@
 @import "bourbon";
 @import "partials/grid_settings";
 @import "neat";
+@import "mixins/*";
 @import "partials/select2";
 @import "partials/vars";
 @import "partials/normalize";
@@ -34,6 +35,4 @@
 @import "components/search_box";
 @import "components/sortable_list";
 @import "components/congratulation_banner";
-@import "mixins/*";
-@import "subdomains/*";
 @import "scaffolds";
