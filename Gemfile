@@ -61,7 +61,6 @@ group :development do
   gem "web-console", "~> 2.0"
   gem "listen", "~> 3.0.5"
   gem "colorize" # For colored spec/capybara output
-  # gem "quiet_assets"
 end
 
 group :test do
