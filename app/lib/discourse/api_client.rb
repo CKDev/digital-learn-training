@@ -1,7 +1,7 @@
 module Discourse
   module ApiClient
 
-    COP_BASE_URL = "http://community.projectoutcome.org".freeze
+    COP_BASE_URL = "http://community.digitallearn.org".freeze
 
     def faraday_connection
       @conn ||= Faraday.new(url: COP_BASE_URL)
