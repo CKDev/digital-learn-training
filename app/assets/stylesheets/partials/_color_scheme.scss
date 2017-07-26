@@ -1,0 +1,91 @@
+h1, h2, h3, h4, h5, h6 {
+  color: $teal;
+}
+
+h3.disabled {
+  color: $grey;
+}
+
+label {
+  color: $teal;
+}
+
+.color {
+  background-color: $teal;
+}
+
+.footer-primary {
+  background-color: $teal;
+}
+
+a {
+  text-decoration: none;
+  color: $purple;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.language-links {
+  color: $purple;
+
+  a {
+    color: $purple;
+  }
+}
+
+.logo-icon {
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+a.inverted {
+  color: $white;
+}
+
+.slogan {
+  color: $white;
+  text-align: left;
+}
+
+.signup-label {
+  font-size: 1.1em;
+  color: $teal;
+  margin-top: 1.5em;
+
+  &-no-margin {
+    margin-top: 0;
+  }
+}
+
+.text-color {
+  color: $teal;
+}
+
+.download-color {
+  color: $purple;
+}
+
+.cert-color {
+  color: $teal;
+}
+
+.required:after {
+  content: " *";
+  color: $teal;
+  font-weight: bold;
+}
+
+.underlined {
+  border-bottom: solid;
+  border-color: $purple;
+  border-width: 1px;
+  padding-bottom: 1em;
+}
+
+ul.objects li {
+  padding: 10px 10px 10px 0;
+  border-bottom: 1px solid $purple;
+}

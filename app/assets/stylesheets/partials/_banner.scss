@@ -1,0 +1,35 @@
+.banner {
+  background-color: $teal;
+  margin-bottom: 2em;
+  padding: 1em 0 2em 0;
+  min-height: 2em;
+
+  h1 {
+    font-family: $font-secondary;
+    color: $white;
+    font-size: 2em;
+    font-weight: 100;
+    margin-bottom: 0;
+    margin-top: 13px;
+
+    @include media($desktop) {
+      font-size: 3.3em;
+    }
+
+    &.slogan {
+      @include media($desktop) {
+        font-size: 3.3em;
+      }
+    }
+  }
+
+  [class^="icon-"] {
+    font-size: 20px;
+    padding-right: 5px;
+  }
+
+  small {
+    font-size: 20px;
+    color: $white;
+  }
+}

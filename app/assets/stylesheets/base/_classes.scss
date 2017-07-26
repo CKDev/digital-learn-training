@@ -1,14 +1,5 @@
 @import "bourbon";
 
-// TODO: does this belong here?
-.www {
-  @include color_scheme($teal, $white, $purple);
-  @include banner($teal, $white);
-  @include buttons($purple, $white);
-  @include lesson_block($teal, $grey, $purple, $orange);
-  @include icons($teal, $orange);
-}
-
 .alert {
   color: $error-font-color;
   border: 1px solid $error-border-color;
