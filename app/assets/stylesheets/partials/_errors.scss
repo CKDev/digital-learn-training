@@ -23,13 +23,16 @@ div {
 }
 
 .field_with_errors {
+
   input[type="text"], input[type="email"], input[type="password"], input[type="url"] {
     background-color: $error-color;
   }
+
   label {
     display: block;
     color: $black;
   }
+  
   .required:after {
     content: " *";
     color: $black;
