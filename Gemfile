@@ -58,8 +58,7 @@ group :development do
   gem "foreman", require: false
   gem "rack-mini-profiler"
   gem "letter_opener"
-  gem "web-console", "~> 2.0"
-  gem "listen", "~> 3.0.5"
+  gem "web-console"
   gem "colorize" # For colored spec/capybara output
 end
 
@@ -84,7 +83,7 @@ group :development, :deployment do
   gem "capistrano-rvm", require: false
   gem "capistrano-faster-assets", "~> 1.0", require: false
   gem "capistrano-db-tasks", "~> 0.4", require: false
-  gem "capistrano3-puma",   require: false
+  gem "capistrano3-puma", require: false
   gem "capistrano-bundler", require: false
   # gem "capistrano-sidekiq", require: false
 end
