@@ -1,0 +1,9 @@
+<h3>Peer Discussion</h3>
+<div class="section_content">
+  <table class="content_table topics_table">
+    <% @recent_topics.each do |topic| %>
+      <%= render "topics_row", topic: topic %>
+    <% end %>
+  </table>
+</div>
+<%= link_to "View All Discussions", "http://community.projectoutcome.org/", class: "section_link" %>

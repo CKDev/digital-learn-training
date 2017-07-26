@@ -1,0 +1,13 @@
+<tr>
+  <td class="avatar_column">
+    <%= link_to topic.last_poster_url, target: "_blank" do %>
+      <%= image_tag topic.last_poster_avatar, class: "cop_avatar" %>
+    <% end %>
+  </td>
+  <td class="topic_column">
+    <%= link_to topic.url, target: "_blank" do %>
+      <p class="title"><%= topic.title %></p>
+      <p class="subtitle">Updated <%= topic.bumped_at %></p>
+    <% end %>
+  </td>
+</tr>

@@ -88,6 +88,9 @@ Style/AndOr:
 Style/Documentation:
   Enabled: false
 
+Style/EmptyMethod:
+  Enabled: false
+
 Style/WordArray:
   Enabled: false
 

@@ -38,6 +38,7 @@ gem "neat", "1.8.0" # Careful, as v 2.0 removes some mixins in use.
 
 # Misc
 gem "local_time" # Client-side timezone rendering
+gem "faraday" # API connections
 # gem "geocoder" # Convert addresses into lat/long
 # gem "whenever", require: false # Cron scheduling
 # gem "paper_trail" # Model auditing
@@ -49,6 +50,7 @@ group :development, :test do
   gem "awesome_print", require: "ap"
   gem "bullet"
   gem "rspec-rails" # This needs to be here for the rake tasks to work.
+  gem "listen" # Required by Rails
   # gem "httplog"
 end
 
