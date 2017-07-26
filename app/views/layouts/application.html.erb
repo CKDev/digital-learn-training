@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%= render "shared/meta_tags" %>
+    <%= render "meta_tags" %>
   </head>
   <body class="<%= "#{controller_name}-#{action_name}" %> www">
-    <%= render "shared/header" %>
+    <%= render "header" %>
     <div class="banner color">
       <div class="container">
         <% if content_for?(:callout) %>
@@ -17,10 +17,10 @@
       </div>
     </div>
     <main class="container">
-      <%= render "shared/flashes" %>
+      <%= render "flashes" %>
       <%= yield %>
     </main>
-    <%= render "shared/footer" %>
-    <%= render "shared/google_analytics" if Rails.env.production? %>
+    <%= render "footer" %>
+    <%= render "google_analytics" if Rails.env.production? %>
   </body>
 </html>

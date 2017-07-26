@@ -7,30 +7,10 @@
   text-align: center;
 }
 
-ul strong {
-  margin-bottom: 5px;
-}
-
-.medium-logo {
-  width: auto;
-  max-height: 60px;
-  margin-bottom: 10px;
-  margin-right: 10px;
-}
-
 .link-pla {
   width: auto;
   max-height: 60px;
   margin-bottom: 10px;
-}
-
-.right-logo {
-  text-align: right;
-}
-
-.large-logo {
-  padding-top: 2em;
-  width: 90%;
 }
 
 .license {
@@ -41,16 +21,17 @@ ul strong {
   padding-left: 0px;
   text-align: left;
 
+  h4 {
+    color: $white;
+    text-transform: uppercase;
+  }
+
   a {
     color: $white !important;
   }
 
 }
 
-.link-cpl {
-  padding-right: 1em;
-}
-
 .footer-box {
-  margin-top: 35px;
+  margin-top: 61px;
 }
