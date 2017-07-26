@@ -15,9 +15,10 @@
  */
 
 @import "bourbon";
-@import "partials/vars";
-@import "partials/grid_settings";
 @import "neat";
+@import "partials/vars";
+@import "lib/normalize";
+@import "lib/grid";
 @import "mixins/*";
 @import "partials/normalize";
 @import "partials/base";

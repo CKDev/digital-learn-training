@@ -1,5 +1,4 @@
 @import "bourbon";
-@import "neat";
 
 // TODO: does this belong here?
 .www {
@@ -8,17 +7,6 @@
   @include buttons($purple, $white);
   @include lesson_block($teal, $grey, $purple, $orange);
   @include icons($teal, $orange);
-}
-
-.container {
-  @include outer-container;
-  padding-left: 1em;
-  padding-right: 1em;
-
-  @include media($desktop) {
-    padding-left: 0;
-    padding-right: 0;
-  }
 }
 
 .alert {

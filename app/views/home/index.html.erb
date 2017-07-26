@@ -1,88 +1,85 @@
-<div class="container">
-  <div class="info-widget">
-    <header>
-      <h2>Course Materials: Tracks & Classes</h2>
-    </header>
-    <div class="content">
-      <div class="row">
-        <div class="fourcol">
-          <div class="centered">
-            <%= image_tag "gnome", class: "size-200 extra-margin-bottom" %>
-          </div>
-          <p class="padding-right"><%= t("course_materials_description") %></p>
+<div class="info-widget">
+  <header>
+    <h2>Course Materials: Tracks & Classes</h2>
+  </header>
+  <div class="content">
+    <div class="row">
+      <div class="four columns">
+        <div class="centered">
+          <%= image_tag "gnome", class: "size-200 extra-margin-bottom" %>
         </div>
-
-        <div class="eightcol last">
-          <%= render "course_materials" %>
-        </div>
+        <p class="padding-right"><%= t("course_materials_description") %></p>
       </div>
 
-      <hr />
-
-      <div class="row">
-        <div class="eightcol">
-          <h3 class="inline-block padding-right">Design Your Own Classroom Materials?</h3><%= link_to "Get Blank Templates", "#" %>
-        </div>
-
-        <div class="fourcol last">
-          <h3 class="inline-block padding-right">Want to Contribute?</h3><%= link_to "Learn How", "#" %>
-        </div>
+      <div class="eight columns">
+        <%= render "course_materials" %>
       </div>
-
-      <hr />
     </div>
-  </div>
 
-  <div class="info-widget">
-    <header>
-      <h2>Learning In Libraries</h2>
-    </header>
-    <div class="content">
-      <div class="row">
-        <div class="fourcol">
-          <p class="padding-right">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
-        </div>
-        <div class="eightcol last">
-          <%= render "learning_in_libraries" %>
-        </div>
+    <hr />
+
+    <div class="row">
+      <div class="eight columns">
+        <h3 class="inline-block padding-right">Design Your Own Classroom Materials?</h3><%= link_to "Get Blank Templates", "#" %>
+      </div>
+
+      <div class="four columns">
+        <h3 class="inline-block padding-right">Want to Contribute?</h3><%= link_to "Learn How", "#" %>
+      </div>
+    </div>
+
+    <hr />
+  </div>
+</div>
+
+<div class="info-widget">
+  <header>
+    <h2>Learning In Libraries</h2>
+  </header>
+  <div class="content">
+    <div class="row">
+      <div class="four columns">
+        <p class="padding-right">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+          laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+      </div>
+      <div class="eight columns">
+        <%= render "learning_in_libraries" %>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="row">
-    <div class="sixcol">
-      <div class="info-widget">
-        <header>
-          <h2>Latest Peer Discussions</h2>
-        </header>
-        <div class="content">
-          <div>Last 3 posts from the Discourse site.</div>
-          <hr />
-          <div class="align-right">
-            <%= link_to "All Peer Discussions >", "http://community.digitallearn.org/" %>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sixcol">
-      <div class="info-widget">
-        <header>
-          <h2>News & Events</h2>
-        </header>
-        <div class="content">
-          <%= render "newsletter_signup_form" %>
-          <hr />
-          <div class="align-right">
-            <%= link_to "All News & Events >", "https://www.facebook.com/digitallearn.org/" %>
-          </div>
+<div class="row">
+  <div class="six columns">
+    <div class="info-widget">
+      <header>
+        <h2>Latest Peer Discussions</h2>
+      </header>
+      <div class="content">
+        <div>Last 3 posts from the Discourse site.</div>
+        <hr />
+        <div class="align-right">
+          <%= link_to "All Peer Discussions >", "http://community.digitallearn.org/" %>
         </div>
       </div>
     </div>
   </div>
 
+  <div class="six columns">
+    <div class="info-widget">
+      <header>
+        <h2>News & Events</h2>
+      </header>
+      <div class="content">
+        <%= render "newsletter_signup_form" %>
+        <hr />
+        <div class="align-right">
+          <%= link_to "All News & Events >", "https://www.facebook.com/digitallearn.org/" %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
