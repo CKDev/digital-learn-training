@@ -10,6 +10,8 @@ module Discourse
         .reject { |topic| topic["pinned"] }
         .first(3)
         .map(&method(:klassify))
+    rescue
+      []
     end
 
     private

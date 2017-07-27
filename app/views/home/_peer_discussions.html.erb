@@ -1,9 +1,13 @@
 <h3>Peer Discussion</h3>
 <div class="section_content">
-  <table class="content_table topics_table">
-    <% @recent_topics.each do |topic| %>
-      <%= render "topics_row", topic: topic %>
-    <% end %>
-  </table>
+  <% if @recent_topics.present? %>
+    <table class="content_table topics_table">
+      <% @recent_topics.each do |topic| %>
+        <%= render "topics_row", topic: topic %>
+      <% end %>
+    </table>
+  <% else %>
+    <p>Unable to pull latest discussions, please try again.</p>
+  <% end %>
 </div>
 <%= link_to "View All Discussions", "http://community.digitallearn.org/", class: "section_link" %>
