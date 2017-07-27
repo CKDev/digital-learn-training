@@ -36,9 +36,12 @@ gem "neat", "1.8.0" # Careful, as v 2.0 removes some mixins in use.
 # gem "mini_magick"
 # gem "file_validators" # For image validation
 
+# API Requests and Caching
+gem "api_cache"
+gem "moneta"
+
 # Misc
 gem "local_time" # Client-side timezone rendering
-gem "faraday" # API connections
 # gem "geocoder" # Convert addresses into lat/long
 # gem "whenever", require: false # Cron scheduling
 # gem "paper_trail" # Model auditing

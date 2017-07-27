@@ -40,6 +40,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
+    api_cache (0.3.0)
     arel (8.0.0)
     ast (2.3.0)
     awesome_print (1.8.0)
@@ -151,6 +152,7 @@ GEM
     minitest (5.10.3)
     mocha (1.2.1)
       metaclass (~> 0.0.1)
+    moneta (1.0.0)
     multipart-post (2.0.0)
     neat (1.8.0)
       sass (>= 3.3)
@@ -313,6 +315,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  api_cache
   awesome_print
   bourbon (= 4.2.7)
   brakeman
@@ -339,6 +342,7 @@ DEPENDENCIES
   listen
   local_time
   mocha
+  moneta
   neat (= 1.8.0)
   pg (~> 0.18)
   pry

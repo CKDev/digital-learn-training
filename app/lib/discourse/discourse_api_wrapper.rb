@@ -10,7 +10,8 @@ module Discourse
         .reject { |topic| topic["pinned"] }
         .first(3)
         .map(&method(:klassify))
-    rescue
+    rescue => e
+      Rails.logger.error e.message # TODO: Log to Rollbar?
       []
     end
 

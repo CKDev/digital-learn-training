@@ -3,21 +3,13 @@ module Discourse
 
     COP_BASE_URL = "http://community.digitallearn.org".freeze
 
-    def faraday_connection
-      @conn ||= Faraday.new(url: COP_BASE_URL)
-    end
-
     def topics
-      response = faraday_connection.get(
-        "/latest.json"
-      )
+      response = APICache.get("#{COP_BASE_URL}/latest.json")
       parse_response(response)["topic_list"]["topics"]
     end
 
     def get_user(username)
-      response = faraday_connection.get(
-        "/users/#{username}.json"
-      )
+      response = APICache.get("#{COP_BASE_URL}/users/#{username}.json")
       parse_response(response)["user"]
     end
 
@@ -33,10 +25,8 @@ module Discourse
     end
 
     def parse_response(resp)
-      if resp.body && valid_json?(resp.body)
-        JSON.parse(resp.body)
-      elsif resp.body && !valid_json?(resp.body)
-        resp.body
+      if resp && valid_json?(resp)
+        JSON.parse(resp)
       else
         resp
       end
