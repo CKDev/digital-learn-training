@@ -1,7 +1,11 @@
 <a href="<%= local_assigns[:link] %>" class="link-wrapper">
   <div class="media-object-1">
     <div class="media-icon">
-      <%= image_tag "mtn-icon" %>
+      <% if local_assigns[:icon].present? %>
+        <%= svg_tag "#{local_assigns[:icon]}", class: "svg-icon" %>
+      <% else %>
+        <%= svg_tag "icon-files", class: "svg-icon" %>
+      <% end %>
     </div>
     <div class="media-description">
       <%= local_assigns[:title] %>
