@@ -90,5 +90,5 @@ group :development, :deployment do
   gem "capistrano-db-tasks", "~> 0.4", require: false
   gem "capistrano3-puma", require: false
   gem "capistrano-bundler", require: false
-  # gem "capistrano-sidekiq", require: false
+  gem "capistrano-sidekiq", require: false
 end
