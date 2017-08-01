@@ -1,13 +1,21 @@
-<title>Digital Learn Training</title>
+<% if content_for?(:meta_title) %>
+  <title>Digital Learn Training - <%= content_for(:meta_title).strip %></title>
+<% else %>
+  <title>Digital Learn Training</title>
+<% end %>
 
 <%= csrf_meta_tags %>
 <%= stylesheet_link_tag "application", media: "all" %>
 <%= javascript_include_tag "application" %>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<%# TODO: Add in project specific content below. %>
-<meta name="description" content="">
-
 <link href="//cdn-images.mailchimp.com/embedcode/slim-10_7.css" rel="stylesheet" type="text/css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<% if content_for?(:meta_description) %>
+  <meta name="description" content="<%=content_for(:meta_description).strip%>">
+<% else %>
+  <%# TODO: Add in project specific content below. %>
+  <meta name="description" content="Digital Learn Training...">
+<% end %>
 
 <%= favicon_link_tag "favicon-16x16.ico" %>

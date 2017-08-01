@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160712172410) do
+ActiveRecord::Schema.define(version: 20170728233945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "pages", force: :cascade do |t|
+    t.string "title", limit: 90
+    t.text "body"
+    t.integer "pub_status", default: 0, null: false
+    t.datetime "pub_at"
+    t.string "slug"
+    t.string "author", limit: 20
+    t.string "seo_title", limit: 90
+    t.string "meta_desc", limit: 156
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pub_status"], name: "index_pages_on_pub_status"
+    t.index ["title"], name: "index_pages_on_title", unique: true
+  end
 
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -35,6 +50,7 @@ ActiveRecord::Schema.define(version: 20160712172410) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "admin", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

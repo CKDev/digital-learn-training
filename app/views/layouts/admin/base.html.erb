@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%= render "meta_tags" %>
+  </head>
+  <body>
+    <%= render "admin_header" %>
+    <div class="banner color">
+      <div class="container">
+        <% if content_for?(:callout) %>
+          <%= yield :callout %>
+        <% else %>
+          <h1 class="slogan">
+            Admin Banner Text TODO:
+          </h1>
+        <% end %>
+      </div>
+    </div>
+    <main class="container">
+      <%= render "flashes" %>
+      <div class="row">
+        <div class="three columns">
+          <%= render "admin_sidebar" %>
+        </div>
+        <div class="nine columns">
+          <%= yield %>
+        </div>
+      </div>
+    </main>
+    <%= render "footer" %>
+    <%= render "google_analytics" if Rails.env.production? %>
+  </body>
+</html>

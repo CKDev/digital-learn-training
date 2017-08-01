@@ -85,6 +85,7 @@ Rails/Output:
 Rails/OutputSafety:
   Exclude:
     - "app/helpers/application_helper.rb"
+    - "app/controllers/pages_controller.rb"
 
 Style/AndOr:
   Enabled: false

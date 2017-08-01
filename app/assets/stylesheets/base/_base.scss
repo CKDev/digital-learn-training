@@ -48,13 +48,13 @@ small {
 }
 
 ul {
-  list-style: none;
+
   li {
     line-height: 1.5em;
   }
 
-  &.marked {
-    list-style-type: disc;
+  &.unmarked {
+    list-style-type: none;
   }
 
   &.extra-padding {

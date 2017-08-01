@@ -11,7 +11,7 @@
 
 .cell {
   display: table-cell;
-  width: 15%;
+  width: 185px;
   @include media($mobile-large) {
     display: block;
   }
@@ -20,10 +20,6 @@
 ul.objects {
   list-style: none;
   padding-left: 0;
-}
-
-ul.objects li:last-child {
-  border-bottom: none;
 }
 
 ul.reorderable li:hover {

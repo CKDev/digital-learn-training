@@ -42,7 +42,8 @@ gem "moneta"
 
 # Misc
 gem "local_time" # Client-side timezone rendering
-# gem "geocoder" # Convert addresses into lat/long
+gem "friendly_id" # Slugs for urls
+gem "ckeditor" # HTML Editor
 # gem "whenever", require: false # Cron scheduling
 # gem "paper_trail" # Model auditing
 # gem "will_paginate"

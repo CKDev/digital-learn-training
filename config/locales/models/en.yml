@@ -1,0 +1,9 @@
+en:
+  activerecord:
+    attributes:
+      page:
+        title: "Page Title"
+        body: "Page Text"
+        pub_status: "Publication Status"
+        seo_title: "SEO Title"
+        meta_desc: "Meta Description"

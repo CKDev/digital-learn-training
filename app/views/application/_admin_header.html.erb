@@ -1,0 +1,21 @@
+<header class="header-logged-in">
+  <div class="container">
+    <nav class="secondary-links">
+      <%= link_to "Tools for Learners", "https://www.digitallearn.org/" %>
+    </nav>
+    <div class="logo-link-container">
+      <%= link_to root_path do %>
+        <div class="logo">
+          <div class="logo-icon">
+            <%= image_tag "dl_logo" %>
+          </div>
+        </div>
+      <% end %>
+      <nav class="primary-links">
+        <span class="black">Hi Admin!</span> |
+        <%= link_to "Admin Dashboard", admin_root_path %><span class="divider">|</span>
+        <%= link_to "Sign Out", destroy_user_session_path, method: "delete" %>
+      </nav>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,44 @@
+<%= form_for([:admin, @page]) do |f| %>
+
+  <%= render "form_errors", { m: @page } %>
+
+  <fieldset>
+    <%= f.label :title, class: "required" %>
+    <%= f.text_field :title, maxlength: 90 %>
+    <div class="character-limit">&nbsp;</div>
+  </fieldset>
+
+  <fieldset>
+    <%= f.label :body, class: "required" %>
+    <%= f.cktext_area :body, ckeditor: { language: "en" } %>
+  </fieldset>
+
+  <fieldset>
+    <%= f.label :pub_status, class: "required" %>
+    <%= f.select :pub_status, options_for_select(Page.pub_status_select_options) %>
+  </fieldset>
+
+  <fieldset>
+    <%= f.label :author, class: "required" %>
+    <%= f.text_field :author, maxlength: 20 %>
+    <div class="character-limit">&nbsp;</div>
+  </fieldset>
+
+  <fieldset>
+    <%= f.label :seo_title %>
+    <%= f.text_field :seo_title, maxlength: 90 %>
+    <div class="character-limit">&nbsp;</div>
+  </fieldset>
+
+  <fieldset>
+    <%= f.label :meta_desc %>
+    <%= f.text_field :meta_desc, maxlength: 156 %>
+    <div class="character-limit">&nbsp;</div>
+  </fieldset>
+
+  <fieldset>
+    <%= f.submit "Save CMS Page", class:"btn btn-blue margin-right" %>
+    <%= link_to "Cancel", admin_pages_path %>
+  </fieldset>
+
+<% end %>

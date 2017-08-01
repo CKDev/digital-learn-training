@@ -1,0 +1,24 @@
+<%= content_for(:callout) { %><h1>CMS Pages</h1><% } %>
+
+<div class="extra-margin-bottom">
+  <%= link_to "Add a New CMS Page", new_admin_page_path, class: "btn button-color" %>
+</div>
+
+<div>
+  <div class="list-titles">
+    <div class="cell">Page Title</div>
+    <div class="cell">Author</div>
+    <div class="cell">Publication Status</div>
+    <div class="cell">Preview</div>
+  </div>
+  <ul class="objects">
+    <% @pages.each do |page| %>
+      <li class="sortable-item" data-id="<%= page.id %>">
+        <div class="cell"><%= link_to page.title, edit_admin_page_path(page) %></div>
+        <div class="cell"><%= page.author %></div>
+        <div class="cell"><%= page.pub_status.titleize %></div>
+        <div class="cell"><%= link_to "Preview", page_path(page), target: :blank %></div>
+      </li>
+    <% end %>
+  </ul>
+</div>

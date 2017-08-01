@@ -72,6 +72,10 @@ small {
   }
 }
 
+.no-margin-bottom {
+  margin-bottom: 0;
+}
+
 .margin-bottom {
   margin-bottom: 10px;
 }
@@ -84,9 +88,10 @@ small {
   margin-top: 0;
 }
 
-.no-margin-bottom {
-  margin-bottom: 0;
+.margin-right {
+  margin-right: 1em;
 }
+
 
 .course-details {
   color: $teal;
@@ -319,4 +324,15 @@ a.link-wrapper:hover {
 
 .full-width {
   width: 100%;
+}
+
+.character-limit {
+  font-size: .9em;
+  text-align: right;
+  color: $grey;
+  margin-bottom: 1.5rem;
+}
+
+.black {
+  color: $black;
 }

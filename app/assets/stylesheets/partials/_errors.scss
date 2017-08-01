@@ -1,67 +1,30 @@
-.error_head {
-  text-align: center;
+.field_with_errors input, .field_with_errors textarea, input.field_with_errors,
+textarea.field_with_errors, .field_with_errors select {
+  border: 2px solid $form-error-color !important;
 }
 
-.error_link {
-  text-align: center;
+.field_with_errors label {
+  color: $form-error-color;
 }
 
-.error_gif {
-  text-align: center;
+.field_with_errors input:focus, .field_with_errors textarea:focus  {
+  border: 2px solid $form-error-color;
+  color: $form-error-color;
+  outline: none;
 }
 
-pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px;
-}
-
-div {
-  &.field, &.actions {
-    margin-bottom: 10px;
-  }
-}
-
-.field_with_errors {
-
-  input[type="text"], input[type="email"], input[type="password"], input[type="url"] {
-    background-color: $error-color;
-  }
-
-  label {
-    display: block;
-    color: $black;
-  }
-  
-  .required:after {
-    content: " *";
-    color: $black;
-    font-weight: bold;
-  }
+.field_with_errors label {
+  color: $form-error-color;
 }
 
 #error_explanation {
-  border: 2px solid $error-color;
-  padding: 7px;
-  padding-bottom: 0;
-  margin-bottom: 20px;
-  background-color: $light-grey;
-  h2 {
-    font-size: 1em;
-    text-align: left;
-    font-weight: bold;
-    padding: 5px;
-    margin: -7px;
-    margin-bottom: 0px;
-    background-color: $error-color;
-    color: $black;
+  color: $form-error-color;
+
+  h4 {
+    color: $form-error-color;
   }
+
   ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  ul li {
-    padding: 0.25rem 0;
-    font-size: 0.9rem;
+    list-style: disc;
   }
 }
