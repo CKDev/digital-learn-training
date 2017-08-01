@@ -39,7 +39,7 @@ describe Page do
     end
 
     it "should initially be in draft status" do
-      expect(@page.pub_status).to eq "draft"
+      expect(Page.new.pub_status).to eq "draft"
     end
 
     it "should require an author" do

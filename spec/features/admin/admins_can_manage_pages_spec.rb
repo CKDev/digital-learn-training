@@ -38,12 +38,16 @@ feature "Admins can manage CMS pages" do
   scenario "can edit an existing CMS page" do
     @page = FactoryGirl.create(:page)
     visit admin_root_path
-    click_link @page.title
+    within "main" do
+      click_link @page.title
+    end
     expect(current_path).to eq edit_admin_page_path(@page)
     find("#page_title").set("Updated Title")
     click_button "Save CMS Page"
     expect(current_path).to eq admin_pages_path
-    expect(page).to have_content "Updated Title"
+    within "main" do
+      expect(page).to have_content "Updated Title"
+    end
   end
 
 end

@@ -35,99 +35,7 @@ nav.secondary-links {
   }
 }
 
-.header-logged-out {
-  margin-bottom: 2em;
-  padding: 1em 0 1em 0;
-  min-height: 100px;
-  background-color: $teal;
-  z-index: 100;
-
-  @include media($mobile-large) {
-    margin-bottom: 1em;
-  }
-
-  .language-links {
-    color: $white;
-    padding-bottom: 1em;
-    @include clearfix;
-
-    a {
-      color: $white;
-      display: inline-block;
-
-      @include media($mobile-large) {
-        font-size: .9rem;
-      }
-    }
-  }
-
-  .logo {
-    display: inline-block;
-    float: left;
-
-    .logo-icon {
-
-      img {
-        max-height: 100%;
-      }
-
-      @include media($mobile-large) {
-        width: 70px;
-        float: left;
-      }
-
-      /* The given svg file isn't cropped to the edge, so ... */
-      position: relative;
-    }
-  }
-
-  .dark-logo {
-    width: 55px;
-    height: auto;
-  }
-
-  h1 {
-    font-family: $font-secondary;
-    color: $white;
-    font-size: 1.7em;
-    font-weight: 100;
-    margin-top: 0.2em;
-    line-height: 1.05em;
-    padding-left: 0.5em;
-    text-transform: uppercase;
-    max-width: 500px;
-    display: inline-block;
-    float: left;
-    text-align: center;
-    @include media($mobile-large) {
-      font-size: 1.2rem;
-      float: left;
-      display: block;
-      width: 39%;
-      max-width: 100%;
-      margin-top: 10px;
-    }
-    @include media($tablet) {
-      font-size: 1.3rem;
-      float: left;
-      display: block;
-      width: 67%;
-      max-width: 100%;
-      margin-top: 10px;
-    }
-  }
-
-  .btn {
-    @include media($mobile-large) {
-      margin-right: .5em;
-      margin-bottom: .5em;
-      float: left;
-      display: block;
-    }
-  }
-}
-
-.header-logged-in {
+.site-header {
   position: relative;
 
   @include media($mobile-large) {
@@ -138,7 +46,7 @@ nav.secondary-links {
 
   top: 0;
   width: 100%;
-  padding: .5em 0;
+  padding: .8em 0 1.5em 0;
   background-color: $white;
   border-bottom: 1px solid $grey;
   z-index: 100;

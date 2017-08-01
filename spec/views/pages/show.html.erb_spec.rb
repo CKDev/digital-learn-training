@@ -3,8 +3,9 @@ require "rails_helper"
 describe "pages/show.html.erb" do
 
   before(:each) do
-    @page = FactoryGirl.create(:page, pub_status: "published", meta_desc: "Meta description.", seo_title: "SEO Title")
+    @page = FactoryGirl.create(:page, meta_desc: "Meta description.", seo_title: "SEO Title")
     assign(:page, @page)
+    assign(:footer_links, [])
     view.lookup_context.prefixes << "application" # To find appropriate partials.
   end
 

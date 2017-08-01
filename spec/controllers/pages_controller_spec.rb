@@ -7,7 +7,7 @@ describe PagesController do
   describe "GET #show" do
 
     it "assigns the given instance of a page" do
-      @page = FactoryGirl.create(:page, pub_status: "published")
+      @page = FactoryGirl.create(:page)
       get :show, params: { id: @page.slug }
       expect(assigns(:page)).to eq @page
     end

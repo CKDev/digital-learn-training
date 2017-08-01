@@ -1,4 +1,4 @@
-<header class="header-logged-in">
+<header class="site-header">
   <div class="container">
     <nav class="secondary-links">
       <%= link_to "Tools for Learners", "https://www.digitallearn.org/" %>
@@ -12,7 +12,7 @@
         </div>
       <% end %>
       <nav class="primary-links">
-        <span class="black">Hi Admin!</span> |
+        <span class="black">Hi Admin!</span><span class="divider">|</span>
         <%= link_to "Admin Dashboard", admin_root_path %><span class="divider">|</span>
         <%= link_to "Sign Out", destroy_user_session_path, method: "delete" %>
       </nav>

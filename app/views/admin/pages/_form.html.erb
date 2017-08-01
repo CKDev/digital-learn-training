@@ -15,7 +15,7 @@
 
   <fieldset>
     <%= f.label :pub_status, class: "required" %>
-    <%= f.select :pub_status, options_for_select(Page.pub_status_select_options) %>
+    <%= f.select :pub_status, options_for_select(Page.pub_status_select_options, @page.pub_status) %>
   </fieldset>
 
   <fieldset>

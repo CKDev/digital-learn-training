@@ -9,5 +9,6 @@ FactoryGirl.define do
     title
     body "<b>Some text here</p>"
     author "Admin"
+    pub_status "published"
   end
 end
