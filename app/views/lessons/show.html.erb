@@ -3,10 +3,10 @@
   <small><i class="icon-clock white"></i><%= @lesson.duration_str %></small>
 <% end %>
 
-<%= content_for :course_progress do %>
-  <%= render partial: "shared/courses/course_progress",
+<%# content_for :course_progress do %>
+  <%# render partial: "shared/courses/course_progress",
     locals: { course: @course, lesson: @lesson, course_progress: @course_progress } %>
-<% end %>
+<%# end %>
 
 <%= asl_iframe(@lesson) %>
 

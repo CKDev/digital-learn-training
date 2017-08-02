@@ -1,6 +1,6 @@
 <h2><%= t('course_page.additional_resources') %></h2>
 
-<ul class="no-padding">
+<ul class="unmarked no-padding">
 <%# TODO: make this a model method %>
 <% course.attachments.where(doc_type: "post-course").each do |a| %>
   <%= link_to course_attachment_path(course, a), target: "_blank" do %>

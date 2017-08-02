@@ -12,7 +12,6 @@ class LessonsController < ApplicationController
 
   def show
     @lesson = @course.lessons.friendly.find(params[:id])
-
     case @lesson.pub_status
     when "D"
       redirect_to course_path(@course), notice: "The selected lesson is not currently avaliable."
@@ -36,19 +35,11 @@ class LessonsController < ApplicationController
   def lesson_complete
     @current_lesson = @course.lessons.friendly.find(params[:lesson_id])
     @next_lesson = @course.lessons.find(@course.next_lesson_id(@current_lesson.id))
+    redirect_to course_lesson_path(@course, @next_lesson)
   end
 
   def complete
     lesson = @course.lessons.friendly.find(params[:lesson_id])
-
-    # TODO: move to user model?
-    if current_user
-      course_progress = current_user.course_progresses.where(course_id: @course).first_or_create
-      course_progress.completed_lessons.where(lesson_id: lesson.id).first_or_create
-      course_progress.completed_at = Time.zone.now if lesson.is_assessment
-      course_progress.save
-    end
-
     respond_to do |format|
       format.html do
         if lesson.is_assessment
@@ -58,11 +49,7 @@ class LessonsController < ApplicationController
         end
       end
       format.json do
-        if lesson.is_assessment
-          render status: :ok, json: { complete: course_complete_path(@course) }
-        else
-          render status: :ok, json: { next_lesson: course_lesson_path(@course, @course.next_lesson_id(lesson.id)) }
-        end
+        render status: :ok, json: { complete: course_complete_path(@course) }
       end
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802004400) do
+ActiveRecord::Schema.define(version: 20170802223857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20170802004400) do
     t.string "story_line", limit: 156
     t.string "seo_page_title", limit: 90
     t.string "meta_desc", limit: 156
-    t.boolean "is_assessment"
+    t.boolean "is_assessment", default: false, null: false
     t.string "pub_status", limit: 2, default: "D"
     t.string "story_line_file_name"
     t.string "story_line_content_type"
