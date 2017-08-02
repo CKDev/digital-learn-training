@@ -1,0 +1,39 @@
+<%= content_for(:callout) { %><h1>Course Index</h1><% } %>
+
+<h2>Courses</h2>
+
+<div class="row">
+  <div class="six columns">
+    <p class="emphasis no-top-margin">
+      Re-order courses on the homepage by clicking on the arrow icon to drag and drop courses. Edit by clicking the appropriate course below.
+    </p>
+  </div>
+  <div class="six columns left-or-right">
+    <%= link_to "Add a New Course", new_admin_course_path, class: "btn button-color" %>
+  </div>
+</div>
+
+<div class="sortable_list_wrapper">
+  <div class="sortable-list" data-page="courses">
+    <div class="list-titles">
+      <div class="cell text-color">Course</div>
+      <div class="cell text-color">Contributor</div>
+      <div class="cell text-color">Publication Status</div>
+      <div class="cell text-color">Publication Date</div>
+    </div>
+    <% if @courses.present? %>
+      <ul class="objects sortable reorderable">
+        <% @courses.each do |course| %>
+          <li class="sortable-item" data-id="<%= course.id %>">
+            <div class="cell"><%= link_to course.title, edit_admin_course_path(course), class: "no_drag_link" %></div>
+            <div class="cell"><%= course.contributor %></div>
+            <div class="cell"><%= course.pub_status.titleize %></div>
+            <div class="cell">Pub Date (when available)</div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>There are no available courses.</p>
+    <% end %>
+  </div>
+</div>

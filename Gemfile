@@ -30,8 +30,8 @@ gem "neat", "1.8.0" # Careful, as v 2.0 removes some mixins in use.
 # gem "rollbar"
 # gem "skylight"
 
-# File uploads to S3
-# gem "carrierwave"
+gem "paperclip", "~> 4.3" # File uploads
+gem "rubyzip" # ASL files
 # gem "fog-aws"
 # gem "mini_magick"
 # gem "file_validators" # For image validation

@@ -1,6 +1,6 @@
 <%= form_for([:admin, @page]) do |f| %>
 
-  <%= render "form_errors", { m: @page } %>
+  <%= render "form_errors", m: @page %>
 
   <fieldset>
     <%= f.label :title, class: "required" %>

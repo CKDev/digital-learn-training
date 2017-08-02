@@ -10,10 +10,71 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170728233945) do
+ActiveRecord::Schema.define(version: 20170802004400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attachments", force: :cascade do |t|
+    t.integer "course_id"
+    t.string "title"
+    t.string "doc_type"
+    t.string "file_description"
+    t.string "document_file_name"
+    t.string "document_content_type"
+    t.integer "document_file_size"
+    t.datetime "document_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string "title", limit: 90
+    t.string "seo_page_title", limit: 90
+    t.string "meta_desc", limit: 156
+    t.string "summary", limit: 156
+    t.text "description"
+    t.text "notes"
+    t.string "contributor"
+    t.string "pub_status", limit: 2, default: "D"
+    t.string "slug"
+    t.integer "course_order"
+    t.datetime "pub_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.integer "lesson_order"
+    t.string "title", limit: 90
+    t.integer "duration"
+    t.integer "course_id"
+    t.string "slug"
+    t.string "summary", limit: 156
+    t.string "story_line", limit: 156
+    t.string "seo_page_title", limit: 90
+    t.string "meta_desc", limit: 156
+    t.boolean "is_assessment"
+    t.string "pub_status", limit: 2, default: "D"
+    t.string "story_line_file_name"
+    t.string "story_line_content_type"
+    t.integer "story_line_file_size"
+    t.datetime "story_line_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "pages", force: :cascade do |t|
     t.string "title", limit: 90

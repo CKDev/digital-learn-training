@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="six columns">
+
+  </div>
+
+  <div class="six columns">
+    <fieldset>
+      <%= f.label :pub_status, class: "text-color" do %>
+        Publication Status<span class="required"></span>
+      <% end %>
+      <%= f.select(:pub_status, options_for_select([["Draft", "D"], ["Published", "P"], ["Archived", "A"]], @course.pub_status), { include_blank: "Select..." } ) %>
+    </fieldset>
+  </div>
+</div>
