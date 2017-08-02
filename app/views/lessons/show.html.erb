@@ -1,0 +1,36 @@
+<%= content_for :callout do %>
+  <h1><%="#{@lesson.lesson_order}. #{@lesson.title}" %></h1>
+  <small><i class="icon-clock white"></i><%= @lesson.duration_str %></small>
+<% end %>
+
+<%= content_for :course_progress do %>
+  <%= render partial: "shared/courses/course_progress",
+    locals: { course: @course, lesson: @lesson, course_progress: @course_progress } %>
+<% end %>
+
+<%= asl_iframe(@lesson) %>
+
+<hr />
+
+<div class="row">
+  <div class="six columns border-right">
+    <header class="lesson-listing">
+      <h3 class="text-color"><%= @course.title %></h3>
+      <div>
+        <i class="icon-book-open grey"></i>
+        <small class="padding-right"><%= @course.lessons.count %> <%= t('course_page.lessons') %></small>
+        <i class="icon-clock grey"></i>
+        <small><%= @course.duration %></small>
+      </div>
+    </header>
+
+      <%= render partial: "shared/lessons/listing", locals: { course: @course, lesson: @lesson } %>
+
+  </div>
+
+  <div class="six columns">
+    <%= render partial: "shared/lessons/supplemental_materials", locals: { course: @course } %>
+  </div>
+</div>
+
+<%= hidden_field_tag :is_assessment, @lesson.is_assessment %>

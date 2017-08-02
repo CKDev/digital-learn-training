@@ -1,0 +1,12 @@
+<%# TODO: make method for this %>
+<% if user_signed_in? && current_user.admin? %>
+  <%= content_for(:callout) do %>
+    TODO: what here?
+  <% end %>
+  <h1>
+    Edit a course by clicking on a course below, search courses or navigate to the
+    <%= link_to "Admin Dashboard", admin_root_path %>.
+  </h1>
+<% else %>
+  <h1 class="slogan centered text-color">TODO something here</h1>
+<% end %>

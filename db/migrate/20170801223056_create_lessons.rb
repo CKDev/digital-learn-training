@@ -2,6 +2,7 @@ class CreateLessons < ActiveRecord::Migration[5.1]
   def change
     create_table :lessons do |t|
       t.integer  :lesson_order
+      t.integer  :parent_lesson_id
       t.string   :title,                   limit: 90
       t.integer  :duration
       t.integer  :course_id
@@ -11,7 +12,7 @@ class CreateLessons < ActiveRecord::Migration[5.1]
       t.string   :seo_page_title,          limit: 90
       t.string   :meta_desc,               limit: 156
       t.boolean  :is_assessment
-      t.string  :pub_status, limit: 2, default: "D"
+      t.string   :pub_status, limit: 2, default: "D"
       t.string   :story_line_file_name
       t.string   :story_line_content_type
       t.integer  :story_line_file_size

@@ -17,6 +17,7 @@ module Admin
     end
 
     def edit
+      # TODO: this doesn't work if the title has changed.
       @lesson = @course.lessons.friendly.find(params[:id])
     end
 

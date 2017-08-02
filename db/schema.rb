@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20170802004400) do
 
   create_table "lessons", force: :cascade do |t|
     t.integer "lesson_order"
+    t.integer "parent_lesson_id"
     t.string "title", limit: 90
     t.integer "duration"
     t.integer "course_id"

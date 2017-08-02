@@ -5,8 +5,6 @@ Rails.application.routes.draw do
 
   resources :courses, only: [:index, :show] do
     post 'start'
-    post 'add'
-    post 'remove'
     get 'complete'
     get 'attachment/:attachment_id' => 'courses#view_attachment', as: :attachment
     get 'skills', to: 'courses#skills', as: :skills
@@ -29,5 +27,7 @@ Rails.application.routes.draw do
         end
       end
     end
+    
+    resources :attachments, only: [:destroy]
   end
 end

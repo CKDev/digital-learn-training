@@ -36,6 +36,12 @@
     <%= f.cktext_area :description %>
   </fieldset>
 
+  <fieldset>
+    <%# TODO: Make model method for options %>
+    <%= f.label :pub_status, class: "required" %>
+    <%= f.select(:pub_status, options_for_select([["Draft", "D"], ["Published", "P"], ["Archived", "A"]], @course.pub_status)) %>
+  </fieldset>
+
   <div class="row">
     <div class="six columns">
       <%= f.fields_for :attachments, @course.attachments.build do |a| %>
@@ -75,9 +81,11 @@
       <fieldset class="six columns">
         <%= f.label :document, "Current Supplemental Attachments" %>
         <ul>
+          <%# TODO: scope %>
           <% @course.attachments.where(doc_type: "supplemental").each do |a| %>
             <li>
-            <%= a.document_file_name %> <%= link_to "Delete", admin_attachment_path(a), method: :delete, data: { confirm: "Are you sure?" } %>
+              <%= a.document_file_name %>
+              <%= link_to "Delete", admin_attachment_path(a), method: :delete, data: { confirm: "Are you sure?" } %>
             </li>
           <% end %>
         </ul>

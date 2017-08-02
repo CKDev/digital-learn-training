@@ -1,0 +1,6 @@
+<div class="container">
+<% course.lessons.each do |l| %>
+  <%= render partial: "shared/lessons/lesson_block",
+    locals: { course: course, lesson: l, completed: [] }%>
+<% end %>
+</div>

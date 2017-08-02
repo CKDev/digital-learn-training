@@ -1,0 +1,58 @@
+<% lessons_completed = session[:lessons_done] %>
+
+<div class="row lesson-listing">
+  <div class="six columns">
+  <% course.lessons.order(:lesson_order).each_with_index do |l, index| %>
+    <% if index <= course.lessons.count / 2 %>
+      <ul class="extra-padding">
+        <li>
+          <div class="row lesson-listing lesson-listing-first-row">
+            <div class="one column">
+              <% if l.id == lesson.id %>
+                <i class="icon-play"></i>
+              <% elsif lessons_completed.include?(l.id) %>
+                <i class="icon-ok orange"></i>
+              <% else %>
+                <i class="icon-none"></i>
+              <% end %>
+            </div>
+            <div class="grey one column">
+              <%= l.lesson_order %>.
+            </div>
+            <div class="nine columns">
+              <%= link_to l.title, course_lesson_path(course, l), data: { cpl_ga_event: "on",  cpl_ga_value: "user-click-lesson" } %>
+            </div>
+          </div>
+        </li>
+      </ul>
+    <% end %>
+  <% end %>
+  </div>
+  <div class="six columns">
+  <% course.lessons.order(:lesson_order).each_with_index do |l, index| %>
+    <% if index > course.lessons.count / 2 %>
+      <ul class="extra-padding">
+        <li>
+          <div class="row lesson-listing lesson-listing-first-row">
+            <div class="one column">
+              <% if l.id == lesson.id %>
+                <i class="icon-play"></i>
+              <% elsif lessons_completed.include?(l.id) %>
+                <i class="icon-ok orange"></i>
+              <% else %>
+                <i class="icon-none"></i>
+              <% end %>
+            </div>
+            <div class="grey one column">
+              <%= l.lesson_order %>.
+            </div>
+            <div class="nine columns">
+              <%= link_to l.title, course_lesson_path(course, l), data: { cpl_ga_event: "on",  cpl_ga_value: "user-click-lesson" } %>
+            </div>
+          </div>
+        </li>
+      </ul>
+    <% end %>
+  <% end %>
+  </div>
+</div>

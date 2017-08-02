@@ -1,0 +1,78 @@
+class LessonsController < ApplicationController
+  before_action :set_course
+
+  def index
+    @lessons = @course.lessons.all.where(pub_status: "P")
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @lessons }
+    end
+  end
+
+  def show
+    @lesson = @course.lessons.friendly.find(params[:id])
+
+    case @lesson.pub_status
+    when "D"
+      flash[:notice] = "That lesson is not avaliable at this time."
+      redirect_to root_path
+    when "A"
+      flash[:notice] = "That lesson is no longer avaliable."
+      redirect_to root_path
+    when "P"
+      session[:lessons_done] = [] if session[:lessons_done].blank?
+      session[:lessons_done] << @lesson.id unless session[:lessons_done].include?(@lesson.id)
+
+      @next_lesson = @course.lessons.find(@course.next_lesson_id(@lesson.id))
+
+      # The change of course slug should 301 redirect.
+      if request.path != course_lesson_path(@course, @lesson)
+        redirect_to course_lesson_path(@course, @lesson), status: :moved_permanently
+      else
+        render :show
+      end
+
+    end
+  end
+
+  def lesson_complete
+    @current_lesson = @course.lessons.friendly.find(params[:lesson_id])
+    @next_lesson = @course.lessons.find(@course.next_lesson_id(@current_lesson.id))
+  end
+
+  def complete
+    lesson = @course.lessons.friendly.find(params[:lesson_id])
+
+    # TODO: move to user model?
+    if current_user
+      course_progress = current_user.course_progresses.where(course_id: @course).first_or_create
+      course_progress.completed_lessons.where(lesson_id: lesson.id).first_or_create
+      course_progress.completed_at = Time.zone.now if lesson.is_assessment
+      course_progress.save
+    end
+
+    respond_to do |format|
+      format.html do
+        if lesson.is_assessment
+          redirect_to course_complete_path(@course)
+        else
+          redirect_to course_lesson_path(@course, @course.next_lesson_id(lesson.id))
+        end
+      end
+      format.json do
+        if lesson.is_assessment
+          render status: :ok, json: { complete: course_complete_path(@course) }
+        else
+          render status: :ok, json: { next_lesson: course_lesson_path(@course, @course.next_lesson_id(lesson.id)) }
+        end
+      end
+    end
+  end
+
+  private
+
+  def set_course
+    @course = Course.friendly.find(params[:course_id])
+  end
+
+end
