@@ -13,7 +13,7 @@
 <div class="container">
   <div class="row">
     <div class="six columns">
-      <h2 class="text-color"><%= t('course_page.practice_and_use_your_skills') %></h2>
+      <h2><%= t('course_page.practice_and_use_your_skills') %></h2>
       <% if @course.notes.blank? %>
         <div class="note"><%= t('course_page.there_are_no_notes_for_course') %></div>
       <% else %>
@@ -21,7 +21,7 @@
       <% end %>
     </div>
     <div class="six columns">
-      <h2 class="text-color"><%= t('course_page.additional_resources') %></h2>
+      <h2><%= t('course_page.additional_resources') %></h2>
       <% if @course.post_course_attachments.count > 0 %>
         <ul class="no-padding">
           <% @course.post_course_attachments.each do |a| %>
