@@ -63,7 +63,7 @@
   </fieldset>
 
   <fieldset>
-    <%= f.label :pub_status, class: "required" %>
+    <%= f.label :pub_status %>
     <%= f.select(:pub_status, options_for_select([["Draft", "D"], ["Published", "P"]], @lesson.pub_status)) %>
   </fieldset>
 

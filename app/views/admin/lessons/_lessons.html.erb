@@ -1,0 +1,32 @@
+<hr class="extra-space">
+<h2>Lessons</h2>
+
+<% unless @course.lessons.blank? %>
+  <p class="note extra-margin-bottom">
+    Drag and drop the lessons to reorder them. Click on a lesson to edit it in the form above.
+  </p>
+
+  <div class="clearfix">
+    <div class="sortable-list" data-page="lessons">
+      <div class="objects sortable grid reorderable">
+        <% @course.lessons.where.not(pub_status: "A").each do |lesson| %>
+          <div class="sortable-item" data-id="<%= lesson.id %>">
+            <%= render "lesson_grid", { course: @course, lesson: lesson } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%= link_to new_admin_course_lesson_path, class: "transparent" do %>
+    <div class="btn button-color">
+      Add Another Lesson
+    </div>
+  <% end %>
+
+  <%= link_to edit_admin_course_path(@course), class: "transparent" do %>
+    <div class="btn btn-grey">
+      Return to Course Edit Page
+    </div>
+  <% end %>
+<% end %>

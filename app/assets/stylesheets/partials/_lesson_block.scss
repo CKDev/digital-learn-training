@@ -4,16 +4,11 @@
   background-color: $teal;
   color: $white;
   margin-bottom: 2em;
-  margin-right: 2.8em;
+  margin-right: 1.9em;
+  padding: 1rem;
   position: relative;
   cursor: pointer;
   float: left;
-
-  @include media($desktop) {
-    &:nth-child(4n) {
-      margin-right: 0;
-    }
-  }
 
   @include media($tablet) {
     margin-right: 2em;

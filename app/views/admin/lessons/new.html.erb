@@ -1,25 +1,3 @@
 <%= content_for(:callout) { %><h1>Add Lesson</h1><% } %>
 <%= render "form" %>
-
-<% unless @course.lessons.blank? %>
-  <hr>
-  <h2>Lessons</h2>
-
-  <p class="emphasis">
-    Drag and drop the lessons to reorder them. Click on a lesson to edit it in the form above.
-  </p>
-  <div>
-    <div class="container">
-      <%# TODO: this should be a scope %>
-      <% @course.lessons.where.not(pub_status: "A").each do |lesson| %>
-        <%= render "lesson_grid", { course: @course, lesson: lesson } %>
-      <% end %>
-    </div>
-  </div>
-
-  <%= link_to edit_admin_course_path(@course), class: "transparent" do %>
-    <div class="btn btn-grey">
-      Return to Course Edit Page
-    </div>
-  <% end %>
-<% end %>
+<%= render "lessons" %>

@@ -2,7 +2,7 @@
   <%= link_to edit_admin_course_lesson_path(course, lesson), class: "transparent" do %>
     <div class="lesson-block">
       <div class="default-state">
-        <div class="lesson-title-admin"><%= lesson.title %></div>
+        <div class="lesson-title-admin"><%= lesson.title.truncate(25) %></div>
       </div>
       <div class="hover-state">
         <i class="icon-arrow"></i>

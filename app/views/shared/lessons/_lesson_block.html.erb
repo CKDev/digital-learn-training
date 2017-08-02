@@ -5,7 +5,7 @@
       <i class="icon-ok"></i>
     <% end %>
     <div class="lesson-order"><%= lesson.lesson_order %></div>
-    <div class="lesson-title"><%= lesson.title %></div>
+    <div class="lesson-title"><%= lesson.title.truncate(15) %></div>
     <div class="lesson-duration"><i class="icon-clock"></i>
       <%= Duration.duration_str(lesson.duration) %>
     </div>

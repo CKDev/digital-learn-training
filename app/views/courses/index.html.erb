@@ -1,7 +1,7 @@
 <%= render "course_intro_text" %>
 
 <% if @courses.present? %>
-  <%= render partial: "shared/courses/listing", locals: { courses_completed: [] } %>
+  <%= render partial: "shared/courses/listing" %>
 <% else %>
-  <p>No courses match your search. <%= link_to "View all courses", courses_path %></p>
+  <p>There are currently no available courses.</p>
 <% end %>

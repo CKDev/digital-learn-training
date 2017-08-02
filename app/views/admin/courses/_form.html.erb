@@ -1,5 +1,3 @@
-<h1>Course Information</h1>
-
 <%= form_for([:admin, @course], html: { multipart: true }) do |f| %>
 
   <%= render "form_errors", m: @course %>
@@ -28,7 +26,7 @@
 
   <fieldset>
     <%# TODO: Make model method for options %>
-    <%= f.label :pub_status, class: "required" %>
+    <%= f.label :pub_status %>
     <%= f.select(:pub_status, options_for_select([["Draft", "D"], ["Published", "P"], ["Archived", "A"]], @course.pub_status)) %>
   </fieldset>
 
@@ -37,7 +35,7 @@
       <%= f.fields_for :attachments, @course.attachments.build do |a| %>
         <fieldset>
           <%= a.label :document, "Text copies of the course" %>
-          <p><i>Upload any supporting documentation or supplemental materials needed during the course.</i></p>
+          <p class="note">Upload any supporting documentation or supplemental materials needed during the course.</p>
         </fieldset>
         <fieldset>
           <%= a.hidden_field :_destroy, class: "removable" %>
@@ -52,8 +50,8 @@
     <div class="six columns">
       <%= f.fields_for :attachments, @course.attachments.build do |a| %>
         <fieldset>
-          <%= a.label :document, "Additional Resources (post-completion)" %>
-          <p><i>Upload any supporting documentation or supplemental materials needed after the course.</i></p>
+          <%= a.label :document, "Post Completion Resources" %>
+          <p class="note">Upload any supporting documentation or supplemental materials needed after the course.</p>
         </fieldset>
         <fieldset>
           <%= a.hidden_field :doc_type, value: "post-course" %>
@@ -62,30 +60,32 @@
           <%= a.text_field :file_description, class: "text-field", placeholder: "(optional) Add a description for this resource..." %>
         </fieldset>
       <% end %>
-      <%= link_to_add_fields "Add Post Course Attachment", f , :attachments, "post" %>
+      <%= link_to_add_fields "Add Post Completion Attachment", f , :attachments, "post" %>
     </div>
   </div>
 
   <% if @course.attachments.exists? %>
     <div class="row">
       <fieldset class="six columns">
-        <%= f.label :document, "Current Supplemental Attachments" %>
+        <%= f.label :document, "Supplemental Attachments" %>
         <ul>
           <%# TODO: scope %>
           <% @course.attachments.where(doc_type: "supplemental").each do |a| %>
             <li>
-              <%= a.document_file_name %>
+              <%= a.document_file_name %> -
               <%= link_to "Delete", admin_attachment_path(a), method: :delete, data: { confirm: "Are you sure?" } %>
             </li>
           <% end %>
         </ul>
       </fieldset>
       <fieldset class="six columns">
-        <%= f.label :document, "Current Post-Course Attachments" %>
+        <%= f.label :document, "Post-Course Attachments" %>
         <ul>
+          <%# TODO: scope %>
           <% @course.attachments.where(doc_type: "post-course").each do |a| %>
             <li>
-              <%= a.document_file_name %> - <%= link_to "Delete", admin_attachment_path(a), method: :delete, data: { confirm: "Are you sure?" } %>
+              <%= a.document_file_name %> -
+              <%= link_to "Delete", admin_attachment_path(a), method: :delete, data: { confirm: "Are you sure?" } %>
             </li>
           <% end %>
         </ul>
