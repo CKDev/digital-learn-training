@@ -2,6 +2,7 @@ class LessonsController < ApplicationController
   before_action :set_course
 
   def index
+    # TODO: scope
     @lessons = @course.lessons.all.where(pub_status: "P")
     respond_to do |format|
       format.html { render :index }
@@ -14,15 +15,12 @@ class LessonsController < ApplicationController
 
     case @lesson.pub_status
     when "D"
-      flash[:notice] = "That lesson is not avaliable at this time."
-      redirect_to root_path
+      redirect_to course_path(@course), notice: "The selected lesson is not currently avaliable."
     when "A"
-      flash[:notice] = "That lesson is no longer avaliable."
-      redirect_to root_path
+      redirect_to root_path, notice: "The selected lesson is no longer avaliable."
     when "P"
       session[:lessons_done] = [] if session[:lessons_done].blank?
       session[:lessons_done] << @lesson.id unless session[:lessons_done].include?(@lesson.id)
-
       @next_lesson = @course.lessons.find(@course.next_lesson_id(@lesson.id))
 
       # The change of course slug should 301 redirect.
