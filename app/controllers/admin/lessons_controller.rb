@@ -2,7 +2,6 @@ module Admin
   class LessonsController < BaseController
 
     before_action :set_course, except: [:sort]
-    before_action :set_maximums, only: [:new, :edit]
 
     def index
 
@@ -62,10 +61,7 @@ module Admin
     end
 
     def sort
-      params[:order].each do |_k, v|
-        Lesson.find(v["id"]).update_attribute(:lesson_order, v["position"])
-      end
-
+      params[:order].each { |_k, v| Lesson.find(v["id"]).update_attribute(:lesson_order, v["position"]) }
       render nothing: true
     end
 
@@ -76,22 +72,9 @@ module Admin
     end
 
     def lesson_params
-      params.require(:lesson).permit(:title,
-                                     :summary,
-                                     :duration,
-                                     :story_line,
-                                     :seo_page_title,
-                                     :meta_desc,
-                                     :is_assessment,
-                                     :lesson_order,
-                                     :pub_status)
-    end
-
-    def set_maximums
-      @max_title = Lesson.validators_on(:title).first.options[:maximum]
-      @max_summary = Lesson.validators_on(:summary).first.options[:maximum]
-      @max_seo_page_title = Lesson.validators_on(:seo_page_title).first.options[:maximum]
-      @max_meta_desc = Lesson.validators_on(:meta_desc).first.options[:maximum]
+      params.require(:lesson).permit(:title, :summary, :duration,
+        :story_line, :seo_page_title, :meta_desc,
+        :is_assessment, :lesson_order, :pub_status)
     end
 
     def validate_assessment
@@ -99,11 +82,11 @@ module Admin
         @lesson.lesson_order = @lesson.course.lessons.count + 1
         return true
       else
-        warnings = ["There can only be one assessment for a Course.",
-                    "If you are sure you want to <em>replace</em> it, please delete the existing one and try again.",
-                    "Otherwise, please edit the existing assessment for this course."]
+        warnings = [ "There can only be one assessment for a Course.",
+          "If you are sure you want to <em>replace</em> it, please delete the existing one and try again.",
+          "Otherwise, please edit the existing assessment for this course."]
         flash.now[:alert] = warnings.join("<br/>").html_safe
-        render :new and return # rubocop:disable Style/AndOr
+        render :new and return
       end
     end
   end

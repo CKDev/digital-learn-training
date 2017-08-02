@@ -1,43 +1,24 @@
 <%= form_for([:admin, @course, @lesson], html: { multipart: true }) do |f| %>
-  <% if @lesson.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
-      <ul>
-      <% @lesson.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+
+  <%= render "form_errors", m: @lesson %>
 
   <fieldset>
-    <%= f.label :title, class: "text-color" do %>
-      Lesson Title<span class="required"></span>
-    <% end %>
-    <%= f.text_field :title %>
-    <div class="note left-or-right">
-      <span id="lesson_title_counter"></span> out of <%= @max_title %> characters remaining.
-    </div>
+    <%= f.label :title, class: "required" %>
+    <%= f.text_field :title, maxlength: 90 %>
+    <div class="character-limit">&nbsp;</div>
   </fieldset>
 
   <fieldset>
-    <%= f.label :summary, class: "text-color" do %>
-      Lesson Summary<span class="required"></span>
-    <% end %>
-    <%= f.text_field :summary %>
-    <div class="note left-or-right">
-      <span id="lesson_summary_counter"></span> out of <%= @max_summary %> characters remaining.
-    </div>
+    <%= f.label :summary, class: "required" %>
+    <%= f.text_field :summary, maxlength: 156 %>
+    <div class="character-limit">&nbsp;</div>
   </fieldset>
 
   <div class="row">
     <div class="six columns">
       <fieldset>
-        <%= f.label :duration, class: "text-color" do %>
-          Duration<span class="required"></span>
-        <% end %>
-        <p class="note">Enter the estimated amount of time that this lesson
-        will take to complete in the format (MM:SS).</p>
+        <%= f.label :duration, class: "required" %>
+        <p class="note">Enter the estimated amount of time that this lesson will take to complete in the format (MM:SS).</p>
         <%= f.text_field :duration, value: @lesson.duration_str %>
       </fieldset>
     </div>
@@ -45,23 +26,24 @@
     <div class="six columns">
       <% if @lesson.story_line.blank? %>
         <fieldset>
-          <%= f.label :story_line, class: "text-color" do %>
-            Articulate Storyline Package<span class="required"></span>
-          <% end %>
-          <p class="note">Upload a zip file containing all of the directories and
-          files exported from Articulate for this lesson.</p>
+          <%= f.label :story_line, class: "required" %>
+          <p class="note">
+            Upload a zip file containing all of the directories and files
+            exported from Articulate for this lesson.
+          </p>
           <%= f.file_field :story_line, class: "upload-field" %>
         </fieldset>
       <% else %>
         <fieldset>
-          <%= f.label :story_line, class: "text-color" do %>
-            Articulate Storyline Package<span class="required"></span>
-          <% end %>
-          <p class="note">There can only be one story line per lesson, if you want
-          to upload a new on, you need to delete the current one first.</p>
+          <%= f.label :story_line, class: "required" %>
+          <p class="note">
+            There can only be one story line per lesson, if you want to upload a new on,
+            you need to delete the current one first.
+          </p>
           <p class="upload-field">
             <%= @lesson.story_line.instance.story_line_file_name %>
-              <%= link_to "Remove", destroy_asl_attachment_admin_course_lessons_path(@course, @lesson), method: "delete", data: { confirm: "Are you sure?" } %>
+            <%= link_to "Remove", destroy_asl_attachment_admin_course_lessons_path(@course, @lesson),
+              method: "delete", data: { confirm: "Are you sure?" } %>
           </p>
         </fieldset>
       <% end %>
@@ -69,40 +51,31 @@
   </div>
 
   <fieldset>
-    <%= f.label :seo_page_title, class: "text-color" do %>
-      Page Title
-    <% end %>
-    <%= f.text_field :seo_page_title %>
-    <div class="note left-or-right">
-      <span id="lesson_seo_page_title_counter"></span> out of <%= @max_seo_page_title %> characters
-    </div>
+    <%= f.label :seo_page_title %>
+    <%= f.text_field :seo_page_title, maxlength: 90 %>
+    <div class="character-limit">&nbsp;</div>
   </fieldset>
 
   <fieldset>
-    <%= f.label "Meta Description", class: "text-color" %>
-    <%= f.text_field :meta_desc %>
-    <div class="note left-or-right">
-      <span id="lesson_meta_desc_counter"></span> out of <%= @max_meta_desc %> characters
-    </div>
+    <%= f.label :meta_desc %>
+    <%= f.text_field :meta_desc, maxlength: 156 %>
+    <div class="character-limit">&nbsp;</div>
   </fieldset>
 
   <fieldset>
-    <%= f.label :pub_status, class: "text-color" do %>
-      Publication Status<span class="required"></span>
-    <% end %>
-    <%= f.select(:pub_status, options_for_select([["Draft", "D"], ["Published", "P"]], @lesson.pub_status), { include_blank: "Select..." } ) %>
+    <%= f.label :pub_status, class: "required" %>
+    <%= f.select(:pub_status, options_for_select([["Draft", "D"], ["Published", "P"]], @lesson.pub_status)) %>
   </fieldset>
 
   <fieldset>
-    <%= f.label :is_assessment, class: "text-color" do %>
-      Assessment<span class="required"></span>
-    <% end %>
+    <%= f.label :is_assessment, class: "required" %>
     <p class="note">Is this lesson the final assessment for the course?</p>
-    <%=  f.radio_button :is_assessment, true %>
-    <%= f.label :is_assessment_yes, "Yes", class: "plain" %>
+    <%= f.radio_button :is_assessment, true %>
+    <%= f.label :is_assessment_true, "Yes", class: "plain" %>
     <%= f.radio_button :is_assessment, false %>
-    <%= f.label :is_assessment_no, "No", class: "plain" %>
+    <%= f.label :is_assessment_false, "No", class: "plain" %>
   </fieldset>
 
   <%= f.submit "Save Lesson", class: "button-color" %>
+
 <% end %>

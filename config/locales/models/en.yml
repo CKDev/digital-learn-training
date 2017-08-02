@@ -1,9 +1,22 @@
 en:
   activerecord:
     attributes:
+      course:
+        title: "Course Title"
+        description: "Course Description"
+        meta_desc: "Meta Description"
+        pub_status: "Publication Status"
+        seo_page_title: "SEO Page Title"
       page:
         title: "Page Title"
         body: "Page Text"
         pub_status: "Publication Status"
         seo_title: "SEO Title"
         meta_desc: "Meta Description"
+      lesson:
+        title: "Lesson Title"
+        story_line: "Articulate Storyline Package"
+        seo_page_title: "SEO Page Title"
+        meta_desc: "Meta Description"
+        pub_status: "Publication Status"
+        is_assessment: "Assessment"

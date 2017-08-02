@@ -2,9 +2,9 @@ module Admin
   class CoursesController < BaseController
 
     before_action :set_course, only: [:show, :edit, :update, :destroy]
-    before_action :set_maximums, only: [:new, :edit]
 
     def index
+      # TODO: scope
       @courses = Course.where.not(pub_status: "A")
     end
 
@@ -64,9 +64,7 @@ module Admin
     end
 
     def sort
-      params[:order].each do |_k, v|
-        Course.find(v[:id]).update_attribute(:course_order, v[:position])
-      end
+      params[:order].each { |_k, v| Course.find(v[:id]).update_attribute(:course_order, v[:position]) }
       render nothing: true
     end
 
@@ -77,31 +75,15 @@ module Admin
 
     private
 
-    def set_maximums
-      @max_title   = Course.validators_on(:title).first.options[:maximum]
-      @max_seo     = Course.validators_on(:seo_page_title).first.options[:maximum]
-      @max_summary = Course.validators_on(:summary).first.options[:maximum]
-      @max_meta    = Course.validators_on(:meta_desc).first.options[:maximum]
-    end
-
     def set_course
       @course = Course.friendly.find(params[:id])
     end
 
     def course_params
-      permitted_attributes = [
-        :title,
-        :seo_page_title,
-        :meta_desc,
-        :summary,
-        :description,
-        :contributor,
-        :pub_status,
-        :notes,
-        :delete_document,
-        :course_order,
-        :pub_date,
-        attachments_attributes: [:course_id, :document, :title, :doc_type, :file_description, :_destroy]
+      permitted_attributes = [ :title, :seo_page_title, :meta_desc, :summary,
+        :description, :contributor, :pub_status, :notes, :delete_document,
+        :course_order, :pub_date, attachments_attributes:
+          [:course_id, :document, :title, :doc_type, :file_description, :_destroy]
       ]
       params.require(:course).permit(permitted_attributes)
     end

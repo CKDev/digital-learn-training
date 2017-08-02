@@ -1,38 +1,28 @@
 <h1>Course Information</h1>
 
-<%= form_for([:admin, @course], html: { multipart: true } ) do |f| %>
+<%= form_for([:admin, @course], html: { multipart: true }) do |f| %>
 
   <%= render "form_errors", m: @course %>
 
   <fieldset>
-    <%= f.label :title do %>
-      Title<span class="required"></span>
-    <% end %>
-    <%= f.text_field :title %>
-    <div class="note left-or-right">
-      <span id="course_title_counter"></span> out of <%= @max_title %> characters remaining.
-    </div>
+    <%= f.label :title, class: "required" %>
+    <%= f.text_field :title, maxlength: 90 %>
+    <div class="character-limit">&nbsp;</div>
   </fieldset>
 
   <fieldset>
-    <%= f.label :contributor do %>
-      Contributor<span class="required"></span>
-    <% end %>
-    <%= f.text_field :contributor, class: "bottom-margin" %>
+    <%= f.label :contributor, class: "required" %>
+    <%= f.text_field :contributor %>
   </fieldset>
 
   <fieldset>
-    <%= f.label :summary do %>
-      Course Summary<span class="required"></span>
-    <% end %>
-    <%= f.text_field :summary %>
-    <div class="note left-or-right"><span id="course_summary_counter"></span> out of <%= @max_summary %> characters remaining.</div>
+    <%= f.label :summary, class: "required" %>
+    <%= f.text_field :summary, maxlength: 156 %>
+    <div class="character-limit">&nbsp;</div>
   </fieldset>
 
   <fieldset>
-    <%= f.label :description do %>
-      Course Description<span class="required"></span>
-    <% end %>
+    <%= f.label :description, class: "required" %>
     <%= f.cktext_area :description %>
   </fieldset>
 
@@ -95,7 +85,7 @@
         <ul>
           <% @course.attachments.where(doc_type: "post-course").each do |a| %>
             <li>
-              <%= a.document_file_name %> -- <%= link_to "Delete", admin_attachment_path(a), method: :delete, data: { confirm: "Are you sure?" } %>
+              <%= a.document_file_name %> - <%= link_to "Delete", admin_attachment_path(a), method: :delete, data: { confirm: "Are you sure?" } %>
             </li>
           <% end %>
         </ul>
@@ -103,27 +93,21 @@
     </div>
   <% end %>
 
-  <div>
-    <fieldset>
-      <%= f.label :notes, "Info to help learners practice and use their new skills (post completion)" %>
-      <%= f.cktext_area :notes %>
-    </fieldset>
-  </div>
-
   <fieldset>
-    <%= f.label "SEO page title" %>
-    <%= f.text_field :seo_page_title %>
-    <div class="note left-or-right">
-      <span id="course_seo_page_title_counter"></span> out of <%= @max_seo %> characters
-    </div>
+    <%= f.label :notes, "Info to help learners practice and use their new skills (post completion)" %>
+    <%= f.cktext_area :notes %>
   </fieldset>
 
   <fieldset>
-    <%= f.label "Meta Description" %>
-    <%= f.text_field :meta_desc %>
-    <div class="note left-or-right">
-      <span id="course_meta_desc_counter"></span> out of <%= @max_meta %> characters
-    </div>
+    <%= f.label :seo_page_title %>
+    <%= f.text_field :seo_page_title, maxlength: 90 %>
+    <div class="character-limit">&nbsp;</div>
+  </fieldset>
+
+  <fieldset>
+    <%= f.label :meta_desc %>
+    <%= f.text_field :meta_desc, maxlength: 156 %>
+    <div class="character-limit">&nbsp;</div>
   </fieldset>
 
   <div class="actions">
