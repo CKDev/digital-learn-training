@@ -15,7 +15,7 @@
           <p><%= t("certificate.has_completed") %></p>
 
           <h2 class="course"><%= @course.title %></h2>
-          <p><%= t("certificate.as_of") %>  <%= local_time(Time.zone.now, '%B %e, %Y') %></p>
+          <p><%= t("certificate.as_of") %>  <%= local_time(Time.zone.now, Constants.long_month_day_year_format) %></p>
           <%= image_tag "dl_logo.png" %>
         </div>
       </div>

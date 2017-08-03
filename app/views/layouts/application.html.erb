@@ -5,15 +5,20 @@
   </head>
   <body class="<%= "#{controller_name}-#{action_name}" %>">
     <%= render "header" %>
-    <div class="banner color">
-      <div class="container">
-        <% if content_for?(:callout) %>
-          <%= yield :callout %>
-        <% else %>
-          <h1 class="slogan">
-            Tools and Resources for Online Trainers
-          </h1>
-        <% end %>
+    <div class="banner">
+      <div class="container row">
+        <div class="eight columns">
+          <% if content_for?(:callout) %>
+            <%= yield :callout %>
+          <% else %>
+            <h1 class="slogan">Tools and Resources for Online Trainers</h1>
+          <% end %>
+        </div>
+        <div class="four columns">
+          <% if content_for?(:course_progress) %>
+            <%= yield :course_progress %>
+          <% end %>
+        </div>
       </div>
     </div>
     <main class="container">

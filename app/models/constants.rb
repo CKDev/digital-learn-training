@@ -15,6 +15,10 @@ class Constants
     "%b %d" # "Sep 4"
   end
 
+  def self.long_month_day_year_format
+    "%B %e, %Y" # August 3, 2017
+  end
+
   def self.time_format
     "%l:%M %p" # "7:47 PM"
   end
@@ -44,7 +48,7 @@ class Constants
   end
 
   def self.timezone
-    Time.zone.now.strftime("%Z")
+    Time.zone.now.strftime("%Z") # MDT
   end
 
   def self.acceptable_doc_types
