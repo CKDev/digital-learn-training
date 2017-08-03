@@ -25,9 +25,8 @@
   </fieldset>
 
   <fieldset>
-    <%# TODO: Make model method for options %>
     <%= f.label :pub_status %>
-    <%= f.select(:pub_status, options_for_select([["Draft", "D"], ["Published", "P"], ["Archived", "A"]], @course.pub_status)) %>
+    <%= f.select(:pub_status, options_for_select(Course.pub_status_select_options, @course.pub_status)) %>
   </fieldset>
 
   <div class="row">
@@ -69,8 +68,7 @@
       <fieldset class="six columns">
         <%= f.label :document, "Supplemental Attachments" %>
         <ul>
-          <%# TODO: scope %>
-          <% @course.attachments.where(doc_type: "supplemental").each do |a| %>
+          <% @course.attachments.supplemental_attachments.each do |a| %>
             <li>
               <%= a.document_file_name %> -
               <%= link_to "Delete", admin_attachment_path(a), method: :delete, data: { confirm: "Are you sure?" } %>
@@ -81,8 +79,7 @@
       <fieldset class="six columns">
         <%= f.label :document, "Post-Course Attachments" %>
         <ul>
-          <%# TODO: scope %>
-          <% @course.attachments.where(doc_type: "post-course").each do |a| %>
+          <% @course.attachments.post_course_attachments.each do |a| %>
             <li>
               <%= a.document_file_name %> -
               <%= link_to "Delete", admin_attachment_path(a), method: :delete, data: { confirm: "Are you sure?" } %>

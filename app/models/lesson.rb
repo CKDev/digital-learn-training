@@ -22,6 +22,7 @@ class Lesson < ApplicationRecord
   before_destroy :delete_associated_user_completions
 
   default_scope { order("lesson_order") }
+  scope :published, -> { where(pub_status: "P") }
 
   def skip_for_zip
     %w(application/zip application/x-zip).include?(story_line_content_type)

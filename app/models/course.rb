@@ -19,6 +19,8 @@ class Course < ApplicationRecord
   default_scope { order("course_order ASC") }
 
   scope :with_category, ->(category_id) { where(category_id: category_id) }
+  scope :not_archived, -> { where.not(pub_status: "A") }
+  scope :published, -> { where(pub_status: "P") }
 
   def validate_has_unique_title
     # TODO: this should go away, or be moved as part of a validation
@@ -87,4 +89,9 @@ class Course < ApplicationRecord
   def supplemental_attachments
     self.attachments.where(doc_type: "supplemental")
   end
+
+  def self.pub_status_select_options
+    [["Draft", "D"], ["Published", "P"], ["Archived", "A"]]
+  end
+
 end

@@ -2,8 +2,7 @@ class LessonsController < ApplicationController
   before_action :set_course
 
   def index
-    # TODO: scope
-    @lessons = @course.lessons.all.where(pub_status: "P")
+    @lessons = @course.lessons.published
     respond_to do |format|
       format.html { render :index }
       format.json { render json: @lessons }

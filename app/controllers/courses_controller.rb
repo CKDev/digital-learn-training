@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
 
   def index
-    @courses = Course.includes(:lessons).where(pub_status: "P") # TODO: scope
+    @courses = Course.includes(:lessons).published
   end
 
   def show
@@ -39,13 +39,11 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        # TODO: move these options elsewhere.
         @pdf = render_to_string pdf: "file_name",
                template: "courses/complete.pdf.erb",
                layout: "pdf.html.erb",
                orientation: "Landscape",
-               page_size: "Letter",
-               show_as_html: params[:debug].present?
+               page_size: "Letter"
         send_data(@pdf, filename: "#{@course.title} completion certificate.pdf", type: "application/pdf")
       end
     end
@@ -57,10 +55,7 @@ class CoursesController < ApplicationController
     if extension == ".pdf"
       file_options = { disposition: "inline", type: "application/pdf", x_sendfile: true }
     else
-      file_options = { disposition: "attachment",
-        type: ["application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-          "application/vnd.openxmlformats-officedocument.presentationml.presentation"],
-        x_sendfile: true }
+      file_options = { disposition: "attachment", type: Constants.acceptable_doc_types, x_sendfile: true }
     end
     send_file @course.attachments.find(params[:attachment_id]).document.path, file_options
   end

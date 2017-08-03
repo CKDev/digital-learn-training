@@ -1,53 +1,42 @@
-<%# TODO: This could be DRY'd up into a partial. %>
-<% content_for :meta_title do %>
-  <%= @course.seo_page_title.present? ? @course.seo_page_title : @course.title  %>
-<% end %>
-<% content_for :meta_description do %>
-  <%= @course.meta_desc.present? ? @course.meta_desc : @course.summary %>
-<% end %>
-<% content_for :callout do %>
-  <h1><%= @course.title %></h1>
-<% end %>
-
-<div><small><%= link_to "Courses", courses_path %> >> <%= @course.title %></small></div>
+<%= render "meta_information" %>
 
 <div class="congrats-banner color">
-    <div>
-      <p><%= "#{t('course_completion_page.you_successfully_completed')} #{@course.title}!" %>
-    </div>
-    <div class="extra-margin">
-      <div class="cert-preview hide-on-tablet">
-        <div class="cert-inner cert-color">
-          <div>
-            <h1><%= t("completed_courses_page.certificate_of_completion") %></h1>
-            <p><%= t("certificate.this_award") %></p>
+  <div>
+    <p><%= "#{t('course_completion_page.you_successfully_completed')} #{@course.title}!" %>
+  </div>
+  <div class="extra-margin">
+    <div class="cert-preview hide-on-tablet">
+      <div class="cert-inner cert-color">
+        <div>
+          <h1><%= t("completed_courses_page.certificate_of_completion") %></h1>
+          <p><%= t("certificate.this_award") %></p>
 
-            <%= t("certificate.name_fill") %>
-            <p><%= t("certificate.has_completed") %></p>
+          <%= t("certificate.name_fill") %>
+          <p><%= t("certificate.has_completed") %></p>
 
-            <h2 class="course"><%= @course.title %></h2>
-            <p><%= t("certificate.as_of") %>  <%= local_time(Time.zone.now, '%B %e, %Y') %></p>
-            <%= image_tag "dl_logo.png" %>
-          </div>
+          <h2 class="course"><%= @course.title %></h2>
+          <p><%= t("certificate.as_of") %>  <%= local_time(Time.zone.now, '%B %e, %Y') %></p>
+          <%= image_tag "dl_logo.png" %>
         </div>
       </div>
     </div>
-    <div class="margin-bottom">
-      <%= link_to course_complete_path(@course, format: "pdf") do %>
-        <button class="congrats-button button-color">Download My Certificate</button>
-      <% end %>
-    </div>
-    <div class="margin-bottom">
-      <%= link_to(courses_path) do %>
-        <%= button_tag(type: "button", class: "btn-grey bottom-button congrats-button button-color") do %>
-          <%= t("course_completion_page.view_all_courses") %>
-        <% end %>
-      <% end %>
-    </div>
-    <div>
-      <%= link_to t("course_completion_page.restart_this_course"), course_path(@course), class: "white" %>
-    </div>
   </div>
+  <div class="margin-bottom">
+    <%= link_to course_complete_path(@course, format: "pdf") do %>
+      <button class="congrats-button button-color">Download My Certificate</button>
+    <% end %>
+  </div>
+  <div class="margin-bottom">
+    <%= link_to(courses_path) do %>
+      <%= button_tag(type: "button", class: "btn-grey bottom-button congrats-button button-color") do %>
+        <%= t("course_completion_page.view_all_courses") %>
+      <% end %>
+    <% end %>
+  </div>
+  <div>
+    <%= link_to t("course_completion_page.restart_this_course"), course_path(@course), class: "white" %>
+  </div>
+</div>
 
 <hr />
 

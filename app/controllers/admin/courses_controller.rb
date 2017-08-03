@@ -4,8 +4,7 @@ module Admin
     before_action :set_course, only: [:show, :edit, :update, :destroy]
 
     def index
-      # TODO: scope
-      @courses = Course.where.not(pub_status: "A")
+      @courses = Course.not_archived
     end
 
     def show
