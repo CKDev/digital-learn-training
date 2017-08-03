@@ -68,8 +68,10 @@ module Admin
     end
 
     def sort
-      params[:order].each { |_k, v| Lesson.find(v["id"]).update_attribute(:lesson_order, v["position"]) }
-      render nothing: true
+      params[:order].each { |_k, v| Lesson.find(v[:id]).update(lesson_order: v[:position]) }
+      respond_to do |format|
+        format.json { render json: true, status: :ok }
+      end
     end
 
     private

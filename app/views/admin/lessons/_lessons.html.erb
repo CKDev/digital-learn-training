@@ -1,32 +1,44 @@
 <hr class="extra-space">
 <h2>Lessons</h2>
 
-<% unless @course.lessons.blank? %>
-  <p class="note extra-margin-bottom">
-    Drag and drop the lessons to reorder them. Click on a lesson to edit it in the form above.
-  </p>
+<p class="note extra-margin-bottom">
+  Drag and drop the lessons to reorder them. Click on a lesson to edit it in the form above.
+</p>
 
-  <div class="clearfix">
-    <div class="sortable-list" data-page="lessons">
-      <div class="objects sortable grid reorderable">
-        <% @course.lessons.where.not(pub_status: "A").each do |lesson| %>
-          <div class="sortable-item" data-id="<%= lesson.id %>">
-            <%= render "lesson_grid", { course: @course, lesson: lesson } %>
-          </div>
+<%= hidden_field_tag :sort_url, "/admin/courses/#{@course.slug}/lessons/sort" %>
+<div class="extra-margin-bottom">
+  <div class="sortable-list">
+    <div class="list-titles">
+      <div class="cell">Lesson</div>
+      <div class="cell">Summary</div>
+      <div class="cell">Status</div>
+      <div class="cell">Duration</div>
+    </div>
+    <% if @course.lessons.not_archived.present? %>
+      <ul class="objects sortable reorderable">
+        <% @course.lessons.not_archived.each do |lesson| %>
+          <li class="sortable-item" data-id="<%= lesson.id %>">
+            <div class="cell"><%= link_to lesson.title, edit_admin_course_lesson_path(@course, lesson), class: "no_drag_link" %></div>
+            <div class="cell"><%= lesson.summary.truncate(50) %></div>
+            <div class="cell"><%= lesson.pub_status %></div>
+            <div class="cell"><%= lesson.duration_str %></div>
+          </li>
         <% end %>
-      </div>
-    </div>
+      </ul>
+    <% else %>
+      <p>There are no available lessons.</p>
+    <% end %>
   </div>
+</div>
 
-  <%= link_to new_admin_course_lesson_path, class: "transparent" do %>
-    <div class="btn button-color">
-      Add Another Lesson
-    </div>
-  <% end %>
+<%= link_to new_admin_course_lesson_path, class: "transparent" do %>
+  <div class="btn button-color">
+    Add Another Lesson
+  </div>
+<% end %>
 
-  <%= link_to edit_admin_course_path(@course), class: "transparent" do %>
-    <div class="btn btn-grey">
-      Return to Course Edit Page
-    </div>
-  <% end %>
+<%= link_to edit_admin_course_path(@course), class: "transparent" do %>
+  <div class="btn btn-grey">
+    Return to Course Edit Page
+  </div>
 <% end %>

@@ -225,12 +225,8 @@ header.lesson-listing:before {
   margin-right: 19px;
 }
 
-.clearfix:after {
-  content: ".";
-  visibility: hidden;
-  display: block;
-  height: 0;
-  clear: both;
+.clearfix {
+  @include clearfix;
 }
 
 label.inline-label {

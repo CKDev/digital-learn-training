@@ -20,7 +20,7 @@
               <%= l.lesson_order %>.
             </div>
             <div class="nine columns">
-              <%= link_to l.title, course_lesson_path(course, l), data: { cpl_ga_event: "on",  cpl_ga_value: "user-click-lesson" } %>
+              <%= link_to l.title, course_lesson_path(course, l) %>
             </div>
           </div>
         </li>
@@ -47,7 +47,7 @@
               <%= l.lesson_order %>.
             </div>
             <div class="nine columns">
-              <%= link_to l.title, course_lesson_path(course, l), data: { cpl_ga_event: "on",  cpl_ga_value: "user-click-lesson" } %>
+              <%= link_to l.title, course_lesson_path(course, l) %>
             </div>
           </div>
         </li>

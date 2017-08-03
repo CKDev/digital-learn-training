@@ -1,8 +1,6 @@
 <%= content_for(:callout) { %><h1>Course Index</h1><% } %>
 
-<h2>Courses</h2>
-
-<div class="row">
+<div class="row extra-margin-bottom">
   <div class="six columns">
     <p class="note no-top-margin">
       Re-order courses on the homepage by clicking on the arrow icon to drag and drop courses. Edit by clicking the appropriate course below.
@@ -13,12 +11,13 @@
   </div>
 </div>
 
-<div class="sortable_list_wrapper">
-  <div class="sortable-list" data-page="courses">
+<%= hidden_field_tag :sort_url, "/admin/courses/sort" %>
+<div class="extra-margin-bottom">
+  <div class="sortable-list">
     <div class="list-titles">
       <div class="cell">Course</div>
       <div class="cell">Contributor</div>
-      <div class="cell">Publication Status</div>
+      <div class="cell">Status</div>
       <div class="cell">Publication Date</div>
     </div>
     <% if @courses.present? %>

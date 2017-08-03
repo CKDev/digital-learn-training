@@ -23,6 +23,7 @@ class Lesson < ApplicationRecord
 
   default_scope { order("lesson_order") }
   scope :published, -> { where(pub_status: "P") }
+  scope :not_archived, -> { where.not(pub_status: "A") }
 
   def skip_for_zip
     %w(application/zip application/x-zip).include?(story_line_content_type)

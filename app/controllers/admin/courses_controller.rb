@@ -54,11 +54,15 @@ module Admin
     end
 
     def sort
-      params[:order].each { |_k, v| Course.find(v[:id]).update_attribute(:course_order, v[:position]) }
-      render nothing: true
+      params[:order].each { |_k, v| Course.find(v[:id]).update(course_order: v[:position]) }
+      respond_to do |format|
+        format.json { render json: true, status: :ok }
+      end
     end
 
     def destroy
+      # TODO: where in the UI should the user be able to destroy a course.
+      # TODO: how to show archived courses.
       @course.destroy
       redirect_to courses_url, notice: "Course was successfully destroyed."
     end
