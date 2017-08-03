@@ -66,6 +66,9 @@ Metrics/AbcSize:
   Max: 75
   Exclude:
 
+Metrics/BlockLength:
+  Max: 105
+
 Metrics/CyclomaticComplexity:
   Max: 17
 
@@ -117,8 +120,12 @@ Style/StringLiterals:
 Style/RedundantSelf:
   Enabled: false
 
+# TODO: fix to not have exclude
 Style/PercentLiteralDelimiters:
   Exclude:
+    - 'app/models/attachment.rb'
+    - 'app/models/course.rb'
+    - 'app/models/lesson.rb'
 
 Style/RegexpLiteral:
   Enabled: false

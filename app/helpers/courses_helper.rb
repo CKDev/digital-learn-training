@@ -12,24 +12,12 @@ module CoursesHelper
     end
   end
 
-  def percent_complete(course)
-    if user_signed_in?
-      course_progress = current_user.course_progresses.find_by_course_id(course.id)
-      if course_progress.present?
-        return "#{course_progress.percent_complete}#{I18n.t 'lesson_page.percent_complete'}"
-      else
-        return "0#{I18n.t 'lesson_page.percent_complete'}"
-      end
-    end
-    ""
-  end
-
   def percent_complete_without_user(course, lesson_id)
     session[:completed_lessons] ||= []
     total_lessons = course.lessons.count
     session[:completed_lessons] << lesson_id unless session[:completed_lessons].include?(lesson_id)
     completed = session[:completed_lessons].count
-    return 0 if total_lessons == 0
+    return 0 if total_lessons.zero?
     percent = (completed.to_f / total_lessons) * 100
     percent.round
   end

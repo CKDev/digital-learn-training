@@ -25,6 +25,7 @@ module Admin
       @lesson.duration_to_int(lesson_params[:duration])
       @lesson.lesson_order = @course.lessons.count + 1
 
+      # TODO: do as validation
       if @lesson.is_assessment?
         validate_assessment || return
       end
@@ -44,6 +45,12 @@ module Admin
       @lesson_params = lesson_params
       @lesson_params[:duration] = @lesson.duration_to_int(lesson_params[:duration])
       asl_is_new = @lesson.story_line_updated_at.nil?
+
+      # TODO: do as validation
+      if lesson_params[:is_assessment] == "true"
+        validate_assessment || return
+      end
+
       if @lesson.update(@lesson_params)
         Unzipper.new(@lesson.story_line) if asl_is_new
         redirect_to edit_admin_course_lesson_path, notice: "Lesson successfully updated."
@@ -80,12 +87,9 @@ module Admin
     def validate_assessment
       if @course.lessons.where(is_assessment: true).blank?
         @lesson.lesson_order = @lesson.course.lessons.count + 1
-        return true
+        true
       else
-        warnings = [ "There can only be one assessment for a Course.",
-          "If you are sure you want to <em>replace</em> it, please delete the existing one and try again.",
-          "Otherwise, please edit the existing assessment for this course."]
-        flash.now[:alert] = warnings.join("<br/>").html_safe
+        flash.now[:alert] = I18n.t(".multiple_assessments_msg")
         render :new and return
       end
     end

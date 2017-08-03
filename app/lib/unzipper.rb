@@ -1,7 +1,7 @@
 class Unzipper
   def initialize(asl_package)
     @file = asl_package
-    package_prepper unless @file.blank?
+    package_prepper if @file.present?
   end
 
   def package_prepper

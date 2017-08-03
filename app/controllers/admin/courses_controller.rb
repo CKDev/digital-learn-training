@@ -80,11 +80,10 @@ module Admin
     end
 
     def course_params
-      permitted_attributes = [ :title, :seo_page_title, :meta_desc, :summary,
+      permitted_attributes = [:title, :seo_page_title, :meta_desc, :summary,
         :description, :contributor, :pub_status, :notes, :delete_document,
         :course_order, :pub_date, attachments_attributes:
-          [:course_id, :document, :title, :doc_type, :file_description, :_destroy]
-      ]
+          [:course_id, :document, :title, :doc_type, :file_description, :_destroy]]
       params.require(:course).permit(permitted_attributes)
     end
 

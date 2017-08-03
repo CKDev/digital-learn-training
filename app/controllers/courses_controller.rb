@@ -58,7 +58,7 @@ class CoursesController < ApplicationController
       file_options = { disposition: "inline", type: "application/pdf", x_sendfile: true }
     else
       file_options = { disposition: "attachment",
-        type: [ "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        type: ["application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
           "application/vnd.openxmlformats-officedocument.presentationml.presentation"],
         x_sendfile: true }
     end
