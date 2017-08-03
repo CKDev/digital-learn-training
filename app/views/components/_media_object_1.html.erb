@@ -1,3 +1,4 @@
+<% title_only_class = local_assigns[:summary].present? ? "" : "title-only" %>
 <a href="<%= local_assigns[:link] %>" class="link-wrapper">
   <div class="media-object-1">
     <div class="media-icon">
@@ -7,8 +8,11 @@
         <%= svg_tag "icon-files", class: "svg-icon" %>
       <% end %>
     </div>
-    <div class="media-description">
+    <div class="media-title <%= title_only_class %>">
       <%= local_assigns[:title] %>
+    </div>
+    <div class="media-summary">
+      <%= local_assigns[:summary] %>
     </div>
   </div>
 </a>

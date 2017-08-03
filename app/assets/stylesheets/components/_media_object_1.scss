@@ -7,12 +7,23 @@
     }
   }
 
-  .media-description {
+  .media-title {
     color: $purple;
-    display: inline-block;
     position: relative;
-    top: -15px;
-    left: 15px;
+    top: -45px;
+    left: 55px;
+    max-width: 80%;
+    &.title-only {
+      top: -35px;
+    }
+  }
+
+  .media-summary {
+    color: $grey;
+    position: relative;
+    top: -40px;
+    left: 55px;
+    max-width: 80%;
   }
 
 }

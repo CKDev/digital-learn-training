@@ -1,18 +1,6 @@
-<div class="row extra-margin-bottom">
-  <div class="six columns">
-    <h3>Featured Module</h3>
-    <%= render "components/media_object_1", title: "Designing Online Content", link: "#", icon: "icon-training" %>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-      labore et dolore magna aliqua.
-    </p>
-  </div>
-  <div class="six columns">
-    <h3>Latest Modules</h3>
-    <ul class="unmarked">
-      <li><%= link_to "Lorem Ipsum Link 1", "#" %><li>
-      <li><%= link_to "Lorem Ipsum Link 2", "#" %><li>
-      <li><%= link_to "All Training Modules >", "#" %><li>
-    </ul>
-  </div>
+<div class="extra-margin-bottom">
+  <h3>Courses</h3>
+  <% @courses.each do |course| %>
+    <%= render "components/media_object_1", title: course.title, summary: course.summary, link: course_path(course), icon: "icon-training" %>
+  <% end %>
 </div>

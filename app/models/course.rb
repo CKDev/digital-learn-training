@@ -6,9 +6,9 @@ class Course < ApplicationRecord
   has_many :attachments, dependent: :destroy
 
   validates :description, :contributor, presence: true
-  validates :title, length: { maximum: 40 }, presence: true
+  validates :title, length: { maximum: 90 }, presence: true
+  validates :summary, length: { maximum: 156 }, presence: true
   validates :seo_page_title, length: { maximum: 90 }
-  validates :summary, length: { maximum: 74 }, presence: true
   validates :meta_desc, length: { maximum: 156 }
   validates :pub_status, presence: true,
     inclusion: { in: %w(P D A), message: "%{value} is not a valid status" }
@@ -17,10 +17,11 @@ class Course < ApplicationRecord
 
   before_save :update_pub_date
 
-  default_scope { order("course_order ASC") }
+  # default_scope { order("course_order ASC") }
   scope :with_category, ->(category_id) { where(category_id: category_id) }
   scope :not_archived, -> { where.not(pub_status: "A") }
   scope :published, -> { where(pub_status: "P") }
+  scope :alpha_order, -> { order(:title) }
 
   def validate_has_unique_title
     # TODO: this should go away, or be moved as part of a validation
