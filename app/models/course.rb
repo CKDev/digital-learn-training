@@ -29,14 +29,6 @@ class Course < ApplicationRecord
     end
   end
 
-  def current_pub_status
-    case pub_status
-    when "D" then "Draft"
-    when "P" then "Published"
-    when "T" then "Trashed"
-    end
-  end
-
   def next_lesson_id(current_lesson_id = 0)
     raise StandardError, "There are no available lessons for this course." if lessons.count.zero?
 

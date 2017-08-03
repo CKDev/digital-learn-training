@@ -1,4 +1,5 @@
 require "zip"
+
 class Lesson < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
@@ -19,7 +20,6 @@ class Lesson < ApplicationRecord
     content_type: { content_type: ["application/zip", "application/x-zip"] }, size: { in: 0..100.megabytes }
 
   before_destroy :delete_associated_asl_files
-  before_destroy :delete_associated_user_completions
 
   default_scope { order("lesson_order") }
   scope :published, -> { where(pub_status: "P") }
@@ -30,11 +30,6 @@ class Lesson < ApplicationRecord
 
   def delete_associated_asl_files
     FileUtils.remove_dir "#{Rails.root}/public/storylines/#{id}", true
-  end
-
-  def delete_associated_user_completions
-    completions = CompletedLesson.where(lesson_id: id)
-    completions.each(&:destroy)
   end
 
   def duration_str
