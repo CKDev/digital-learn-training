@@ -1,3 +1,5 @@
+@import "base/vars";
+
 .cert-box {
   border: solid;
   border-color: $teal;
@@ -24,9 +26,9 @@
 
   p {
     font-size: 1.5em;
-    margin: 0.2em 0;
+    margin: 1em 0;
   }
-  
+
   img {
     position: absolute;
     bottom: 2em;

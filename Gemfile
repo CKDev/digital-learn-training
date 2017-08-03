@@ -40,6 +40,10 @@ gem "rubyzip" # ASL files
 gem "api_cache"
 gem "moneta"
 
+# PDF generation for completion certificate
+gem "wicked_pdf"
+gem "wkhtmltopdf-binary"
+
 # Misc
 gem "local_time" # Client-side timezone rendering
 gem "friendly_id" # Slugs for urls

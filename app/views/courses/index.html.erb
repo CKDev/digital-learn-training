@@ -1,4 +1,4 @@
-<%= render "course_intro_text" %>
+<%= content_for(:callout) { %><h1>Available Courses</h1><% } %>
 
 <% if @courses.present? %>
   <%= render partial: "shared/courses/listing" %>

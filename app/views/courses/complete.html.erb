@@ -19,33 +19,33 @@
       <div class="cert-preview hide-on-tablet">
         <div class="cert-inner cert-color">
           <div>
-            <h1><%= t('completed_courses_page.certificate_of_completion') %></h1>
-            <p><%= t('certificate.this_award') %></p>
+            <h1><%= t("completed_courses_page.certificate_of_completion") %></h1>
+            <p><%= t("certificate.this_award") %></p>
 
-            <%= t('certificate.name_fill') %>
-            <p><%= t('certificate.has_completed') %></p>
+            <%= t("certificate.name_fill") %>
+            <p><%= t("certificate.has_completed") %></p>
 
             <h2 class="course"><%= @course.title %></h2>
-            <p><%= t('certificate.as_of') %>  <%= local_time(Time.zone.now, '%B %e, %Y') %></p>
+            <p><%= t("certificate.as_of") %>  <%= local_time(Time.zone.now, '%B %e, %Y') %></p>
             <%= image_tag "dl_logo.png" %>
           </div>
         </div>
       </div>
     </div>
     <div class="margin-bottom">
-      <%= link_to course_complete_path(@course, format: 'pdf') do %>
+      <%= link_to course_complete_path(@course, format: "pdf") do %>
         <button class="congrats-button button-color">Download My Certificate</button>
       <% end %>
     </div>
     <div class="margin-bottom">
       <%= link_to(courses_path) do %>
         <%= button_tag(type: "button", class: "btn-grey bottom-button congrats-button button-color") do %>
-          <%= t('course_completion_page.view_all_courses') %>
+          <%= t("course_completion_page.view_all_courses") %>
         <% end %>
       <% end %>
     </div>
     <div>
-      <%= link_to "#{t('course_completion_page.restart_this_course')}", course_path(@course), class: "white" %>
+      <%= link_to t("course_completion_page.restart_this_course"), course_path(@course), class: "white" %>
     </div>
   </div>
 
@@ -55,9 +55,9 @@
   <div class="six columns border-right">
     <h2>Practice and use your new skills! <span class="note">(click each link below)</span></h2>
     <% if @course.notes.present? %>
-      <div><%= sanitize(@course.notes) %></div>
+      <div><%= sanitize @course.notes %></div>
     <% else %>
-      <p class="note"><%= t('course_completion_page.there_are_no_notes_for_course') %></p>
+      <p class="note"><%= t("course_completion_page.there_are_no_notes_for_course") %></p>
     <% end %>
   </div>
 
