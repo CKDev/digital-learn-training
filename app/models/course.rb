@@ -2,7 +2,6 @@ class Course < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-  # has_one :course_progress
   has_many :lessons
   has_many :attachments, dependent: :destroy
 
@@ -16,8 +15,9 @@ class Course < ApplicationRecord
 
   accepts_nested_attributes_for :attachments, reject_if: proc { |a| a[:document].blank? }, allow_destroy: true
 
-  default_scope { order("course_order ASC") }
+  before_save :update_pub_date
 
+  default_scope { order("course_order ASC") }
   scope :with_category, ->(category_id) { where(category_id: category_id) }
   scope :not_archived, -> { where.not(pub_status: "A") }
   scope :published, -> { where(pub_status: "P") }
@@ -55,15 +55,16 @@ class Course < ApplicationRecord
     Duration.minutes_str(total, format)
   end
 
-  def set_pub_date
-    self.pub_date = Time.zone.now unless pub_status != "P"
+  def update_pub_date
+    pub_status == "P" ? self.pub_date = Time.zone.now : self.pub_date = nil
+    true # Since this is used from a callback.
   end
 
-  def update_pub_date(new_pub_status)
-    if new_pub_status == "P"
-      self.pub_date = Time.zone.now
+  def pub_date_str
+    if pub_status == "P" && pub_date.present?
+      pub_date.strftime(Constants.month_day_year)
     else
-      self.pub_date = nil
+      "N/A"
     end
   end
 

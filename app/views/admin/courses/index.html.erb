@@ -28,7 +28,7 @@
             <div class="cell"><%= link_to course.title, edit_admin_course_path(course), class: "no_drag_link" %></div>
             <div class="cell"><%= course.contributor %></div>
             <div class="cell"><%= course.pub_status.titleize %></div>
-            <div class="cell">Pub Date (when available)</div>
+            <div class="cell"><%= course.pub_date_str %></div>
           </li>
         <% end %>
       </ul>

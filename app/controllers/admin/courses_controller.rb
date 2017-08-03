@@ -22,11 +22,6 @@ module Admin
     def create
       @course = Course.new
 
-      # TODO: handle another way
-      # if params[:course][:pub_status] == "P"
-      #   @course.set_pub_date
-      # end
-
       # TODO: handle with validation
       # @course.validate_has_unique_title
 
@@ -44,10 +39,6 @@ module Admin
     def update
       # The slug must be set to nil for the friendly_id to update on title change
       @course.slug = nil if @course.title != params[:course][:title]
-
-      # TODO: handle another way
-      # @course.update_pub_date(params[:course][:pub_status]) if params[:course][:pub_status] != @course.pub_status
-
       if @course.update(course_params)
         case params[:commit]
         when "Save Course"
