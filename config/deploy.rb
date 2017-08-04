@@ -20,7 +20,7 @@ set :bundle_env_variables, {
 ## Global SSH Options
 set :ssh_options, {
   forward_agent: true,
-  port: 22222,
+  port: 1022,
   keepalive: true,
   keepalive_interval: 60, # Seconds - prevents idle timeouts on long tasks.
 }

@@ -4,6 +4,6 @@ set :branch, "master"
 
 server "dl-training.ckstage.com",
   user: fetch(:application),
-  port: 22222,
+  port: 1022,
   roles: %w{web app db},
   primary: true
