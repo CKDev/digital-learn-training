@@ -6,7 +6,7 @@ $(document).ready(function() {
   sendLessonCompletedEvent = function() {
     var is_assessment = $("#is_assessment").val() === "true";
     if (!is_assessment) {
-      window.location = (window.location.pathname + "/lesson_complete")
+      window.location = (window.location.pathname + "/lesson_complete");
     }
     else {
       $.ajax({
