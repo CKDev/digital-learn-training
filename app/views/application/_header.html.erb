@@ -12,9 +12,15 @@
         </div>
       <% end %>
       <nav class="primary-links">
-        <%= link_to "Course Materials", "#" %><span class="divider">|</span>
-        <%= link_to "Training", courses_path %><span class="divider">|</span>
-        <%= link_to "Peer Discussion", "http://community.digitallearn.org/" %>
+        <% if admin_signed_in? %>
+          <span class="black">Hi Admin!</span><span class="divider">|</span>
+          <%= link_to "Admin Dashboard", admin_root_path %><span class="divider">|</span>
+          <%= link_to "Sign Out", destroy_user_session_path, method: "delete" %>
+        <% else %>
+          <%= link_to "Course Materials", "#" %><span class="divider">|</span>
+          <%= link_to "Training", courses_path %><span class="divider">|</span>
+          <%= link_to "Peer Discussion", "http://community.digitallearn.org/" %>
+        <% end %>
       </nav>
     </div>
   </div>

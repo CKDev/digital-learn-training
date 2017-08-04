@@ -43,7 +43,7 @@
           <p class="upload-field">
             <%= @lesson.story_line.instance.story_line_file_name %>
             <%= link_to "Remove", destroy_asl_attachment_admin_course_lessons_path(@course, @lesson),
-              method: "delete", data: { confirm: "Are you sure?" } %>
+              method: "delete", data: { confirm: "Are you sure you want to remove this storyline file?" } %>
           </p>
         </fieldset>
       <% end %>

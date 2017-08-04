@@ -1,11 +1,4 @@
-<%= content_for :callout do %>
-  <h1><%="#{@lesson.lesson_order}. #{@lesson.title}" %></h1>
-  <small><i class="icon-clock white"></i><%= @lesson.duration_str %></small>
-<% end %>
-
-<%= content_for :course_progress do %>
-  <%= render "course_progress", { course: @course, lesson: @lesson, course_progress: @course_progress } %>
-<% end %>
+<%= render "meta_description" %>
 
 <%= asl_iframe(@lesson) %>
 

@@ -1,0 +1,16 @@
+<%= content_for :callout do %>
+  <h1><%="#{@lesson.lesson_order}. #{@lesson.title}" %></h1>
+  <small><i class="icon-clock white"></i><%= @lesson.duration_str %></small>
+<% end %>
+
+<% content_for :meta_title do %>
+  <%= @lesson.seo_page_title.present? ? @lesson.seo_page_title : @lesson.title  %>
+<% end %>
+
+<% content_for :meta_description do %>
+  <%= @lesson.meta_desc.present? ? @lesson.meta_desc : @lesson.summary %>
+<% end %>
+
+<%= content_for :course_progress do %>
+  <%= render "course_progress", { course: @course, lesson: @lesson, course_progress: @course_progress } %>
+<% end %>
