@@ -12,9 +12,9 @@
   <div class="four columns align-right mobile-tweak">
     <% if admin_signed_in? %>
       <p class="course-edit-add-remove"><small><%= link_to "Edit Course >>", edit_admin_course_path(@course) %></small></p>
-      <%= link_to t("course_page.start_course"), course_start_path(@course), method: :post, class: "btn button-color" %>
+      <%= link_to t("course_page.start_course"), course_start_path(@course), method: :post, class: "btn" %>
     <% else %>
-      <%= link_to t("course_page.start_course"), course_start_path(@course), method: :post, class: "btn unauth-start-course-button button-color" %>
+      <%= link_to t("course_page.start_course"), course_start_path(@course), method: :post, class: "btn unauth-start-course-button" %>
     <% end %>
   </div>
 </div>

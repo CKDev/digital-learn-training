@@ -31,14 +31,5 @@
   </div>
 </div>
 
-<%= link_to new_admin_course_lesson_path, class: "transparent" do %>
-  <div class="btn button-color">
-    Add Another Lesson
-  </div>
-<% end %>
-
-<%= link_to edit_admin_course_path(@course), class: "transparent" do %>
-  <div class="btn btn-grey">
-    Return to Course Edit Page
-  </div>
-<% end %>
+<%= link_to "Add Another Lesson", new_admin_course_lesson_path, class: "btn" %>
+<%= link_to "Return to Course Edit Page", edit_admin_course_path(@course), class: "btn btn-grey" %>

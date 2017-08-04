@@ -23,12 +23,12 @@
   </div>
   <div class="margin-bottom">
     <%= link_to course_complete_path(@course, format: "pdf") do %>
-      <button class="congrats-button button-color">Download My Certificate</button>
+      <button class="congrats-button">Download My Certificate</button>
     <% end %>
   </div>
   <div class="margin-bottom">
     <%= link_to(courses_path) do %>
-      <%= button_tag(type: "button", class: "btn-grey bottom-button congrats-button button-color") do %>
+      <%= button_tag(type: "button", class: "btn-grey bottom-button congrats-button") do %>
         <%= t("course_completion_page.view_all_courses") %>
       <% end %>
     <% end %>
@@ -51,6 +51,6 @@
   </div>
 
   <div class="six columns">
-    <%= render partial: "shared/post_course_materials", locals: { course: @course } %>
+    <%= render "post_course_materials", course: @course %>
   </div>
 </div>
