@@ -17,7 +17,7 @@ class Course < ApplicationRecord
 
   before_save :update_pub_date
 
-  # default_scope { order("course_order ASC") }
+  default_scope { order("course_order") }
   scope :with_category, ->(category_id) { where(category_id: category_id) }
   scope :not_archived, -> { where.not(pub_status: "A") }
   scope :published, -> { where(pub_status: "P") }

@@ -2,7 +2,7 @@ class HomeController < ApplicationController
 
   def index
     @recent_topics = discourse_wrapper.recent_topics
-    @courses = Course.published.alpha_order
+    @courses = Course.published.limit(2)
   end
 
   private

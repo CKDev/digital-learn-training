@@ -25,11 +25,6 @@ module Admin
       @lesson.duration_to_int(lesson_params[:duration])
       @lesson.lesson_order = @course.lessons.count + 1
 
-      # TODO: do as validation
-      if @lesson.is_assessment?
-        validate_assessment || return
-      end
-
       if @lesson.save
         Unzipper.new(@lesson.story_line)
         redirect_to edit_admin_course_lesson_path(@course, @lesson), notice: "Lesson was successfully created."
@@ -45,11 +40,6 @@ module Admin
       # TODO: this could be done with a merge in the strong params method.
       @lesson_params = lesson_params
       @lesson_params[:duration] = @lesson.duration_to_int(lesson_params[:duration])
-
-      # TODO: do as validation
-      if lesson_params[:is_assessment] == "true"
-        validate_assessment || return
-      end
 
       if @lesson.update(@lesson_params)
         Unzipper.new(@lesson.story_line) if @lesson.story_line_updated_at.present?
@@ -84,16 +74,6 @@ module Admin
       params.require(:lesson).permit(:title, :summary, :duration,
         :story_line, :seo_page_title, :meta_desc,
         :is_assessment, :lesson_order, :pub_status)
-    end
-
-    def validate_assessment
-      if @course.lessons.where(is_assessment: true).blank?
-        @lesson.lesson_order = @lesson.course.lessons.count + 1
-        true
-      else
-        flash.now[:alert] = I18n.t(".multiple_assessments_msg")
-        render :new and return
-      end
     end
   end
 end

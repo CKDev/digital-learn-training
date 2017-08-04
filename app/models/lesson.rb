@@ -19,6 +19,7 @@ class Lesson < ApplicationRecord
   validates_attachment :story_line, presence: true,
     content_type: { content_type: ["application/zip", "application/x-zip"] }, size: { in: 0..100.megabytes }
 
+  before_save :remove_other_assessments
   before_destroy :delete_associated_asl_files
 
   default_scope { order("lesson_order") }
@@ -44,4 +45,13 @@ class Lesson < ApplicationRecord
       self.duration = duration_param.to_i
     end
   end
+
+  def remove_other_assessments
+    if self.is_assessment
+      self.course.lessons.where("lessons.id <> ? AND lessons.is_assessment = ?", self.id, true).update(is_assessment: false)
+    else
+      true
+    end
+  end
+
 end
