@@ -40,11 +40,11 @@ module Admin
 
     def update
       @lesson ||= @course.lessons.friendly.find(params[:id])
-      # set slug to nil to regenerate if title changes
-      @lesson.slug = nil if @lesson.title != params[:lesson][:title]
+      @lesson.slug = nil if @lesson.title != params[:lesson][:title]  # Force regenerate if title changes.
+
+      # TODO: this could be done with a merge in the strong params method.
       @lesson_params = lesson_params
       @lesson_params[:duration] = @lesson.duration_to_int(lesson_params[:duration])
-      asl_is_new = @lesson.story_line_updated_at.nil?
 
       # TODO: do as validation
       if lesson_params[:is_assessment] == "true"
@@ -52,7 +52,7 @@ module Admin
       end
 
       if @lesson.update(@lesson_params)
-        Unzipper.new(@lesson.story_line) if asl_is_new
+        Unzipper.new(@lesson.story_line) if @lesson.story_line_updated_at.present?
         redirect_to edit_admin_course_lesson_path, notice: "Lesson successfully updated."
       else
         render :edit, notice: "Lesson failed to update."

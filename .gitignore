@@ -49,3 +49,6 @@ bower.json
 
 # Rspec re-run file
 examples.txt
+
+# Storyline files
+/public/storylines
