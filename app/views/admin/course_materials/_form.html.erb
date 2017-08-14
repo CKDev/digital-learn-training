@@ -1,0 +1,32 @@
+<%= form_for([:admin, @course_material], html: { multipart: true }) do |f| %>
+
+  <%= render "form_errors", m: @course_material %>
+
+  <fieldset>
+    <%= f.label :title, class: "required" %>
+    <%= f.text_field :title, maxlength: 90 %>
+    <div class="character-limit">&nbsp;</div>
+  </fieldset>
+
+  <fieldset>
+    <%= f.label :contributor, class: "required" %>
+    <%= f.text_field :contributor, maxlength: 156 %>
+    <div class="character-limit">&nbsp;</div>
+  </fieldset>
+
+  <fieldset>
+    <%= f.label :summary, class: "required" %>
+    <%= f.text_field :summary, maxlength: 156 %>
+    <div class="character-limit">&nbsp;</div>
+  </fieldset>
+
+  <fieldset>
+    <%= f.label :description, class: "required" %>
+    <%= f.cktext_area :description %>
+  </fieldset>
+
+  <div class="actions">
+    <%= f.submit "Save Course Materials" %>
+  </div>
+
+<% end %>

@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :course_materials
+
     resources :attachments, only: [:destroy]
   end
 end

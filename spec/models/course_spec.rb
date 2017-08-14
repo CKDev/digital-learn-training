@@ -12,6 +12,8 @@ describe Course do
       expect(@course.valid?).to be true
     end
 
+    pending "it should require the title to be unique"
+
   end
 
 end

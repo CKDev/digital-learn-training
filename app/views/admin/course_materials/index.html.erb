@@ -1,0 +1,36 @@
+<%= content_for(:callout) { %><h1>Course Materials Index</h1><% } %>
+
+<div class="row extra-margin-bottom">
+  <div class="six columns">
+    <p class="note no-top-margin">
+      Re-order course materials on the homepage by clicking on the arrow icon to drag and drop courses. Edit by clicking the appropriate course below.
+    </p>
+  </div>
+  <div class="six columns left-or-right">
+    <%= link_to "Add New Course Materials", new_admin_course_material_path, class: "btn" %>
+  </div>
+</div>
+
+<%# hidden_field_tag :sort_url, "/admin/courses/sort" %>
+<div class="extra-margin-bottom">
+  <div class="sortable-list">
+    <div class="list-titles">
+      <div class="cell">Course</div>
+      <div class="cell">Contributor</div>
+      <div class="cell">Publication Date</div>
+    </div>
+    <% if @course_materials.present? %>
+      <ul class="objects sortable reorderable">
+        <% @course_materials.each do |course_material| %>
+          <li class="sortable-item" data-id="<%= course_material.id %>">
+            <div class="cell"><%= link_to course_material.title, edit_admin_course_material_path(course_material), class: "no_drag_link" %></div>
+            <div class="cell"><%= course_material.contributor %></div>
+            <div class="cell">&nbsp;<%# course_material.pub_date_str %></div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>There are no available course materials.</p>
+    <% end %>
+  </div>
+</div>

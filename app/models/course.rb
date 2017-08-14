@@ -5,7 +5,8 @@ class Course < ApplicationRecord
   has_many :lessons
   has_many :attachments, dependent: :destroy
 
-  validates :description, :contributor, presence: true
+  validates :description, presence: true
+  validates :contributor, presence: true # TODO: length ?
   validates :title, length: { maximum: 90 }, presence: true
   validates :summary, length: { maximum: 156 }, presence: true
   validates :seo_page_title, length: { maximum: 90 }
