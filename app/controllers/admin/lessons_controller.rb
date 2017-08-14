@@ -35,7 +35,7 @@ module Admin
 
     def update
       @lesson ||= @course.lessons.friendly.find(params[:id])
-      @lesson.slug = nil if @lesson.title != params[:lesson][:title]  # Force regenerate if title changes.
+      @lesson.slug = nil if @lesson.title != params[:lesson][:title] # Force regenerate if title changes.
 
       # TODO: this could be done with a merge in the strong params method.
       @lesson_params = lesson_params
