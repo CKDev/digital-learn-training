@@ -64,7 +64,7 @@ class Course < ApplicationRecord
 
   def pub_date_str
     if pub_status == "P" && pub_date.present?
-      pub_date.strftime(Constants.month_day_year)
+      pub_date.strftime(DateFormats.month_day_year)
     else
       "N/A"
     end
