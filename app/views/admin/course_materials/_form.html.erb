@@ -25,7 +25,31 @@
     <%= f.cktext_area :description %>
   </fieldset>
 
-  <div class="actions">
+  <h3>Course Files <small>(acceptable formats: PDF, CSV, Word, PowerPoint, or Excel)</small></h3>
+  <div class="js-cocoon-item-files">
+    <%= f.fields_for :course_material_files do |file| %>
+      <%= render "course_material_file_fields", f: file %>
+    <% end %>
+  </div>
+
+  <div class="extra-margin-bottom">
+    <%= link_to_add_association "Add Course File", f, :course_material_files,
+      { "data-association-insertion-method" => "append", "data-association-insertion-node" => ".js-cocoon-item-files" } %>
+  </div>
+
+  <h3>Course Media <small>(acceptable formats: PNG, JPG, GIF, WEBP, or MP4)</small></h3>
+  <div class="js-cocoon-item-medias">
+    <%= f.fields_for :course_material_medias do |media| %>
+      <%= render "course_material_media_fields", f: media %>
+    <% end %>
+  </div>
+
+  <div class="extra-margin-bottom">
+    <%= link_to_add_association "Add Course Media File", f, :course_material_medias,
+      { "data-association-insertion-method" => "append", "data-association-insertion-node" => ".js-cocoon-item-medias" } %>
+  </div>
+
+  <div>
     <%= f.submit "Save Course Materials" %>
   </div>
 

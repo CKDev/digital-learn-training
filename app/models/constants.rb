@@ -1,11 +1,32 @@
 class Constants
 
   def self.acceptable_doc_types
-    types = [
+    [
       "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-    ]
-    types.join(", ")
+    ].join(", ")
   end
 
+  def self.course_material_file_types
+    [
+      "application/pdf", "application/vnd.ms-excel", "text/csv",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-powerpoint",
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ]
+  end
+
+  def self.course_material_file_types_str
+    course_material_file_types.join(", ")
+  end
+
+  def self.course_material_media_types
+    [
+      "image/png", "image/jpeg", "image/gif", "image/webp", "video/mp4"
+    ]
+  end
+
+  def self.course_material_media_types_str
+    course_material_media_types.join(", ")
+  end
 end

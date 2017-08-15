@@ -30,12 +30,30 @@ describe Admin::CourseMaterialsController do
 
   describe "POST #create" do
 
+    let(:file_upload) do
+      fixture_file_upload(Rails.root.join("spec", "fixtures", "test_upload.pdf"), "application/pdf")
+    end
+
+    let(:media_upload) do
+      fixture_file_upload(Rails.root.join("spec", "fixtures", "test.png"), "image/png")
+    end
+
     let(:valid_attributes) do
       {
         title: "New Course Material",
         contributor: "Alejandro",
         summary: "Summary of Course Material",
-        description: "Description of Course Material"
+        description: "Description of Course Material",
+        course_material_files_attributes: {
+          "0" => {
+            file: file_upload
+          }
+        },
+        course_material_medias_attributes: {
+          "0" => {
+            media: media_upload
+          }
+        }
       }
     end
 
@@ -57,6 +75,8 @@ describe Admin::CourseMaterialsController do
       expect(course_material.contributor).to eq "Alejandro"
       expect(course_material.summary).to eq "Summary of Course Material"
       expect(course_material.description).to eq "Description of Course Material"
+      expect(course_material.course_material_files.first.present?).to be true
+      expect(course_material.course_material_medias.first.present?).to be true
     end
 
     it "renders the new view if there is missing information" do

@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require local_time
 //= require ckeditor/init
+//= require cocoon
 //= require_tree .

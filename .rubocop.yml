@@ -51,7 +51,7 @@ Layout/MultilineMethodCallIndentation:
 Metrics/ModuleLength:
   Max: 110
   Exclude:
-    - "spec/controllers/users/buyers_requests_controller_spec.rb" # Just a spec file, it's fine.
+    - "spec/**/*"
 
 Metrics/ClassLength:
   Max: 300
@@ -68,6 +68,8 @@ Metrics/AbcSize:
 
 Metrics/BlockLength:
   Max: 105
+  Exclude:
+    - "spec/**/*"
 
 Metrics/CyclomaticComplexity:
   Max: 17

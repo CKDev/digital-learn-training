@@ -2,6 +2,7 @@ class Attachment < ApplicationRecord
   belongs_to :course
   has_attached_file :document
 
+  # TODO: pull out this list into constants.
   validates_attachment_content_type :document,
     content_type: ["application/pdf", "text/plain", "application/vnd.ms-excel",
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-powerpoint",

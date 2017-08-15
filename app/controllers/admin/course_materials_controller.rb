@@ -7,6 +7,8 @@ module Admin
 
     def new
       @course_material = CourseMaterial.new
+      @course_material.course_material_files.build
+      @course_material.course_material_medias.build
     end
 
     def create
@@ -34,7 +36,9 @@ module Admin
     private
 
     def course_material_params
-      params.require(:course_material).permit(:title, :contributor, :summary, :description)
+      params.require(:course_material).permit(:title, :contributor, :summary, :description,
+        course_material_files_attributes: [:id, :file, :_destroy],
+        course_material_medias_attributes: [:id, :media, :_destroy])
     end
 
   end

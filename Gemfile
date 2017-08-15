@@ -14,8 +14,6 @@ gem "redis-namespace"
 
 # Authentication and authorization
 gem "devise"
-# gem "rolify"
-# gem "pundit"
 
 # Bourbon for sass mixins, and neat for the grid framework
 gem "bourbon", "4.2.7"
@@ -48,8 +46,8 @@ gem "wkhtmltopdf-binary"
 gem "local_time" # Client-side timezone rendering
 gem "friendly_id" # Slugs for urls
 gem "ckeditor" # HTML Editor
+gem "cocoon" # Dynamic forms for has-many relationships
 # gem "whenever", require: false # Cron scheduling
-# gem "paper_trail" # Model auditing
 # gem "will_paginate"
 
 group :development, :test do

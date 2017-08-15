@@ -1,7 +1,14 @@
 class CourseMaterial < ApplicationRecord
+  has_many :course_material_files, dependent: :destroy
+  has_many :course_material_medias, dependent: :destroy
 
   validates :title, length: { maximum: 90 }, presence: true, uniqueness: true
   validates :contributor, length: { maximum: 156 }, presence: true
   validates :summary, length: { maximum: 156 }
 
+  accepts_nested_attributes_for :course_material_files, reject_if: :all_blank, allow_destroy: true
+  validates_associated :course_material_files
+
+  accepts_nested_attributes_for :course_material_medias, reject_if: :all_blank, allow_destroy: true
+  validates_associated :course_material_medias
 end

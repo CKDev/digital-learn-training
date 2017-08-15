@@ -1,0 +1,18 @@
+<div class="nested-fields">
+  <div class="js-form-upload">
+    <%= f.label :media do %>
+      <% if f.object.media.present? %>
+        <small class="padding-left">
+          (<%= f.object.media_file_name %> - <%= number_to_human_size(f.object.media.size) %>)
+        </small>
+      <% else %>
+        <small>New File</small>
+      <% end %>
+    <% end %>
+    <%= f.file_field :media, accept: Constants.course_material_media_types_str, class: "margin-bottom" %>
+  </div>
+
+  <div class="extra-margin-bottom">
+    <%= link_to_remove_association "Remove Course Media", f %>
+  </div>
+</div>
