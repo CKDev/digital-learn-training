@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "home#index"
-  resources :pages, only: [:show]
 
+  resources :pages, only: [:show]
   resources :courses, only: [:index, :show] do
     post :start
     get :complete
@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       post :complete
     end
   end
+  resources :course_materials, only: [:show]
 
   namespace :admin do
     root "pages#index"

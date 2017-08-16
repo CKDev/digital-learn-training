@@ -36,3 +36,8 @@
     <%= render "components/media_object_1", title: "LinkedIn", link: "#", icon: "icon-files" %>
   </div>
 </div>
+
+<h3>Other</h3>
+<% @course_materials.each do |course_material| %>
+    <%= render "components/media_object_1", title: course_material.title, link: course_material_path(course_material), icon: "icon-files" %>
+<% end %>

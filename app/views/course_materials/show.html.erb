@@ -1,0 +1,44 @@
+<div class="extra-margin-bottom">
+  Breadcrumbs >> >> >>
+</div>
+
+<div class="row extra-margin-bottom">
+  <div class="six columns">
+    Four files and four images
+  </div>
+
+  <div class="six columns">
+    Have something to contribute? Get in touch
+  </div>
+</div>
+
+<div class="extra-margin-bottom">
+  <div>Contributed by: <%= @course_material.contributor %></div>
+  <div>Topics: </div>
+</div>
+
+<div class="extra-margin-bottom">
+  <p><%= @course_material.summary %></p>
+</div>
+
+<hr />
+
+<h2>Class Files</h2>
+
+<%= render partial: "grid", locals: { course_material: @course_material } %>
+
+<div style="text-align: center;">
+  <button>Download All Files</button>
+</div>
+
+<h2>Sample Images</h2>
+
+<%= render partial: "grid", locals: { course_material: @course_material } %>
+
+<div style="text-align: center;">
+  <button>Download All Images</button>
+</div>
+
+<hr />
+
+<h2>More Classes in X Category<small>View All >></small></h2>
