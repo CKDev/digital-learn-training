@@ -13,11 +13,11 @@ Rails.application.routes.draw do
     end
   end
   resources :course_materials, only: [:show]
+  resources :categories, only: [:show]
 
   namespace :admin do
     root "pages#index"
     resources :pages
-
     resources :courses do
       put :sort, on: :collection
       resources :lessons do
@@ -25,9 +25,7 @@ Rails.application.routes.draw do
         delete :destroy_asl_attachment, on: :collection
       end
     end
-
     resources :course_materials
-
     resources :attachments, only: [:destroy]
   end
 end

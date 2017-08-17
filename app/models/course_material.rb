@@ -1,4 +1,5 @@
 class CourseMaterial < ApplicationRecord
+  belongs_to :sub_category
   has_many :course_material_files, dependent: :destroy
   has_many :course_material_medias, dependent: :destroy
 
@@ -11,4 +12,6 @@ class CourseMaterial < ApplicationRecord
 
   accepts_nested_attributes_for :course_material_medias, reject_if: :all_blank, allow_destroy: true
   validates_associated :course_material_medias
+
+  scope :in_category, ->(category_id) { joins(sub_category: :category).where("categories.id = ?", category_id) }
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815161419) do
+ActiveRecord::Schema.define(version: 20170817165440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(version: 20170815161419) do
     t.datetime "document_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "description"
   end
 
   create_table "course_material_files", force: :cascade do |t|
@@ -55,6 +62,7 @@ ActiveRecord::Schema.define(version: 20170815161419) do
     t.string "contributor", limit: 156
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "sub_category_id"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -119,6 +127,13 @@ ActiveRecord::Schema.define(version: 20170815161419) do
     t.datetime "updated_at", null: false
     t.index ["pub_status"], name: "index_pages_on_pub_status"
     t.index ["title"], name: "index_pages_on_title", unique: true
+  end
+
+  create_table "sub_categories", force: :cascade do |t|
+    t.string "title"
+    t.integer "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

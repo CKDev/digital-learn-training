@@ -17,7 +17,7 @@ gem "devise"
 
 # Bourbon for sass mixins, and neat for the grid framework
 gem "bourbon", "4.2.7"
-gem "neat", "1.8.0" # Careful, as v 2.0 removes some mixins in use.
+gem "neat", "1.8.0" # Careful, as v2.0 removes some mixins in use.
 
 # Background processing
 # gem "sidekiq"

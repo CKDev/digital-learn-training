@@ -1,43 +1,14 @@
-<h3>Hardware</h3>
-<div class="row extra-margin-bottom">
-  <div class="six columns">
-    <%= render "components/media_object_1", title: "Computer Basics", link: "#", icon: "icon-files" %>
-  </div>
-  <div class="six columns">
-    <%= render "components/media_object_1", title: "Tablet Basics", link: "#", icon: "icon-files" %>
-  </div>
-</div>
-
-<h3>Software & Applications</h3>
-<div class="row extra-margin-bottom">
-  <div class="six columns">
-    <%= render "components/media_object_1", title: "Microsoft Tools", link: "#", icon: "icon-files" %>
-  </div>
-  <div class="six columns">
-    <%= render "components/media_object_1", title: "Google Tools", link: "#", icon: "icon-files" %>
-  </div>
-</div>
-
-<div class="row extra-margin-bottom">
-  <div class="six columns">
-    <%= render "components/media_object_1", title: "Social Media", link: "#", icon: "icon-files" %>
-  </div>
-  <div class="six columns">
-    <%= render "components/media_object_1", title: "More Websites & Apps", link: "#", icon: "icon-files" %>
-  </div>
-</div>
-
-<h3>Job & Career</h3>
-<div class="row extra-margin-bottom">
-  <div class="six columns">
-    <%= render "components/media_object_1", title: "Resume Series", link: "#", icon: "icon-files" %>
-  </div>
-  <div class="six columns">
-    <%= render "components/media_object_1", title: "LinkedIn", link: "#", icon: "icon-files" %>
-  </div>
-</div>
-
-<h3>Other</h3>
-<% @course_materials.each do |course_material| %>
-    <%= render "components/media_object_1", title: course_material.title, link: course_material_path(course_material), icon: "icon-files" %>
+<% @categories.each do |category| %>
+  <h3><%= category.title %></h3>
+  <% category.sub_categories.each_with_index do |sub_category, index| %>
+    <% if (index % 2 == 0) %>
+    <div class="row extra-margin-bottom">
+    <% end %>
+      <div class="six columns">
+        <%= render "components/media_object_1", title: sub_category.title, link: category_path(sub_category), icon: "icon-files" %>
+      </div>
+    <% if (index % 2 == 1) %>
+    </div>
+    <% end %>
+  <% end %>
 <% end %>

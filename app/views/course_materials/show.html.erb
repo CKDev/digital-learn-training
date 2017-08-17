@@ -1,14 +1,18 @@
 <div class="extra-margin-bottom">
-  Breadcrumbs >> >> >>
+  <%= link_to @course_material.sub_category.category.title, category_path(@course_material.sub_category.category) %> >>
+  <%= @course_material.sub_category.title %> >> <%= @course_material.title %>
 </div>
 
 <div class="row extra-margin-bottom">
-  <div class="six columns">
-    Four files and four images
+  <div class="six columns course-material-meta">
+    <%= svg_tag "icon-download", class: "svg-icon teal" %>
+    <%= @course_material.course_material_files.size %> files and <%= @course_material.course_material_medias.size %> images
   </div>
 
   <div class="six columns">
-    Have something to contribute? Get in touch
+    <%= svg_tag "icon-mail", class: "svg-icon teal" %>
+    Have something to contribute?
+    <%= mail_to "support@digitallearn.org", "Get in touch", subject: "Contact from DigitalLearn Training site" %>
   </div>
 </div>
 
@@ -41,4 +45,13 @@
 
 <hr />
 
-<h2>More Classes in X Category<small>View All >></small></h2>
+<h2>
+  More Classes in <%= @course_material.sub_category.title %> Category
+  <small><%= link_to "View All >>", category_path(@course_material.sub_category) %></small>
+</h2>
+
+<% if @course_materials.present? %>
+  <%= render "listing" %>
+<% else %>
+  <p>There are currently no available courses.</p>
+<% end %>

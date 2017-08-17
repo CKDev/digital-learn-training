@@ -1,3 +1,6 @@
+<div>
 <% course_material.course_material_files.each do |f| %>
   <%= render partial: "file_block", locals: { file: f } %>
 <% end %>
+</div>
+<div class="clearfix"></div>
