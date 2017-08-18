@@ -6,9 +6,14 @@ module Admin
     end
 
     def new
-      @course_material = CourseMaterial.new
-      @course_material.course_material_files.build
-      @course_material.course_material_medias.build
+      if request.xhr? # Ajax call for dynamic select box
+        @sub_categories = Category.find(params[:category_id]).sub_categories
+      else
+        @course_material = CourseMaterial.new
+        @course_material.course_material_files.build
+        @course_material.course_material_medias.build
+        @sub_categories = []
+      end
     end
 
     def create
@@ -21,7 +26,12 @@ module Admin
     end
 
     def edit
-      @course_material = CourseMaterial.find(params[:id])
+      if request.xhr? # Ajax call for dynamic select box
+        @sub_categories = Category.find(params[:category_id]).sub_categories
+      else
+        @course_material = CourseMaterial.find(params[:id])
+        @sub_categories = @course_material.sub_category.category.sub_categories # TODO: could be better.
+      end
     end
 
     def update

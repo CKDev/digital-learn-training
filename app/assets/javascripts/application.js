@@ -16,3 +16,4 @@
 //= require ckeditor/init
 //= require cocoon
 //= require_tree .
+//= require admin/course_materials

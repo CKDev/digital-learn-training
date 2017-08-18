@@ -25,6 +25,16 @@
     <%= f.cktext_area :description %>
   </fieldset>
 
+  <fieldset>
+    <%= label_tag :category, "Category", class: "required" %>
+    <%= select_tag :category, options_for_select(Category.all.map { |c| [c.title, c.id]}, @course_material.sub_category.category.id), 
+      include_blank: "Select ...", id: "category-id" %>
+  </fieldset>
+
+  <fieldset id="js-subcategory-container" class="ajax-replaceable">
+    <%= render partial: "sub_categories" %>
+  </fieldset>
+
   <h3>Course Files <small>(acceptable formats: PDF, CSV, Word, PowerPoint, or Excel)</small></h3>
   <div class="js-cocoon-item-files">
     <%= f.fields_for :course_material_files do |file| %>

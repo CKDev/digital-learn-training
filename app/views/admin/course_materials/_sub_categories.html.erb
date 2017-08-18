@@ -1,0 +1,3 @@
+<%= label_tag :sub_category, "Sub Category", class: "required" %>
+<%= select_tag :sub_category, options_for_select(@sub_categories.map { |sc| [sc.title, sc.id] }, @course_material.sub_category.id), 
+  include_blank: "Select ..." %>

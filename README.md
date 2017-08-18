@@ -44,7 +44,7 @@ Rubocop is used on this project, which defines the Ruby styling agreed upon for 
 
 ### JavaScript
 
-[Info on JavaScript testing/code standars and norms]
+[Info on JavaScript testing/code standards and norms]
 
 (E.g. from the Showami Project, replace with this project's norms)
 
@@ -52,7 +52,7 @@ At this time there is no JavaScript testing or linting, as there is simply not e
 
 ## Testing
 
-[Info on Rails testing/code standars and norms]
+[Info on Rails testing/code standards and norms]
 
 (E.g. from the Showami Project, replace with this project's norms)
 

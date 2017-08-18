@@ -12,7 +12,9 @@
       </div>
 
       <div class="eight columns">
-        <%= render "course_materials" %>
+        <%= render "category", { title: "Hardware", categories: @hardware } %>
+        <%= render "category", { title: "Software & Applications", categories: @software_and_applications } %>
+        <%= render "category", { title: "Job & Career", categories: @job_and_career } %>
       </div>
     </div>
 

@@ -1,0 +1,31 @@
+<%= form_for([:admin, @category]) do |f| %>
+
+  <%= render "form_errors", m: @category %>
+
+  <fieldset>
+    <%= f.label :title, class: "required" %>
+    <%= f.text_field :title %>
+  </fieldset>
+
+  <fieldset>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </fieldset>
+
+  <h3>Subcategories</h3>
+  <div class="js-cocoon-subcategories">
+    <%= f.fields_for :sub_categories do |subcategory| %>
+      <%= render "sub_category_fields", f: subcategory %>
+    <% end %>
+  </div>
+
+  <div class="extra-margin-bottom">
+    <%= link_to_add_association "Add Subcategory", f, :sub_categories,
+      { "data-association-insertion-method" => "append", "data-association-insertion-node" => ".js-cocoon-subcategories" } %>
+  </div>
+
+  <fieldset>
+    <%= f.submit "Save Category" %>
+  </fieldset>
+
+<% end %>

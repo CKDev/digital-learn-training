@@ -6,16 +6,15 @@ end
   Page.create(title: page, body: "#{page} ...", pub_status: "draft", author: "Admin")
 end
 
-category = Category.create(title: "Hardware")
-SubCategory.create(title: "Computer Basics", category: category)
-SubCategory.create(title: "Tablet Basics", category: category)
+Category.create(title: "Computer Basics", tag: "Hardware")
+Category.create(title: "Tablet Basics", tag: "Hardware")
 
-category = Category.create(title: "Software & Applications")
-SubCategory.create(title: "Microsoft Tools", category: category)
-SubCategory.create(title: "Google Tools", category: category)
-SubCategory.create(title: "Social Media", category: category)
-SubCategory.create(title: "More Websites & Apps", category: category)
+category = Category.create(title: "Microsoft Tools", tag: "Software & Applications")
+SubCategory.create(title: "Microsoft Office 2013", category: category)
+SubCategory.create(title: "Microsoft Office 2010", category: category)
 
-category = Category.create(title: "Job & Career")
-SubCategory.create(title: "Resume Series", category: category)
-SubCategory.create(title: "LinkedIn", category: category)
+Category.create(title: "Google Tools", tag: "Software & Applications")
+Category.create(title: "Social Media", tag: "Software & Applications")
+Category.create(title: "More Websites & Apps", tag: "Software & Applications")
+Category.create(title: "Resume Series", tag: "Job & Career")
+Category.create(title: "LinkedIn", tag: "Job & Career")
