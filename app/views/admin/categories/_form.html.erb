@@ -12,6 +12,11 @@
     <%= f.text_area :description %>
   </fieldset>
 
+  <fieldset>
+    <%= f.label :tag, class: "required" %>
+    <%= f.select :tag, options_for_select(Category.select_options, @category.tag), include_blank: "Select ..." %>
+  </fieldset>
+
   <h3>Subcategories</h3>
   <div class="js-cocoon-subcategories">
     <%= f.fields_for :sub_categories do |subcategory| %>

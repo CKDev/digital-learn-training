@@ -39,7 +39,7 @@ module Admin
     private
 
     def category_params
-      params.require(:category).permit(:title, :description, sub_categories_attributes: [:id, :title, :_destroy])
+      params.require(:category).permit(:title, :description, :tag, sub_categories_attributes: [:id, :title, :_destroy])
     end
 
   end

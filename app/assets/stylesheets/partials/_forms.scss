@@ -23,7 +23,7 @@ label.plain {
   font-weight: bold;
 }
 
-input[type="text"], input[type="email"], input[type="password"], input[type="url"] {
+input[type="text"], input[type="email"], input[type="password"], input[type="url"], textarea {
   width: 100%;
   padding: 0.8rem;
   border: 2px solid $grey;
@@ -40,8 +40,6 @@ textarea {
   height: 200px;
   font-size: 14px;
   padding: 0.5rem;
-  border: 1px solid $light-grey;
-  background: $white;
 }
 
 .hideUntilActive {
