@@ -1,5 +1,6 @@
 class CourseMaterial < ApplicationRecord
-  belongs_to :sub_category
+  belongs_to :category
+  belongs_to :sub_category, required: false
   has_many :course_material_files, dependent: :destroy
   has_many :course_material_medias, dependent: :destroy
 

@@ -34,7 +34,11 @@ module Admin
           @sub_categories = []
         end
       else
-        @sub_categories = @course_material.sub_category.category.sub_categories # TODO: could be better.
+        if @course_material.sub_category.present?
+          @sub_categories = @course_material.sub_category.category.sub_categories # TODO: could be better.
+        else
+          @sub_categories = []
+        end
       end
     end
 
@@ -43,6 +47,11 @@ module Admin
       if @course_material.update(course_material_params)
         redirect_to admin_course_materials_path, notice: "Successfully updated Course Materials"
       else
+        if @course_material.sub_category.present?
+          @sub_categories = @course_material.sub_category.category.sub_categories # TODO: could be better.
+        else
+          @sub_categories = []
+        end
         render :edit
       end
     end
@@ -51,6 +60,7 @@ module Admin
 
     def course_material_params
       params.require(:course_material).permit(:title, :contributor, :summary, :description,
+        :category_id, :sub_category_id,
         course_material_files_attributes: [:id, :file, :_destroy],
         course_material_medias_attributes: [:id, :media, :_destroy])
     end

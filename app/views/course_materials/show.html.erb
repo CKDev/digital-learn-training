@@ -46,8 +46,8 @@
 <hr />
 
 <h2>
-  More Classes in <%= @course_material.sub_category.title %> Category
-  <small><%= link_to "View All >>", category_path(@course_material.sub_category) %></small>
+  More Classes in <%= @course_material.sub_category.category.title %> Category
+  <small><%= link_to "View All >>", category_path(@course_material.sub_category.category) %></small>
 </h2>
 
 <% if @course_materials.present? %>

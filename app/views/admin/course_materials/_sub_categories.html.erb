@@ -1,3 +1,3 @@
 <% default_sub_category = @course_material.sub_category.present? ? @course_material.sub_category.id : nil %>
-<%= label_tag :sub_category, "Sub Category", class: "required" %>
-<%= select_tag :sub_category, options_for_select(@sub_categories.map { |sc| [sc.title, sc.id] }, default_sub_category), include_blank: "Select ..." %>
+<%= label_tag "course_material[sub_category_id]", "Sub Category" %>
+<%= select_tag "course_material[sub_category_id]", options_for_select(@sub_categories.map { |sc| [sc.title, sc.id] }, default_sub_category), include_blank: "Select ..." %>
