@@ -14,5 +14,5 @@ class CourseMaterial < ApplicationRecord
   accepts_nested_attributes_for :course_material_medias, reject_if: :all_blank, allow_destroy: true
   validates_associated :course_material_medias
 
-  scope :in_category, ->(category_id) { joins(sub_category: :category).where("categories.id = ?", category_id) }
+  scope :in_category, ->(category_id) { joins(:category).where("categories.id = ?", category_id) }
 end

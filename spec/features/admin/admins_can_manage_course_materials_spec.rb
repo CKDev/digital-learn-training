@@ -3,6 +3,7 @@ require "feature_helper"
 feature "Admins can manage course materials pages" do
 
   before :each do
+    @category = FactoryGirl.create(:category)
     @admin = FactoryGirl.create(:admin)
     log_in @admin
   end
@@ -22,6 +23,7 @@ feature "Admins can manage course materials pages" do
     find("#course_material_contributor").set("Alejandro Brinkster")
     find("#course_material_summary").set("Summary")
     find("#course_material_description").set("Description")
+    select @category.title
     click_button "Save Course Materials"
     expect(current_path).to eq admin_course_materials_path
     expect(page).to have_content "New Course Materials Title"

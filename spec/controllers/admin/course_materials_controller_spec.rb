@@ -30,6 +30,10 @@ describe Admin::CourseMaterialsController do
 
   describe "POST #create" do
 
+    before :each do
+      @category = FactoryGirl.create(:category)
+    end
+
     let(:file_upload) do
       fixture_file_upload(Rails.root.join("spec", "fixtures", "test_upload.pdf"), "application/pdf")
     end
@@ -44,6 +48,7 @@ describe Admin::CourseMaterialsController do
         contributor: "Alejandro",
         summary: "Summary of Course Material",
         description: "Description of Course Material",
+        category_id: @category.id,
         course_material_files_attributes: {
           "0" => {
             file: file_upload
@@ -62,7 +67,8 @@ describe Admin::CourseMaterialsController do
         title: "",
         contributor: "",
         summary: "",
-        description: ""
+        description: "",
+        category_id: ""
       }
     end
 

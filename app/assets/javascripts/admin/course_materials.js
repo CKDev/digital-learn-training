@@ -1,12 +1,22 @@
 $(document).ready(function() {
-  $("body").on("change", "#category-id", function () {
-    $.ajax({
-      url: document.location.pathname,
-      data: { category_id: $(this).val() },
-      dataType: "json",
-      type: "GET"
-    }).always(function(data) {
-      $("#js-subcategory-container").empty().html(data.responseText);
-    });
+  var subCategories = $("#course_material_sub_category_id").html();
+  showHideSubCategoryOptions();
+  $("body").on("change", "#course_material_category_id", function () {
+    showHideSubCategoryOptions();
   });
+
+  function showHideSubCategoryOptions() {
+    var category = $("#course_material_category_id :selected").text();
+    var options = $(subCategories).filter("optgroup[label='" + category + "']").html();
+    if (options) {
+      var defaultOption = "<option value=''>Select ...</option>";
+      options = defaultOption + options;
+      $("#course_material_sub_category_id").html(options);
+      $("#course_material_sub_category_id").parent().show();
+    }
+    else {
+      $("#course_material_sub_category_id").empty();
+      $("#course_material_sub_category_id").parent().hide();
+    }
+  }
 });

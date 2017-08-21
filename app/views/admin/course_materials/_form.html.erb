@@ -26,14 +26,15 @@
   </fieldset>
 
   <fieldset>
-    <%= label_tag "course_material[category_id]", "Category", class: "required" %>
-    <% default_category = @course_material.category.present? ? @course_material.category.id : nil %>
-    <%= select_tag "course_material[category_id]", options_for_select(Category.all.map { |c| [c.title, c.id]}, default_category),
-      include_blank: "Select ...", id: "category-id" %>
+    <%= f.label :category_id, class: "required" %>
+    <%= f.select :category_id, options_for_select(Category.all.map { |c| [c.title, c.id] }, @course_material.try(:category).try(:id)),
+      include_blank: "Select ..." %>
   </fieldset>
 
-  <fieldset id="js-subcategory-container" class="ajax-replaceable">
-    <%= render partial: "sub_categories" %>
+  <fieldset>
+    <%= f.label :sub_category_id %>
+    <%= f.grouped_collection_select :sub_category_id, Category.order(:title), :sub_categories, :title, :id, :title,
+    selected: @course_material.try(:sub_category).try(:id), include_blank: "Select ..." %>
   </fieldset>
 
   <h3>Course Files <small>(acceptable formats: PDF, CSV, Word, PowerPoint, or Excel)</small></h3>
