@@ -2,7 +2,7 @@ module Admin
   class CategoriesController < BaseController
 
     def index
-      @categories = Category.all
+      @categories = Category.all.order(:title)
     end
 
     def new

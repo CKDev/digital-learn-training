@@ -1,3 +1,6 @@
+<h2><%= @category.title %></h2>
+<p><%= @category.description %></p>
+
 <% if @course_materials.present? %>
   <%= render "listing" %>
 <% else %>

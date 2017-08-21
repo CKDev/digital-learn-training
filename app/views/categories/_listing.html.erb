@@ -1,10 +1,14 @@
-<% @course_materials.each do |c| %>
-<a class="course-widget" href="<%= course_material_path(c) %>">
-  <header>
-    <h3><%= c.title.truncate(45) %></h3>
-  </header>
-  <div class="description">
-    <p><%= c.summary.truncate(80) %></p>
-  </div>
-</a>
+<% @course_materials.group_by { |h| h[:sub_category_id] }.sort.to_h.each do |k, v| %>
+  <% sub_category_str = SubCategory.find(k).title %><%# TODO: fix this, it could be better. %>
+  <h2><%= sub_category_str %></h2>
+  <% v.sort_by { |t| t[:title] }.each do |c| %>
+    <a class="course-widget" href="<%= course_material_path(c) %>">
+      <header>
+        <h3><%= c.title.truncate(45) %></h3>
+      </header>
+      <div class="description">
+        <p><%= c.summary.truncate(80) %></p>
+      </div>
+    </a>
+  <% end %>
 <% end %>

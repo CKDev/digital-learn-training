@@ -6,7 +6,6 @@ $(document).ready(function() {
       dataType: "json",
       type: "GET"
     }).always(function(data) {
-      debugger;
       $("#js-subcategory-container").empty().html(data.responseText);
     });
   });

@@ -27,8 +27,8 @@
 
   <fieldset>
     <%= label_tag :category, "Category", class: "required" %>
-    <%= select_tag :category, options_for_select(Category.all.map { |c| [c.title, c.id]}, @course_material.sub_category.category.id), 
-      include_blank: "Select ...", id: "category-id" %>
+    <% default_category = @course_material.sub_category.present? ? @course_material.sub_category.category.id : nil %>
+    <%= select_tag :category, options_for_select(Category.all.map { |c| [c.title, c.id]}, default_category), include_blank: "Select ...", id: "category-id" %>
   </fieldset>
 
   <fieldset id="js-subcategory-container" class="ajax-replaceable">
