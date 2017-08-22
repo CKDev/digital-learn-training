@@ -9,136 +9,19 @@
   position: relative;
   cursor: pointer;
   float: left;
+  text-align: center;
 
-  @include media($tablet) {
-    margin-right: 2em;
+  .file-icon {
+    margin-bottom: 1.3rem;
   }
 
-  &.completed {
-    background-color: $grey;
-    .icon-ok::before {
-      position: absolute;
-      left: 5px;
-      top: 5px;
-      color: $orange;
-      font-size: 2em;
-    }
+  .file-type {
+    font-size: 1.3rem;
+    margin-bottom: .5rem;
   }
 
-  .lesson-order {
-    font-size: 4em;
+  .file-name {
+
   }
 
-  .lesson-title {
-    font-size: 2em;
-  }
-
-  .lesson-title-admin {
-    font-size: 2em;
-    margin-top: 2em;
-  }
-
-  .lesson-duration {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    width: 100%;
-
-    [class^="icon-"]:before, [class*=" icon-"]:before {
-      color: $white;
-    }
-  }
-
-  .icon-arrow::before {
-    position: absolute;
-    right: 0;
-    color: $purple;
-    font-size: 2em;
-  }
-
-  .default-state {
-    display: block;
-    text-align: center;
-  }
-
-  .hover-state {
-    display: none;
-  }
-
-  &:hover {
-    background-color: $white;
-    color: $grey;
-    border: 1px solid $grey;
-    border-radius: 5px;
-    padding: 5px 15px;
-    text-align: left;
-
-    .lesson-order {
-      font-size: 2.5em;
-      margin-right: 8px;
-    }
-
-    .icon-clock::before {
-      color: $grey;
-      font-size: 1.25em;
-      padding-right: 1em;
-      vertical-align: super;
-    }
-
-    .lesson-title {
-      font-size: 1em;
-      font-weight: bold;
-      color: $dark-grey;
-      margin-bottom: 0;
-    }
-
-    .lesson-title-admin {
-      font-size: 1em;
-      font-weight: bold;
-      color: $dark-grey;
-      margin-top: 1em;
-      margin-bottom: 0;
-    }
-
-    .lesson-duration {
-      font-size: 1.25em;
-      position: relative;
-      left: -6px;
-      top: -6px;
-    }
-
-    .lesson-summary {
-      font-size: .8em;
-    }
-
-    .btn {
-      position: absolute;
-      bottom: 20px;
-    }
-
-    .default-state {
-      display: none;
-    }
-
-    .hover-state {
-      display: block;
-    }
-  }
-}
-
-//Fix wonky display of lessons on phone view
-.lesson-listing {
-
-  .lesson-listing-first-row {
-    margin-top: 20px
-  }
-
-  .extra-padding.extra-padding {
-    padding-left: 20px;
-    margin-top: 0;
-  }
-
-  .row {
-    margin-bottom: 0;
-  }
 }

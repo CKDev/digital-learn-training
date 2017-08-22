@@ -1,0 +1,19 @@
+.course-material-media-widget {
+  height: 150px;
+  width: 222px;
+  border: 5px solid $grey;
+  float: left;
+  margin-right: 32px;
+  margin-bottom: 52px;
+
+  .media-image {
+    width: 212px;
+    height: 140px;
+  }
+
+  .media-title {
+    text-align: center;
+    position: relative;
+    top: 10px;
+  }
+}

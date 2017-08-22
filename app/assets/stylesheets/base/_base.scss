@@ -97,3 +97,22 @@ hr {
   color: $teal;
   fill: $teal;
 }
+
+.white {
+  color: $white;
+  fill: $white;
+}
+
+button.image-button {
+  svg {
+    position: relative;
+    top: -10px;
+    left: -5px;
+  }
+
+  span {
+    display: inline-block;
+    position: relative;
+    top: -24px;
+  }
+}

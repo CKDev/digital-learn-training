@@ -91,3 +91,7 @@ Commits should be "squashed" into atomic chunks of code, usually corresponding w
 ## Other things to know, tricky areas of this application
 
 ...
+
+TODO: We don't have a strikethrough font, remove from ckeditor.
+TODO: ADA pass.
+TODO: make sure the .note class is ADA compatible.

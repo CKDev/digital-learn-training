@@ -1,53 +1,75 @@
 <div class="extra-margin-bottom">
-  <%= link_to @course_material.sub_category.category.title, category_path(@course_material.sub_category.category) %> >>
-  <%= @course_material.sub_category.title %> >> <%= @course_material.title %>
+  <%= link_to @course_material.category.title, category_path(@course_material.category) %> >>
+  <% if @course_material.sub_category.present? %>
+    <%= @course_material.sub_category.title %> >>
+  <% end %>
+  <%= @course_material.title %>
 </div>
 
 <div class="row extra-margin-bottom">
-  <div class="six columns course-material-meta">
-    <%= svg_tag "icon-download", class: "svg-icon teal" %>
-    <%= @course_material.course_material_files.size %> files and <%= @course_material.course_material_medias.size %> images
+  <div class="eight columns course-material-meta">
+    <%= svg_tag "icon-files", class: "svg-icon-medium teal" %>
+    <span style="position: relative; top: -15px;">
+      <%= @course_material.course_material_files.size %> files and
+      <%= @course_material.course_material_medias.size %> images
+    </span>
   </div>
 
-  <div class="six columns">
-    <%= svg_tag "icon-mail", class: "svg-icon teal" %>
-    Have something to contribute?
-    <%= mail_to "support@digitallearn.org", "Get in touch", subject: "Contact from DigitalLearn Training site" %>
+  <div class="four columns">
+    <div class="email-media-object">
+      <div class="icon">
+        <%= svg_tag "icon-mail", class: "svg-icon-large teal" %>
+      </div>
+      <div class="content">
+        <p class="line-1">Have something to contribute?</p>
+        <span class="line-2"><%= mail_to "support@digitallearn.org", "Get in touch", subject: "Contact from DigitalLearn Training site" %></span>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="extra-margin-bottom">
   <div>Contributed by: <%= @course_material.contributor %></div>
-  <div>Topics: </div>
+  <div>Topics: <%= @course_material.summary %></div>
 </div>
 
 <div class="extra-margin-bottom">
-  <p><%= @course_material.summary %></p>
+  <p><%= sanitize @course_material.description %></p>
 </div>
 
 <hr />
 
-<h2>Class Files</h2>
+<% if @course_material.course_material_files.present? %>
+  <h2>Class Files</h2>
+  <%= render partial: "file_grid", locals: { course_material: @course_material } %>
+  <div style="text-align: center;">
+    <button class="image-button">
+      <%= svg_tag "icon-download", class: "svg-icon white" %>
+      <span>Download All Files</span>
+    </button>
+  </div>
+<% else %>
+  <p class="note">There are no course material files.</p>
+<% end %>
 
-<%= render partial: "grid", locals: { course_material: @course_material } %>
-
-<div style="text-align: center;">
-  <button>Download All Files</button>
-</div>
-
-<h2>Sample Images</h2>
-
-<%= render partial: "grid", locals: { course_material: @course_material } %>
-
-<div style="text-align: center;">
-  <button>Download All Images</button>
-</div>
+<% if @course_material.course_material_medias.present? %>
+  <h2>Sample Images</h2>
+  <%= render partial: "media_grid", locals: { course_material: @course_material } %>
+  <div style="text-align: center;">
+    <button class="image-button">
+      <%= svg_tag "icon-download", class: "svg-icon white" %>
+      <span>Download All Images</span>
+    </button>
+  </div>
+<% else %>
+  <p class="note">There are no image files.</p>
+<% end %>
 
 <hr />
 
-<h2>
-  More Classes in <%= @course_material.sub_category.category.title %> Category
-  <small><%= link_to "View All >>", category_path(@course_material.sub_category.category) %></small>
+<h2 class="extra-margin-bottom">
+  More Classes in <%= @course_material.category.title %> Category
+  <small><%= link_to "View All >>", category_path(@course_material.category) %></small>
 </h2>
 
 <% if @course_materials.present? %>

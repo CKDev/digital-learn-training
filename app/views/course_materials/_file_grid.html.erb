@@ -1,0 +1,12 @@
+<div>
+  <% course_material.course_material_files.each do |f| %>
+    <div class="course-material-file-widget">
+      <div class="file-icon">
+        <%= svg_tag "icon-download", class: "svg-icon-large white" %>
+      </div>
+      <div class="file-type"><%= f.file_file_name.truncate(18) %></div>
+      <div class="file-name"><%= f.file_file_name.truncate(25) %></div>
+    </div>
+  <% end %>
+</div>
+<div class="clearfix"></div>
