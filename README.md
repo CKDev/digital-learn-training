@@ -96,3 +96,4 @@ TODO: We don't have a strikethrough font, remove from ckeditor.
 TODO: ADA pass.
 TODO: make sure the .note class is ADA compatible.
 TODO: We need to be able to show videos.
+TODO: Should course materials be sortable?

@@ -15,4 +15,7 @@ class CourseMaterial < ApplicationRecord
   validates_associated :course_material_medias
 
   scope :in_category, ->(category_id) { joins(:category).where("categories.id = ?", category_id) }
+  scope :archived, -> { where(archived: true) }
+  scope :not_archived, -> { where(archived: false) }
+  scope :not_self, ->(id) { where.not(id: id) }
 end

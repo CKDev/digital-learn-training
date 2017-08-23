@@ -20,6 +20,7 @@ describe Admin::CourseMaterialsController do
       sign_in @admin
       @course_material1 = FactoryGirl.create(:course_material)
       @course_material2 = FactoryGirl.create(:course_material)
+      @course_material3 = FactoryGirl.create(:course_material, archived: true)
       get :index
       expect(assigns(:course_materials)).to contain_exactly(@course_material1, @course_material2)
     end

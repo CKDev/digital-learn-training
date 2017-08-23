@@ -2,7 +2,7 @@ module Admin
   class CourseMaterialsController < BaseController
 
     def index
-      @course_materials = CourseMaterial.order(:title)
+      @course_materials = CourseMaterial.not_archived.order(:title)
     end
 
     def new
@@ -30,6 +30,15 @@ module Admin
         redirect_to admin_course_materials_path, notice: "Successfully updated Course Materials"
       else
         render :edit
+      end
+    end
+
+    def destroy
+      @course_material = CourseMaterial.find(params[:id])
+      if @course_material.update(archived: true)
+        redirect_to admin_course_materials_path, notice: "Successfully archived Course Materials"
+      else
+        redirect_to admin_course_materials_path, alert: "Unable to archive Course Materials"
       end
     end
 

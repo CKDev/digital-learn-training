@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       end
     end
     resources :course_materials
+    resources :course_materials_archive, only: [:index, :destroy]
     resources :categories
     resources :attachments, only: [:destroy]
   end

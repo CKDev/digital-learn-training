@@ -23,11 +23,15 @@
 }
 
 .note {
-  font-size: 12px;
+  font-size: 13px;
   color: $grey;
   font-style: italic;
   text-transform: none;
   font-weight: 100;
+}
+
+a.note {
+  color: $purple;
 }
 
 .small-14 {

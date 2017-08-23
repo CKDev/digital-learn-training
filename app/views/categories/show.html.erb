@@ -1,7 +1,7 @@
 <h2><%= @category.title %></h2>
 <p><%= @category.description %></p>
 
-<% if @course_materials.present? %>
+<% if @course_materials.present? || @sub_categorized_course_materials.present? %>
   <%= render "listing" %>
 <% else %>
   <p>There are currently no available courses.</p>
