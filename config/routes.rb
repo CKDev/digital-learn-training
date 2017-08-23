@@ -12,7 +12,10 @@ Rails.application.routes.draw do
       post :complete
     end
   end
-  resources :course_materials, only: [:show]
+  resources :course_materials, only: [:show] do
+    resources :course_materials_files, only: [:show]
+    resources :course_materials_medias, only: [:show]
+  end
   resources :categories, only: [:show]
 
   namespace :admin do

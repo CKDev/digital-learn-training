@@ -9,4 +9,27 @@ module ApplicationHelper
     raw doc
   end
 
+  def mime_type_conversion(mime_type)
+    case mime_type
+    when "application/pdf"
+      "PDF File"
+    when "text/csv"
+      "CSV File"
+    when "application/vnd.ms-excel"
+      "Microsoft Excel"
+    when "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      "Microsoft Excel"
+    when "application/vnd.ms-powerpoint"
+      "Microsoft PowerPoint"
+    when "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      "Microsoft PowerPoint"
+    when "application/msword"
+      "Microsoft Word"
+    when "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      "Microsoft Word"
+    else
+      ""
+    end
+  end
+
 end

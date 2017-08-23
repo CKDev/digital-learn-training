@@ -16,21 +16,28 @@
   </div>
 
   <div class="four columns">
+    <%= mail_to "support@digitallearn.org", subject: "Contact from DigitalLearn Training site" do %>
     <div class="email-media-object">
       <div class="icon">
         <%= svg_tag "icon-mail", class: "svg-icon-large teal" %>
       </div>
       <div class="content">
         <p class="line-1">Have something to contribute?</p>
-        <span class="line-2"><%= mail_to "support@digitallearn.org", "Get in touch", subject: "Contact from DigitalLearn Training site" %></span>
+        <span class="line-2">Get in touch</span>
       </div>
     </div>
+    <% end %>
   </div>
 </div>
 
 <div class="extra-margin-bottom">
   <div>Contributed by: <%= @course_material.contributor %></div>
-  <div>Topics: <%= @course_material.summary %></div>
+  <div>Topics:
+    <%= @course_material.category.title %>
+    <% if @course_material.sub_category.present? %>
+      - <%= @course_material.sub_category.title %>
+    <% end %>
+  </div>
 </div>
 
 <div class="extra-margin-bottom">

@@ -1,12 +1,11 @@
-<div>
+<div class="clearfix">
   <% course_material.course_material_files.each do |f| %>
-    <div class="course-material-file-widget">
-      <div class="file-icon">
-        <%= svg_tag "icon-download", class: "svg-icon-large white" %>
+    <%= link_to course_material_course_materials_file_path(@course_material, f) do %>
+      <div class="course-material-file-widget">
+        <div class="file-icon"><%= svg_tag "icon-download", class: "svg-icon-large white" %></div>
+        <div class="file-type"><%= f.file_file_name.truncate(18) %></div>
+        <div class="file-name"><%= mime_type_conversion(f.file_content_type) %></div>
       </div>
-      <div class="file-type"><%= f.file_file_name.truncate(18) %></div>
-      <div class="file-name"><%= f.file_file_name.truncate(25) %></div>
-    </div>
+    <% end %>
   <% end %>
 </div>
-<div class="clearfix"></div>
