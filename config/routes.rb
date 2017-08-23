@@ -13,8 +13,8 @@ Rails.application.routes.draw do
     end
   end
   resources :course_materials, only: [:show] do
-    resources :course_materials_files, only: [:show]
-    resources :course_materials_medias, only: [:show]
+    resources :course_materials_files, only: [:index, :show]
+    resources :course_materials_medias, only: [:index, :show]
   end
   resources :categories, only: [:show]
 

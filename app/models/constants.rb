@@ -22,7 +22,7 @@ class Constants
 
   def self.course_material_media_types
     [
-      "image/png", "image/jpeg", "image/gif", "image/webp", "video/mp4"
+      "image/png", "image/jpeg", "image/gif", "image/webp"
     ]
   end
 

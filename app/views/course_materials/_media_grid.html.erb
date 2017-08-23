@@ -2,7 +2,7 @@
   <% course_material.course_material_medias.each do |f| %>
     <%= link_to course_material_course_materials_media_path(@course_material, f) do %>
       <div class="course-material-media-widget">
-        <%= image_tag f.media.url, class: "media-image" %>
+        <%= image_tag f.media.url(:thumb), class: "media-image" %>
         <div class="media-title note"><%= f.media_file_name %></div>
       </div>
     <% end %>

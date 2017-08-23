@@ -95,3 +95,4 @@ Commits should be "squashed" into atomic chunks of code, usually corresponding w
 TODO: We don't have a strikethrough font, remove from ckeditor.
 TODO: ADA pass.
 TODO: make sure the .note class is ADA compatible.
+TODO: We need to be able to show videos.
