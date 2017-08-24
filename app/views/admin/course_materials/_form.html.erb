@@ -66,6 +66,23 @@
       { "data-association-insertion-method" => "append", "data-association-insertion-node" => ".js-cocoon-item-medias" } %>
   </div>
 
+  <h3>Course Videos</h3>
+  <p class="note">
+    Open your video on youtube.com, and click the share icon below the video.
+    Copy and paste the content of the embed field from YouTube into this textbox.
+  </p>
+
+  <div class="js-cocoon-item-videos">
+    <%= f.fields_for :course_material_videos do |video| %>
+      <%= render "course_material_video_fields", f: video %>
+    <% end %>
+  </div>
+
+  <div class="extra-margin-bottom">
+    <%= link_to_add_association "Add Course Video", f, :course_material_videos,
+      { "data-association-insertion-method" => "append", "data-association-insertion-node" => ".js-cocoon-item-videos" } %>
+  </div>
+
   <div>
     <%= f.submit "Save Course", class: "margin-right" %>
     <%= link_to "Cancel", admin_course_materials_path %>

@@ -76,6 +76,13 @@
   <p class="note">There are no image files.</p>
 <% end %>
 
+<% if @course_material.course_material_videos.present? %>
+  <h2>Videos</h2>
+  <%= render partial: "video_grid", locals: { course_material: @course_material } %>
+<% else %>
+  <p class="note">There are no video clips.</p>
+<% end %>
+
 <hr />
 
 <h2 class="extra-margin-bottom">

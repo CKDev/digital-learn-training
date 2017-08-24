@@ -1,0 +1,7 @@
+<div class="extra-margin-bottom clearfix">
+  <% course_material.course_material_videos.each do |v| %>
+    <div class="course-material-media-widget">
+      <iframe class="video-resource" src="<%= v.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    </div>
+  <% end %>
+</div>

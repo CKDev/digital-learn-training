@@ -60,6 +60,11 @@ describe Admin::CourseMaterialsController do
           "0" => {
             media: media_upload
           }
+        },
+        course_material_videos_attributes: {
+          "0" => {
+            url: "https://youtu.be/xXXtEK_QdNQ"
+          }
         }
       }
     end
@@ -87,6 +92,7 @@ describe Admin::CourseMaterialsController do
       expect(course_material.pub_status).to eq "P"
       expect(course_material.course_material_files.first.present?).to be true
       expect(course_material.course_material_medias.first.present?).to be true
+      expect(course_material.course_material_videos.first.present?).to be true
     end
 
     it "renders the new view if there is missing information" do
