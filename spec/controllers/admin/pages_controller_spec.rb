@@ -34,7 +34,7 @@ describe Admin::PagesController do
       {
         title: "New Page",
         body: "<p>Body</p>",
-        pub_status: "published",
+        pub_status: "P",
         author: "admin",
         seo_title: "SEO Title",
         meta_desc: "Meta Desc"
@@ -57,7 +57,7 @@ describe Admin::PagesController do
       expect(page.title).to eq "New Page"
       expect(page.slug).to eq "new-page"
       expect(page.body).to eq "<p>Body</p>"
-      expect(page.pub_status).to eq "published"
+      expect(page.pub_status).to eq "P"
       expect(page.author).to eq "admin"
       expect(page.seo_title).to eq "SEO Title"
       expect(page.meta_desc).to eq "Meta Desc"
@@ -91,7 +91,7 @@ describe Admin::PagesController do
       {
         title: "Updated Page",
         body: "<p>Updated Body</p>",
-        pub_status: "archived",
+        pub_status: "A",
         author: "admin-2",
         seo_title: "Updated SEO Title",
         meta_desc: "Updated Meta Desc"
@@ -115,7 +115,7 @@ describe Admin::PagesController do
       expect(@page.title).to eq "Updated Page"
       # expect(@page.slug).to eq "new-page"
       expect(@page.body).to eq "<p>Updated Body</p>"
-      expect(@page.pub_status).to eq "archived"
+      expect(@page.pub_status).to eq "A"
       expect(@page.author).to eq "admin-2"
       expect(@page.seo_title).to eq "Updated SEO Title"
       expect(@page.meta_desc).to eq "Updated Meta Desc"

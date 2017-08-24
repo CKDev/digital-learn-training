@@ -86,8 +86,4 @@ class Course < ApplicationRecord
     self.attachments.where(doc_type: "supplemental")
   end
 
-  def self.pub_status_select_options
-    [["Draft", "D"], ["Published", "P"], ["Archived", "A"]]
-  end
-
 end

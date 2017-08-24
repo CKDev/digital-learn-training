@@ -8,14 +8,14 @@ feature "Admins can manage CMS pages" do
   end
 
   scenario "can view CMS page index" do
-    visit admin_root_path
+    visit admin_pages_path
     click_link "CMS Pages"
     expect(current_path).to eq(admin_pages_path)
     expect(page).to have_content "Page Title"
   end
 
   scenario "can add a new CMS page" do
-    visit admin_root_path
+    visit admin_pages_path
     click_link "Add a New CMS Page"
     expect(current_path).to eq new_admin_page_path
     find("#page_title").set("New Title")
@@ -29,7 +29,7 @@ feature "Admins can manage CMS pages" do
   end
 
   scenario "cannot add a new CMS page with missing information" do
-    visit admin_root_path
+    visit admin_pages_path
     click_link "Add a New CMS Page"
     click_button "Save CMS Page"
     expect(page).to have_content "The following errors"
@@ -37,7 +37,7 @@ feature "Admins can manage CMS pages" do
 
   scenario "can edit an existing CMS page" do
     @page = FactoryGirl.create(:page)
-    visit admin_root_path
+    visit admin_pages_path
     within "main" do
       click_link @page.title
     end

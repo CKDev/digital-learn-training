@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :categories, only: [:show]
 
   namespace :admin do
-    root "pages#index"
+    root "course_materials#index"
     resources :pages, except: [:destroy]
     resources :pages_archive, only: [:index]
     resources :courses, except: [:destroy] do

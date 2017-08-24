@@ -15,7 +15,7 @@
 
   <fieldset>
     <%= f.label :pub_status %>
-    <%= f.select :pub_status, options_for_select(Page.pub_status_select_options, @page.pub_status) %>
+    <%= f.select :pub_status, options_for_select(Constants.pub_status_select_options, @page.pub_status) %>
   </fieldset>
 
   <fieldset>
@@ -37,7 +37,7 @@
   </fieldset>
 
   <fieldset>
-    <%= f.submit "Save CMS Page", class:"btn btn-blue margin-right" %>
+    <%= f.submit "Save CMS Page", class:"btn margin-right" %>
     <%= link_to "Cancel", admin_pages_path %>
   </fieldset>
 

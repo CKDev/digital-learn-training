@@ -125,10 +125,11 @@ Style/RedundantSelf:
 # TODO: fix to not have exclude
 Style/PercentLiteralDelimiters:
   Exclude:
-    - 'app/models/attachment.rb'
-    - 'app/models/course.rb'
-    - 'app/models/lesson.rb'
-    - 'app/models/course_material.rb'
+    - "app/models/attachment.rb"
+    - "app/models/course.rb"
+    - "app/models/lesson.rb"
+    - "app/models/course_material.rb"
+    - "app/models/page.rb"
 
 Style/RegexpLiteral:
   Enabled: false

@@ -34,12 +34,18 @@ describe Page do
     end
 
     it "should require a body" do
-      @page.update(title: "")
+      @page.update(body: "")
       expect(@page.valid?).to be false
     end
 
-    it "should initially be in draft status" do
-      expect(Page.new.pub_status).to eq "draft"
+    it "should require a pub_status" do
+      @page.update(pub_status: "")
+      expect(@page.valid?).to be false
+    end
+
+    it "should not allow pub_status to be anything but D P A" do
+      @page.update(pub_status: "X")
+      expect(@page.valid?).to be false
     end
 
     it "should require an author" do

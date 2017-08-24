@@ -16,7 +16,7 @@
       <li class="sortable-item" data-id="<%= page.id %>">
         <div class="cell"><%= link_to page.title, edit_admin_page_path(page) %></div>
         <div class="cell"><%= page.author %></div>
-        <div class="cell"><%= page.pub_status.titleize %></div>
+        <div class="cell"><%= pub_status(page.pub_status) %></div>
         <div class="cell"><%= link_to "Preview", page_path(page), target: :blank %></div>
       </li>
     <% end %>

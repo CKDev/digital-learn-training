@@ -2,7 +2,7 @@ module Admin
   class CoursesArchiveController < BaseController
 
     def index
-      @pages = Course.archived
+      @courses = Course.archived
     end
 
   end

@@ -7,14 +7,14 @@ describe PagesController do
   describe "GET #show" do
 
     it "assigns the given instance of a page" do
-      @page = FactoryGirl.create(:page)
+      @page = FactoryGirl.create(:page, pub_status: "P")
       get :show, params: { id: @page.slug }
       expect(assigns(:page)).to eq @page
     end
 
     it "does not assign draft/archived pages" do
-      @page1 = FactoryGirl.create(:page, pub_status: "draft")
-      @page2 = FactoryGirl.create(:page, pub_status: "archived")
+      @page1 = FactoryGirl.create(:page, pub_status: "D")
+      @page2 = FactoryGirl.create(:page, pub_status: "A")
 
       expect do
         get :show, params: { id: @page1.slug }
@@ -30,8 +30,8 @@ describe PagesController do
       @admin = FactoryGirl.create(:admin)
       sign_in @admin
 
-      @page1 = FactoryGirl.create(:page, pub_status: "draft")
-      @page2 = FactoryGirl.create(:page, pub_status: "archived")
+      @page1 = FactoryGirl.create(:page, pub_status: "D")
+      @page2 = FactoryGirl.create(:page, pub_status: "A")
 
       get :show, params: { id: @page1.slug }
       expect(assigns(:page)).to eq @page1

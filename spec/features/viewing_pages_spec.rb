@@ -16,7 +16,7 @@ feature "Users can view CMS pages" do
 
   scenario "published pages should show in the footer" do
     @page1 = FactoryGirl.create(:page, title: "AAA")
-    @page2 = FactoryGirl.create(:page, title: "BBB", pub_status: "draft")
+    @page2 = FactoryGirl.create(:page, title: "BBB", pub_status: "D")
     @page3 = FactoryGirl.create(:page, title: "CCC")
     @page4 = FactoryGirl.create(:page, title: "ZZZ")
     visit root_path
