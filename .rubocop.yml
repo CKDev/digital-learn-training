@@ -128,6 +128,7 @@ Style/PercentLiteralDelimiters:
     - 'app/models/attachment.rb'
     - 'app/models/course.rb'
     - 'app/models/lesson.rb'
+    - 'app/models/course_material.rb'
 
 Style/RegexpLiteral:
   Enabled: false

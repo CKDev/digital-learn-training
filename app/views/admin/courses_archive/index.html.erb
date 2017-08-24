@@ -1,17 +1,5 @@
-<%= content_for(:callout) { %><h1>Trainings</h1><% } %>
+<%= content_for(:callout) { %><h1>Archived Trainings</h1><% } %>
 
-<div class="row extra-margin-bottom">
-  <div class="six columns">
-    <%= link_to "Add a New Training", new_admin_course_path, class: "btn" %>
-  </div>
-  <div class="six columns">
-    <p class="note no-top-margin">
-      Re-order trainings on the homepage by clicking on the arrow icon to drag and drop trainings. Edit by clicking the appropriate training below.
-    </p>
-  </div>
-</div>
-
-<%= hidden_field_tag :sort_url, "/admin/courses/sort" %>
 <div class="extra-margin-bottom">
   <div class="sortable-list">
     <div class="list-titles">
@@ -32,11 +20,11 @@
         <% end %>
       </ul>
     <% else %>
-      <p>There are no available trainings.</p>
+      <p>There are no archived trainings.</p>
     <% end %>
   </div>
 </div>
 
 <p>
-  <%= link_to "View Archived Trainings", admin_courses_archive_index_path, class: "note" %>
+  <%= link_to "View Trainings", admin_courses_path, class: "note" %>
 </p>

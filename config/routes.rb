@@ -20,16 +20,18 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root "pages#index"
-    resources :pages
-    resources :courses do
+    resources :pages, except: [:destroy]
+    resources :pages_archive, only: [:index]
+    resources :courses, except: [:destroy] do
       put :sort, on: :collection
       resources :lessons do
         put :sort, on: :collection
         delete :destroy_asl_attachment, on: :collection
       end
     end
-    resources :course_materials
-    resources :course_materials_archive, only: [:index, :destroy]
+    resources :courses_archive, only: [:index]
+    resources :course_materials, except: [:destroy]
+    resources :course_materials_archive, only: [:index]
     resources :categories
     resources :attachments, only: [:destroy]
   end

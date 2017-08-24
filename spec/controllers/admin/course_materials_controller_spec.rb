@@ -20,7 +20,7 @@ describe Admin::CourseMaterialsController do
       sign_in @admin
       @course_material1 = FactoryGirl.create(:course_material)
       @course_material2 = FactoryGirl.create(:course_material)
-      @course_material3 = FactoryGirl.create(:course_material, archived: true)
+      @course_material3 = FactoryGirl.create(:course_material, pub_status: "A")
       get :index
       expect(assigns(:course_materials)).to contain_exactly(@course_material1, @course_material2)
     end
@@ -50,6 +50,7 @@ describe Admin::CourseMaterialsController do
         summary: "Summary of Course Material",
         description: "Description of Course Material",
         category_id: @category.id,
+        pub_status: "P",
         course_material_files_attributes: {
           "0" => {
             file: file_upload
@@ -69,7 +70,8 @@ describe Admin::CourseMaterialsController do
         contributor: "",
         summary: "",
         description: "",
-        category_id: ""
+        category_id: "",
+        pub_status: ""
       }
     end
 
@@ -82,6 +84,7 @@ describe Admin::CourseMaterialsController do
       expect(course_material.contributor).to eq "Alejandro"
       expect(course_material.summary).to eq "Summary of Course Material"
       expect(course_material.description).to eq "Description of Course Material"
+      expect(course_material.pub_status).to eq "P"
       expect(course_material.course_material_files.first.present?).to be true
       expect(course_material.course_material_medias.first.present?).to be true
     end
@@ -114,7 +117,8 @@ describe Admin::CourseMaterialsController do
         title: "Updated Course Material",
         contributor: "Alejandro Brinkster",
         summary: "Summary of Updated Course Material",
-        description: "Description of Updated Course Material"
+        description: "Description of Updated Course Material",
+        pub_status: "P"
       }
     end
 
@@ -123,7 +127,8 @@ describe Admin::CourseMaterialsController do
         title: "",
         contributor: "",
         summary: "",
-        description: ""
+        description: "",
+        pub_status: ""
       }
     end
 
@@ -137,6 +142,7 @@ describe Admin::CourseMaterialsController do
       expect(@course_material.contributor).to eq "Alejandro Brinkster"
       expect(@course_material.summary).to eq "Summary of Updated Course Material"
       expect(@course_material.description).to eq "Description of Updated Course Material"
+      expect(@course_material.pub_status).to eq "P"
     end
 
     it "renders the edit view if there is missing information" do

@@ -12,6 +12,8 @@ class Page < ApplicationRecord
 
   scope :alpha_order, -> { order(:title) }
   scope :published, -> { where("pub_status = ?", Page.pub_statuses["published"]) }
+  scope :archived, -> { where("pub_status = ?", Page.pub_statuses["archived"]) }
+  scope :not_archived, -> { where.not("pub_status = ?", Page.pub_statuses["archived"]) }
 
   def self.pub_status_select_options
     Page.pub_statuses.map { |k, _v| [k.titleize, k] }

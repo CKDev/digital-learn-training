@@ -5,6 +5,7 @@ FactoryGirl.define do
     summary "In this course material you will..."
     description "Description"
     contributor "John Doe"
+    pub_status "D"
     category
   end
 

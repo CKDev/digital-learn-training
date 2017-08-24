@@ -60,13 +60,6 @@ module Admin
       end
     end
 
-    def destroy
-      # TODO: where in the UI should the user be able to destroy a course.
-      # TODO: how to show archived courses.
-      @course.destroy
-      redirect_to courses_url, notice: "Course was successfully destroyed."
-    end
-
     private
 
     def set_course

@@ -29,4 +29,9 @@ class Constants
   def self.course_material_media_types_str
     course_material_media_types.join(", ")
   end
+
+  def self.pub_status_select_options
+    [["Draft", "D"], ["Published", "P"], ["Archived", "A"]]
+  end
+
 end

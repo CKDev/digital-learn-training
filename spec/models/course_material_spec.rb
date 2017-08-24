@@ -17,6 +17,16 @@ describe CourseMaterial do
       expect(@course_material.valid?).to be false
     end
 
+    it "should require a pub_status" do
+      @course_material.update(pub_status: "")
+      expect(@course_material.valid?).to be false
+    end
+
+    it "should require the pub_status be in a specific list" do
+      @course_material.update(pub_status: "X")
+      expect(@course_material.valid?).to be false
+    end
+
     it "should require the title to be unique" do
       @course_material2 = FactoryGirl.create(:course_material, title: "A New Page")
       @course_material.update(title: "A New Page")
@@ -61,6 +71,32 @@ describe CourseMaterial do
 
       @course_material.update(summary: summary + "a")
       expect(@course_material.valid?).to be false
+    end
+
+  end
+
+  context "scopes" do
+
+    context ".archived" do
+
+      it "should return all course_materials that are archived" do
+        @course_material1 = FactoryGirl.create(:course_material, pub_status: "D")
+        @course_material2 = FactoryGirl.create(:course_material, pub_status: "P")
+        @course_material3 = FactoryGirl.create(:course_material, pub_status: "A")
+        expect(CourseMaterial.archived).to contain_exactly(@course_material3)
+      end
+
+    end
+
+    context ".not_archived" do
+
+      it "should return all course_materials that are not archived" do
+        @course_material1 = FactoryGirl.create(:course_material, pub_status: "D")
+        @course_material2 = FactoryGirl.create(:course_material, pub_status: "P")
+        @course_material3 = FactoryGirl.create(:course_material, pub_status: "A")
+        expect(CourseMaterial.not_archived).to contain_exactly(@course_material1, @course_material2)
+      end
+
     end
 
   end

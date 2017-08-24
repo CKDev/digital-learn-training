@@ -7,6 +7,9 @@ en:
         meta_desc: "Meta Description"
         pub_status: "Publication Status"
         seo_page_title: "SEO Page Title"
+      course_material:
+        pub_status: "Publication Status"
+        sub_category_id: "Sub Category"
       page:
         title: "Page Title"
         body: "Page Text"

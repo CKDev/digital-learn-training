@@ -7,6 +7,8 @@ class CourseMaterial < ApplicationRecord
   validates :title, length: { maximum: 90 }, presence: true, uniqueness: true
   validates :contributor, length: { maximum: 156 }, presence: true
   validates :summary, length: { maximum: 156 }
+  validates :pub_status, presence: true,
+    inclusion: { in: %w(P D A), message: "%{value} is not a valid status" }
 
   accepts_nested_attributes_for :course_material_files, reject_if: :all_blank, allow_destroy: true
   validates_associated :course_material_files
@@ -15,7 +17,8 @@ class CourseMaterial < ApplicationRecord
   validates_associated :course_material_medias
 
   scope :in_category, ->(category_id) { joins(:category).where("categories.id = ?", category_id) }
-  scope :archived, -> { where(archived: true) }
-  scope :not_archived, -> { where(archived: false) }
+  scope :archived, -> { where(pub_status: "A") }
+  scope :not_archived, -> { where.not(pub_status: "A") }
   scope :not_self, ->(id) { where.not(id: id) }
+
 end

@@ -26,6 +26,11 @@
   </fieldset>
 
   <fieldset>
+    <%= f.label :pub_status %>
+    <%= f.select(:pub_status, options_for_select(Constants.pub_status_select_options, @course_material.pub_status)) %>
+  </fieldset>
+
+  <fieldset>
     <%= f.label :category_id, class: "required" %>
     <%= f.select :category_id, options_for_select(Category.all.map { |c| [c.title, c.id] }, @course_material.try(:category).try(:id)),
       include_blank: "Select ..." %>

@@ -4,7 +4,7 @@ module Admin
     before_action :set_page, only: [:edit, :update]
 
     def index
-      @pages = Page.all.alpha_order
+      @pages = Page.not_archived.alpha_order
     end
 
     def new

@@ -1,8 +1,4 @@
-<%= content_for(:callout) { %><h1>CMS Pages</h1><% } %>
-
-<div class="extra-margin-bottom">
-  <%= link_to "Add a New CMS Page", new_admin_page_path, class: "btn" %>
-</div>
+<%= content_for(:callout) { %><h1>Archived CMS Pages</h1><% } %>
 
 <div>
   <div class="list-titles">
@@ -24,5 +20,5 @@
 </div>
 
 <p>
-  <%= link_to "View Archived Pages", admin_pages_archive_index_path, class: "note" %>
+  <%= link_to "View Pages", admin_pages_path, class: "note" %>
 </p>

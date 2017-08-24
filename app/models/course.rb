@@ -20,6 +20,7 @@ class Course < ApplicationRecord
 
   default_scope { order("course_order") }
   scope :with_category, ->(category_id) { where(category_id: category_id) }
+  scope :archived, -> { where(pub_status: "A") }
   scope :not_archived, -> { where.not(pub_status: "A") }
   scope :published, -> { where(pub_status: "P") }
   scope :alpha_order, -> { order(:title) }
