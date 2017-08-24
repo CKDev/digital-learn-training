@@ -22,7 +22,10 @@
 
     <div class="row">
       <div class="eight columns">
-        <h3 class="inline-block padding-right">Design Your Own Classroom Materials?</h3><%= link_to "Get Blank Templates", "#" %>
+        <h3 class="inline-block padding-right">Design Your Own Classroom Materials?</h3>
+        <% if @blank_template.present? %>
+          <%= link_to "Get Blank Templates", course_material_path(@blank_template) %>
+        <% end %>
       </div>
 
       <div class="four columns">

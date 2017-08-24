@@ -23,6 +23,7 @@ module Admin
 
     def edit
       @course_material = CourseMaterial.find(params[:id])
+      @readonly = @course_material.title.in? PROTECTED_COURSE_MATERIALS
     end
 
     def update

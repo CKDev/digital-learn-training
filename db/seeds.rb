@@ -18,3 +18,12 @@ Category.create(title: "Social Media", tag: "Software & Applications")
 Category.create(title: "More Websites & Apps", tag: "Software & Applications")
 Category.create(title: "Resume Series", tag: "Job & Career")
 Category.create(title: "LinkedIn", tag: "Job & Career")
+category = Category.create(title: "Other", tag: "Other")
+
+CourseMaterial.create(
+  title: "Course Templates",
+  contributor: "Admin",
+  summary: "Use our templates to design your own classroom materials!",
+  category: category,
+  pub_status: "P"
+)

@@ -1,5 +1,5 @@
 class Category < ApplicationRecord
-  ALLOWED_TAGS = ["Hardware", "Software & Applications", "Job & Career"].freeze
+  ALLOWED_TAGS = ["Hardware", "Software & Applications", "Job & Career", "Other"].freeze
   has_many :sub_categories
 
   validates :title, presence: true
@@ -9,6 +9,6 @@ class Category < ApplicationRecord
   validates_associated :sub_categories
 
   def self.select_options
-    ALLOWED_TAGS.map { |t| [t, t] }
+    ALLOWED_TAGS.reject { |t| t == "Other" }.map { |t| [t, t] }
   end
 end

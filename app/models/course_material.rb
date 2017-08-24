@@ -10,6 +10,7 @@ class CourseMaterial < ApplicationRecord
   validates :summary, length: { maximum: 156 }
   validates :pub_status, presence: true,
     inclusion: { in: %w(P D A), message: "%{value} is not a valid status" }
+  validate :allowed_change?
 
   accepts_nested_attributes_for :course_material_files, reject_if: :all_blank, allow_destroy: true
   validates_associated :course_material_files
@@ -25,5 +26,21 @@ class CourseMaterial < ApplicationRecord
   scope :archived, -> { where(pub_status: "A") }
   scope :not_archived, -> { where.not(pub_status: "A") }
   scope :not_self, ->(id) { where.not(id: id) }
+
+  private
+
+  def allowed_change?
+    # We need to count on certain nodes being in the system - certain content we don't want
+    # to be deleted or changed.
+
+    # There must be a homepage witht the slug "home", otherwise the site will show the PushType
+    # welcome page, which is bad.
+    PROTECTED_COURSE_MATERIALS.each do |t|
+      if self.title_was == t && self.title != t
+        errors.add(:title, "This course is protected and cannot be changed.")
+      end
+    end
+
+  end
 
 end

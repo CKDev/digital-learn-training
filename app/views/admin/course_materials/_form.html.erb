@@ -2,11 +2,17 @@
 
   <%= render "form_errors", m: @course_material %>
 
+
   <fieldset>
-    <%= f.label :title, class: "required" %>
-    <%= f.text_field :title, maxlength: 90 %>
-    <div class="character-limit">&nbsp;</div>
+    <% if @readonly %>
+      <%= f.label :title, @course_material.title %>
+    <% else %>
+      <%= f.label :title, class: "required" %>
+      <%= f.text_field :title, maxlength: 90 %>
+      <div class="character-limit">&nbsp;</div>
+    <% end %>
   </fieldset>
+
 
   <fieldset>
     <%= f.label :contributor, class: "required" %>
@@ -25,25 +31,27 @@
     <%= f.cktext_area :description %>
   </fieldset>
 
-  <fieldset>
-    <%= f.label :pub_status %>
-    <%= f.select(:pub_status, options_for_select(Constants.pub_status_select_options, @course_material.pub_status)) %>
-  </fieldset>
+  <% unless @readonly %>
+    <fieldset>
+      <%= f.label :pub_status %>
+      <%= f.select(:pub_status, options_for_select(Constants.pub_status_select_options, @course_material.pub_status), readonly: @readonly) %>
+    </fieldset>
 
-  <fieldset>
-    <%= f.label :category_id, class: "required" %>
-    <%= f.select :category_id, options_for_select(Category.all.map { |c| [c.title, c.id] }, @course_material.try(:category).try(:id)),
-      include_blank: "Select ..." %>
-  </fieldset>
+    <fieldset>
+      <%= f.label :category_id, class: "required" %>
+      <%= f.select :category_id, options_for_select(Category.all.map { |c| [c.title, c.id] }, @course_material.try(:category).try(:id)),
+        include_blank: "Select ..." %>
+    </fieldset>
 
-  <fieldset>
-    <%= f.label :sub_category_id %>
-    <%= f.grouped_collection_select :sub_category_id, Category.order(:title), :sub_categories, :title, :id, :title,
-    selected: @course_material.try(:sub_category).try(:id), include_blank: "Select ..." %>
-  </fieldset>
+    <fieldset>
+      <%= f.label :sub_category_id %>
+      <%= f.grouped_collection_select :sub_category_id, Category.order(:title), :sub_categories, :title, :id, :title,
+      selected: @course_material.try(:sub_category).try(:id), include_blank: "Select ..." %>
+    </fieldset>
+  <% end %>
 
   <h3>Course Files <small>(acceptable formats: PDF, CSV, Word, PowerPoint, or Excel)</small></h3>
-  
+
   <div class="js-cocoon-item-files">
     <%= f.fields_for :course_material_files do |file| %>
       <%= render "course_material_file_fields", f: file %>
