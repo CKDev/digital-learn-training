@@ -1,12 +1,14 @@
-<h3><%= title %></h3>
-<% categories.each_with_index do |category, index| %>
-  <% if (index % 2 == 0) %>
-  <div class="row extra-margin-bottom">
-  <% end %>
-    <div class="six columns">
-      <%= render "components/media_object_1", title: category.title, link: category_path(category), icon: "icon-files" %>
+<div class="clearfix">
+  <h3><%= title %></h3>
+  <% categories.each_with_index do |category, index| %>
+    <% if (index % 2 == 0) %>
+    <div class="row extra-margin-bottom">
+    <% end %>
+      <div class="six columns">
+        <%= render "components/media_object_1", title: category.title, link: category_path(category), icon: "icon-files" %>
+      </div>
+    <% if (index % 2 == 1) %>
     </div>
-  <% if (index % 2 == 1) %>
-  </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
