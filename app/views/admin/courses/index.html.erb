@@ -1,13 +1,13 @@
-<%= content_for(:callout) { %><h1>Course Index</h1><% } %>
+<%= content_for(:callout) { %><h1>Training Index</h1><% } %>
 
 <div class="row extra-margin-bottom">
   <div class="six columns">
     <p class="note no-top-margin">
-      Re-order courses on the homepage by clicking on the arrow icon to drag and drop courses. Edit by clicking the appropriate course below.
+      Re-order trainings on the homepage by clicking on the arrow icon to drag and drop trainings. Edit by clicking the appropriate training below.
     </p>
   </div>
   <div class="six columns left-or-right">
-    <%= link_to "Add a New Course", new_admin_course_path, class: "btn" %>
+    <%= link_to "Add a New Training", new_admin_course_path, class: "btn" %>
   </div>
 </div>
 
@@ -15,7 +15,7 @@
 <div class="extra-margin-bottom">
   <div class="sortable-list">
     <div class="list-titles">
-      <div class="cell">Course</div>
+      <div class="cell">Training</div>
       <div class="cell">Contributor</div>
       <div class="cell">Status</div>
       <div class="cell">Publication Date</div>
@@ -26,13 +26,13 @@
           <li class="sortable-item" data-id="<%= course.id %>">
             <div class="cell"><%= link_to course.title, edit_admin_course_path(course), class: "no_drag_link" %></div>
             <div class="cell"><%= course.contributor %></div>
-            <div class="cell"><%= course.pub_status.titleize %></div>
+            <div class="cell"><%= pub_status(course.pub_status) %></div>
             <div class="cell"><%= course.pub_date_str %></div>
           </li>
         <% end %>
       </ul>
     <% else %>
-      <p>There are no available courses.</p>
+      <p>There are no available trainings.</p>
     <% end %>
   </div>
 </div>

@@ -14,7 +14,7 @@ module Admin
     def create
       @course_material = CourseMaterial.new
       if @course_material.update(course_material_params)
-        redirect_to admin_course_materials_path, notice: "Successfully created new Course Materials"
+        redirect_to admin_course_materials_path, notice: "Successfully created new Course"
       else
         render :new
       end
@@ -27,7 +27,7 @@ module Admin
     def update
       @course_material = CourseMaterial.find(params[:id])
       if @course_material.update(course_material_params)
-        redirect_to admin_course_materials_path, notice: "Successfully updated Course Materials"
+        redirect_to admin_course_materials_path, notice: "Successfully updated Course"
       else
         render :edit
       end
@@ -36,9 +36,9 @@ module Admin
     def destroy
       @course_material = CourseMaterial.find(params[:id])
       if @course_material.update(archived: true)
-        redirect_to admin_course_materials_path, notice: "Successfully archived Course Materials"
+        redirect_to admin_course_materials_path, notice: "Successfully archived Course"
       else
-        redirect_to admin_course_materials_path, alert: "Unable to archive Course Materials"
+        redirect_to admin_course_materials_path, alert: "Unable to archive Course"
       end
     end
 

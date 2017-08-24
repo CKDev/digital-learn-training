@@ -9,6 +9,17 @@ module ApplicationHelper
     raw doc
   end
 
+  def pub_status(status)
+    case status
+    when "D"
+      "Draft"
+    when "P"
+      "Published"
+    when "A"
+      "Archived"
+    end
+  end
+
   def mime_type_conversion(mime_type)
     case mime_type
     when "application/pdf"

@@ -2,8 +2,8 @@ en:
   activerecord:
     attributes:
       course:
-        title: "Course Title"
-        description: "Course Description"
+        title: "Training Title"
+        description: "Training Description"
         meta_desc: "Meta Description"
         pub_status: "Publication Status"
         seo_page_title: "SEO Page Title"

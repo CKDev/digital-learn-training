@@ -90,6 +90,8 @@ Commits should be "squashed" into atomic chunks of code, usually corresponding w
 
 ## Other things to know, tricky areas of this application
 
+We changed the language a little bit and now have Trainings and Courses.  However, in the app the models are Courses (Trainings) and CourseMaterials (Courses).  At some point it would be nice to fix this, but it's a bit of work for sure.
+
 ...
 
 TODO: We don't have a strikethrough font, remove from ckeditor.

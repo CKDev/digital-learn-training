@@ -1,4 +1,4 @@
-<%= content_for(:callout) { %><h1>Course Materials Archive Index</h1><% } %>
+<%= content_for(:callout) { %><h1>Course Archive Index</h1><% } %>
 
 <div class="extra-margin-bottom">
   <div class="list-titles">
@@ -19,11 +19,11 @@
       <% end %>
     </ul>
   <% else %>
-    <p>There are no archived course materials.</p>
+    <p>There are no archived courses.</p>
   <% end %>
 
 </div>
 
 <p>
-  <%= link_to "View Un-archived Course Materials", admin_course_materials_path, class: "note" %>
+  <%= link_to "View Un-archived Course", admin_course_materials_path, class: "note" %>
 </p>

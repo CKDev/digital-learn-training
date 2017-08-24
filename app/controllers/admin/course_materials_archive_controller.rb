@@ -9,9 +9,9 @@ module Admin
     def destroy
       @course_material = CourseMaterial.find(params[:id])
       if @course_material.update(archived: false)
-        redirect_to admin_course_materials_path, notice: "Successfully un-archived Course Materials"
+        redirect_to admin_course_materials_path, notice: "Successfully un-archived Course"
       else
-        redirect_to admin_course_materials_path, alert: "Unable to un-archive Course Materials"
+        redirect_to admin_course_materials_path, alert: "Unable to un-archive Course"
       end
     end
 
