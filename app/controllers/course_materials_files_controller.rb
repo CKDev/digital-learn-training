@@ -1,3 +1,5 @@
+require "zip"
+
 class CourseMaterialsFilesController < ApplicationController
 
   def show

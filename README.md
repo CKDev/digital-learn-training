@@ -66,8 +66,6 @@ At any time, the working state of the app should be provable by running the test
 
 [Info on deployment norms]
 
-(E.g. from the Showami Project, replace with this project's norms)
-
 I am following a simple branching strategy.  Master at this time is the main branch, and is deployed to staging for review.  Developers should use feature branches for development, but then merge to master for review. The Production server environment maps to the production github branch.
 
 I'm following a tagged release strategy, loosely based on SemVer.  Master should be tagged, using SemVer, and then the cuts of the production branch can be made a specific tag points, with the release notes being the oneline commit titles from the previous tag.
