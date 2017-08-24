@@ -1,7 +1,7 @@
 class CourseMaterialsController < ApplicationController
 
   def show
-    @course_material = CourseMaterial.not_archived.find(params[:id])
+    @course_material = CourseMaterial.published.find(params[:id])
     @course_materials = CourseMaterial
       .published
       .not_self(@course_material.id)

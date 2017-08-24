@@ -43,6 +43,7 @@
   </fieldset>
 
   <h3>Course Files <small>(acceptable formats: PDF, CSV, Word, PowerPoint, or Excel)</small></h3>
+  
   <div class="js-cocoon-item-files">
     <%= f.fields_for :course_material_files do |file| %>
       <%= render "course_material_file_fields", f: file %>
@@ -55,6 +56,7 @@
   </div>
 
   <h3>Course Media <small>(acceptable formats: PNG, JPG, GIF, WEBP)</small></h3>
+
   <div class="js-cocoon-item-medias">
     <%= f.fields_for :course_material_medias do |media| %>
       <%= render "course_material_media_fields", f: media %>
@@ -67,6 +69,7 @@
   </div>
 
   <h3>Course Videos</h3>
+
   <p class="note">
     Open your video on youtube.com, and click the share icon below the video.
     Copy and paste the content of the embed field from YouTube into this textbox.
