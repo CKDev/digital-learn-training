@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
-  root to: "home#index"
 
   resources :pages, only: [:show]
-  resources :courses, only: [:index, :show] do
+  resources :courses, only: [:index, :show], path: "trainings" do
     post :start
     get :complete
     get "attachment/:attachment_id" => "courses#view_attachment", as: :attachment
@@ -12,7 +10,7 @@ Rails.application.routes.draw do
       post :complete
     end
   end
-  resources :course_materials, only: [:index, :show] do
+  resources :course_materials, only: [:index, :show], path: "courses" do
     resources :course_materials_files, only: [:index, :show]
     resources :course_materials_medias, only: [:index, :show]
   end
@@ -22,17 +20,25 @@ Rails.application.routes.draw do
     root "course_materials#index"
     resources :pages, except: [:destroy]
     resources :pages_archive, only: [:index]
-    resources :courses, except: [:destroy] do
+    resources :courses, except: [:destroy], path: "trainings" do
       put :sort, on: :collection
       resources :lessons do
         put :sort, on: :collection
         delete :destroy_asl_attachment, on: :collection
       end
     end
-    resources :courses_archive, only: [:index]
-    resources :course_materials, except: [:destroy]
-    resources :course_materials_archive, only: [:index]
+    resources :courses_archive, only: [:index], path: "trainings_archive"
+    resources :course_materials, except: [:destroy], path: "courses"
+    resources :course_materials_archive, only: [:index], path: "courses_archive"
     resources :categories
     resources :attachments, only: [:destroy]
   end
+
+  devise_for :users, controllers: {
+    sessions: "sessions",
+    registrations: "registrations",
+    passwords: "passwords"
+  }
+
+  root to: "home#index"
 end

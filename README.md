@@ -12,16 +12,11 @@
 
 ### System dependencies
 
-* Redis
 * Postgresql
 
 ## Testing
 
 Rspec is used on this project, which can be run with: `rspec`
-
-## Services
-
-* Sidekiq
 
 ## Deployment instructions
 
@@ -29,10 +24,6 @@ Deployment is done via Capistrano
 
 `cap staging deploy`
 `cap production deploy`
-
-Note that sidekiq is required for this app to be functional, and therefore after deployment should be checked.
-
-On the server run `ps aux | grep sidekiq` and verify that the service is running.
 
 ## Developer Norms/Standards
 
@@ -44,27 +35,15 @@ Rubocop is used on this project, which defines the Ruby styling agreed upon for 
 
 ### JavaScript
 
-[Info on JavaScript testing/code standards and norms]
-
-(E.g. from the Showami Project, replace with this project's norms)
-
 At this time there is no JavaScript testing or linting, as there is simply not enough JS code in the app to justify the effort. This should be reassessed over time.
 
 ## Testing
-
-[Info on Rails testing/code standards and norms]
-
-(E.g. from the Showami Project, replace with this project's norms)
-
-This project was test driven from the start, and any new features or bug fixes must have an accompanying test, or a valid reason as to why a test isn't possible. At the time of the MVP the testing coverage was > 98%.
 
 A feature test to prove the actual working feature is preferred.  Edge cases aren't necessary with feature tests.  From that, more granular controller and model testing to cover different code paths and edge cases is ideal.
 
 At any time, the working state of the app should be provable by running the test suite.
 
 ## Server Environments
-
-[Info on deployment norms]
 
 I am following a simple branching strategy.  Master at this time is the main branch, and is deployed to staging for review.  Developers should use feature branches for development, but then merge to master for review. The Production server environment maps to the production github branch.
 
