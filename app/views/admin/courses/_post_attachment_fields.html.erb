@@ -3,7 +3,8 @@
   <div class="removable">
     <%= f.hidden_field :doc_type, value: "post-course" %>
     <%= f.file_field :document, class: "upload-field" %>
-    <%= f.text_field :file_description, class: "text-field", placeholder: "(optional) Add a description for this resource..." %>
+    <%= f.label :file_description, class: "screen-reader-text" %>
+    <%= f.text_field :file_description, class: "text-field", placeholder: "(optional) Add a description..." %>
   </div>
   <%= link_to_remove_child "remove field" %>
 </fieldset>

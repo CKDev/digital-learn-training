@@ -64,7 +64,7 @@ group :development do
   gem "rubocop", require: false
   gem "brakeman", require: false
   gem "foreman", require: false
-  gem "rack-mini-profiler"
+  # gem "rack-mini-profiler"
   gem "letter_opener"
   gem "web-console"
   gem "colorize" # For colored spec/capybara output

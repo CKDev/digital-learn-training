@@ -17,7 +17,8 @@
     <%= f.select :tag, options_for_select(Category.select_options, @category.tag), include_blank: "Select ..." %>
   </fieldset>
 
-  <h3>Subcategories</h3>
+  <h2>Subcategories</h2>
+  
   <div class="js-cocoon-subcategories">
     <%= f.fields_for :sub_categories do |subcategory| %>
       <%= render "sub_category_fields", f: subcategory %>

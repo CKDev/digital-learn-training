@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       post :complete
     end
   end
-  resources :course_materials, only: [:show] do
+  resources :course_materials, only: [:index, :show] do
     resources :course_materials_files, only: [:index, :show]
     resources :course_materials_medias, only: [:index, :show]
   end

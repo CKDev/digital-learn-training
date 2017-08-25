@@ -2,7 +2,6 @@
 
   <%= render "form_errors", m: @course_material %>
 
-
   <fieldset>
     <% if @readonly %>
       <%= f.label :title, @course_material.title %>
@@ -50,7 +49,7 @@
     </fieldset>
   <% end %>
 
-  <h3>Course Files <small>(acceptable formats: PDF, CSV, Word, PowerPoint, or Excel)</small></h3>
+  <h2>Course Files <small>(acceptable formats: PDF, CSV, Word, PowerPoint, or Excel)</small></h2>
 
   <div class="js-cocoon-item-files">
     <%= f.fields_for :course_material_files do |file| %>
@@ -63,7 +62,7 @@
       { "data-association-insertion-method" => "append", "data-association-insertion-node" => ".js-cocoon-item-files" } %>
   </div>
 
-  <h3>Course Media <small>(acceptable formats: PNG, JPG, GIF)</small></h3>
+  <h2>Course Media <small>(acceptable formats: PNG, JPG, GIF)</small></h2>
 
   <div class="js-cocoon-item-medias">
     <%= f.fields_for :course_material_medias do |media| %>
@@ -76,7 +75,7 @@
       { "data-association-insertion-method" => "append", "data-association-insertion-node" => ".js-cocoon-item-medias" } %>
   </div>
 
-  <h3>Course Videos</h3>
+  <h2>Course Videos</h2>
 
   <p class="note">
     Open your video on youtube.com, and click the share icon below the video.

@@ -1,4 +1,6 @@
-<%= content_for(:callout) { %><h1>Available Courses</h1><% } %>
+<%= content_for(:callout) { %><h1>Available Training</h1><% } %>
+
+<h2 class="screen-reader-text">All Available Training</h2>
 
 <% if @courses.present? %>
   <%= render "listing" %>

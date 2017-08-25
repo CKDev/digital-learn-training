@@ -17,7 +17,7 @@
           <%= link_to "Admin Dashboard", admin_root_path %><span class="divider">|</span>
           <%= link_to "Sign Out", destroy_user_session_path, method: "delete" %>
         <% else %>
-          <%= link_to "Courses", "#" %><span class="divider">|</span>
+          <%= link_to "Courses", course_materials_path %><span class="divider">|</span>
           <%= link_to "Training", courses_path %><span class="divider">|</span>
           <%= link_to "Peer Discussion", "http://community.digitallearn.org/" %>
         <% end %>
