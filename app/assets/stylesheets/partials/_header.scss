@@ -5,6 +5,10 @@ nav.primary-links {
   margin-top: 27px;
   @include clearfix;
 
+  @include media($mobile-large) {
+    float: left;
+  }
+
   a {
     display: inline-block;
 
