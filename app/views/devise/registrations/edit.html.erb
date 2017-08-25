@@ -1,38 +1,38 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2 class="screen-reader-text">Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div>
+  <fieldset>
     <%= f.label :email %>
     <%= f.email_field :email, autofocus: true %>
-  </div>
+  </fieldset>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <fieldset>Currently waiting confirmation for: <%= resource.unconfirmed_email %></fieldset>
   <% end %>
 
-  <div>
+  <fieldset>
     <%= f.label :password do %>
-      Password <i>(leave blank if you don't want to change it)</i>
+      Password <small class="note">(leave blank if you don't want to change it)</small>
     <% end %>
     <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+  </fieldset>
 
-  <div>
+  <fieldset>
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+  </fieldset>
 
-  <div>
+  <fieldset>
     <%= f.label :current_password do %>
-      Current Password <i>(we need your current password to confirm your changes)</i>
+      Current Password <small class="note">(we need your current password to confirm your changes)</small>
     <% end %>
     <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
+  </fieldset>
 
-  <div>
+  <fieldset>
     <%= f.submit "Update" %>
-  </div>
+  </fieldset>
 
 <% end %>
