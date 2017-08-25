@@ -5,6 +5,6 @@ class CourseMaterialMedia < ApplicationRecord
   validates :media_file_name, uniqueness: { scope: :course_material, message: "should be unique for the course" }
 
   validates_attachment_content_type :media, content_type: Constants.course_material_media_types,
-    message: "Only PNG, JPG, GIF, WEBP, or MP4 files are allowed."
+    message: "Only PNG, JPG and GIF files are allowed."
 
 end
