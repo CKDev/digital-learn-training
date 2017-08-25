@@ -11,35 +11,23 @@ module ApplicationHelper
 
   def pub_status(status)
     case status
-    when "D"
-      "Draft"
-    when "P"
-      "Published"
-    when "A"
-      "Archived"
+    when "D" then "Draft"
+    when "P" then "Published"
+    when "A" then "Archived"
     end
   end
 
   def mime_type_conversion(mime_type)
     case mime_type
-    when "application/pdf"
-      "PDF File"
-    when "text/csv"
-      "CSV File"
-    when "application/vnd.ms-excel"
-      "Microsoft Excel"
-    when "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-      "Microsoft Excel"
-    when "application/vnd.ms-powerpoint"
-      "Microsoft PowerPoint"
-    when "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-      "Microsoft PowerPoint"
-    when "application/msword"
-      "Microsoft Word"
-    when "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-      "Microsoft Word"
-    else
-      ""
+    when "application/pdf" then "PDF File"
+    when "text/csv" then "CSV File"
+    when "application/vnd.ms-excel" then "Microsoft Excel"
+    when "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" then "Microsoft Excel"
+    when "application/vnd.ms-powerpoint" then "Microsoft PowerPoint"
+    when "application/vnd.openxmlformats-officedocument.presentationml.presentation" then "Microsoft PowerPoint"
+    when "application/msword" then "Microsoft Word"
+    when "application/vnd.openxmlformats-officedocument.wordprocessingml.document" then "Microsoft Word"
+    else ""
     end
   end
 
