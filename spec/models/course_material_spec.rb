@@ -48,11 +48,6 @@ describe CourseMaterial do
       expect(@course_material.valid?).to be false
     end
 
-    it "should require the contributor" do
-      @course_material.update(contributor: "")
-      expect(@course_material.valid?).to be false
-    end
-
     it "should not allow the contributor to be more than 156 chars" do
       contributor = ""
       156.times { contributor << "a" }
@@ -71,6 +66,24 @@ describe CourseMaterial do
 
       @course_material.update(summary: summary + "a")
       expect(@course_material.valid?).to be false
+    end
+
+    it "shouldn't allow two file attachments to have the same file name" do
+      @course_material_file1 = FactoryGirl.create(:course_material_file, course_material: @course_material)
+      expect(@course_material.valid?).to be true
+
+      expect do
+        @course_material_file2 = FactoryGirl.create(:course_material_file, course_material: @course_material)
+      end.to raise_error ActiveRecord::RecordInvalid
+    end
+
+    it "shouldn't allow two media attachments to have the same file name" do
+      @course_material_media1 = FactoryGirl.create(:course_material_media, course_material: @course_material)
+      expect(@course_material.valid?).to be true
+
+      expect do
+        @course_material_media2 = FactoryGirl.create(:course_material_media, course_material: @course_material)
+      end.to raise_error ActiveRecord::RecordInvalid
     end
 
   end
