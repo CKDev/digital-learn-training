@@ -16,5 +16,7 @@ module DigitalLearnTraining
     # -- all .rb files in that directory are automatically loaded.
 
     config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
+
+    Paperclip.options[:content_type_mappings] = { story:  %w(application/octet-stream application/zip) }
   end
 end

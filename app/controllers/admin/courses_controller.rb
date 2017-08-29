@@ -37,6 +37,7 @@ module Admin
     end
 
     def update
+      binding.pry
       # The slug must be set to nil for the friendly_id to update on title change
       @course.slug = nil if @course.title != params[:course][:title]
       if @course.update(course_params)
