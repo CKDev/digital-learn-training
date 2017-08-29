@@ -10,13 +10,11 @@
             <div class="one column">
               <% if l.id == lesson.id %>
                 <i class="icon-play"></i>
-              <% elsif lessons_completed.include?(l.id) %>
-                <i class="icon-ok orange"></i>
               <% else %>
                 <i class="icon-none"></i>
               <% end %>
             </div>
-            <div class="grey one column">
+            <div class="one column">
               <%= l.lesson_order %>.
             </div>
             <div class="nine columns">
@@ -37,13 +35,11 @@
             <div class="one column">
               <% if l.id == lesson.id %>
                 <i class="icon-play"></i>
-              <% elsif lessons_completed.include?(l.id) %>
-                <i class="icon-ok orange"></i>
               <% else %>
                 <i class="icon-none"></i>
               <% end %>
             </div>
-            <div class="grey one column">
+            <div class="one column">
               <%= l.lesson_order %>.
             </div>
             <div class="nine columns">
