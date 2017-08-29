@@ -60,7 +60,7 @@ describe CourseMaterial do
 
     it "should not allow the summary to be more than 156 chars" do
       summary = ""
-      156.times { summary << "a" }
+      74.times { summary << "a" }
       @course_material.update(summary: summary)
       expect(@course_material.valid?).to be true
 
