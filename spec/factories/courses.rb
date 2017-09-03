@@ -1,7 +1,6 @@
 FactoryGirl.define do
-
   factory :course do
-    title "Course title"
+    title
     summary "In this course you will..."
     description "Description"
     contributor "John Doe"
@@ -9,7 +8,7 @@ FactoryGirl.define do
   end
 
   factory :course_with_lessons, class: Course do
-    title "Course title"
+    title
     summary "In this course you will..."
     description "Description"
     contributor "John Doe"
@@ -21,5 +20,4 @@ FactoryGirl.define do
       create(:lesson, course: course, lesson_order: 3)
     end
   end
-
 end

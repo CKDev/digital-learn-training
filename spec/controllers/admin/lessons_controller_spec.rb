@@ -14,20 +14,6 @@ describe Admin::LessonsController do
 
   end
 
-  # describe "GET #index" do
-  #
-  #   it "assigns all pages" do
-  #     @admin = FactoryGirl.create(:admin)
-  #     sign_in @admin
-  #     @page1 = FactoryGirl.create(:page)
-  #     @page2 = FactoryGirl.create(:page)
-  #     get :index
-  #     expect(assigns(:pages)).to contain_exactly(@page1, @page2)
-  #   end
-  #
-  #   pending "permissions"
-  #
-  # end
   #
   # describe "POST #create" do
   #

@@ -14,6 +14,11 @@ describe Admin::AttachmentsController do
       end.to change { Attachment.count }.by(-1)
     end
 
+    it "redirects to the homepage if not authenticated" do
+      delete :destroy, params: { id: 1 }
+      expect(response).to redirect_to new_user_session_path
+    end
+
   end
 
 end

@@ -11,6 +11,11 @@ describe Admin::CategoriesController do
       expect(assigns(:category)).to be_an_instance_of(Category)
     end
 
+    it "redirects to the homepage if not authenticated" do
+      get :new
+      expect(response).to redirect_to new_user_session_path
+    end
+
   end
 
   describe "GET #index" do
@@ -24,7 +29,10 @@ describe Admin::CategoriesController do
       expect(assigns(:categories)).to contain_exactly(@category1, @category2)
     end
 
-    pending "permissions"
+    it "redirects to the homepage if not authenticated" do
+      get :index
+      expect(response).to redirect_to new_user_session_path
+    end
 
   end
 
@@ -64,6 +72,11 @@ describe Admin::CategoriesController do
       expect(response).to render_template :new
     end
 
+    it "redirects to the homepage if not authenticated" do
+      post :create, params: { category: valid_attributes }
+      expect(response).to redirect_to new_user_session_path
+    end
+
   end
 
   describe "GET #edit" do
@@ -74,6 +87,11 @@ describe Admin::CategoriesController do
       @category = FactoryGirl.create(:category)
       get :edit, params: { id: @category.id }
       expect(assigns(:category)).to eq @category
+    end
+
+    it "redirects to the homepage if not authenticated" do
+      get :edit, params: { id: 1 }
+      expect(response).to redirect_to new_user_session_path
     end
 
   end
@@ -114,6 +132,11 @@ describe Admin::CategoriesController do
       sign_in @admin
       put :update, params: { id: @category.id, category: invalid_attributes }
       expect(response).to render_template :edit
+    end
+
+    it "redirects to the homepage if not authenticated" do
+      put :update, params: { id: 1, category: valid_attributes }
+      expect(response).to redirect_to new_user_session_path
     end
 
   end

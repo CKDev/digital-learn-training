@@ -2,8 +2,6 @@ require "rails_helper"
 
 describe PagesController do
 
-  pending "should show the requested page"
-
   describe "GET #show" do
 
     it "assigns the given instance of a page" do

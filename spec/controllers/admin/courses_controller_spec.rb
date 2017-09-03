@@ -11,6 +11,11 @@ describe Admin::CoursesController do
       expect(assigns(:course)).to be_an_instance_of(Course)
     end
 
+    it "redirects to the homepage if not authenticated" do
+      get :new
+      expect(response).to redirect_to new_user_session_path
+    end
+
   end
 
   describe "GET #index" do
@@ -25,7 +30,10 @@ describe Admin::CoursesController do
       expect(assigns(:courses)).to contain_exactly(@course1, @course2)
     end
 
-    pending "permissions"
+    it "redirects to the homepage if not authenticated" do
+      get :index
+      expect(response).to redirect_to new_user_session_path
+    end
 
   end
 
@@ -76,6 +84,11 @@ describe Admin::CoursesController do
       expect(response).to render_template :new
     end
 
+    it "redirects to the homepage if not authenticated" do
+      post :create, params: { course: valid_attributes }
+      expect(response).to redirect_to new_user_session_path
+    end
+
   end
 
   describe "GET #edit" do
@@ -86,6 +99,11 @@ describe Admin::CoursesController do
       @course = FactoryGirl.create(:course)
       get :edit, params: { id: @course.id }
       expect(assigns(:course)).to eq @course
+    end
+
+    it "redirects to the homepage if not authenticated" do
+      get :edit, params: { id: 1 }
+      expect(response).to redirect_to new_user_session_path
     end
 
   end
@@ -137,6 +155,11 @@ describe Admin::CoursesController do
       sign_in @admin
       put :update, params: { id: @course.id, course: invalid_attributes }
       expect(response).to render_template :edit
+    end
+
+    it "redirects to the homepage if not authenticated" do
+      put :update, params: { id: 1, course: valid_attributes }
+      expect(response).to redirect_to new_user_session_path
     end
 
   end

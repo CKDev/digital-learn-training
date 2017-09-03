@@ -12,7 +12,10 @@ describe Course do
       expect(@course.valid?).to be true
     end
 
-    pending "it should require the title to be unique"
+    it "should require the title to be unique" do
+      @course2 = FactoryGirl.build(:course, title: @course.title)
+      expect(@course2.valid?).to be false
+    end
 
   end
 

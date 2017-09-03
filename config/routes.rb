@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     resources :pages_archive, only: [:index]
     resources :courses, except: [:destroy], path: "trainings" do
       put :sort, on: :collection
-      resources :lessons do
+      resources :lessons, except: [:index] do
         put :sort, on: :collection
         delete :destroy_asl_attachment, on: :collection
       end

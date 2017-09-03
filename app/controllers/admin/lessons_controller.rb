@@ -3,10 +3,6 @@ module Admin
 
     before_action :set_course, except: [:sort]
 
-    def index
-
-    end
-
     def show
 
     end

@@ -11,6 +11,11 @@ describe Admin::CourseMaterialsController do
       expect(assigns(:course_material)).to be_an_instance_of(CourseMaterial)
     end
 
+    it "redirects to the homepage if not authenticated" do
+      get :new
+      expect(response).to redirect_to new_user_session_path
+    end
+
   end
 
   describe "GET #index" do
@@ -25,7 +30,10 @@ describe Admin::CourseMaterialsController do
       expect(assigns(:course_materials)).to contain_exactly(@course_material1, @course_material2)
     end
 
-    pending "permissions"
+    it "redirects to the homepage if not authenticated" do
+      get :index
+      expect(response).to redirect_to new_user_session_path
+    end
 
   end
 
@@ -102,6 +110,11 @@ describe Admin::CourseMaterialsController do
       expect(response).to render_template :new
     end
 
+    it "redirects to the homepage if not authenticated" do
+      post :create, params: { course_material: valid_attributes }
+      expect(response).to redirect_to new_user_session_path
+    end
+
   end
 
   describe "GET #edit" do
@@ -112,6 +125,11 @@ describe Admin::CourseMaterialsController do
       @course_material = FactoryGirl.create(:course_material)
       get :edit, params: { id: @course_material.id }
       expect(assigns(:course_material)).to eq @course_material
+    end
+
+    it "redirects to the homepage if not authenticated" do
+      get :edit, params: { id: 1 }
+      expect(response).to redirect_to new_user_session_path
     end
 
   end
@@ -157,6 +175,11 @@ describe Admin::CourseMaterialsController do
       sign_in @admin
       put :update, params: { id: @course_material.id, course_material: invalid_attributes }
       expect(response).to render_template :edit
+    end
+
+    it "redirects to the homepage if not authenticated" do
+      put :update, params: { id: 1, course_material: valid_attributes }
+      expect(response).to redirect_to new_user_session_path
     end
 
   end

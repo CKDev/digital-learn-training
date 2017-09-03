@@ -7,7 +7,7 @@ class Course < ApplicationRecord
 
   validates :description, presence: true
   validates :contributor, presence: true # TODO: length ?
-  validates :title, length: { maximum: 90 }, presence: true
+  validates :title, length: { maximum: 90 }, presence: true, uniqueness: { message: "must be unique" }
   validates :summary, length: { maximum: 156 }, presence: true
   validates :seo_page_title, length: { maximum: 90 }
   validates :meta_desc, length: { maximum: 156 }
@@ -24,13 +24,6 @@ class Course < ApplicationRecord
   scope :not_archived, -> { where.not(pub_status: "A") }
   scope :published, -> { where(pub_status: "P") }
   scope :alpha_order, -> { order(:title) }
-
-  def validate_has_unique_title
-    # TODO: this should go away, or be moved as part of a validation
-    if Course.where(title: title).where_exists(:organization_course, organization_id: org_id).count > 0
-      errors.add(:title, "must be unique. There is already a course with that title, please select a different title and try again.")
-    end
-  end
 
   def next_lesson_id(current_lesson_id = 0)
     raise StandardError, "There are no available lessons for this course." if lessons.count.zero?

@@ -1,5 +1,4 @@
 FactoryGirl.define do
-
   factory :course_material do
     title
     summary "In this course you will..."
@@ -8,5 +7,4 @@ FactoryGirl.define do
     pub_status "D"
     category
   end
-
 end
