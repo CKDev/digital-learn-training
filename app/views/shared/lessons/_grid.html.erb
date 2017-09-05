@@ -1,3 +1,5 @@
-<% course.lessons.each do |l| %>
-  <%= render partial: "shared/lessons/lesson_block", locals: { course: course, lesson: l, completed: [] }%>
-<% end %>
+<div class="clearfix">
+  <% course.lessons.each do |l| %>
+    <%= render partial: "shared/lessons/lesson_block", locals: { course: course, lesson: l, completed: [] }%>
+  <% end %>
+</div>

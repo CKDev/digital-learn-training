@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   private
 
   def set_footer_links
-    # TODO: good candidate for caching
     @footer_links = Page.published.alpha_order
   end
 end
