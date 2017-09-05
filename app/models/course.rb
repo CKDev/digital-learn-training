@@ -6,7 +6,7 @@ class Course < ApplicationRecord
   has_many :attachments, dependent: :destroy
 
   validates :description, presence: true
-  validates :contributor, presence: true # TODO: length ?
+  validates :contributor, presence: true
   validates :title, length: { maximum: 90 }, presence: true, uniqueness: { message: "must be unique" }
   validates :summary, length: { maximum: 156 }, presence: true
   validates :seo_page_title, length: { maximum: 90 }
@@ -44,7 +44,7 @@ class Course < ApplicationRecord
 
   def duration(format = "mins")
     total = 0
-    lessons.each { |l| total += l.duration }
+    lessons.published.each { |l| total += l.duration }
     Duration.minutes_str(total, format)
   end
 
@@ -58,13 +58,6 @@ class Course < ApplicationRecord
       pub_date.strftime(DateFormats.month_day_year)
     else
       "N/A"
-    end
-  end
-
-  def update_lesson_pub_stats(new_pub_status)
-    lessons.each do |l|
-      l.pub_status = new_pub_status
-      l.save
     end
   end
 

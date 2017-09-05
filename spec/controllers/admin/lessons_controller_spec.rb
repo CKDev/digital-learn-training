@@ -14,109 +14,196 @@ describe Admin::LessonsController do
 
   end
 
-  #
-  # describe "POST #create" do
-  #
-  #   let(:valid_attributes) do
-  #     {
-  #       title: "New Page",
-  #       body: "<p>Body</p>",
-  #       pub_status: "published",
-  #       author: "admin",
-  #       seo_title: "SEO Title",
-  #       meta_desc: "Meta Desc"
-  #     }
-  #   end
-  #
-  #   let(:invalid_attributes) do
-  #     {
-  #       title: "",
-  #       body: "",
-  #       author: ""
-  #     }
-  #   end
-  #
-  #   it "correctly assigns the passed in info" do
-  #     @admin = FactoryGirl.create(:admin)
-  #     sign_in @admin
-  #     post :create, params: { page: valid_attributes }
-  #     page = Page.last
-  #     expect(page.title).to eq "New Page"
-  #     expect(page.slug).to eq "new-page"
-  #     expect(page.body).to eq "<p>Body</p>"
-  #     expect(page.pub_status).to eq "published"
-  #     expect(page.author).to eq "admin"
-  #     expect(page.seo_title).to eq "SEO Title"
-  #     expect(page.meta_desc).to eq "Meta Desc"
-  #     # expect(page.published_at) # TODO: impl
-  #   end
-  #
-  #   it "renders the new view if there is missing information" do
-  #     @admin = FactoryGirl.create(:admin)
-  #     sign_in @admin
-  #     post :create, params: { page: invalid_attributes }
-  #     expect(response).to render_template :new
-  #   end
-  #
-  # end
-  #
-  # describe "GET #edit" do
-  #
-  #   it "assigns the given instance of a page" do
-  #     @admin = FactoryGirl.create(:admin)
-  #     sign_in @admin
-  #     @page = FactoryGirl.create(:page)
-  #     get :edit, params: { id: @page.id }
-  #     expect(assigns(:page)).to eq @page
-  #   end
-  #
-  # end
-  #
-  # describe "PUT #update" do
-  #
-  #   let(:valid_attributes) do
-  #     {
-  #       title: "Updated Page",
-  #       body: "<p>Updated Body</p>",
-  #       pub_status: "archived",
-  #       author: "admin-2",
-  #       seo_title: "Updated SEO Title",
-  #       meta_desc: "Updated Meta Desc"
-  #     }
-  #   end
-  #
-  #   let(:invalid_attributes) do
-  #     {
-  #       title: "",
-  #       body: "",
-  #       author: ""
-  #     }
-  #   end
-  #
-  #   it "correctly assigns the passed in info" do
-  #     @page = FactoryGirl.create(:page)
-  #     @admin = FactoryGirl.create(:admin)
-  #     sign_in @admin
-  #     put :update, params: { id: @page.id, page: valid_attributes }
-  #     @page.reload
-  #     expect(@page.title).to eq "Updated Page"
-  #     # expect(@page.slug).to eq "new-page"
-  #     expect(@page.body).to eq "<p>Updated Body</p>"
-  #     expect(@page.pub_status).to eq "archived"
-  #     expect(@page.author).to eq "admin-2"
-  #     expect(@page.seo_title).to eq "Updated SEO Title"
-  #     expect(@page.meta_desc).to eq "Updated Meta Desc"
-  #     # expect(@page.published_at) # TODO: impl
-  #   end
-  #
-  #   it "renders the edit view if there is missing information" do
-  #     @page = FactoryGirl.create(:page)
-  #     @admin = FactoryGirl.create(:admin)
-  #     sign_in @admin
-  #     put :update, params: { id: @page.id, page: invalid_attributes }
-  #     expect(response).to render_template :edit
-  #   end
-  #
-  # end
+  describe "POST #create" do
+
+    before :each do
+      @course = FactoryGirl.create(:course)
+    end
+
+    let(:storyline_file) do
+      fixture_file_upload(Rails.root.join("spec", "fixtures", "BasicSearch1.zip"), "application/zip")
+    end
+
+    let(:valid_attributes) do
+      {
+        title: "Lesson Title",
+        duration: "02:15",
+        course_id: @course.id,
+        summary: "Lesson Summary",
+        story_line: storyline_file,
+        seo_page_title: "SEO Page Title",
+        meta_desc: "Meta Description",
+        is_assessment: false,
+        pub_status: "P",
+        story_line_file_name: "",
+        story_line_content_type: "",
+        story_line_file_size: "",
+        story_line_updated_at: ""
+      }
+    end
+
+    let(:invalid_attributes) do
+      {
+        title: "",
+        duration: "",
+        course_id: nil,
+        summary: "",
+        story_line: "",
+        seo_page_title: "",
+        meta_desc: "",
+        is_assessment: false,
+        pub_status: "",
+        story_line_file_name: "",
+        story_line_content_type: "",
+        story_line_file_size: "",
+        story_line_updated_at: ""
+      }
+    end
+
+    it "correctly assigns the passed in info" do
+      @admin = FactoryGirl.create(:admin)
+      sign_in @admin
+      post :create, params: { course_id: @course.id, lesson: valid_attributes }
+      lesson = Lesson.last
+      expect(lesson.title).to eq "Lesson Title"
+      expect(lesson.duration).to eq 135
+      expect(lesson.course_id).to eq @course.id
+      expect(lesson.summary).to eq "Lesson Summary"
+      expect(lesson.story_line.present?).to eq true
+      expect(lesson.seo_page_title).to eq "SEO Page Title"
+      expect(lesson.meta_desc).to eq "Meta Description"
+      expect(lesson.is_assessment).to eq false
+      expect(lesson.pub_status).to eq "P"
+      expect(lesson.story_line_file_name).to eq "BasicSearch1.zip"
+      expect(lesson.story_line_content_type).to eq "application/zip"
+      expect(lesson.story_line_file_size).to eq 4_220_649
+    end
+
+    it "renders the new view if there is missing information" do
+      @course = FactoryGirl.create(:course)
+      @admin = FactoryGirl.create(:admin)
+      sign_in @admin
+      post :create, params: { course_id: @course.id, lesson: invalid_attributes }
+      expect(response).to render_template :new
+    end
+
+  end
+
+  describe "GET #edit" do
+
+    it "assigns the given instance of a lesson" do
+      @admin = FactoryGirl.create(:admin)
+      sign_in @admin
+      @course = FactoryGirl.create(:course_with_lessons)
+      get :edit, params: { course_id: @course.id, id: @course.lessons.first.id }
+      expect(assigns(:lesson)).to eq @course.lessons.first
+    end
+
+  end
+
+  describe "PUT #update" do
+
+    before :each do
+      @course = FactoryGirl.create(:course_with_lessons)
+    end
+
+    let(:storyline_file) do
+      fixture_file_upload(Rails.root.join("spec", "fixtures", "BasicSearch1.zip"), "application/zip")
+    end
+
+    let(:valid_attributes) do
+      {
+        title: "Updated Lesson Title",
+        duration: "02:15",
+        course_id: @course.id,
+        summary: "Updated Lesson Summary",
+        story_line: storyline_file,
+        seo_page_title: "Updated SEO Page Title",
+        meta_desc: "Updated Meta Description",
+        is_assessment: false,
+        pub_status: "A",
+        story_line_file_name: "",
+        story_line_content_type: "",
+        story_line_file_size: "",
+        story_line_updated_at: ""
+      }
+    end
+
+    let(:invalid_attributes) do
+      {
+        title: "",
+        duration: "",
+        course_id: nil,
+        summary: "",
+        story_line: "",
+        seo_page_title: "",
+        meta_desc: "",
+        is_assessment: false,
+        pub_status: "",
+        story_line_file_name: "",
+        story_line_content_type: "",
+        story_line_file_size: "",
+        story_line_updated_at: ""
+      }
+    end
+
+    it "correctly assigns the passed in info" do
+      @lesson = @course.lessons.first
+      @admin = FactoryGirl.create(:admin)
+      sign_in @admin
+      put :update, params: { course_id: @course.id, id: @lesson.id, lesson: valid_attributes }
+      @lesson.reload
+      expect(@lesson.title).to eq "Updated Lesson Title"
+      expect(@lesson.duration).to eq 135
+      expect(@lesson.course_id).to eq @course.id
+      expect(@lesson.summary).to eq "Updated Lesson Summary"
+      expect(@lesson.story_line.present?).to eq true
+      expect(@lesson.seo_page_title).to eq "Updated SEO Page Title"
+      expect(@lesson.meta_desc).to eq "Updated Meta Description"
+      expect(@lesson.is_assessment).to eq false
+      expect(@lesson.pub_status).to eq "A"
+      expect(@lesson.story_line_file_name).to eq "BasicSearch1.zip"
+      expect(@lesson.story_line_content_type).to eq "application/zip"
+      expect(@lesson.story_line_file_size).to eq 4_220_649
+    end
+
+    it "renders the edit view if there is missing information" do
+      @lesson = @course.lessons.first
+      @admin = FactoryGirl.create(:admin)
+      sign_in @admin
+      put :update, params: { course_id: @course.id, id: @lesson.id, lesson: invalid_attributes }
+      expect(response).to render_template :edit
+    end
+
+  end
+
+  describe "PUT #sort" do
+
+    before :each do
+      @course = FactoryGirl.create(:course_with_lessons)
+    end
+
+    it "should update to the given sort order" do
+      @admin = FactoryGirl.create(:admin)
+      sign_in @admin
+
+      first_id = @course.lessons.first.id
+      second_id = @course.lessons.second.id
+      third_id = @course.lessons.third.id
+
+      order = {
+        "0": { "id": third_id, "position": "1" },
+        "1": { "id": first_id, "position": "2" },
+        "2": { "id": second_id, "position": "3" }
+      }
+      put :sort, params: { course_id: @course.id, order: order }, format: :json
+
+      @course.reload
+      expect(@course.lessons.first.id).to eq third_id
+      expect(@course.lessons.second.id).to eq first_id
+      expect(@course.lessons.third.id).to eq second_id
+    end
+
+  end
 
 end

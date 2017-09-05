@@ -107,7 +107,7 @@ set :rvm_ruby_version, -> { "#{fetch(:ruby_version)}@#{fetch(:application)}-#{fe
 #before "deploy:setup", "rvm:install_ruby"
 #before "deploy:setup", "rvm:create_gemset"
 
-# This might be nice, for later (TODO)
+# This might be nice, for later
 #require "rvm/capistrano/alias_and_wrapp"
 #before "deploy", "rvm:create_alias"
 #before "deploy", "rvm:create_wrappers"

@@ -10,8 +10,6 @@ def log_in_with(email, password)
 end
 
 def log_in(user)
-  # visit root_path # There is no login on the public homepage.  TODO: revisit this
-  # click_link "Log In"
   visit new_user_session_path
   find("#user_email", visible: false).set(user.email)
   find("#user_password", visible: false).set(user.password)

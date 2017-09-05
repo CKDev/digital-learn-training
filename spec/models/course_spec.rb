@@ -55,4 +55,35 @@ describe Course do
 
   end
 
+  context "#duration" do
+
+    it "should add up the durations of all lessons" do
+      @course = FactoryGirl.create(:course_with_lessons)
+      expect(@course.duration).to eq "4 mins" # 90 * 3 = 270 / 60 = 4.5 mins
+    end
+
+    it "should not count draft lessons" do
+      @course = FactoryGirl.create(:course_with_lessons)
+      @course.lessons.first.update(pub_status: "D")
+      expect(@course.duration).to eq "3 mins" # 90 * 2 = 180 / 60 = 3 mins
+    end
+
+  end
+
+  context "#pub_date_str" do
+
+    it "print the published date in a nice format" do
+      Timecop.freeze(Time.zone.local(2017, 9, 1, 12, 0, 0)) do
+        @course = FactoryGirl.create(:course)
+        expect(@course.pub_date_str).to eq "09/01/2017"
+      end
+    end
+
+    it "should print N/A if the course isn't published" do
+      @course = FactoryGirl.create(:course, pub_status: "D")
+      expect(@course.pub_date_str).to eq "N/A"
+    end
+
+  end
+
 end

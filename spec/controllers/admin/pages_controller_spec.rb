@@ -131,7 +131,7 @@ describe Admin::PagesController do
       put :update, params: { id: @page.id, page: valid_attributes }
       @page.reload
       expect(@page.title).to eq "Updated Page"
-      # expect(@page.slug).to eq "updated-page" # TODO:
+      # expect(@page.slug).to eq "updated-page" # TODO: impl
       expect(@page.body).to eq "<p>Updated Body</p>"
       expect(@page.pub_status).to eq "A"
       expect(@page.author).to eq "admin-2"

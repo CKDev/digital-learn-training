@@ -15,4 +15,13 @@ describe Lesson do
 
   end
 
+  context "#duration_str" do
+
+    it "should add up the durations of all lessons" do
+      @course = FactoryGirl.create(:course_with_lessons)
+      expect(@course.lessons.first.duration_str).to eq "01:30"
+    end
+
+  end
+
 end

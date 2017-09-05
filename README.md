@@ -76,5 +76,3 @@ We changed the language a little bit and now have Trainings and Courses.  Howeve
 ...
 
 TODO: We don't have a strikethrough font, remove from ckeditor.
-TODO: make sure the .note class is ADA compatible.
-TODO: Should course materials be sortable?
