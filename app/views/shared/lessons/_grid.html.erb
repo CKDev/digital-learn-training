@@ -1,5 +1,5 @@
 <div class="clearfix">
-  <% course.lessons.each_with_index do |l, index| %>
+  <% course.lessons.published.each_with_index do |l, index| %>
     <%= render partial: "shared/lessons/lesson_block", locals: { course: course, lesson: l, index: index + 1 }%>
   <% end %>
 </div>

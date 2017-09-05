@@ -131,6 +131,10 @@ Style/PercentLiteralDelimiters:
     - "app/models/course_material.rb"
     - "app/models/page.rb"
 
+Rails/FindBy:
+  Exclude:
+    - "app/models/course.rb" # I specifically want .where() here.
+
 Style/RegexpLiteral:
   Enabled: false
 

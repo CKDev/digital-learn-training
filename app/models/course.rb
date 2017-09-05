@@ -26,17 +26,14 @@ class Course < ApplicationRecord
   scope :alpha_order, -> { order(:title) }
 
   def next_lesson_id(current_lesson_id = 0)
-    raise StandardError, "There are no available lessons for this course." if lessons.count.zero?
+    raise StandardError, "There are no available lessons for this course." if lessons.published.count.zero?
 
     begin
-      current_lesson = lessons.find(current_lesson_id)
-      order = current_lesson.lesson_order
-      order += 1
-      return lessons.order("lesson_order").last.id if order >= last_lesson_order
-      next_lesson = lessons.find_by(lesson_order: order)
-      next_lesson.id
+      lesson_order = lessons.published.find(current_lesson_id).lesson_order
+      return lessons.order("lesson_order").last.id if lesson_order >= last_lesson_order
+      self.lessons.published.where("lesson_order > ?", lesson_order).first.id
     rescue
-      lessons.order("lesson_order").first.id
+      lessons.published.order("lesson_order").first.id
     end
   end
 

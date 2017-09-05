@@ -10,7 +10,7 @@
       <h3><%= @course.title %></h3>
       <div>
         <i class="icon-book-open grey"></i>
-        <small class="padding-right"><%= @course.lessons.count %> <%= t("course_page.lessons") %></small>
+        <small class="padding-right"><%= @course.lessons.published.length %> Activities</small>
         <i class="icon-clock grey"></i>
         <small><%= @course.duration %></small>
       </div>

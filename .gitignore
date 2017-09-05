@@ -51,4 +51,4 @@ bower.json
 examples.txt
 
 # Storyline files
-/public/storylines
+/public/storylines/*
