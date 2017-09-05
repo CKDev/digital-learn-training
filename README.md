@@ -25,6 +25,10 @@ Deployment is done via Capistrano
 `cap staging deploy`
 `cap production deploy`
 
+## Sync staging server db to local
+`rake db:reset`
+`cap staging app:local:sync`
+
 ## Developer Norms/Standards
 
 The purpose of this section is to layout the norms of this project.  Future development should follow the standard set forth in this guide.
