@@ -14,8 +14,10 @@
 <% if content_for?(:meta_description) %>
   <meta name="description" content="<%=content_for(:meta_description).strip%>">
 <% else %>
-  <%# TODO: Add in project specific content below. %>
-  <meta name="description" content="Digital Learn Training...">
+  <meta name="description" content="A Public Library Association curated collection
+    of course materials to be used for in-person digital literacy courses,
+    online trainings on developing courses and content, and a community of
+    practice for digital literacy trainers">
 <% end %>
 
 <%= favicon_link_tag "favicon-16x16.ico" %>
