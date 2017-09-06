@@ -25,7 +25,7 @@ gem "neat", "1.8.0" # Careful, as v2.0 removes some mixins in use.
 # gem "sidekiq-failures"
 
 # Reporting tools
-# gem "rollbar"
+gem "rollbar"
 # gem "skylight"
 
 gem "paperclip", "~> 4.3" # File uploads
