@@ -16,9 +16,13 @@ class Constants
     ]
   end
 
+  def self.course_material_file_types_str
+    course_material_file_types.join(", ")
+  end
+
   def self.attachment_content_types
     [
-      "application/pdf", "text/plain", "application/vnd.ms-excel",
+      "application/pdf", "application/vnd.ms-excel",
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-powerpoint",
       "application/vnd.openxmlformats-officedocument.presentationml.presentation",
       "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -26,8 +30,8 @@ class Constants
     ]
   end
 
-  def self.course_material_file_types_str
-    course_material_file_types.join(", ")
+  def self.attachment_content_types_str
+    attachment_content_types.join(", ")
   end
 
   def self.course_material_media_types

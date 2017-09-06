@@ -1,10 +1,10 @@
 <%# Fields for Post Course Materials %>
 <fieldset>
-  <div class="removable">
+  <div class="removable margin-bottom">
     <%= f.hidden_field :doc_type, value: "post-course" %>
-    <%= f.file_field :document, class: "upload-field" %>
+    <%= f.file_field :document, accept: Constants.attachment_content_types_str, class: "upload-field" %>
     <%= f.label :file_description, class: "screen-reader-text" %>
     <%= f.text_field :file_description, class: "text-field", placeholder: "(optional) Add a description..." %>
   </div>
-  <%= link_to_remove_child "remove field" %>
+  <%= link_to_remove_child "Remove field" %>
 </fieldset>
