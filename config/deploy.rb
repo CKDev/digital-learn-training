@@ -25,6 +25,10 @@ set :ssh_options, {
   keepalive_interval: 60, # Seconds - prevents idle timeouts on long tasks.
 }
 
+set :rollbar_token, "2b39d7b5ade14388b0a17665e3143d22"
+set :rollbar_env, Proc.new { fetch :stage }
+set :rollbar_role, Proc.new { :app }
+
 ### NO FURTHER CUSTOMIZATIONS SHOULD BE NECESSARY
 #
 

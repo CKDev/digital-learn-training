@@ -11,7 +11,7 @@ module Discourse
         .first(3)
         .map(&method(:klassify))
     rescue => e
-      Rails.logger.error e.message # TODO: Log to Rollbar?
+      Rollbar.error(e)
       []
     end
 

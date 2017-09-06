@@ -19,20 +19,11 @@ gem "devise"
 gem "bourbon", "4.2.7"
 gem "neat", "1.8.0" # Careful, as v2.0 removes some mixins in use.
 
-# Background processing
-# gem "sidekiq"
-# gem "sinatra", require: nil # For the Sidekiq web interface
-# gem "sidekiq-failures"
-
 # Reporting tools
 gem "rollbar"
-# gem "skylight"
 
 gem "paperclip", "~> 4.3" # File uploads
 gem "rubyzip" # ASL files
-# gem "fog-aws"
-# gem "mini_magick"
-# gem "file_validators" # For image validation
 
 # API Requests and Caching
 gem "api_cache"
@@ -47,8 +38,6 @@ gem "local_time" # Client-side timezone rendering
 gem "friendly_id" # Slugs for urls
 gem "ckeditor" # HTML Editor
 gem "cocoon" # Dynamic forms for has-many relationships
-# gem "whenever", require: false # Cron scheduling
-# gem "will_paginate"
 
 group :development, :test do
   gem "pry"
