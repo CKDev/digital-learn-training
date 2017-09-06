@@ -15,5 +15,6 @@
 //= require local_time
 //= require ckeditor/init
 //= require cocoon
+//= require html-sortable
 //= require_tree .
 //= require admin/course_materials

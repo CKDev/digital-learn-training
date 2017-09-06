@@ -1,4 +1,3 @@
-<%# TODO: determine if this gets used by dynamic js insert %>
 <fieldset>
   <%= f.label :pub_status %>
   <%= f.select :pub_status, options_for_select([["Draft", "D"], ["Published", "P"], ["Archived", "A"]], @course.pub_status),
