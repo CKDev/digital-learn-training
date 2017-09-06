@@ -7,7 +7,7 @@
       <div class="six columns">
         <%= render "components/media_object_1", title: category.title, link: category_path(category), icon: "icon-files" %>
       </div>
-    <% if (index % 2 == 1) %>
+    <% if (index % 2 == 1 || categories.length == index + 1) %>
     </div>
     <% end %>
   <% end %>
