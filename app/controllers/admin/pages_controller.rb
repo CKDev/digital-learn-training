@@ -25,6 +25,7 @@ module Admin
     end
 
     def update
+      @page.slug = nil if @page.title != params[:page][:title] # Force regenerate if title changes.
       if @page.update(page_params)
         flash[:notice] = "Successfully updated page"
         redirect_to admin_pages_path

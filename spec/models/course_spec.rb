@@ -70,6 +70,23 @@ describe Course do
 
   end
 
+  context "#update_pub_date" do
+
+    it "should set the pub_date to the current timestamp the pub_status is now P" do
+      @course = FactoryGirl.create(:course, pub_status: "D")
+      expect(@course.pub_date).to be nil
+      @course.update(pub_status: "P")
+      expect(@course.pub_date.present?).to be true
+    end
+
+    it "should set the pub_date nil if the course is no longer published" do
+      @course = FactoryGirl.create(:course, pub_status: "P", pub_date: Time.zone.now)
+      expect(@course.pub_date.present?).to be true
+      @course.update(pub_status: "A")
+      expect(@course.pub_date).to be nil
+    end
+  end
+
   context "#pub_date_str" do
 
     it "print the published date in a nice format" do

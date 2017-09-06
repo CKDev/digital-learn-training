@@ -69,7 +69,7 @@ describe Admin::PagesController do
       expect(page.author).to eq "admin"
       expect(page.seo_title).to eq "SEO Title"
       expect(page.meta_desc).to eq "Meta Desc"
-      # expect(page.pub_at).to eq # TODO: impl
+      expect(page.pub_at.present?).to be true
     end
 
     it "renders the new view if there is missing information" do
@@ -131,12 +131,13 @@ describe Admin::PagesController do
       put :update, params: { id: @page.id, page: valid_attributes }
       @page.reload
       expect(@page.title).to eq "Updated Page"
-      # expect(@page.slug).to eq "updated-page" # TODO: impl
+      expect(@page.slug).to eq "updated-page"
       expect(@page.body).to eq "<p>Updated Body</p>"
       expect(@page.pub_status).to eq "A"
       expect(@page.author).to eq "admin-2"
       expect(@page.seo_title).to eq "Updated SEO Title"
       expect(@page.meta_desc).to eq "Updated Meta Desc"
+      expect(@page.pub_at).to be nil
     end
 
     it "renders the edit view if there is missing information" do

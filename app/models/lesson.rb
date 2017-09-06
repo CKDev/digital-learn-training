@@ -8,8 +8,7 @@ class Lesson < ApplicationRecord
   has_attached_file :story_line, url: "/system/lessons/story_lines/:id/:style/:basename.:extension"
   before_post_process :skip_for_zip
 
-  # TODO: We need to make lesson titles unique per course, but not site-wide.
-  validates :title, length: { maximum: 90 }, presence: true # , uniqueness: true
+  validates :title, length: { maximum: 90 }, presence: true, uniqueness: { scope: :course, message: "should be unique for the training" }
   validates :summary, length: { maximum: 156 }, presence: true
   validates :duration, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :lesson_order, presence: true, numericality: { only_integer: true, greater_than: 0 }

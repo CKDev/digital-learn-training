@@ -13,6 +13,11 @@ describe Lesson do
       expect(@lesson.valid?).to be true
     end
 
+    it "requires the title to be unique for a given course" do
+      @lesson2 = FactoryGirl.build(:lesson, course: @course, title: @lesson.title)
+      expect(@lesson2.valid?).to be false
+    end
+
   end
 
   context "#duration_str" do

@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     resources :courses_archive, only: [:index], path: "trainings_archive"
     resources :course_materials, except: [:destroy], path: "courses"
     resources :course_materials_archive, only: [:index], path: "courses_archive"
-    resources :categories
+    resources :categories, except: [:destroy]
     resources :attachments, only: [:destroy]
   end
 

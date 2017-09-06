@@ -85,4 +85,21 @@ describe Page do
 
   end
 
+  context "#update_pub_at" do
+
+    it "should set the pub_date to the current timestamp the pub_status is now P" do
+      @page = FactoryGirl.create(:page, pub_status: "D")
+      expect(@page.pub_at).to be nil
+      @page.update(pub_status: "P")
+      expect(@page.pub_at.present?).to be true
+    end
+
+    it "should set the pub_date nil if the page is no longer published" do
+      @page = FactoryGirl.create(:page, pub_status: "P", pub_at: Time.zone.now)
+      expect(@page.pub_at.present?).to be true
+      @page.update(pub_status: "A")
+      expect(@page.pub_at).to be nil
+    end
+  end
+
 end

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :lesson do
-    title "Lesson 1"
+    title
     summary "Lesson summary"
     duration 90
     lesson_order 1

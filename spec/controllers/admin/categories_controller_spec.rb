@@ -42,7 +42,12 @@ describe Admin::CategoriesController do
       {
         title: "New Category",
         description: "Category description",
-        tag: "Hardware"
+        tag: "Hardware",
+        sub_categories_attributes: {
+          "0" => {
+            title: "Sub Category Title"
+          }
+        }
       }
     end
 
@@ -62,7 +67,7 @@ describe Admin::CategoriesController do
       expect(category.title).to eq "New Category"
       expect(category.description).to eq "Category description"
       expect(category.tag).to eq "Hardware"
-      # TODO: impl subcategories
+      expect(category.sub_categories.first.title).to eq "Sub Category Title"
     end
 
     it "renders the new view if there is missing information" do
@@ -102,7 +107,12 @@ describe Admin::CategoriesController do
       {
         title: "Updated Category",
         description: "Updated Category description",
-        tag: "Hardware"
+        tag: "Hardware",
+        sub_categories_attributes: {
+          "0" => {
+            title: "Updated Sub Category Title"
+          }
+        }
       }
     end
 
@@ -123,7 +133,7 @@ describe Admin::CategoriesController do
       expect(@category.title).to eq "Updated Category"
       expect(@category.description).to eq "Updated Category description"
       expect(@category.tag).to eq "Hardware"
-      # TODO: impl subcategories
+      expect(@category.sub_categories.first.title).to eq "Updated Sub Category Title"
     end
 
     it "renders the edit view if there is missing information" do
