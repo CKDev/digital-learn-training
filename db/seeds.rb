@@ -6,8 +6,11 @@ end
   Page.create(title: page, body: "#{page} ...", pub_status: "draft", author: "Admin")
 end
 
-Category.create(title: "Computer Basics", tag: "Hardware")
-Category.create(title: "Tablet Basics", tag: "Hardware")
+Category.create(title: "Computer Basics", tag: "Getting Started")
+Category.create(title: "Tablet Basics", tag: "Getting Started")
+
+category = Category.create(title: "Hardware", tag: "Hardware")
+SubCategory.create(title: "PC Hardware", category: category)
 
 category = Category.create(title: "Microsoft Tools", tag: "Software & Applications")
 SubCategory.create(title: "Microsoft Office 2013", category: category)

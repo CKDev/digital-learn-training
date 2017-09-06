@@ -1,5 +1,5 @@
 class Category < ApplicationRecord
-  ALLOWED_TAGS = ["Hardware", "Software & Applications", "Job & Career", "Other"].freeze
+  ALLOWED_TAGS = ["Getting Started", "Hardware", "Software & Applications", "Job & Career", "Other"].freeze
   has_many :sub_categories
 
   validates :title, presence: true
