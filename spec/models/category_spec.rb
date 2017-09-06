@@ -28,4 +28,10 @@ describe Category do
 
   end
 
+  context ".select_options" do
+    it "pull out the other category from the select options" do
+      expect(Category.select_options.include?("Other")).to be false
+    end
+  end
+
 end

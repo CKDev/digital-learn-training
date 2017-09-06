@@ -20,7 +20,7 @@ describe "pages/show.html.erb" do
     it "uses the page summary field as the meta description tag if the seo_page_title is blank" do
       @page.update(meta_desc: "")
       render template: "pages/show", layout: "layouts/application"
-      expect(rendered).to have_selector("meta[name='description'][content='Digital Learn Training...']", visible: false)
+      expect(rendered).to have_selector("meta[name='description']", visible: false)
     end
 
     it "uses the seo title if available" do

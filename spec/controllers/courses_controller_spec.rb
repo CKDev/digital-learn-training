@@ -36,4 +36,41 @@ describe CoursesController do
 
   end
 
+  describe "POST #start" do
+
+    it "redirects to the first lesson page" do
+      @course = FactoryGirl.create(:course_with_lessons)
+      post :start, params: { course_id: @course.id }
+      expect(response).to redirect_to course_lesson_path(@course, @course.lessons.first.id)
+    end
+
+  end
+
+  describe "GET #complete" do
+
+    it "renders the completed course page" do
+      @course = FactoryGirl.create(:course_with_lessons)
+      get :complete, params: { course_id: @course.id }
+      expect(assigns(:course)).to eq @course
+    end
+
+    it "returns the generated pdf" do
+      @course = FactoryGirl.create(:course_with_lessons)
+      get :complete, params: { course_id: @course.id, format: :pdf }
+      expect(assigns(:pdf).present?).to be true
+    end
+
+  end
+
+  describe "GET #view_attachment" do
+
+    it "renders the attachment" do
+      @attachment = FactoryGirl.create(:attachment)
+      @course = @attachment.course
+      get :view_attachment, params: { course_id: @course.id, attachment_id: @attachment.id }
+      expect(assigns(:course)).to eq @course
+    end
+
+  end
+
 end

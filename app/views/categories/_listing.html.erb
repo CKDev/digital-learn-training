@@ -12,8 +12,7 @@
 </div>
 
 <% @sub_categorized_course_materials.group_by { |h| h[:sub_category_id] }.sort.to_h.each do |k, v| %>
-  <% sub_category_str = SubCategory.find(k).title %><%# TODO: fix this, it could be better. %>
-  <h2><%= sub_category_str %></h2>
+  <h2><%= SubCategory.find(k).title %></h2>
   <% v.sort_by { |t| t[:title] }.each do |c| %>
     <a class="course-widget" href="<%= course_material_path(c) %>">
       <header>

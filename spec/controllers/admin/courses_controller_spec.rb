@@ -77,6 +77,14 @@ describe Admin::CoursesController do
       expect(course.meta_desc).to eq "Meta Desc"
     end
 
+    it "redirects to the course path if the Save Course button was clicked" do
+      @admin = FactoryGirl.create(:admin)
+      sign_in @admin
+      post :create, params: { course: valid_attributes, commit: "Save Course" }
+      course = Course.last
+      expect(response).to redirect_to edit_admin_course_path(course)
+    end
+
     it "renders the new view if there is missing information" do
       @admin = FactoryGirl.create(:admin)
       sign_in @admin
@@ -149,6 +157,24 @@ describe Admin::CoursesController do
       expect(@course.meta_desc).to eq "Updated Meta Desc"
     end
 
+    it "redirects to the course path if the Save Course button was clicked" do
+      @course = FactoryGirl.create(:course)
+      @admin = FactoryGirl.create(:admin)
+      sign_in @admin
+      put :update, params: { id: @course.id, course: valid_attributes, commit: "Save Course" }
+      @course.reload
+      expect(response).to redirect_to edit_admin_course_path(@course)
+    end
+
+    it "redirects to the course path if the Save Course and Edit Lessons button was clicked" do
+      @course = FactoryGirl.create(:course_with_lessons)
+      @admin = FactoryGirl.create(:admin)
+      sign_in @admin
+      put :update, params: { id: @course.id, course: valid_attributes, commit: "Save Course and Edit Lessons" }
+      @course.reload
+      expect(response).to redirect_to edit_admin_course_lesson_path(@course, @course.lessons.first)
+    end
+
     it "renders the edit view if there is missing information" do
       @course = FactoryGirl.create(:course)
       @admin = FactoryGirl.create(:admin)
@@ -160,6 +186,33 @@ describe Admin::CoursesController do
     it "redirects to the homepage if not authenticated" do
       put :update, params: { id: 1, course: valid_attributes }
       expect(response).to redirect_to new_user_session_path
+    end
+
+  end
+
+  describe "PUT #sort" do
+
+    before :each do
+      @course1 = FactoryGirl.create(:course)
+      @course2 = FactoryGirl.create(:course)
+      @course3 = FactoryGirl.create(:course)
+    end
+
+    it "should update to the given sort order" do
+      @admin = FactoryGirl.create(:admin)
+      sign_in @admin
+
+      order = {
+        "0": { "id": @course3.id, "position": "1" },
+        "1": { "id": @course1.id, "position": "2" },
+        "2": { "id": @course2.id, "position": "3" }
+      }
+      put :sort, params: { order: order }, format: :json
+
+      [@course1, @course2, @course3].each(&:reload)
+      expect(@course1.course_order).to eq 2
+      expect(@course2.course_order).to eq 3
+      expect(@course3.course_order).to eq 1
     end
 
   end
