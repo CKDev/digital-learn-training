@@ -39,7 +39,7 @@
         <fieldset>
           <%= a.hidden_field :_destroy, class: "removable" %>
           <%= a.hidden_field :doc_type, value: "supplemental" %>
-          <%= a.file_field :document, accept: Constants.attachment_content_types_str, class: "upload-field" %>
+          <%= a.file_field :document, class: "upload-field" %>
           <%= a.label :file_description, class: "screen-reader-text" %>
           <%= a.text_field :file_description, class: "text-field", placeholder: "(optional) Add a description..." %>
         </fieldset>
@@ -56,7 +56,7 @@
         <fieldset>
           <%= a.hidden_field :doc_type, value: "post-course" %>
           <%= a.hidden_field :_destroy, class: "removable" %>
-          <%= a.file_field :document, accept: Constants.attachment_content_types_str, class: "upload-field" %>
+          <%= a.file_field :document, class: "upload-field" %>
           <%= a.label :file_description, class: "screen-reader-text" %>
           <%= a.text_field :file_description, class: "text-field", placeholder: "(optional) Add a description..." %>
         </fieldset>
