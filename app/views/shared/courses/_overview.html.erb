@@ -1,0 +1,40 @@
+<div class="info-widget">
+  <header>
+    <h2>Courses: Tracks & Classes</h2>
+  </header>
+  <div class="content">
+    <div class="row">
+      <div class="four columns">
+        <div class="centered">
+          <%= image_tag "gnome", class: "size-200 extra-margin-bottom" %>
+        </div>
+        <p class="padding-right"><%= t("course_materials_description") %></p>
+      </div>
+
+      <div class="eight columns">
+        <%= render "shared/courses/category", { title: "Getting Started", categories: @getting_started } %>
+        <%= render "shared/courses/category", { title: "Hardware", categories: @hardware } %>
+        <%= render "shared/courses/category", { title: "Software & Applications", categories: @software_and_applications } %>
+        <%= render "shared/courses/category", { title: "Job & Career", categories: @job_and_career } %>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+      <div class="eight columns">
+        <h3 class="inline-block padding-right">Design Your Own Classroom Materials?</h3>
+        <% if @blank_template.present? %>
+          <%= link_to "Get Blank Templates", course_material_path(@blank_template) %>
+        <% end %>
+      </div>
+
+      <div class="four columns">
+        <h3 class="inline-block padding-right">Want to Contribute?</h3>
+        <%= link_to "Learn How", "http://community.digitallearn.org/t/contribute-to-the-trainers-site/428" %>
+      </div>
+    </div>
+
+    <hr />
+  </div>
+</div>
