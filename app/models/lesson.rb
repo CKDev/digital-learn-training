@@ -25,6 +25,10 @@ class Lesson < ApplicationRecord
   scope :published, -> { where(pub_status: "P") }
   scope :not_archived, -> { where.not(pub_status: "A") }
 
+  def published?
+    pub_status == "P"
+  end
+
   def skip_for_zip
     %w(application/zip application/x-zip).include?(story_line_content_type)
   end
@@ -51,6 +55,11 @@ class Lesson < ApplicationRecord
     else
       true
     end
+  end
+
+  def published_lesson_order
+    return 0 unless self.published?
+    self.course.lessons.published.map(&:id).index(self.id) + 1
   end
 
 end

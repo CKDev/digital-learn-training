@@ -3,7 +3,7 @@
 <div class="row lesson-listing">
   <div class="six columns">
   <% course.lessons.published.order(:lesson_order).each_with_index do |l, index| %>
-    <% if index <= course.lessons.count / 2 %>
+    <% if index <= course.lessons.published.count / 2 %>
       <ul class="unmarked extra-padding">
         <li>
           <div class="row lesson-listing lesson-listing-first-row">
@@ -15,7 +15,7 @@
               <% end %>
             </div>
             <div class="one column">
-              <%= l.lesson_order %>.
+              <%= index + 1 %>.
             </div>
             <div class="nine columns">
               <%= link_to l.title, course_lesson_path(course, l) %>
@@ -28,7 +28,7 @@
   </div>
   <div class="six columns">
   <% course.lessons.published.order(:lesson_order).each_with_index do |l, index| %>
-    <% if index > course.lessons.count / 2 %>
+    <% if index > course.lessons.published.count / 2 %>
       <ul class="unmarked extra-padding">
         <li>
           <div class="row lesson-listing lesson-listing-first-row">
@@ -40,7 +40,7 @@
               <% end %>
             </div>
             <div class="one column">
-              <%= l.lesson_order %>.
+              <%= index + 1 %>.
             </div>
             <div class="nine columns">
               <%= link_to l.title, course_lesson_path(course, l) %>

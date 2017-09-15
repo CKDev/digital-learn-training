@@ -1,5 +1,5 @@
 <h1><%= t("completed_lesson_page.congratulations") %></h1>
-<p><%= t("completed_lesson_page.youve_completed_activity") %> <%= @current_lesson.lesson_order %>: <%= @current_lesson.title %></p>
+<p><%= t("completed_lesson_page.youve_completed_activity") %> <%= @current_lesson.published_lesson_order %>: <%= @current_lesson.title %></p>
 
 <h2><%= t("completed_lesson_page.up_next") %>:</h2>
 <h2><%="#{@next_lesson.title} - #{t('completed_lesson_page.activity')} #{@next_lesson.lesson_order}" %></h2>
