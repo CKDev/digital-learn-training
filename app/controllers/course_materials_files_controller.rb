@@ -3,7 +3,7 @@ require "zip"
 class CourseMaterialsFilesController < ApplicationController
 
   def show
-    @course_material = CourseMaterial.find(params[:course_material_id])
+    @course_material = CourseMaterial.friendly.find(params[:course_material_id])
     @file = @course_material.course_material_files.find(params[:id])
     data = open(@file.file.path)
     file_options = { disposition: "inline", x_sendfile: true }
@@ -11,7 +11,7 @@ class CourseMaterialsFilesController < ApplicationController
   end
 
   def index
-    @course_material = CourseMaterial.find(params[:course_material_id])
+    @course_material = CourseMaterial.friendly.find(params[:course_material_id])
     @files = @course_material.course_material_files.all
 
     tempfile = Tempfile.new("file_archive", "tmp")

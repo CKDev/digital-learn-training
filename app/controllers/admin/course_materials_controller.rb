@@ -22,12 +22,12 @@ module Admin
     end
 
     def edit
-      @course_material = CourseMaterial.find(params[:id])
+      @course_material = CourseMaterial.friendly.find(params[:id])
       @readonly = @course_material.title.in? PROTECTED_COURSE_MATERIALS
     end
 
     def update
-      @course_material = CourseMaterial.find(params[:id])
+      @course_material = CourseMaterial.friendly.find(params[:id])
       if @course_material.update(course_material_params)
         redirect_to admin_course_materials_path, notice: "Successfully updated Course"
       else

@@ -1,6 +1,6 @@
 <div class="clearfix">
   <% @course_materials.each do |c| %>
-    <a class="course-widget" href="<%= course_material_path(c) %>">
+    <a class="course-widget" href="<%= course_material_path(c.friendly_id) %>">
       <header>
         <h3><%= c.title.truncate(45) %></h3>
       </header>
@@ -14,7 +14,7 @@
 <% @sub_categorized_course_materials.group_by { |h| h[:sub_category_id] }.sort.to_h.each do |k, v| %>
   <h2><%= SubCategory.find(k).title %></h2>
   <% v.sort_by { |t| t[:title] }.each do |c| %>
-    <a class="course-widget" href="<%= course_material_path(c) %>">
+    <a class="course-widget" href="<%= course_material_path(c.friendly_id) %>">
       <header>
         <h3><%= c.title.truncate(45) %></h3>
       </header>

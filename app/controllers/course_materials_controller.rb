@@ -10,7 +10,7 @@ class CourseMaterialsController < ApplicationController
   end
 
   def show
-    @course_material = CourseMaterial.published.find(params[:id])
+    @course_material = CourseMaterial.published.friendly.find(params[:id])
     @course_materials = CourseMaterial
       .published
       .not_self(@course_material.id)
