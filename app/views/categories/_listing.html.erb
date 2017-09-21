@@ -2,7 +2,7 @@
   <% @course_materials.each do |c| %>
     <a class="course-widget" href="<%= course_material_path(c.friendly_id) %>">
       <header>
-        <h3><%= c.title.truncate(45) %></h3>
+        <h3><%= c.title.truncate(50) %></h3>
       </header>
       <div class="description">
         <p><%= c.summary.truncate(80) %></p>
@@ -16,7 +16,7 @@
   <% v.each do |c| %>
     <a class="course-widget" href="<%= course_material_path(c.friendly_id) %>">
       <header>
-        <h3><%= c.title.truncate(45) %></h3>
+        <h3><%= c.title.truncate(50) %></h3>
       </header>
       <div class="description">
         <p><%= c.summary.truncate(80) %></p>
