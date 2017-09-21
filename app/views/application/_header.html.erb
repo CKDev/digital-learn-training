@@ -14,7 +14,7 @@
       <nav class="primary-links">
         <% if admin_signed_in? %>
           <span class="black">Hi Admin!</span><span class="divider">|</span>
-          <%= link_to "Admin Dashboard", admin_root_path %><span class="divider">|</span>
+          <%= link_to "Admin Dashboard", admin_course_materials_path %><span class="divider">|</span>
           <%= link_to "Sign Out", destroy_user_session_path, method: "delete" %>
         <% else %>
           <% courses_base_links = ["/courses", "/categories"] %>
