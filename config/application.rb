@@ -18,5 +18,8 @@ module DigitalLearnTraining
     config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
 
     Paperclip.options[:content_type_mappings] = { story:  %w(application/octet-stream application/zip) }
+
+    # Use routing for error pages
+    config.exceptions_app = self.routes
   end
 end
