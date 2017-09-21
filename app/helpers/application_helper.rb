@@ -31,4 +31,17 @@ module ApplicationHelper
     end
   end
 
+  def add_active_base_link(base_paths, classes = "")
+    if base_paths.is_a?(Array)
+      base_paths.each do |path|
+        path = "/#{path}" unless path.start_with? "/"
+        return "#{classes} active".strip if request.path.start_with? path
+      end
+    else # Just passed in as a single path
+      base_paths = "/#{base_path}" unless base_paths.start_with? "/"
+      return "#{classes} active".strip if request.path.start_with? base_paths
+    end
+    classes
+  end
+
 end

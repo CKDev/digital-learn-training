@@ -71,6 +71,7 @@ ul {
 
   li {
     line-height: 1.5em;
+    padding-bottom: 5px;
   }
 
   &.unmarked {
@@ -83,6 +84,15 @@ ul {
 
   &.sidebar-links {
     padding-left: 0;
+
+    a:hover {
+      border-bottom: 2px solid $purple;
+      text-decoration: none;
+    }
+
+    a.active {
+      border-bottom: 2px solid $purple;
+    }
   }
 
   &.no-padding {

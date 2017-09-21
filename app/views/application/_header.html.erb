@@ -17,8 +17,10 @@
           <%= link_to "Admin Dashboard", admin_root_path %><span class="divider">|</span>
           <%= link_to "Sign Out", destroy_user_session_path, method: "delete" %>
         <% else %>
-          <%= link_to "Courses", course_materials_path %><span class="divider">|</span>
-          <%= link_to "Training", courses_path %><span class="divider">|</span>
+          <% courses_base_links = ["/courses", "/categories"] %>
+          <% training_base_links = ["/trainings"] %>
+          <%= link_to "Courses", course_materials_path, class: add_active_base_link(courses_base_links) %><span class="divider">|</span>
+          <%= link_to "Training", courses_path, class: add_active_base_link(training_base_links) %><span class="divider">|</span>
           <%= link_to "Peer Discussion", "http://community.digitallearn.org/" %>
         <% end %>
       </nav>
