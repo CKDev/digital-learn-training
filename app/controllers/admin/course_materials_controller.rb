@@ -38,6 +38,7 @@ module Admin
     private
 
     def course_material_params
+      params[:course_material][:sub_category_id] = "" if params[:course_material][:sub_category_id].blank? # Remove if not passed in.
       params.require(:course_material).permit(:title, :contributor, :summary, :description,
         :category_id, :sub_category_id, :pub_status,
         course_material_files_attributes: [:id, :file, :_destroy],

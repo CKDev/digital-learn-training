@@ -136,13 +136,18 @@ describe Admin::CourseMaterialsController do
 
   describe "PUT #update" do
 
+    before :each do
+      @category = FactoryGirl.create(:category)
+    end
+
     let(:valid_attributes) do
       {
         title: "Updated Course Material",
         contributor: "Alejandro Brinkster",
         summary: "Summary of Updated Course Material",
         description: "Description of Updated Course Material",
-        pub_status: "P"
+        pub_status: "P",
+        category_id: @category.id
       }
     end
 
@@ -152,7 +157,8 @@ describe Admin::CourseMaterialsController do
         contributor: "",
         summary: "",
         description: "",
-        pub_status: ""
+        pub_status: "",
+        category_id: ""
       }
     end
 
@@ -167,6 +173,16 @@ describe Admin::CourseMaterialsController do
       expect(@course_material.summary).to eq "Summary of Updated Course Material"
       expect(@course_material.description).to eq "Description of Updated Course Material"
       expect(@course_material.pub_status).to eq "P"
+    end
+
+    it "removes the subcategory id if not passed in" do
+      @admin = FactoryGirl.create(:admin)
+      sign_in @admin
+      @course_material = FactoryGirl.create(:course_material)
+      @course_material.update(sub_category_id: 2)
+      put :update, params: { id: @course_material.id, course_material: valid_attributes }
+      @course_material.reload
+      expect(@course_material.sub_category_id.blank?).to be true
     end
 
     it "renders the edit view if there is missing information" do
