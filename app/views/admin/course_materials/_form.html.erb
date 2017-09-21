@@ -4,14 +4,13 @@
 
   <fieldset>
     <% if @readonly %>
-      <%= f.label :title, @course_material.title %>
+      <h2><%= @course_material.title %></h2>
     <% else %>
       <%= f.label :title, class: "required" %>
       <%= f.text_field :title, maxlength: 90 %>
       <div class="character-limit">&nbsp;</div>
     <% end %>
   </fieldset>
-
 
   <fieldset>
     <%= f.label :contributor, class: "required" %>
@@ -49,7 +48,7 @@
     </fieldset>
   <% end %>
 
-  <h2>Course Files <small>(acceptable formats: PDF, CSV, Word, PowerPoint, or Excel)</small></h2>
+  <h3>Course Files <small>(acceptable formats: PDF, CSV, Word, PowerPoint, or Excel)</small></h3>
 
   <div class="js-cocoon-item-files">
     <%= f.fields_for :course_material_files do |file| %>
@@ -62,7 +61,7 @@
       { "data-association-insertion-method" => "append", "data-association-insertion-node" => ".js-cocoon-item-files" } %>
   </div>
 
-  <h2>Course Media <small>(acceptable formats: PNG, JPG, GIF)</small></h2>
+  <h3>Course Media <small>(acceptable formats: PNG, JPG, GIF)</small></h3>
 
   <div class="js-cocoon-item-medias">
     <%= f.fields_for :course_material_medias do |media| %>
@@ -75,7 +74,7 @@
       { "data-association-insertion-method" => "append", "data-association-insertion-node" => ".js-cocoon-item-medias" } %>
   </div>
 
-  <h2>Course Videos</h2>
+  <h3>Course Videos</h3>
 
   <p class="note">
     Open your video on youtube.com, and click the share icon below the video.
