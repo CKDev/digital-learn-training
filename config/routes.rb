@@ -28,7 +28,9 @@ Rails.application.routes.draw do
       end
     end
     resources :courses_archive, only: [:index], path: "trainings_archive"
-    resources :course_materials, except: [:destroy], path: "courses"
+    resources :course_materials, except: [:destroy], path: "courses" do
+      put :sort, on: :collection
+    end
     resources :course_materials_archive, only: [:index], path: "courses_archive"
     resources :categories, except: [:destroy]
     resources :attachments, only: [:destroy]

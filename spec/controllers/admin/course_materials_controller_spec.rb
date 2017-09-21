@@ -200,4 +200,31 @@ describe Admin::CourseMaterialsController do
 
   end
 
+  describe "PUT #sort" do
+
+    before :each do
+      @course_material1 = FactoryGirl.create(:course_material)
+      @course_material2 = FactoryGirl.create(:course_material)
+      @course_material3 = FactoryGirl.create(:course_material)
+    end
+
+    it "should update to the given sort order" do
+      @admin = FactoryGirl.create(:admin)
+      sign_in @admin
+
+      order = {
+        "0": { "id": @course_material3.id, "position": "1" },
+        "1": { "id": @course_material1.id, "position": "2" },
+        "2": { "id": @course_material2.id, "position": "3" }
+      }
+      put :sort, params: { order: order }, format: :json
+
+      [@course_material1, @course_material2, @course_material3].each(&:reload)
+      expect(@course_material1.sort_order).to eq 2
+      expect(@course_material2.sort_order).to eq 3
+      expect(@course_material3.sort_order).to eq 1
+    end
+
+  end
+
 end

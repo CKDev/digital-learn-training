@@ -13,27 +13,30 @@
   </div>
 </div>
 
+<%= hidden_field_tag :sort_url, "/admin/courses/sort" %>
 <div class="extra-margin-bottom">
-  <div class="list-titles">
-    <div class="cell">Course</div>
-    <div class="cell">Contributor</div>
-    <div class="cell">Category</div>
-    <div class="cell">Status</div>
+  <div class="sortable-list">
+    <div class="list-titles">
+      <div class="cell">Course</div>
+      <div class="cell">Contributor</div>
+      <div class="cell">Category</div>
+      <div class="cell">Status</div>
+    </div>
+    <% if @course_materials.present? %>
+      <ul class="objects sortable reorderable">
+        <% @course_materials.each do |course_material| %>
+          <li class="sortable-item" data-id="<%= course_material.id %>">
+            <div class="cell"><%= link_to course_material.title, edit_admin_course_material_path(course_material), class: "no_drag_link" %></div>
+            <div class="cell"><%= course_material.contributor %></div>
+            <div class="cell"><%= course_material.category.try(:title) %></div>
+            <div class="cell"><%= pub_status(course_material.pub_status) %></div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>There are no available courses.</p>
+    <% end %>
   </div>
-  <% if @course_materials.present? %>
-    <ul class="objects">
-      <% @course_materials.each do |course_material| %>
-        <li class="sortable-item" data-id="<%= course_material.id %>">
-          <div class="cell"><%= link_to course_material.title, edit_admin_course_material_path(course_material), class: "no_drag_link" %></div>
-          <div class="cell"><%= course_material.contributor %></div>
-          <div class="cell"><%= course_material.category.try(:title) %></div>
-          <div class="cell"><%= pub_status(course_material.pub_status) %></div>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>There are no available courses.</p>
-  <% end %>
 </div>
 
 <p>

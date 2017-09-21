@@ -86,9 +86,30 @@ describe CourseMaterial do
       end.to raise_error ActiveRecord::RecordInvalid
     end
 
+    it "should require the sort_order" do
+      @course_material.update(sort_order: "")
+      expect(@course_material.valid?).to be false
+    end
+
+    it "should require the sort_order to be greater than 0" do
+      @course_material.update(sort_order: 0)
+      expect(@course_material.valid?).to be false
+    end
+
   end
 
   context "scopes" do
+
+    context "default scope" do
+
+      it "should return course_materials in sort_order order" do
+        @course_material1 = FactoryGirl.create(:course_material, sort_order: 3)
+        @course_material2 = FactoryGirl.create(:course_material, sort_order: 1)
+        @course_material3 = FactoryGirl.create(:course_material, sort_order: 2)
+        expect(CourseMaterial.all).to eq [@course_material2, @course_material3, @course_material1]
+      end
+
+    end
 
     context ".archived" do
 

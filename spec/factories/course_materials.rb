@@ -6,5 +6,6 @@ FactoryGirl.define do
     contributor "John Doe"
     pub_status "D"
     category
+    sort_order 1
   end
 end

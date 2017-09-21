@@ -14,6 +14,7 @@ class CourseMaterial < ApplicationRecord
   validates :pub_status, presence: true,
     inclusion: { in: %w(P D A), message: "%{value} is not a valid status" }
   validate :allowed_change?
+  validates :sort_order, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
   accepts_nested_attributes_for :course_material_files, reject_if: :all_blank, allow_destroy: true
   validates_associated :course_material_files
@@ -24,6 +25,7 @@ class CourseMaterial < ApplicationRecord
   accepts_nested_attributes_for :course_material_videos, reject_if: :all_blank, allow_destroy: true
   validates_associated :course_material_videos
 
+  default_scope { order("sort_order") }
   scope :in_category, ->(category_id) { joins(:category).where("categories.id = ?", category_id) }
   scope :published, -> { where(pub_status: "P") }
   scope :archived, -> { where(pub_status: "A") }

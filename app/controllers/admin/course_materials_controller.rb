@@ -14,6 +14,7 @@ module Admin
 
     def create
       @course_material = CourseMaterial.new
+      @course_material.sort_order = CourseMaterial.count + 1
       if @course_material.update(course_material_params)
         redirect_to admin_course_materials_path, notice: "Successfully created new Course"
       else
@@ -35,11 +36,18 @@ module Admin
       end
     end
 
+    def sort
+      params[:order].each { |_k, v| CourseMaterial.find(v[:id]).update(sort_order: v[:position]) }
+      respond_to do |format|
+        format.json { render json: true, status: :ok }
+      end
+    end
+
     private
 
     def course_material_params
       params[:course_material][:sub_category_id] = "" if params[:course_material][:sub_category_id].blank? # Remove if not passed in.
-      params.require(:course_material).permit(:title, :contributor, :summary, :description,
+      params.require(:course_material).permit(:title, :contributor, :summary, :description, :sort_order,
         :category_id, :sub_category_id, :pub_status,
         course_material_files_attributes: [:id, :file, :_destroy],
         course_material_medias_attributes: [:id, :media, :_destroy],
