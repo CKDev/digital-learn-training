@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921152718) do
+ActiveRecord::Schema.define(version: 20170922183920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20170921152718) do
     t.datetime "updated_at", null: false
     t.text "description"
     t.string "tag"
+    t.string "slug"
   end
 
   create_table "course_material_files", force: :cascade do |t|

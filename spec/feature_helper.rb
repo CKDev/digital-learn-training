@@ -32,6 +32,7 @@ Capybara.javascript_driver = :webkit
 Capybara::Webkit.configure do |config|
   # config.debug = true # Uncomment for error information.
   config.allow_url("cdn-images.mailchimp.com")
+  config.allow_url("fonts.googleapis.com")
 end
 
 Capybara.configure do |config|

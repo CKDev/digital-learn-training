@@ -20,11 +20,11 @@ module Admin
     end
 
     def edit
-      @category = Category.find(params[:id])
+      @category = Category.friendly.find(params[:id])
     end
 
     def update
-      @category = Category.find(params[:id])
+      @category = Category.friendly.find(params[:id])
       if @category.update(category_params)
         redirect_to admin_categories_path, notice: "Successfully updated category"
       else

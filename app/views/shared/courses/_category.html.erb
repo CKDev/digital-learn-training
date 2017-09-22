@@ -5,7 +5,7 @@
     <div class="row extra-margin-bottom">
     <% end %>
       <div class="six columns">
-        <%= render "components/media_object_1", title: category.title, link: category_path(category), icon: "icon-files" %>
+        <%= render "components/media_object_1", title: category.title, link: category_path(category.friendly_id), icon: "icon-files" %>
       </div>
     <% if (index % 2 == 1 || categories.length == index + 1) %>
     </div>
