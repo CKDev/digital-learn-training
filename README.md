@@ -1,6 +1,6 @@
-# Digital Learn Training
+# DigitalLearn Training
 
-## Running Digital Learn Training Locally
+## Running DigitalLearn Training Locally
 
 ### Ruby Version
 

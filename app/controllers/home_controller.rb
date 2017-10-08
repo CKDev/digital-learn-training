@@ -7,7 +7,6 @@ class HomeController < ApplicationController
     @hardware = @categories.where(tag: "Hardware")
     @software_and_applications = @categories.where(tag: "Software & Applications")
     @job_and_career = @categories.where(tag: "Job & Career")
-    @blank_template = CourseMaterial.find_by(title: "Course Templates")
   end
 
 end

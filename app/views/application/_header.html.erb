@@ -20,7 +20,10 @@
           <% courses_base_links = ["/courses", "/categories"] %>
           <% training_base_links = ["/trainings"] %>
           <%= link_to "Courses", course_materials_path, class: add_active_base_link(courses_base_links) %><span class="divider">|</span>
-          <%= link_to "Training", courses_path, class: add_active_base_link(training_base_links) %>
+          <% if @blank_template.present? %>
+            <%= link_to "Get Blank Templates", course_material_path(@blank_template) %><span class="divider">|</span>
+          <% end %>
+          <%= link_to "Instructional Design Training", courses_path, class: add_active_base_link(training_base_links) %>
         <% end %>
       </nav>
     </div>
