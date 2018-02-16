@@ -22,7 +22,7 @@ gem "neat", "1.8.0" # Careful, as v2.0 removes some mixins in use.
 # Reporting tools
 gem "rollbar"
 
-gem "paperclip", "~> 4.3" # File uploads
+gem "paperclip", "~> 5.2.1" # File uploads
 gem "rubyzip" # ASL files
 
 # API Requests and Caching
