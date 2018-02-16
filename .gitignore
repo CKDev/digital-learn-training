@@ -47,6 +47,9 @@ bower.json
 # Sublime files
 *.sublime-*
 
+# Jetbrains folder
+.idea/
+
 # Rspec re-run file
 examples.txt
 
