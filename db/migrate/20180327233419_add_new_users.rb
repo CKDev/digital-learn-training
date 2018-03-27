@@ -1,6 +1,6 @@
 class AddNewUsers < ActiveRecord::Migration[5.1]
   def up
-    emails.each {|email| User.create!(email: email, password: 'password')}
+    emails.each {|email| User.create!(email: email, password: 'password')} if Rails.env.production?
   end
 
   def down
