@@ -197,6 +197,8 @@ GEM
     public_suffix (2.0.5)
     puma (3.9.1)
     rack (2.0.4)
+    rack-attack (5.2.0)
+      rack
     rack-protection (2.0.0)
       rack
     rack-test (0.8.3)
@@ -373,6 +375,7 @@ DEPENDENCIES
   pry
   pry-byebug
   puma
+  rack-attack
   rails (= 5.1.5)
   rails-controller-testing
   redis (~> 3.0)
