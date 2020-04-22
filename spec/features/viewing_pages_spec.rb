@@ -11,7 +11,7 @@ feature "Users can view CMS pages" do
     BODY
     @page = FactoryGirl.create(:page, body: html_body)
     visit page_path(@page)
-    assert_no_alerts([:alert])
+    expect(alert_present?).to be_falsey
   end
 
   scenario "published pages should show in the footer" do
