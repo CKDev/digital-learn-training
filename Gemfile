@@ -65,14 +65,14 @@ group :test do
   gem "factory_girl_rails"
   gem "rails-controller-testing"
   gem "capybara"
-  gem "selenium-webdriver"
+  gem "webdrivers"
   gem "database_cleaner"
   gem "launchy"
   gem "mocha"
   gem "simplecov", require: false
   gem "timecop"
   gem "rspec-sidekiq"
-  # gem "webmock"
+  gem "webmock"
 end
 
 # Capistrano Deployment

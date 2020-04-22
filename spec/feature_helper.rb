@@ -1,6 +1,7 @@
 require "rails_helper"
 require "capybara/rails"
 require "capybara/rspec"
+require 'webmock/rspec'
 
 def log_in_with(email, password)
   visit new_session_path
@@ -20,21 +21,19 @@ def log_out
   click_link "Sign Out"
 end
 
-def assert_no_alerts(types = [:alert, :confirm, :prompt])
-  types.each do |type|
-    alerts = page.driver.send(:"#{type}_messages")
-    expect(alerts.size).to eq 0
-  end
+def alert_present?
+  alert = driver.switch_to.alert
+  return true
+rescue
+  return false
 end
 
-Capybara.javascript_driver = :webkit
-# Capybara.javascript_driver = :selenium
-Capybara::Webkit.configure do |config|
-  # config.debug = true # Uncomment for error information.
-  config.allow_url("cdn-images.mailchimp.com")
-  config.allow_url("fonts.googleapis.com")
-end
+Capybara.server = :webrick
 
-Capybara.configure do |config|
-  config.always_include_port = true
-end
+# Use Selenium and Chromedriver for feature specs
+Capybara.javascript_driver = :selenium_chrome_headless
+
+# Configure webmock to disallow network connections
+WebMock.disable_net_connect!({ allow_localhost: true,
+                               allow: 'chromedriver.storage.googleapis.com' })
+
