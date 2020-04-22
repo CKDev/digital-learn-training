@@ -1,5 +1,5 @@
 <% title_only_class = local_assigns[:summary].present? ? "" : "title-only" %>
-<a href="<%= local_assigns[:link] %>" class="link-wrapper">
+<%= link_to local_assigns[:link], class: "link-wrapper", download: local_assigns[:download_filename] do %>
   <div class="media-object-1">
     <div class="media-icon">
       <% if local_assigns[:icon].present? %>
@@ -15,4 +15,4 @@
       <%= local_assigns[:summary] %>
     </div>
   </div>
-</a>
+<% end %>

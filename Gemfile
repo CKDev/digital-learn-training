@@ -64,7 +64,7 @@ end
 group :test do
   gem "factory_girl_rails"
   gem "rails-controller-testing"
-  gem "capybara-webkit"
+  gem "capybara"
   gem "selenium-webdriver"
   gem "database_cleaner"
   gem "launchy"
