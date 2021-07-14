@@ -8,6 +8,14 @@ class ApplicationController < ActionController::Base
     user_signed_in? && current_user.admin?
   end
 
+  def after_sign_out_path_for(resource)
+    if authenticated_with_saml?
+      destroy_saml_user_session_path
+    else
+      root_path
+    end
+  end
+
   private
 
   def set_blank_templates
@@ -16,5 +24,11 @@ class ApplicationController < ActionController::Base
 
   def set_footer_links
     @footer_links = Page.published.alpha_order
+  end
+
+  def authenticated_with_saml?
+    warden.session(:user)[:strategy] == :saml_authenticatable
+  rescue Warden::NotAuthenticated
+    false
   end
 end
