@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_action :current_organization
   before_action :set_blank_templates
   before_action :set_footer_links
   helper_method :admin_signed_in?
@@ -17,6 +18,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def current_organization
+    @current_organization ||= Organization.find_by(subdomain: request.subdomains.last)
+  end
 
   def set_blank_templates
     @blank_template = CourseMaterial.find_by(title: "Course Templates")
