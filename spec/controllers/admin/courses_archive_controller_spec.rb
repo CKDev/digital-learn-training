@@ -5,11 +5,11 @@ describe Admin::CoursesArchiveController do
   describe "GET #index" do
 
     it "assigns all courses" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
-      @course1 = FactoryGirl.create(:course)
-      @course2 = FactoryGirl.create(:course, pub_status: "A")
-      @course3 = FactoryGirl.create(:course, pub_status: "A")
+      @course1 = FactoryBot.create(:course)
+      @course2 = FactoryBot.create(:course, pub_status: "A")
+      @course3 = FactoryBot.create(:course, pub_status: "A")
       get :index
       expect(assigns(:courses)).to contain_exactly(@course2, @course3)
     end

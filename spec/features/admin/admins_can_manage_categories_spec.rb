@@ -3,8 +3,8 @@ require "feature_helper"
 feature "Admins can manage categories pages" do
 
   before :each do
-    @category = FactoryGirl.create(:category)
-    @admin = FactoryGirl.create(:admin)
+    @category = FactoryBot.create(:category)
+    @admin = FactoryBot.create(:admin)
     log_in @admin
   end
 

@@ -3,8 +3,8 @@ require "feature_helper"
 feature "Admins can manage course pages" do
 
   before :each do
-    @category = FactoryGirl.create(:category)
-    @admin = FactoryGirl.create(:admin)
+    @category = FactoryBot.create(:category)
+    @admin = FactoryBot.create(:admin)
     log_in @admin
   end
 
@@ -36,7 +36,7 @@ feature "Admins can manage course pages" do
   end
 
   scenario "can edit an existing Course page" do
-    @course_material = FactoryGirl.create(:course_material)
+    @course_material = FactoryBot.create(:course_material)
     visit admin_course_materials_path
     within "main" do
       click_link @course_material.title

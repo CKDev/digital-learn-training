@@ -5,7 +5,7 @@ describe Admin::CategoriesController do
   describe "GET #new" do
 
     it "assigns a new instance of a category" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       get :new
       expect(assigns(:category)).to be_an_instance_of(Category)
@@ -21,10 +21,10 @@ describe Admin::CategoriesController do
   describe "GET #index" do
 
     it "assigns all categorys" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
-      @category1 = FactoryGirl.create(:category)
-      @category2 = FactoryGirl.create(:category)
+      @category1 = FactoryBot.create(:category)
+      @category2 = FactoryBot.create(:category)
       get :index
       expect(assigns(:categories)).to contain_exactly(@category1, @category2)
     end
@@ -60,7 +60,7 @@ describe Admin::CategoriesController do
     end
 
     it "correctly assigns the passed in info" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       post :create, params: { category: valid_attributes }
       category = Category.last
@@ -71,7 +71,7 @@ describe Admin::CategoriesController do
     end
 
     it "renders the new view if there is missing information" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       post :create, params: { category: invalid_attributes }
       expect(response).to render_template :new
@@ -87,9 +87,9 @@ describe Admin::CategoriesController do
   describe "GET #edit" do
 
     it "assigns the given instance of a category" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
-      @category = FactoryGirl.create(:category)
+      @category = FactoryBot.create(:category)
       get :edit, params: { id: @category.id }
       expect(assigns(:category)).to eq @category
     end
@@ -125,8 +125,8 @@ describe Admin::CategoriesController do
     end
 
     it "correctly assigns the passed in info" do
-      @category = FactoryGirl.create(:category)
-      @admin = FactoryGirl.create(:admin)
+      @category = FactoryBot.create(:category)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       put :update, params: { id: @category.id, category: valid_attributes }
       @category.reload
@@ -137,8 +137,8 @@ describe Admin::CategoriesController do
     end
 
     it "renders the edit view if there is missing information" do
-      @category = FactoryGirl.create(:category)
-      @admin = FactoryGirl.create(:admin)
+      @category = FactoryBot.create(:category)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       put :update, params: { id: @category.id, category: invalid_attributes }
       expect(response).to render_template :edit

@@ -5,7 +5,7 @@ describe CourseMaterialFile do
   context "validations" do
 
     before :each do
-      @course_material_file = FactoryGirl.create(:course_material_file)
+      @course_material_file = FactoryBot.create(:course_material_file)
     end
 
     it "should initially be valid" do

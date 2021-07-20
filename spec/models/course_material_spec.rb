@@ -5,7 +5,7 @@ describe CourseMaterial do
   context "validations" do
 
     before :each do
-      @course_material = FactoryGirl.create(:course_material)
+      @course_material = FactoryBot.create(:course_material)
     end
 
     it "should initially be valid" do
@@ -28,7 +28,7 @@ describe CourseMaterial do
     end
 
     it "should require the title to be unique" do
-      @course_material2 = FactoryGirl.create(:course_material, title: "A New Page")
+      @course_material2 = FactoryBot.create(:course_material, title: "A New Page")
       @course_material.update(title: "A New Page")
       expect(@course_material.valid?).to be false
     end
@@ -69,20 +69,20 @@ describe CourseMaterial do
     end
 
     it "shouldn't allow two file attachments to have the same file name" do
-      @course_material_file1 = FactoryGirl.create(:course_material_file, course_material: @course_material)
+      @course_material_file1 = FactoryBot.create(:course_material_file, course_material: @course_material)
       expect(@course_material.valid?).to be true
 
       expect do
-        @course_material_file2 = FactoryGirl.create(:course_material_file, course_material: @course_material)
+        @course_material_file2 = FactoryBot.create(:course_material_file, course_material: @course_material)
       end.to raise_error ActiveRecord::RecordInvalid
     end
 
     it "shouldn't allow two media attachments to have the same file name" do
-      @course_material_media1 = FactoryGirl.create(:course_material_media, course_material: @course_material)
+      @course_material_media1 = FactoryBot.create(:course_material_media, course_material: @course_material)
       expect(@course_material.valid?).to be true
 
       expect do
-        @course_material_media2 = FactoryGirl.create(:course_material_media, course_material: @course_material)
+        @course_material_media2 = FactoryBot.create(:course_material_media, course_material: @course_material)
       end.to raise_error ActiveRecord::RecordInvalid
     end
 
@@ -103,9 +103,9 @@ describe CourseMaterial do
     context "default scope" do
 
       it "should return course_materials in sort_order order" do
-        @course_material1 = FactoryGirl.create(:course_material, sort_order: 3)
-        @course_material2 = FactoryGirl.create(:course_material, sort_order: 1)
-        @course_material3 = FactoryGirl.create(:course_material, sort_order: 2)
+        @course_material1 = FactoryBot.create(:course_material, sort_order: 3)
+        @course_material2 = FactoryBot.create(:course_material, sort_order: 1)
+        @course_material3 = FactoryBot.create(:course_material, sort_order: 2)
         expect(CourseMaterial.all).to eq [@course_material2, @course_material3, @course_material1]
       end
 
@@ -114,9 +114,9 @@ describe CourseMaterial do
     context ".archived" do
 
       it "should return all course_materials that are archived" do
-        @course_material1 = FactoryGirl.create(:course_material, pub_status: "D")
-        @course_material2 = FactoryGirl.create(:course_material, pub_status: "P")
-        @course_material3 = FactoryGirl.create(:course_material, pub_status: "A")
+        @course_material1 = FactoryBot.create(:course_material, pub_status: "D")
+        @course_material2 = FactoryBot.create(:course_material, pub_status: "P")
+        @course_material3 = FactoryBot.create(:course_material, pub_status: "A")
         expect(CourseMaterial.archived).to contain_exactly(@course_material3)
       end
 
@@ -125,9 +125,9 @@ describe CourseMaterial do
     context ".not_archived" do
 
       it "should return all course_materials that are not archived" do
-        @course_material1 = FactoryGirl.create(:course_material, pub_status: "D")
-        @course_material2 = FactoryGirl.create(:course_material, pub_status: "P")
-        @course_material3 = FactoryGirl.create(:course_material, pub_status: "A")
+        @course_material1 = FactoryBot.create(:course_material, pub_status: "D")
+        @course_material2 = FactoryBot.create(:course_material, pub_status: "P")
+        @course_material3 = FactoryBot.create(:course_material, pub_status: "A")
         expect(CourseMaterial.not_archived).to contain_exactly(@course_material1, @course_material2)
       end
 

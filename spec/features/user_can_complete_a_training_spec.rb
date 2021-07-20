@@ -3,7 +3,7 @@ require "feature_helper"
 feature "Users can complete a training" do
 
   scenario "published pages should show in the footer" do
-    @course = FactoryGirl.create(:course_with_lessons)
+    @course = FactoryBot.create(:course, :with_lessons)
     visit root_path
     click_link @course.title
     expect(current_path).to eq course_path(@course)
