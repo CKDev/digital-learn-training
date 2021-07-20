@@ -3,8 +3,12 @@
   <head>
     <%= render "meta_tags" %>
   </head>
-  <body class="<%= "#{controller_name}-#{action_name}" %>">
-    <%= render "header" %>
+  <body class="<%= "#{current_organization&.subdomain} #{controller_name}-#{action_name}" %>">
+    <% if current_organization %>
+      <%= render "#{current_organization.subdomain}/header" %>
+    <% else %>
+      <%= render "application/header" %>
+    <% end %>
     <div class="banner">
       <div class="container row">
         <div class="eight columns">

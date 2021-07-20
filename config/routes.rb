@@ -36,6 +36,10 @@ Rails.application.routes.draw do
     resources :attachments, only: [:destroy]
   end
 
+  namespace :att do
+    get 'login'
+  end
+
   devise_for :users, controllers: {
     sessions: "sessions",
     registrations: "registrations",

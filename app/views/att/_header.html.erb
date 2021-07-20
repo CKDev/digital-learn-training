@@ -1,0 +1,26 @@
+<header class="site-header">
+  <div class="container">
+    <nav class="secondary-links">
+      <%= link_to "Tools for Learners", "https://www.digitallearn.org/" %>
+    </nav>
+    <div class="logo-link-container">
+      <%= link_to root_path do %>
+        <div class="logo">
+          <div class="logo-icon">
+            <%= image_tag "#{current_organization.subdomain}_logo" %>
+          </div>
+        </div>
+      <% end %>
+      <nav class="primary-links">
+        <% if admin_signed_in? %>
+          <span class="black">Hi Admin!</span><span class="divider">|</span>
+          <%= link_to "Admin Dashboard", admin_course_materials_path %><span class="divider">|</span>
+          <%= link_to "Sign Out", destroy_user_session_path, method: "delete" %>
+        <% else %>
+          <% courses_base_links = ["/courses", "/categories"] %>
+          <%= link_to "Courses", course_materials_path, class: add_active_base_link(courses_base_links) %>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+</header>

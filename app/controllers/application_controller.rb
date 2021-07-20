@@ -3,7 +3,9 @@ class ApplicationController < ActionController::Base
   before_action :current_organization
   before_action :set_blank_templates
   before_action :set_footer_links
+
   helper_method :admin_signed_in?
+  helper_method :current_organization
 
   def admin_signed_in?
     user_signed_in? && current_user.admin?
