@@ -2,6 +2,7 @@ require "feature_helper"
 
 feature "ATT User visits app" do
   before :each do
+    FactoryGirl.create(:att)
     switch_to_subdomain 'training.att'
   end
 
@@ -20,4 +21,10 @@ feature "ATT User visits app" do
     expect(current_path).to match('/att/login')
   end
 
+  scenario "Admin attempts to visit admin page with att subdomain" do
+    visit admin_root_path
+
+    expect(page).to have_content 'You need to sign in or sign up before continuing.'
+    expect(current_path).to match('/users/sign_in')
+  end
 end

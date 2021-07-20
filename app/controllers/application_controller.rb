@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :set_blank_templates
   before_action :set_footer_links
 
+  before_action :authenticate_user!, if: :organization_subdomain?
+
   helper_method :admin_signed_in?
   helper_method :current_organization
 
@@ -37,5 +39,9 @@ class ApplicationController < ActionController::Base
     warden.session(:user)[:strategy] == :saml_authenticatable
   rescue Warden::NotAuthenticated
     false
+  end
+
+  def organization_subdomain?
+    current_organization.present?
   end
 end
