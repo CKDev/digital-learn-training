@@ -1,6 +1,11 @@
 class SamlSessionsController < ::Devise::SamlSessionsController
   after_action :store_winning_strategy, only: :create
 
+  def new
+    byebug
+    super
+  end
+
   private
 
   def store_winning_strategy
