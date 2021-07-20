@@ -9,8 +9,9 @@ feature "ATT User visits app" do
   scenario "Sees login page at root path" do
     visit root_path
 
-    expect(page).to have_button 'Sign in with CSP'
-    click_button('Sign in with CSP')
+    expect(page).to have_button 'Sign In with AT&T CSP'
+    expect(page).not_to have_content 'You need to sign in or sign up before continuing.'
+    click_button('Sign In with AT&T CSP')
     expect(current_path).to match('dev-3836710.okta.com/login')
   end
 
