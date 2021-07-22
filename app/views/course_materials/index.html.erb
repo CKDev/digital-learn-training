@@ -1,1 +1,5 @@
-<%= render "shared/courses/overview" %>
+<% if current_organization %>
+  <%= render "#{current_organization.subdomain}/courses/overview" %>
+<% else %>
+  <%= render "shared/courses/overview" %>
+<% end %>
