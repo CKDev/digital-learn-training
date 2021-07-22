@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
   def index
     @courses = Course.published.limit(2)
-    @categories = Category.includes(sub_categories: :course_materials).all
+    @categories = get_categories
     @getting_started = @categories.where(tag: "Getting Started")
     @hardware = @categories.where(tag: "Hardware")
     @software_and_applications = @categories.where(tag: "Software & Applications")
@@ -11,6 +11,12 @@ class HomeController < ApplicationController
   end
 
   private
+
+  def get_categories
+    categories = current_organization ? Category.where(organization: current_organization) : Category.where(organization: nil)
+
+    categories.includes(sub_categories: :course_materials)
+  end
 
   def redirect_unauthenticated_subdomain_user
     if !current_user && current_organization

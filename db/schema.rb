@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210716194140) do
+ActiveRecord::Schema.define(version: 20210722212213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20210716194140) do
     t.text "description"
     t.string "tag"
     t.string "slug"
+    t.bigint "organization_id"
+    t.index ["organization_id"], name: "index_categories_on_organization_id"
   end
 
   create_table "course_material_files", force: :cascade do |t|

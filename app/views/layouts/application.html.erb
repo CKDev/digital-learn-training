@@ -29,7 +29,11 @@
       <%= render "flashes" %>
       <%= yield %>
     </main>
-    <%= render "footer" %>
+    <% if current_organization %>
+      <%= render "#{current_organization.subdomain}/footer" %>
+    <% else %>
+      <%= render "footer" %>
+    <% end %>
     <%= render "google_analytics" if Rails.env.production? %>
   </body>
 </html>

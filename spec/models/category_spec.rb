@@ -25,7 +25,6 @@ describe Category do
       @category.update(tag: "something else")
       expect(@category.valid?).to be false
     end
-
   end
 
   context ".select_options" do
