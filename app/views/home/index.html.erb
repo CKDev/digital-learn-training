@@ -1,45 +1,48 @@
-<%= render "shared/courses/overview" %>
-
-<div class="row">
-  <div class="six columns">
-    <div class="row">
-      <div class="info-widget">
-        <header>
-          <h2>Instructional Design Training</h2>
-        </header>
-        <div class="content">
-          <%= render "training" %>
-          <hr />
-          <div class="align-right">
-            <%= link_to "All Trainings >", courses_path %>
-          </div>
-        </div>
-      </div>
+<% if current_organization %>
+  <%= render "#{current_organization.subdomain}/courses/overview" %>
+<% else %>
+  <%= render "shared/courses/overview" %>
+  <div class="row">
+    <div class="six columns">
       <div class="row">
         <div class="info-widget">
           <header>
-            <h2>Stay Connected</h2>
+            <h2>Instructional Design Training</h2>
           </header>
           <div class="content">
-            <%= render "newsletter_signup_form" %>
+            <%= render "training" %>
             <hr />
             <div class="align-right">
-              <%= link_to "Connect on Facebook >", "https://www.facebook.com/digitallearn.org/" %>
+              <%= link_to "All Trainings >", courses_path %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="info-widget">
+            <header>
+              <h2>Stay Connected</h2>
+            </header>
+            <div class="content">
+              <%= render "newsletter_signup_form" %>
+              <hr />
+              <div class="align-right">
+                <%= link_to "Connect on Facebook >", "https://www.facebook.com/digitallearn.org/" %>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="six columns">
-    <div class="info-widget">
-      <header>
-        <h2>Tech Skills Checklist</h2>
-      </header>
-      <div class="content">
-        <%= render "tech_skills_checklist" %>
+    <div class="six columns">
+      <div class="info-widget">
+        <header>
+          <h2>Tech Skills Checklist</h2>
+        </header>
+        <div class="content">
+          <%= render "tech_skills_checklist" %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>

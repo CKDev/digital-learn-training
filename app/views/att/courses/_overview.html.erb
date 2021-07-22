@@ -1,0 +1,18 @@
+<div class="info-widget">
+  <header>
+    <h2>Courses: Tracks & Classes</h2>
+  </header>
+  <div class="content">
+    <div class="row">
+      <div class="two columns">
+      &nbsp;
+      </div>
+
+      <div class="eight columns">
+        <% @categories.group_by(&:tag).each do |tag, categories| %>
+          <%= render "shared/courses/category", { title: tag, categories: categories } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
