@@ -6,6 +6,10 @@ feature "ATT User visits app" do
     switch_to_subdomain 'training.att'
   end
 
+  after :each do
+    reset_subdomain
+  end
+
   scenario "Sees login page at root path" do
     visit root_path
 

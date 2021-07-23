@@ -36,6 +36,10 @@ def switch_to_subdomain(subdomain, tld = nil)
   Capybara.app_host = "http://#{host}"
 end
 
+def reset_subdomain
+  Capybara.app_host = nil
+end
+
 Capybara.server = :webrick
 
 # Use Selenium and Chromedriver for feature specs
