@@ -29,6 +29,16 @@ feature "Admins can manage course pages" do
     expect(page).to have_content "New Course Title"
   end
 
+  scenario "sees correct category options" do
+    att = FactoryBot.create(:att)
+    FactoryBot.create(:category, title: "AT&T category", organization: att)
+    FactoryBot.create(:category, title: "Non-org category")
+    visit admin_course_materials_path
+    click_link "Add New Course"
+    expected_options = ["AT&T category (AT&T)", "Non-org category"]
+    expect(page).to have_select "Category", with_options: expected_options
+  end
+
   scenario "cannot add a new Course page with missing information" do
     visit new_admin_course_material_path
     click_button "Save Course"
