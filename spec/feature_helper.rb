@@ -28,6 +28,18 @@ rescue
   return false
 end
 
+
+def switch_to_subdomain(subdomain, tld = nil)
+  # lvh.me always resolves to 127.0.0.1
+  tld ||= 'lvh.me'
+  host = subdomain ? "#{subdomain}.#{tld}" : tld
+  Capybara.app_host = "http://#{host}"
+end
+
+def reset_subdomain
+  Capybara.app_host = nil
+end
+
 Capybara.server = :webrick
 
 # Use Selenium and Chromedriver for feature specs

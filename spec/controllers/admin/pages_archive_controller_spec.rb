@@ -5,11 +5,11 @@ describe Admin::PagesArchiveController do
   describe "GET #index" do
 
     it "assigns all pages" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
-      @page1 = FactoryGirl.create(:page)
-      @page2 = FactoryGirl.create(:page, pub_status: "A")
-      @page3 = FactoryGirl.create(:page, pub_status: "A")
+      @page1 = FactoryBot.create(:page)
+      @page2 = FactoryBot.create(:page, pub_status: "A")
+      @page3 = FactoryBot.create(:page, pub_status: "A")
       get :index
       expect(assigns(:pages)).to contain_exactly(@page2, @page3)
     end

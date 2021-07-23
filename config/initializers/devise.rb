@@ -252,11 +252,14 @@ Devise.setup do |config|
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
-  #
-  # config.warden do |manager|
-  #   manager.intercept_401 = false
-  #   manager.default_strategies(scope: :user).unshift :some_external_strategy
-  # end
+  
+  config.warden do |manager|
+    # Use custom failure app for subdomain-specific login pages
+    manager.failure_app = CustomFailure
+
+    # manager.intercept_401 = false
+    # manager.default_strategies(scope: :user).unshift :some_external_strategy
+  end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
@@ -271,4 +274,20 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+
+  # Prefix saml routes
+  config.saml_route_helper_prefix = 'saml'
+
+  # Configure with your SAML settings (see ruby-saml's README for more information: https://github.com/onelogin/ruby-saml).
+  base_url = Rails.application.secrets.sso_host
+  config.saml_configure do |settings|
+    # assertion_consumer_service_url is required starting with ruby-saml 1.4.3: https://github.com/onelogin/ruby-saml#updating-from-142-to-143
+    settings.assertion_consumer_service_url     = "#{base_url}/users/saml/auth"
+    settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+    settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
+    settings.issuer                             = "#{base_url}/users/saml/metadata"
+    settings.authn_context                      = ""
+    settings.idp_sso_service_url                = Rails.application.secrets.idp_sso_url
+    settings.idp_cert                           = Rails.application.secrets.idp_cert
+  end
 end

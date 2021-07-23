@@ -3,7 +3,7 @@ require "rails_helper"
 describe CourseMaterialVideo do
 
   before :each do
-    @course_material_video = FactoryGirl.create(:course_material_video)
+    @course_material_video = FactoryBot.create(:course_material_video)
   end
 
   context "validations" do
@@ -18,7 +18,7 @@ describe CourseMaterialVideo do
     end
 
     it "should only allow valid formatted urls" do
-      @course_material_video = FactoryGirl.build(:course_material_video)
+      @course_material_video = FactoryBot.build(:course_material_video)
 
       @course_material_video.update(url: "something")
       expect(@course_material_video.valid?).to be false

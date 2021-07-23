@@ -1,6 +1,8 @@
 module Admin
   class CourseMaterialsController < BaseController
 
+    helper_method :categories_array
+
     def index
       @course_materials = CourseMaterial.not_archived.order(:title)
     end
@@ -52,6 +54,13 @@ module Admin
         course_material_files_attributes: [:id, :file, :_destroy],
         course_material_medias_attributes: [:id, :media, :_destroy],
         course_material_videos_attributes: [:id, :url, :_destroy])
+    end
+
+    def categories_array
+      Category.order(:title).map do |c|
+        category_title = c.organization.present? ? "#{c.title} (#{c.organization.title})" : c.title
+        [category_title, c.id]
+      end
     end
 
   end

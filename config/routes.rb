@@ -36,10 +36,15 @@ Rails.application.routes.draw do
     resources :attachments, only: [:destroy]
   end
 
+  namespace :att do
+    get 'login'
+  end
+
   devise_for :users, controllers: {
     sessions: "sessions",
     registrations: "registrations",
-    passwords: "passwords"
+    passwords: "passwords",
+    saml_sessions: "saml_sessions"
   }
 
   match "/404", to: "errors#error_404", via: [:all]

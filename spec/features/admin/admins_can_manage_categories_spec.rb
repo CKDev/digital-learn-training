@@ -3,8 +3,8 @@ require "feature_helper"
 feature "Admins can manage categories pages" do
 
   before :each do
-    @category = FactoryGirl.create(:category)
-    @admin = FactoryGirl.create(:admin)
+    @category = FactoryBot.create(:category)
+    @admin = FactoryBot.create(:admin)
     log_in @admin
   end
 
@@ -19,14 +19,29 @@ feature "Admins can manage categories pages" do
     visit admin_categories_path
     click_link "Add a New Course Category"
     expect(current_path).to eq new_admin_category_path
+    select "None (Main Training Site)", from: "Organization"
     find("#category_title").set("New Category Title")
     find("#category_description").set("Description")
-    select @category.tag
+    select @category.tag, from: "Tag"
     click_link "Add Subcategory"
     fill_in "category[sub_categories_attributes][0][title]", with: "Subcategory Title"
     click_button "Save Category"
     expect(current_path).to eq admin_categories_path
     expect(page).to have_content "New Category Title"
+  end
+
+  scenario "can add a new Category for an organization" do
+    org = FactoryBot.create(:att)
+    visit admin_categories_path
+    click_link "Add a New Course Category"
+    select "AT&T", from: "Organization"
+    fill_in "Title", with: "AT&T Category Title"
+    fill_in "Description", with: "Description"
+    select @category.tag, from: "Tag"
+    
+    expect do
+      click_button "Save Category"
+    end.to change { Category.where(organization: org).count }.by(1)
   end
 
   scenario "cannot add a new Category page with missing information" do

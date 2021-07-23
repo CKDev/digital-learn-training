@@ -15,6 +15,9 @@ gem "redis-namespace"
 # Authentication and authorization
 gem "devise"
 
+# SAML authentication
+gem 'devise_saml_authenticatable', '~> 1.6.3'
+
 # Bourbon for sass mixins, and neat for the grid framework
 gem "bourbon", "4.2.7"
 gem "neat", "1.8.0" # Careful, as v2.0 removes some mixins in use.
@@ -46,7 +49,6 @@ group :development, :test do
   gem "pry-byebug"
   gem "awesome_print", require: "ap"
   gem "bullet"
-  gem "rspec-rails" # This needs to be here for the rake tasks to work.
   gem "listen" # Required by Rails
   # gem "httplog"
 end
@@ -62,7 +64,7 @@ group :development do
 end
 
 group :test do
-  gem "factory_girl_rails"
+  gem "factory_bot_rails"
   gem "rails-controller-testing"
   gem "capybara"
   gem "webdrivers"
@@ -72,6 +74,7 @@ group :test do
   gem "simplecov", require: false
   gem "timecop"
   gem "rspec-sidekiq"
+  gem "rspec-rails" # This needs to be here for the rake tasks to work.
   gem "webmock"
 end
 

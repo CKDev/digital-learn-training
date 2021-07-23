@@ -47,5 +47,4 @@ class Constants
   def self.pub_status_select_options
     [["Draft", "D"], ["Published", "P"], ["Archived", "A"]]
   end
-
 end

@@ -4,7 +4,7 @@ describe Category do
   context "validations" do
 
     before :each do
-      @category = FactoryGirl.create(:category)
+      @category = FactoryBot.create(:category)
     end
 
     it "should initially be valid" do
@@ -25,7 +25,6 @@ describe Category do
       @category.update(tag: "something else")
       expect(@category.valid?).to be false
     end
-
   end
 
   context ".select_options" do

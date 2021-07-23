@@ -4,7 +4,7 @@ describe Category do
   context "validations" do
 
     before :each do
-      @category = FactoryGirl.create(:sub_category)
+      @category = FactoryBot.create(:sub_category)
     end
 
     it "should initially be valid" do

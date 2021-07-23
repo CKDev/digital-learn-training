@@ -37,7 +37,7 @@
 
     <fieldset>
       <%= f.label :category_id, class: "required" %>
-      <%= f.select :category_id, options_for_select(Category.order(:title).map { |c| [c.title, c.id] }, @course_material.try(:category).try(:id)),
+      <%= f.select :category_id, options_for_select(categories_array, @course_material.try(:category).try(:id)),
         include_blank: "Select ..." %>
     </fieldset>
 

@@ -1,0 +1,20 @@
+.att {
+  nav.primary-links {
+    color: $att_action_blue;
+
+    a:hover {
+      text-decoration: none;
+      border-bottom: 2px solid $att_action_blue;
+    }
+
+    a.active {
+      border-bottom: 2px solid $att_action_blue;
+    }
+  }
+
+  nav.secondary-links {
+    a {
+      color: $att_action_blue;
+    }
+  }
+}

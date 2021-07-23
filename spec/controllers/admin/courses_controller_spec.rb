@@ -5,7 +5,7 @@ describe Admin::CoursesController do
   describe "GET #new" do
 
     it "assigns a new instance of a course" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       get :new
       expect(assigns(:course)).to be_an_instance_of(Course)
@@ -21,11 +21,11 @@ describe Admin::CoursesController do
   describe "GET #index" do
 
     it "assigns all courses that aren't archived" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
-      @course1 = FactoryGirl.create(:course)
-      @course2 = FactoryGirl.create(:course)
-      @course3 = FactoryGirl.create(:course, pub_status: "A")
+      @course1 = FactoryBot.create(:course)
+      @course2 = FactoryBot.create(:course)
+      @course3 = FactoryBot.create(:course, pub_status: "A")
       get :index
       expect(assigns(:courses)).to contain_exactly(@course1, @course2)
     end
@@ -64,7 +64,7 @@ describe Admin::CoursesController do
     end
 
     it "correctly assigns the passed in info" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       post :create, params: { course: valid_attributes }
       course = Course.last
@@ -78,7 +78,7 @@ describe Admin::CoursesController do
     end
 
     it "redirects to the course path if the Save Course button was clicked" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       post :create, params: { course: valid_attributes, commit: "Save Course" }
       course = Course.last
@@ -86,7 +86,7 @@ describe Admin::CoursesController do
     end
 
     it "renders the new view if there is missing information" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       post :create, params: { course: invalid_attributes }
       expect(response).to render_template :new
@@ -102,9 +102,9 @@ describe Admin::CoursesController do
   describe "GET #edit" do
 
     it "assigns the given instance of a course" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
-      @course = FactoryGirl.create(:course)
+      @course = FactoryBot.create(:course)
       get :edit, params: { id: @course.id }
       expect(assigns(:course)).to eq @course
     end
@@ -143,8 +143,8 @@ describe Admin::CoursesController do
     end
 
     it "correctly assigns the passed in info" do
-      @course = FactoryGirl.create(:course)
-      @admin = FactoryGirl.create(:admin)
+      @course = FactoryBot.create(:course)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       put :update, params: { id: @course.id, course: valid_attributes }
       @course.reload
@@ -158,8 +158,8 @@ describe Admin::CoursesController do
     end
 
     it "redirects to the course path if the Save Course button was clicked" do
-      @course = FactoryGirl.create(:course)
-      @admin = FactoryGirl.create(:admin)
+      @course = FactoryBot.create(:course)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       put :update, params: { id: @course.id, course: valid_attributes, commit: "Save Course" }
       @course.reload
@@ -167,8 +167,8 @@ describe Admin::CoursesController do
     end
 
     it "redirects to the course path if the Save Course and Edit Lessons button was clicked" do
-      @course = FactoryGirl.create(:course_with_lessons)
-      @admin = FactoryGirl.create(:admin)
+      @course = FactoryBot.create(:course, :with_lessons)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       put :update, params: { id: @course.id, course: valid_attributes, commit: "Save Course and Edit Lessons" }
       @course.reload
@@ -176,8 +176,8 @@ describe Admin::CoursesController do
     end
 
     it "renders the edit view if there is missing information" do
-      @course = FactoryGirl.create(:course)
-      @admin = FactoryGirl.create(:admin)
+      @course = FactoryBot.create(:course)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       put :update, params: { id: @course.id, course: invalid_attributes }
       expect(response).to render_template :edit
@@ -193,13 +193,13 @@ describe Admin::CoursesController do
   describe "PUT #sort" do
 
     before :each do
-      @course1 = FactoryGirl.create(:course)
-      @course2 = FactoryGirl.create(:course)
-      @course3 = FactoryGirl.create(:course)
+      @course1 = FactoryBot.create(:course)
+      @course2 = FactoryBot.create(:course)
+      @course3 = FactoryBot.create(:course)
     end
 
     it "should update to the given sort order" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
 
       order = {

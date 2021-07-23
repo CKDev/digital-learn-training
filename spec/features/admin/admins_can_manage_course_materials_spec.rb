@@ -3,8 +3,8 @@ require "feature_helper"
 feature "Admins can manage course pages" do
 
   before :each do
-    @category = FactoryGirl.create(:category)
-    @admin = FactoryGirl.create(:admin)
+    @category = FactoryBot.create(:category)
+    @admin = FactoryBot.create(:admin)
     log_in @admin
   end
 
@@ -29,6 +29,16 @@ feature "Admins can manage course pages" do
     expect(page).to have_content "New Course Title"
   end
 
+  scenario "sees correct category options" do
+    att = FactoryBot.create(:att)
+    FactoryBot.create(:category, title: "AT&T category", organization: att)
+    FactoryBot.create(:category, title: "Non-org category")
+    visit admin_course_materials_path
+    click_link "Add New Course"
+    expected_options = ["AT&T category (AT&T)", "Non-org category"]
+    expect(page).to have_select "Category", with_options: expected_options
+  end
+
   scenario "cannot add a new Course page with missing information" do
     visit new_admin_course_material_path
     click_button "Save Course"
@@ -36,7 +46,7 @@ feature "Admins can manage course pages" do
   end
 
   scenario "can edit an existing Course page" do
-    @course_material = FactoryGirl.create(:course_material)
+    @course_material = FactoryBot.create(:course_material)
     visit admin_course_materials_path
     within "main" do
       click_link @course_material.title

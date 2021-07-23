@@ -5,7 +5,7 @@ describe Admin::CourseMaterialsController do
   describe "GET #new" do
 
     it "assigns a new instance of a course_material" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       get :new
       expect(assigns(:course_material)).to be_an_instance_of(CourseMaterial)
@@ -21,11 +21,11 @@ describe Admin::CourseMaterialsController do
   describe "GET #index" do
 
     it "assigns all course_materials" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
-      @course_material1 = FactoryGirl.create(:course_material)
-      @course_material2 = FactoryGirl.create(:course_material)
-      @course_material3 = FactoryGirl.create(:course_material, pub_status: "A")
+      @course_material1 = FactoryBot.create(:course_material)
+      @course_material2 = FactoryBot.create(:course_material)
+      @course_material3 = FactoryBot.create(:course_material, pub_status: "A")
       get :index
       expect(assigns(:course_materials)).to contain_exactly(@course_material1, @course_material2)
     end
@@ -40,7 +40,7 @@ describe Admin::CourseMaterialsController do
   describe "POST #create" do
 
     before :each do
-      @category = FactoryGirl.create(:category)
+      @category = FactoryBot.create(:category)
     end
 
     let(:file_upload) do
@@ -89,7 +89,7 @@ describe Admin::CourseMaterialsController do
     end
 
     it "correctly assigns the passed in info" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       post :create, params: { course_material: valid_attributes }
       course_material = CourseMaterial.last
@@ -104,7 +104,7 @@ describe Admin::CourseMaterialsController do
     end
 
     it "renders the new view if there is missing information" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       post :create, params: { course_material: invalid_attributes }
       expect(response).to render_template :new
@@ -120,9 +120,9 @@ describe Admin::CourseMaterialsController do
   describe "GET #edit" do
 
     it "assigns the given instance of a course_material" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
-      @course_material = FactoryGirl.create(:course_material)
+      @course_material = FactoryBot.create(:course_material)
       get :edit, params: { id: @course_material.id }
       expect(assigns(:course_material)).to eq @course_material
     end
@@ -137,7 +137,7 @@ describe Admin::CourseMaterialsController do
   describe "PUT #update" do
 
     before :each do
-      @category = FactoryGirl.create(:category)
+      @category = FactoryBot.create(:category)
     end
 
     let(:valid_attributes) do
@@ -163,8 +163,8 @@ describe Admin::CourseMaterialsController do
     end
 
     it "correctly assigns the passed in info" do
-      @course_material = FactoryGirl.create(:course_material)
-      @admin = FactoryGirl.create(:admin)
+      @course_material = FactoryBot.create(:course_material)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       put :update, params: { id: @course_material.id, course_material: valid_attributes }
       @course_material.reload
@@ -176,9 +176,9 @@ describe Admin::CourseMaterialsController do
     end
 
     it "removes the subcategory id if not passed in" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
-      @course_material = FactoryGirl.create(:course_material)
+      @course_material = FactoryBot.create(:course_material)
       @course_material.update(sub_category_id: 2)
       put :update, params: { id: @course_material.id, course_material: valid_attributes }
       @course_material.reload
@@ -186,8 +186,8 @@ describe Admin::CourseMaterialsController do
     end
 
     it "renders the edit view if there is missing information" do
-      @course_material = FactoryGirl.create(:course_material)
-      @admin = FactoryGirl.create(:admin)
+      @course_material = FactoryBot.create(:course_material)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
       put :update, params: { id: @course_material.id, course_material: invalid_attributes }
       expect(response).to render_template :edit
@@ -203,13 +203,13 @@ describe Admin::CourseMaterialsController do
   describe "PUT #sort" do
 
     before :each do
-      @course_material1 = FactoryGirl.create(:course_material)
-      @course_material2 = FactoryGirl.create(:course_material)
-      @course_material3 = FactoryGirl.create(:course_material)
+      @course_material1 = FactoryBot.create(:course_material)
+      @course_material2 = FactoryBot.create(:course_material)
+      @course_material3 = FactoryBot.create(:course_material)
     end
 
     it "should update to the given sort order" do
-      @admin = FactoryGirl.create(:admin)
+      @admin = FactoryBot.create(:admin)
       sign_in @admin
 
       order = {

@@ -1,0 +1,19 @@
+.att {
+  a {
+    color: $att_action_blue;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $att_primary_blue;
+  }
+
+  .teal {
+    color: $att_primary_blue;
+    fill: $att_primary_blue;
+  }
+}

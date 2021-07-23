@@ -3,7 +3,7 @@ require "feature_helper"
 feature "Users can view a course" do
 
   scenario "published pages should show in the footer" do
-    @course_material = FactoryGirl.create(:course_material, pub_status: "P")
+    @course_material = FactoryBot.create(:course_material, pub_status: "P")
     visit root_path
     click_link @course_material.category.title
     expect(current_path).to eq category_path(@course_material.category)
