@@ -49,7 +49,6 @@ group :development, :test do
   gem "pry-byebug"
   gem "awesome_print", require: "ap"
   gem "bullet"
-  gem "rspec-rails" # This needs to be here for the rake tasks to work.
   gem "listen" # Required by Rails
   # gem "httplog"
 end
@@ -75,6 +74,7 @@ group :test do
   gem "simplecov", require: false
   gem "timecop"
   gem "rspec-sidekiq"
+  gem "rspec-rails" # This needs to be here for the rake tasks to work.
   gem "webmock"
 end
 

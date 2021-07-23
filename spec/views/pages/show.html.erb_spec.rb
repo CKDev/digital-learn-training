@@ -3,6 +3,9 @@ require "rails_helper"
 describe "pages/show.html.erb" do
 
   before(:each) do
+    # Stub `current_organization` method
+    view.stubs(:current_organization).returns(nil)
+
     @page = FactoryBot.create(:page, meta_desc: "Meta description.", seo_title: "SEO Title")
     assign(:page, @page)
     assign(:footer_links, [])
