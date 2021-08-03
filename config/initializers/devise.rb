@@ -291,6 +291,12 @@ Devise.setup do |config|
   config.saml_session_index_key = :session_index
   config.saml_use_subject = true
 
+  # Set custom attributes for new saml users
+  config.saml_update_resource_hook = ->(user, response, auth_value) {
+    user.assign_attributes(provider: 'saml', confirmed_at: Time.zone.now)
+    Devise.saml_default_update_resource_hook.call(user, response, auth_value)
+  }
+
   # Use adapter for Saml settings
   config.idp_settings_adapter = IdpSettingsAdapter
 

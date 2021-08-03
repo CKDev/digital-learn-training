@@ -8,4 +8,10 @@ class User < ApplicationRecord
     admin
   end
 
+  private
+
+  def password_required?
+    provider != 'saml'
+  end
+
 end
