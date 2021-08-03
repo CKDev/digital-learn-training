@@ -1,5 +1,8 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+
+require 'idp_settings_adapter'
+
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -280,14 +283,22 @@ Devise.setup do |config|
 
   # Configure with your SAML settings (see ruby-saml's README for more information: https://github.com/onelogin/ruby-saml).
   base_url = Rails.application.secrets.sso_host
+
+  # Create user on SSO login
+  config.saml_create_user = true
+  config.saml_update_user = false
+  config.saml_default_user_key = :email
+  config.saml_session_index_key = :session_index
+  config.saml_use_subject = true
+
+  # Use adapter for Saml settings
+  config.idp_settings_adapter = IdpSettingsAdapter
+
   config.saml_configure do |settings|
     # assertion_consumer_service_url is required starting with ruby-saml 1.4.3: https://github.com/onelogin/ruby-saml#updating-from-142-to-143
     settings.assertion_consumer_service_url     = "#{base_url}/users/saml/auth"
     settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
     settings.issuer                             = "#{base_url}/users/saml/metadata"
-    settings.authn_context                      = ""
-    settings.idp_sso_service_url                = Rails.application.secrets.idp_sso_url
-    settings.idp_cert                           = Rails.application.secrets.idp_cert
   end
 end
