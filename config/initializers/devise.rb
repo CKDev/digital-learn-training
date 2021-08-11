@@ -289,7 +289,7 @@ Devise.setup do |config|
   config.saml_update_user = false
   config.saml_default_user_key = :email
   config.saml_session_index_key = :session_index
-  config.saml_use_subject = true
+  config.saml_use_subject = false
 
   # Set custom attributes for new saml users
   config.saml_update_resource_hook = ->(user, response, auth_value) {

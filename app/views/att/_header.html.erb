@@ -19,6 +19,8 @@
         <% else %>
           <% courses_base_links = ["/courses", "/categories"] %>
           <%= link_to "Courses", course_materials_path, class: add_active_base_link(courses_base_links) %>
+          <span class="divider">|</span>
+          <%= link_to "Sign Out", destroy_saml_user_session_path, method: "DELETE" %>
         <% end %>
       </nav>
     </div>
