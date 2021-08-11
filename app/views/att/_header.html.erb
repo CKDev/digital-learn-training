@@ -16,7 +16,7 @@
           <span class="black">Hi Admin!</span><span class="divider">|</span>
           <%= link_to "Admin Dashboard", admin_course_materials_path %><span class="divider">|</span>
           <%= link_to "Sign Out", destroy_user_session_path, method: "delete" %>
-        <% else %>
+        <% elsif current_user %>
           <% courses_base_links = ["/courses", "/categories"] %>
           <%= link_to "Courses", course_materials_path, class: add_active_base_link(courses_base_links) %>
           <span class="divider">|</span>
