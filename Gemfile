@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "5.1.7"
+gem "rails", "5.2.6"
 gem "pg", "~> 0.18"
 gem "puma"
 gem "sass-rails"
@@ -51,6 +51,7 @@ group :development, :test do
   gem "bullet"
   gem "listen" # Required by Rails
   # gem "httplog"
+  gem "rspec-rails", "~> 5.0.0"
 end
 
 group :development do
@@ -73,9 +74,8 @@ group :test do
   gem "mocha"
   gem "simplecov", require: false
   gem "timecop"
-  gem "rspec-sidekiq"
-  gem "rspec-rails" # This needs to be here for the rake tasks to work.
   gem "webmock"
+  gem "rspec-sidekiq"
 end
 
 # Capistrano Deployment
