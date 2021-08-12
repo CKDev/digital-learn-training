@@ -47,6 +47,7 @@ feature "Admins can manage course pages" do
 
   scenario "can edit an existing Course page" do
     @course_material = FactoryBot.create(:course_material)
+    material_file = FactoryBot.create(:course_material_file, course_material: @course_material)
     visit admin_course_materials_path
     within "main" do
       click_link @course_material.title
