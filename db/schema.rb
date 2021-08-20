@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_08_20_162715) do
     t.string "file_description"
     t.string "document_file_name"
     t.string "document_content_type"
-    t.integer "document_file_size"
+    t.bigint "document_file_size"
     t.datetime "document_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2021_08_20_162715) do
     t.integer "course_material_id"
     t.string "file_file_name"
     t.string "file_content_type"
-    t.integer "file_file_size"
+    t.bigint "file_file_size"
     t.datetime "file_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2021_08_20_162715) do
     t.integer "course_material_id"
     t.string "media_file_name"
     t.string "media_content_type"
-    t.integer "media_file_size"
+    t.bigint "media_file_size"
     t.datetime "media_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

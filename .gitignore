@@ -55,3 +55,6 @@ examples.txt
 
 # Storyline files
 /public/storylines/*
+
+# Development docker data
+/development/data/*
