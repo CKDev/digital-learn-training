@@ -7,6 +7,8 @@ class Category < ApplicationRecord
   ALLOWED_TAGS = ["Getting Started", "Hardware", "Software & Applications", "Job & Career", "Other"].freeze
   has_many :sub_categories
 
+  has_many :course_materials
+
   validates :title, presence: true
   validates :tag, presence: true, inclusion: { in: ALLOWED_TAGS.map(&:to_s), message: "%{value} is not valid" }
 

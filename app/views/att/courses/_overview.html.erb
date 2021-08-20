@@ -9,8 +9,12 @@
       </div>
 
       <div class="eight columns">
-        <% @categories.group_by(&:tag).each do |tag, categories| %>
-          <%= render "shared/courses/category", { title: tag, categories: categories } %>
+        <% if @categories.empty? %>
+          <p>Training materials coming soon</p>
+        <% else %>
+          <% @categories.group_by(&:tag).each do |tag, categories| %>
+            <%= render "shared/courses/category", { title: tag, categories: categories } %>
+          <% end %>
         <% end %>
       </div>
     </div>
