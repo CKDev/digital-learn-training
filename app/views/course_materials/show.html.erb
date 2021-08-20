@@ -16,7 +16,8 @@
   </div>
 
   <div class="four columns">
-    <%= mail_to contact_email, subject: "Contact from DigitalLearn Training site" do %>
+    <% subject = current_organization ? "Contact from #{current_organization.title} DigitalLearn site" : "Contact from DigitalLearn Training Site" %>
+    <%= mail_to contact_email, subject: subject do %>
     <div class="email-media-object">
       <div class="icon">
         <%= svg_tag "icon-mail", class: "svg-icon-large teal" %>
