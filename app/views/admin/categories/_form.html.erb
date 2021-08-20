@@ -5,7 +5,7 @@
   <fieldset>
     <%= f.label :organization_id %>
     <% organizations_array = Organization.all.map { |org| [org.title, org.id ] } %>
-    <%= f.select :organization_id, options_for_select(organizations_array), include_blank: "None (Main Training Site)" %>
+    <%= f.select :organization_id, options_for_select(organizations_array, selected: @category.organization_id), include_blank: "None (Main Training Site)" %>
   </fieldset>
 
   <fieldset>
