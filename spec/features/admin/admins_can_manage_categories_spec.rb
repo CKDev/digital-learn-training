@@ -1,6 +1,7 @@
 require "feature_helper"
 
 feature "Admins can manage categories pages" do
+  let!(:att_org) { FactoryBot.create(:att) }
 
   before :each do
     @category = FactoryBot.create(:category)
@@ -31,7 +32,6 @@ feature "Admins can manage categories pages" do
   end
 
   scenario "can add a new Category for an organization" do
-    org = FactoryBot.create(:att)
     visit admin_categories_path
     click_link "Add a New Course Category"
     select "AT&T", from: "Organization"
@@ -41,7 +41,7 @@ feature "Admins can manage categories pages" do
     
     expect do
       click_button "Save Category"
-    end.to change { Category.where(organization: org).count }.by(1)
+    end.to change { Category.where(organization: att_org).count }.by(1)
   end
 
   scenario "cannot add a new Category page with missing information" do
@@ -62,6 +62,13 @@ feature "Admins can manage categories pages" do
     within "main" do
       expect(page).to have_content "Updated Title"
     end
+  end
+
+  scenario "can edit existing Organization category" do
+    category = FactoryBot.create(:category, organization: att_org)
+    visit edit_admin_category_path(category)
+
+    expect(page).to have_select("Organization", selected: "AT&T")
   end
 
 end
