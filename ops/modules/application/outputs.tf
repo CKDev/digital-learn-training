@@ -1,0 +1,1 @@
+output "application_sg_id" { value = aws_security_group.application_sg.id }

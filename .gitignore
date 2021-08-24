@@ -58,3 +58,9 @@ examples.txt
 
 # Development docker data
 /development/data/*
+
+# Sensitive Environment variables
+.env
+
+# Terraform state
+**/.terraform/*
