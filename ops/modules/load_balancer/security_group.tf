@@ -1,6 +1,6 @@
 resource "aws_security_group" "load_balancer_sg" {
   name        = "load_balancer_sg"
-  description = "Allow access to application's load balancer"
+  description = "Allow access to application load balancer"
   vpc_id      = var.vpc_id
 
   ingress {
