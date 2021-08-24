@@ -15,15 +15,21 @@ terraform {
 }
 
 provider "aws" {
-  region = var.region
-  profile = "digitallearn"
+  region       = var.region
+  profile      = "digitallearn"
+
+  default_tags {
+    tags = {
+      Project = "DigitalLearn Training"
+      Environment = var.environment_name
+    }
+  }
 }
 
 module "vpc" {
   source = "../modules/vpc"
 
-  environment_name = var.environment_name
-  region           = var.region
+  region = var.region
 }
 
 module "load_balancer" {

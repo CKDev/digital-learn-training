@@ -1,5 +1,3 @@
-variable "environment_name" {}
-
 variable "region" {}
 
 variable "vpc_cidr_blocks" {
