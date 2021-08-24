@@ -29,7 +29,8 @@ provider "aws" {
 module "vpc" {
   source = "../modules/vpc"
 
-  region = var.region
+  environment_name = var.environment_name
+  region           = var.region
 }
 
 module "load_balancer" {
