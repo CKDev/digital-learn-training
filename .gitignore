@@ -62,5 +62,8 @@ examples.txt
 # Sensitive Environment variables
 .env
 
-# Terraform state
+# Terraform state, secrets, etc.
 **/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars

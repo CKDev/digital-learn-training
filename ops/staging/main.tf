@@ -15,12 +15,12 @@ terraform {
 }
 
 provider "aws" {
-  region       = var.region
-  profile      = "digitallearn"
+  region  = var.region
+  profile = "digitallearn"
 
   default_tags {
     tags = {
-      Project = "DigitalLearn Training"
+      Project     = "DigitalLearn Training"
       Environment = var.environment_name
     }
   }
@@ -58,7 +58,18 @@ module "application" {
 module "database" {
   source = "../modules/database"
 
-  vpc_id            = module.vpc.vpc_id
-  bastian_sg_id     = module.bastian.bastian_sg_id
-  application_sg_id = module.application.application_sg_id
+  environment_name    = var.environment_name
+  region              = var.region
+  vpc_id              = module.vpc.vpc_id
+  bastian_sg_id       = module.bastian.bastian_sg_id
+  application_sg_id   = module.application.application_sg_id
+  private_subnet_a_id = module.vpc.private_subnet_a_id
+  private_subnet_b_id = module.vpc.private_subnet_b_id
+  database_name       = "railsapp_staging"
+  rds_identifier      = "dl-training-staging"
+  instance_size       = "db.t3.micro"
+  skip_final_snapshot = true
+  monitoring_interval = 0
+  db_user             = var.db_username
+  db_password         = var.db_password
 }
