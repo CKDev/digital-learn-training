@@ -61,6 +61,7 @@ module "database" {
   environment_name    = var.environment_name
   region              = var.region
   vpc_id              = module.vpc.vpc_id
+  db_snapshot_name    = "training-db-snapshot"
   bastian_sg_id       = module.bastian.bastian_sg_id
   application_sg_id   = module.application.application_sg_id
   private_subnet_a_id = module.vpc.private_subnet_a_id
@@ -70,6 +71,4 @@ module "database" {
   instance_size       = "db.t3.micro"
   skip_final_snapshot = true
   monitoring_interval = 0
-  db_user             = var.db_username
-  db_password         = var.db_password
 }
