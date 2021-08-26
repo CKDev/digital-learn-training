@@ -49,14 +49,6 @@ module "bastian" {
   public_subnet_a_id = module.vpc.public_subnet_a_id
 }
 
-module "application" {
-  source = "../modules/application"
-
-  vpc_id              = module.vpc.vpc_id
-  load_balancer_sg_id = module.load_balancer.load_balancer_sg_id
-  bastian_sg_id       = module.bastian.bastian_sg_id
-}
-
 module "database" {
   source = "../modules/database"
 
@@ -73,4 +65,17 @@ module "database" {
   instance_size       = "db.t3.micro"
   skip_final_snapshot = true
   monitoring_interval = 0
+}
+
+module "application" {
+  source = "../modules/application"
+
+  vpc_id              = module.vpc.vpc_id
+  region              = var.region
+  environment_name    = var.environment_name
+  load_balancer_sg_id = module.load_balancer.load_balancer_sg_id
+  bastian_sg_id       = module.bastian.bastian_sg_id
+  db_host             = module.database.database_host
+  db_username         = var.db_username
+  db_password         = var.db_password
 }
