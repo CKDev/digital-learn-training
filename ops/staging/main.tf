@@ -36,15 +36,17 @@ module "vpc" {
 module "load_balancer" {
   source = "../modules/load_balancer"
 
-  vpc_id = module.vpc.vpc_id
+  vpc_id             = module.vpc.vpc_id
+  public_subnet_a_id = module.vpc.public_subnet_a_id
+  public_subnet_b_id = module.vpc.public_subnet_b_id
 }
 
 module "bastian" {
   source = "../modules/bastian"
 
-  environment_name = var.environment_name
-  vpc_id           = module.vpc.vpc_id
-  public_subnet_id = module.vpc.public_subnet_id
+  environment_name   = var.environment_name
+  vpc_id             = module.vpc.vpc_id
+  public_subnet_a_id = module.vpc.public_subnet_a_id
 }
 
 module "application" {

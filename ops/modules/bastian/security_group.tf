@@ -1,5 +1,5 @@
 resource "aws_security_group" "bastian_sg" {
-  name        = "bastian_sg"
+  name        = "bastian-sg"
   description = "Allow access to Bastian server"
   vpc_id      = var.vpc_id
 

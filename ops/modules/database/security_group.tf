@@ -1,5 +1,5 @@
 resource "aws_security_group" "database_sg" {
-  name        = "database_sg"
+  name        = "database-sg"
   description = "Database security group"
   vpc_id      = var.vpc_id
 

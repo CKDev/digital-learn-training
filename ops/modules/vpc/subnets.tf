@@ -1,17 +1,28 @@
-resource "aws_subnet" "public" {
+resource "aws_subnet" "public_a" {
   availability_zone       = "${var.region}a"
   cidr_block              = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 0)
   map_public_ip_on_launch = false
   vpc_id                  = aws_vpc.vpc.id
 
   tags = {
-    Name = "Training Public Subnet (${var.environment_name})"
+    Name = "Training Public Subnet A (${var.environment_name})"
+  }
+}
+
+resource "aws_subnet" "public_b" {
+  availability_zone       = "${var.region}b"
+  cidr_block              = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 1)
+  map_public_ip_on_launch = false
+  vpc_id                  = aws_vpc.vpc.id
+
+  tags = {
+    Name = "Training Public Subnet B (${var.environment_name})"
   }
 }
 
 resource "aws_subnet" "private_a" {
   availability_zone       = "${var.region}a"
-  cidr_block              = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 1)
+  cidr_block              = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 2)
   map_public_ip_on_launch = false
   vpc_id                  = aws_vpc.vpc.id
 
@@ -22,7 +33,7 @@ resource "aws_subnet" "private_a" {
 
 resource "aws_subnet" "private_b" {
   availability_zone       = "${var.region}b"
-  cidr_block              = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 2)
+  cidr_block              = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 3)
   map_public_ip_on_launch = false
   vpc_id                  = aws_vpc.vpc.id
 
