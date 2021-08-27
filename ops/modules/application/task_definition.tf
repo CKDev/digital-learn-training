@@ -1,26 +1,32 @@
 resource "aws_ecs_task_definition" "app_service" {
-  family                   = "dl-training-app-service-${var.environment_name}"
+  family                   = "training-app-task-definition-${var.environment_name}"
   requires_compatibilities = ["EC2"]
-  memory                   = 128
+  memory                   = 512
+  cpu                      = 512
+
+  placement_constraints {
+    type       = "memberOf"
+    expression = "attribute:ecs.availability-zone in [${var.region}a, ${var.region}b]"
+  }
 
   container_definitions = jsonencode([
     {
       name      = "application",
       image     = "917415714855.dkr.ecr.us-west-2.amazonaws.com/dl-training:v1.0.0",
       essential = true,
-      mountPoints = [
-        {
-          containerPath = "/public/system",
-          sourceVolume  = "dl-training-storage-${var.environment_name}"
-        }
-      ],
+      #      mountPoints = [
+      #        {
+      #          containerPath = "/public/system",
+      #          sourceVolume  = "dl-training-storage-${var.environment_name}"
+      #        }
+      #      ],
       portMappings = [
         {
           containerPort = 3000,
           hostPort      = 0
         }
       ],
-      command = ["puma", "-C", "config/puma.rb", "-p", "3000"],
+      command = ["bundle", "exec", "puma", "-C", "config/puma.rb", "-p", "3000"],
       environment = [
         {
           name  = "POSTGRES_USER",
@@ -41,16 +47,12 @@ resource "aws_ecs_task_definition" "app_service" {
         {
           name  = "RAILS_MAX_THREADS"
           value = "5"
-        },
-        {
-          name  = "BUNDLE_PATH",
-          value = "/bundle"
         }
       ],
       logConfiguration = {
         logDriver = "awslogs",
         options = {
-          awslogs-group         = "/ecs/dl-training-ecs-task",
+          awslogs-group         = "${aws_cloudwatch_log_group.instance.name}",
           awslogs-region        = "${var.region}",
           awslogs-stream-prefix = "ecs"
         }
@@ -59,13 +61,13 @@ resource "aws_ecs_task_definition" "app_service" {
   ])
 
 
-  volume {
-    name = "dl-training-storage-${var.environment_name}"
+  #  volume {
+  #    name = "dl-training-storage-${var.environment_name}"
 
-    docker_volume_configuration {
-      scope         = "task"
-      autoprovision = false
-      driver        = "rexray/ebs"
-    }
-  }
+  #    docker_volume_configuration {
+  #      scope         = "task"
+  #      autoprovision = false
+  #      driver        = "rexray/ebs"
+  #    }
+  #  }
 }

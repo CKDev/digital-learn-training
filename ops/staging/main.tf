@@ -78,4 +78,10 @@ module "application" {
   db_host             = module.database.database_host
   db_username         = var.db_username
   db_password         = var.db_password
+  public_subnet_a_id  = module.vpc.public_subnet_a_id
+  public_subnet_b_id  = module.vpc.public_subnet_b_id
+  instance_type       = "t2.medium"
+  load_balancer_name  = module.load_balancer.load_balancer_name
+  lb_target_group_arn = module.load_balancer.lb_target_group_arn
+  ssh_key_name        = "ec2_test_key"
 }

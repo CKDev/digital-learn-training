@@ -18,4 +18,12 @@ resource "aws_security_group" "application_sg" {
     security_groups = [var.bastian_sg_id]
     description     = "Ingress from Bastian"
   }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow all outbound traffic from application"
+  }
 }

@@ -6,3 +6,9 @@ variable "bastian_sg_id" {}
 variable "db_host" {}
 variable "db_username" {}
 variable "db_password" {}
+variable "instance_type" {}
+variable "public_subnet_a_id" {}
+variable "public_subnet_b_id" {}
+variable "load_balancer_name" {}
+variable "lb_target_group_arn" {}
+variable "ssh_key_name" {}
