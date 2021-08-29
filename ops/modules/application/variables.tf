@@ -4,6 +4,7 @@ variable "environment_name" {}
 variable "load_balancer_sg_id" {}
 variable "bastian_sg_id" {}
 variable "db_host" {}
+variable "rails_master_key" {}
 variable "db_username" {}
 variable "db_password" {}
 variable "instance_type" {}

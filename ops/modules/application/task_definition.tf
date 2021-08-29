@@ -29,6 +29,10 @@ resource "aws_ecs_task_definition" "app_service" {
       command = ["bundle", "exec", "puma", "-C", "config/puma.rb", "-p", "3000"],
       environment = [
         {
+          name  = "RAILS_MASTER_KEY",
+          value = "${var.rails_master_key}"
+        },
+        {
           name  = "POSTGRES_USER",
           value = "${var.db_username}"
         },

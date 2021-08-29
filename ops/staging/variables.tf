@@ -12,3 +12,9 @@ variable "db_password" {
   type        = string
   sensitive   = true
 }
+
+variable "rails_master_key" {
+  description = "Master encryption key for encrypted Rails credentials"
+  type        = string
+  sensitive   = true
+}

@@ -84,4 +84,5 @@ module "application" {
   load_balancer_name  = module.load_balancer.load_balancer_name
   lb_target_group_arn = module.load_balancer.lb_target_group_arn
   ssh_key_name        = "ec2_test_key"
+  rails_master_key    = var.rails_master_key
 }
