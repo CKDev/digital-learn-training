@@ -5,14 +5,14 @@ RUN apt-get clean all && apt-get update -qq && apt-get install -y build-essentia
   curl gnupg2 apt-utils default-libmysqlclient-dev git libcurl3-dev cmake \
   libssl-dev pkg-config openssl imagemagick file nodejs yarn
 
-
 RUN mkdir /rails-app
 WORKDIR /rails-app
 
 # Adding gems
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
-RUN bundle install
+RUN gem install bundler && \
+  bundle install --jobs 3 --retry 3
 
 COPY . /rails-app
 

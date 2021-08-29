@@ -12,7 +12,7 @@ resource "aws_ecs_task_definition" "app_service" {
   container_definitions = jsonencode([
     {
       name      = "application",
-      image     = "917415714855.dkr.ecr.us-west-2.amazonaws.com/dl-training:v1.0.0",
+      image     = "917415714855.dkr.ecr.us-west-2.amazonaws.com/dl-training:latest",
       essential = true,
       #      mountPoints = [
       #        {
