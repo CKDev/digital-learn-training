@@ -18,7 +18,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   host: <%= ENV['POSTGRES_HOST'] %>
-  database: <%= ENV['POSTGRES_USER'] %>_<%= Rails.env %>
+  database: railsapp_<%= Rails.env %>
   username: <%= ENV['POSTGRES_USER'] %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
