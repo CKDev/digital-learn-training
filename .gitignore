@@ -67,3 +67,6 @@ examples.txt
 *.tfstate
 *.tfstate.*
 *.tfvars
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
