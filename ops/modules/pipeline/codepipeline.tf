@@ -40,7 +40,7 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = ["imagedefinitions"]
 
       configuration = {
-        ProjectName = "${var.project_name}-${var.environment_name}-codebuild"
+        ProjectName = aws_codebuild_project.codebuild_project.name
       }
     }
   }
