@@ -3,6 +3,7 @@ resource "aws_ecs_task_definition" "app_service" {
   requires_compatibilities = ["EC2"]
   memory                   = 512
   cpu                      = 512
+  network_mode             = "bridge"
 
   placement_constraints {
     type       = "memberOf"
@@ -22,10 +23,12 @@ resource "aws_ecs_task_definition" "app_service" {
       #      ],
       portMappings = [
         {
+          hostPort      = 0,
+          protocol      = "tcp",
           containerPort = 3000
         }
       ],
-      command = ["bundle", "exec", "puma", "-C", "config/puma.rb", "-p", "3000"],
+      command = ["puma", "-C", "config/puma.rb"],
       environment = [
         {
           name  = "RAILS_MASTER_KEY",

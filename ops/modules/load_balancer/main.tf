@@ -17,7 +17,7 @@ resource "aws_lb_target_group" "load_balancer_tg" {
     protocol            = "HTTP"
     path                = "/"
     port                = "traffic-port"
-    healthy_threshold   = 5
+    healthy_threshold   = 2
     unhealthy_threshold = 5
     timeout             = 30
     interval            = 60
