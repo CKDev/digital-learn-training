@@ -283,6 +283,7 @@ Devise.setup do |config|
 
   # Configure with your SAML settings (see ruby-saml's README for more information: https://github.com/onelogin/ruby-saml).
   puts "Detected rails env: #{Rails.env}"
+  puts "Credentials: #{Rails.application.credentials}"
   base_url = Rails.application.credentials[Rails.env.to_sym][:sso_host]
 
   # Create user on SSO login
