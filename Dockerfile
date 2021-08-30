@@ -3,7 +3,7 @@ FROM ruby:2.7.4-slim-buster
 # install rails dependencies
 RUN apt-get clean all && \
   apt-get update -qq && \
-  apt-get install -y \
+  apt-get install -qq -y \
   build-essential \
   libpq-dev \
   curl \
@@ -28,7 +28,7 @@ WORKDIR /rails-app
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 RUN gem install bundler && \
-  bundle install --jobs 3 --retry 3
+  bundle install --quiet --jobs 3 --retry 3
 
 COPY . /rails-app
 

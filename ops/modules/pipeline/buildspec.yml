@@ -5,14 +5,17 @@ phases:
     commands:
       - pip install awscli --upgrade --user
       - echo `aws --version`
-      - REPOSITORY_URI=${ecr_repository_url}
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${ecr_repository_url}
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - echo Entered the pre_build phase...
   build:
     commands:
       - echo Build started on `date`
+      - echo Logging in to Docker
+      - docker login -u=${docker_username} -p=${docker_password}
       - echo Building the Docker image...
-      - echo Rails ENV arg ${rails_env}
+      - REPOSITORY_URI=${ecr_project_uri}
       - docker build --build-arg RAILS_ENV=${rails_env} --build-arg RAILS_MASTER_KEY=${rails_master_key} -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
@@ -22,6 +25,6 @@ phases:
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"web","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"application","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
