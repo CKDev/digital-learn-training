@@ -64,11 +64,17 @@ A feature test to prove the actual working feature is preferred. Edge cases aren
 
 At any time, the working state of the app should be provable by running the test suite.
 
+## Deployements
+
+Deployment happens automatically through CodePipeline and CodeBuild. To deploy to Staging, merge PRs into the `develop` (default) branch. Merge release PRs into `main` to deploy to Production.
+
 ## Dev Ops
 
 The infrastructure for this app is managed with Terraform. You should use Terraform version >= 1.0.
 
 You will need an appropriate AWS IAM role to make infrastructure changes. If granted this access, please be careful and deliberate with your changes.
+
+Initialize the project's terraform state by navigating to one of the environment ops directories (ex/ `/ops/staging`) and run `terraform init`. Once the state is initialized, you can begin making infrastructure changes.
 
 ### Secrets
 
@@ -78,7 +84,7 @@ You can put `ops/staging/secret.tfvars` and `ops/production/secret.tfvars` in yo
 
 Otherwise, Terraform will prompt you to enter the secrets every time you work with the infrastructure.
 
-### Apply changes
+### Apply infrastructure changes
 
 1. Navigate to the ops directory corresponding to the environment you wish to update (`/ops/staging` or `/ops/production`).
 
