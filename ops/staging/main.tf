@@ -102,9 +102,12 @@ module "pipeline" {
   ecs_cluster_name   = module.application.cluster_name
   ecs_service_name   = module.application.service_name
   ecr_repository_url = "917415714855.dkr.ecr.us-west-2.amazonaws.com"
+  ecr_project_uri    = "917415714855.dkr.ecr.us-west-2.amazonaws.com/${var.project_name}"
   github_owner       = "CKDev"
   github_repo        = "digital-learn-training"
   branch             = "develop"
   oauth_token        = var.github_oauth_token
   rails_master_key   = var.rails_master_key
+  docker_username    = var.docker_username
+  docker_password    = var.docker_password
 }
