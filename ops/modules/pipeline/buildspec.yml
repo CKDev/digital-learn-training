@@ -5,8 +5,6 @@ phases:
     commands:
       - pip install awscli --upgrade --user
       - echo `aws --version`
-      - echo Logging in to Amazon ECR...
-      - $(aws ecr get-login --region ${region} --no-include-email)
       - REPOSITORY_URI=${ecr_repository_url}
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - echo Entered the pre_build phase...
@@ -14,7 +12,8 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build --build-arg RAILS_ENV=${rails_env} -t $REPOSITORY_URI:latest .
+      - echo Rails ENV arg ${rails_env}
+      - docker build --build-arg rails_env=${RAILS_ENV} -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
