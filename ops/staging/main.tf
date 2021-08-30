@@ -106,4 +106,5 @@ module "pipeline" {
   github_repo        = "digital-learn-training"
   branch             = "develop"
   oauth_token        = var.github_oauth_token
+  rails_master_key   = var.rails_master_key
 }

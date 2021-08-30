@@ -12,6 +12,7 @@ data "template_file" "buildspec" {
     region             = var.region
     rails_env          = var.environment_name
     cluster_name       = var.ecs_cluster_name
+    rails_master_key   = var.rails_master_key
   }
 }
 

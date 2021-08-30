@@ -33,14 +33,13 @@ RUN gem install bundler && \
 COPY . /rails-app
 
 ARG RAILS_ENV
+ARG RAILS_MASTER_KEY
 
 # Precompile assets
 RUN rm -rf /app/public/assets/
 
-RUN echo "RAILS_ENV in Dockerfile build"
-RUN echo $RAILS_ENV
-
-RUN RAILS_ENV=$RAILS_ENV bundle exec rake assets:precompile
+RUN env
+RUN bundle exec rake assets:precompile
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
