@@ -9,10 +9,13 @@ data "template_file" "buildspec" {
 
   vars = {
     ecr_repository_url = var.ecr_repository_url
+    ecr_project_uri    = var.ecr_project_uri
     region             = var.region
     rails_env          = var.environment_name
     cluster_name       = var.ecs_cluster_name
     rails_master_key   = var.rails_master_key
+    docker_username    = var.docker_username
+    docker_password    = var.docker_password
   }
 }
 

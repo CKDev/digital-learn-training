@@ -25,3 +25,10 @@ variable "github_oauth_token" {
   type        = string
   sensitive   = true
 }
+
+variable "docker_username" {}
+variable "docker_password" {
+  description = "Docker account password"
+  type        = string
+  sensitive   = true
+}
