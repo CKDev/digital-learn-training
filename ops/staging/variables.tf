@@ -19,3 +19,9 @@ variable "rails_master_key" {
   type        = string
   sensitive   = true
 }
+
+variable "github_oauth_token" {
+  description = "OAuth token for GitHub integration"
+  type        = string
+  sensitive   = true
+}

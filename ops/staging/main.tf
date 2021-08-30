@@ -92,3 +92,18 @@ module "application" {
   ssh_key_name                = "ec2_test_key"
   rails_master_key            = var.rails_master_key
 }
+
+module "pipeline" {
+  source = "../modules/pipeline"
+
+  project_name       = var.project_name
+  environment_name   = var.environment_name
+  region             = var.region
+  ecs_cluster_name   = module.application.cluster_name
+  ecs_service_name   = module.application.service_name
+  ecr_repository_url = "917415714855.dkr.ecr.us-west-2.amazonaws.com"
+  github_owner       = "CKDev"
+  github_repo        = "digital-learn-training"
+  branch             = "develop"
+  oauth_token        = var.github_oauth_token
+}
