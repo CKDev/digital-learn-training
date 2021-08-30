@@ -20,6 +20,6 @@ resource "aws_security_group" "bastian_sg" {
   }
 
   tags = {
-    Name = "Training Bastian SG (${var.environment_name})"
+    Name = "${var.project_name} Bastian SG (${var.environment_name})"
   }
 }

@@ -1,13 +1,14 @@
-resource "aws_ecs_cluster" "training_cluster" {
-  name = "dl-training-cluster-${var.environment_name}"
+resource "aws_ecs_cluster" "ecs_cluster" {
+  name = "${var.project_name}-cluster-${var.environment_name}"
 }
 
-resource "aws_ecs_service" "training_ecs_service" {
-  name            = "dl-training-${var.environment_name}-service"
-  cluster         = aws_ecs_cluster.training_cluster.id
-  task_definition = aws_ecs_task_definition.app_service.arn
-  desired_count   = 1
-  iam_role        = aws_iam_role.instance.name
+resource "aws_ecs_service" "ecs_service" {
+  name                              = "${var.project_name}-${var.environment_name}-service"
+  cluster                           = aws_ecs_cluster.ecs_cluster.id
+  task_definition                   = aws_ecs_task_definition.app_service.arn
+  desired_count                     = 1
+  iam_role                          = aws_iam_role.instance.name
+  health_check_grace_period_seconds = 60
 
   load_balancer {
     target_group_arn = var.lb_target_group_arn
@@ -27,17 +28,21 @@ data "aws_ami" "ecs_ami" {
 }
 
 resource "aws_launch_configuration" "instance" {
-  name_prefix                 = "dl-training-instance-"
+  name_prefix                 = "${var.project_name}-instance-"
   instance_type               = var.instance_type
   image_id                    = data.aws_ami.ecs_ami.id
   associate_public_ip_address = true
   iam_instance_profile        = aws_iam_instance_profile.instance.name
-  security_groups             = [aws_security_group.application_sg.id]
   key_name                    = var.ssh_key_name
+  security_groups = [
+    var.default_security_group_id,
+    aws_security_group.application_sg.id,
+    var.db_access_security_group_id
+  ]
 
   user_data = <<-EOF
                   #!/bin/bash
-                  echo ECS_CLUSTER=${aws_ecs_cluster.training_cluster.name} >> /etc/ecs/ecs.config
+                  echo ECS_CLUSTER=${aws_ecs_cluster.ecs_cluster.name} >> /etc/ecs/ecs.config
                 EOF
 
   lifecycle {
@@ -46,11 +51,11 @@ resource "aws_launch_configuration" "instance" {
 }
 
 resource "aws_autoscaling_group" "asg" {
-  name = "dl-training-${var.environment_name}-asg"
+  name = "${var.project_name}-${var.environment_name}-asg"
 
   launch_configuration = aws_launch_configuration.instance.name
   termination_policies = ["OldestLaunchConfiguration", "Default"]
-  vpc_zone_identifier  = [var.public_subnet_a_id, var.public_subnet_b_id]
+  vpc_zone_identifier  = var.public_subnet_ids
   target_group_arns    = [var.lb_target_group_arn]
   max_size             = 3
   min_size             = 1
@@ -61,12 +66,12 @@ resource "aws_autoscaling_group" "asg" {
   tags = [
     {
       key                 = "ecs_cluster"
-      value               = aws_ecs_cluster.training_cluster.name
+      value               = aws_ecs_cluster.ecs_cluster.name
       propagate_at_launch = true
     },
     {
       key                 = "Name"
-      value               = "Training App Instance ${var.environment_name}"
+      value               = "${var.project_name} App Instance ${var.environment_name}"
       propagate_at_launch = true
     }
   ]

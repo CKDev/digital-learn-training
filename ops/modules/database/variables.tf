@@ -1,3 +1,4 @@
+variable "project_name" {}
 variable "environment_name" {}
 variable "region" {}
 variable "db_snapshot_name" {}
@@ -11,5 +12,4 @@ variable "monitoring_interval" { default = 60 }
 variable "skip_final_snapshot" { default = false }
 variable "database_name" {}
 variable "rds_identifier" {}
-variable "private_subnet_a_id" {}
-variable "private_subnet_b_id" {}
+variable "private_subnet_ids" {}

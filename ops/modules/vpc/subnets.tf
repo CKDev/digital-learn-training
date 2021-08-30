@@ -1,43 +1,64 @@
-resource "aws_subnet" "public_a" {
-  availability_zone       = "${var.region}a"
-  cidr_block              = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 0)
-  map_public_ip_on_launch = false
+resource "aws_subnet" "public_subnet" {
   vpc_id                  = aws_vpc.vpc.id
+  count                   = length(var.public_subnets_cidr)
+  cidr_block              = element(var.public_subnets_cidr, count.index)
+  availability_zone       = element(var.availability_zones, count.index)
+  map_public_ip_on_launch = true
 
   tags = {
-    Name = "Training Public Subnet A (${var.environment_name})"
+    Name = "${var.project_name} Public Subnet ${var.environment_name}"
   }
 }
 
-resource "aws_subnet" "public_b" {
-  availability_zone       = "${var.region}b"
-  cidr_block              = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 1)
-  map_public_ip_on_launch = false
+resource "aws_subnet" "private_subnet" {
   vpc_id                  = aws_vpc.vpc.id
+  count                   = length(var.private_subnets_cidr)
+  cidr_block              = element(var.private_subnets_cidr, count.index)
+  availability_zone       = element(var.availability_zones, count.index)
+  map_public_ip_on_launch = false
 
   tags = {
-    Name = "Training Public Subnet B (${var.environment_name})"
+    Name = "${var.project_name} Private Subnet ${var.environment_name}"
   }
 }
 
-resource "aws_subnet" "private_a" {
-  availability_zone       = "${var.region}a"
-  cidr_block              = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 2)
-  map_public_ip_on_launch = false
-  vpc_id                  = aws_vpc.vpc.id
-
+/* Routing table for private subnet */
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "Training Private Subnet A (${var.environment_name})"
+    Name = "${var.project_name} Private Route Table ${var.environment_name}"
   }
 }
 
-resource "aws_subnet" "private_b" {
-  availability_zone       = "${var.region}b"
-  cidr_block              = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 3)
-  map_public_ip_on_launch = false
-  vpc_id                  = aws_vpc.vpc.id
-
+/* Routing table for public subnet */
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "Training Private Subnet B (${var.environment_name})"
+    Name = "${var.project_name} Public Route Table ${var.environment_name}"
   }
+}
+
+resource "aws_route" "public_internet_gateway" {
+  route_table_id         = aws_route_table.public.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.gateway.id
+}
+
+resource "aws_route" "private_nat_gateway" {
+  route_table_id         = aws_route_table.private.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.nat.id
+}
+
+/* Route table associations */
+resource "aws_route_table_association" "public" {
+  count          = length(var.public_subnets_cidr)
+  subnet_id      = element(aws_subnet.public_subnet.*.id, count.index)
+  route_table_id = aws_route_table.public.id
+}
+
+resource "aws_route_table_association" "private" {
+  count          = length(var.private_subnets_cidr)
+  subnet_id      = element(aws_subnet.private_subnet.*.id, count.index)
+  route_table_id = aws_route_table.private.id
 }

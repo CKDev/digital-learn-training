@@ -29,37 +29,44 @@ provider "aws" {
 module "vpc" {
   source = "../modules/vpc"
 
-  environment_name = var.environment_name
-  region           = var.region
+  project_name         = var.project_name
+  environment_name     = var.environment_name
+  region               = var.region
+  public_subnets_cidr  = ["10.0.1.0/24", "10.0.2.0/24"]
+  private_subnets_cidr = ["10.0.10.0/24", "10.0.20.0/24"]
+  availability_zones   = ["${var.region}a", "${var.region}b"]
 }
 
 module "load_balancer" {
   source = "../modules/load_balancer"
 
-  vpc_id             = module.vpc.vpc_id
-  public_subnet_a_id = module.vpc.public_subnet_a_id
-  public_subnet_b_id = module.vpc.public_subnet_b_id
+  project_name              = var.project_name
+  vpc_id                    = module.vpc.vpc_id
+  public_subnet_ids         = module.vpc.public_subnet_ids
+  default_security_group_id = module.vpc.default_security_group_id
 }
 
 module "bastian" {
   source = "../modules/bastian"
 
-  environment_name   = var.environment_name
-  vpc_id             = module.vpc.vpc_id
-  public_subnet_a_id = module.vpc.public_subnet_a_id
+  project_name              = var.project_name
+  environment_name          = var.environment_name
+  vpc_id                    = module.vpc.vpc_id
+  public_subnet_ids         = module.vpc.public_subnet_ids
+  default_security_group_id = module.vpc.default_security_group_id
 }
 
 module "database" {
   source = "../modules/database"
 
+  project_name        = var.project_name
   environment_name    = var.environment_name
   region              = var.region
   vpc_id              = module.vpc.vpc_id
   db_snapshot_name    = "training-db-snapshot"
   bastian_sg_id       = module.bastian.bastian_sg_id
   application_sg_id   = module.application.application_sg_id
-  private_subnet_a_id = module.vpc.private_subnet_a_id
-  private_subnet_b_id = module.vpc.private_subnet_b_id
+  private_subnet_ids  = module.vpc.private_subnet_ids
   database_name       = "railsapp_staging"
   rds_identifier      = "dl-training-staging"
   instance_size       = "db.t3.micro"
@@ -70,19 +77,18 @@ module "database" {
 module "application" {
   source = "../modules/application"
 
-  vpc_id              = module.vpc.vpc_id
-  region              = var.region
-  environment_name    = var.environment_name
-  load_balancer_sg_id = module.load_balancer.load_balancer_sg_id
-  bastian_sg_id       = module.bastian.bastian_sg_id
-  db_host             = module.database.database_host
-  db_username         = var.db_username
-  db_password         = var.db_password
-  public_subnet_a_id  = module.vpc.public_subnet_a_id
-  public_subnet_b_id  = module.vpc.public_subnet_b_id
-  instance_type       = "t2.medium"
-  load_balancer_name  = module.load_balancer.load_balancer_name
-  lb_target_group_arn = module.load_balancer.lb_target_group_arn
-  ssh_key_name        = "ec2_test_key"
-  rails_master_key    = var.rails_master_key
+  project_name                = var.project_name
+  vpc_id                      = module.vpc.vpc_id
+  region                      = var.region
+  environment_name            = var.environment_name
+  default_security_group_id   = module.vpc.default_security_group_id
+  db_access_security_group_id = module.database.db_access_security_group_id
+  db_host                     = module.database.database_host
+  db_username                 = var.db_username
+  db_password                 = var.db_password
+  public_subnet_ids           = module.vpc.public_subnet_ids
+  instance_type               = "t2.medium"
+  lb_target_group_arn         = module.load_balancer.lb_target_group_arn
+  ssh_key_name                = "ec2_test_key"
+  rails_master_key            = var.rails_master_key
 }

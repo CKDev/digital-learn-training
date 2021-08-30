@@ -1,16 +1,13 @@
-resource "aws_lb" "training_lb" {
-  name               = "training-lb"
-  internal           = false
-  load_balancer_type = "application"
-  ip_address_type    = "ipv4"
-  security_groups    = [aws_security_group.load_balancer_sg.id]
-  subnets            = [var.public_subnet_a_id, var.public_subnet_b_id]
+resource "aws_lb" "load_balancer" {
+  name            = "${var.project_name}-lb"
+  security_groups = [aws_security_group.load_balancer_sg.id, var.default_security_group_id]
+  subnets         = var.public_subnet_ids
 
   enable_deletion_protection = true
 }
 
-resource "aws_lb_target_group" "training_lb_tg" {
-  name        = "training-lb-tg"
+resource "aws_lb_target_group" "load_balancer_tg" {
+  name        = "${var.project_name}-lb-tg"
   target_type = "instance"
   port        = 80
   protocol    = "HTTP"
@@ -21,21 +18,22 @@ resource "aws_lb_target_group" "training_lb_tg" {
     path                = "/"
     port                = "traffic-port"
     healthy_threshold   = 5
-    unhealthy_threshold = 2
-    timeout             = 5
-    interval            = 30
+    unhealthy_threshold = 5
+    timeout             = 30
+    interval            = 60
     matcher             = "200-499"
   }
 }
 
-resource "aws_lb_listener" "training_lb_listener" {
-  load_balancer_arn = aws_lb.training_lb.arn
+resource "aws_lb_listener" "lb_listener" {
+  load_balancer_arn = aws_lb.load_balancer.arn
   port              = 80
   protocol          = "HTTP"
+  depends_on        = [aws_lb_target_group.load_balancer_tg]
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.training_lb_tg.arn
+    target_group_arn = aws_lb_target_group.load_balancer_tg.arn
   }
 }
 

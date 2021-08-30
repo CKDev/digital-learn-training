@@ -3,47 +3,36 @@ resource "aws_vpc" "vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "Training VPC (${var.environment_name})"
+    Name = "${var.project_name} VPC (${var.environment_name})"
   }
 }
 
+/* Internet Gatway for public subnet */
 resource "aws_internet_gateway" "gateway" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = "Training Gateway (${var.environment_name})"
+    Name = "${var.project_name} Gateway (${var.environment_name})"
   }
 }
 
-# Default route table
-resource "aws_default_route_table" "route-table" {
-  default_route_table_id = aws_vpc.vpc.default_route_table_id
+/* Elastic IP for NAT */
+resource "aws_eip" "nat_eip" {
+  vpc = true
+  depends_on = [
+    aws_internet_gateway.gateway
+  ]
+}
+
+/* NAT */
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.nat_eip.id
+  subnet_id     = element(aws_subnet.public_subnet.*.id, 0)
+  depends_on = [
+    aws_internet_gateway.gateway
+  ]
 
   tags = {
-    Name = "Training Default Route Table (${var.environment_name})"
+    Name = "${var.project_name} NAT ${var.environment_name}"
   }
-}
-
-# Public route table & association
-resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.vpc.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.gateway.id
-  }
-
-  tags = {
-    Name = "Training Public Route Table (${var.environment_name})"
-  }
-}
-
-resource "aws_route_table_association" "public_a" {
-  route_table_id = aws_route_table.public.id
-  subnet_id      = aws_subnet.public_a.id
-}
-
-resource "aws_route_table_association" "public_b" {
-  route_table_id = aws_route_table.public.id
-  subnet_id      = aws_subnet.public_b.id
 }

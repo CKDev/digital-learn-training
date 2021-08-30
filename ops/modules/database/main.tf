@@ -1,9 +1,6 @@
 resource "aws_db_subnet_group" "application" {
-  name = "${var.environment_name}-db-subnet-group"
-  subnet_ids = [
-    var.private_subnet_a_id,
-    var.private_subnet_b_id
-  ]
+  name       = "${var.environment_name}-db-subnet-group"
+  subnet_ids = var.private_subnet_ids
 
   lifecycle {
     create_before_destroy = true
@@ -16,7 +13,7 @@ resource "aws_db_instance" "app_db" {
   allow_major_version_upgrade     = true
   instance_class                  = var.instance_size
   monitoring_interval             = var.monitoring_interval
-  vpc_security_group_ids          = [aws_security_group.database_sg.id]
+  vpc_security_group_ids          = [aws_security_group.db_sg.id]
   availability_zone               = "${var.region}a"
   multi_az                        = false
   db_subnet_group_name            = aws_db_subnet_group.application.name

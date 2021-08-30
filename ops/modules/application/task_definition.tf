@@ -22,8 +22,7 @@ resource "aws_ecs_task_definition" "app_service" {
       #      ],
       portMappings = [
         {
-          containerPort = 3000,
-          hostPort      = 0
+          containerPort = 3000
         }
       ],
       command = ["bundle", "exec", "puma", "-C", "config/puma.rb", "-p", "3000"],
