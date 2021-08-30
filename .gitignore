@@ -55,3 +55,18 @@ examples.txt
 
 # Storyline files
 /public/storylines/*
+
+# Development docker data
+/development/data/*
+
+# Sensitive Environment variables
+.env
+
+# Terraform state, secrets, etc.
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
