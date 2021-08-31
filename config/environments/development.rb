@@ -70,11 +70,4 @@ Rails.application.configure do
 
   # S3 Overrides
   #config.s3_enabled = false
-  config.s3_region = "us-east-1"
-
-  config.paperclip_defaults = {
-    storage: :s3,
-    bucket: config.s3_bucket_name,
-    s3_region: config.s3_region
-  }
 end
