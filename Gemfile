@@ -45,6 +45,7 @@ gem "cocoon" # Dynamic forms for has-many relationships
 gem "rack-attack" # Prevent botspam and allow white/blacklisting IPs, etc
 
 # AWS sdk for s3
+gem 'aws-sdk', '~>1'
 gem 'aws-sdk-s3', '~>1'
 
 group :development, :test do
