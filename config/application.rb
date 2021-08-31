@@ -21,5 +21,16 @@ module DigitalLearnTraining
 
     # Use routing for error pages
     config.exceptions_app = self.routes
+
+    # S3 configuration
+    config.s3_enabled = true
+    config.s3_bucket_name = "dl-training-uploads-#{Rails.env}"
+    config.s3_region = "us-west-2"
+
+    config.paperclip_defaults = {
+      storage: :s3,
+      bucket: config.s3_bucket_name,
+      s3_region: config.s3_region
+    }
   end
 end

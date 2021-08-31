@@ -67,4 +67,14 @@ Rails.application.configure do
     Bullet.rails_logger = true
     Bullet.add_footer = true
   end
+
+  # S3 Overrides
+  #config.s3_enabled = false
+  config.s3_region = "us-east-1"
+
+  config.paperclip_defaults = {
+    storage: :s3,
+    bucket: config.s3_bucket_name,
+    s3_region: config.s3_region
+  }
 end
