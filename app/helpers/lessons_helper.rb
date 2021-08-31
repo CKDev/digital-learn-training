@@ -1,14 +1,9 @@
 module LessonsHelper
   def asl_iframe(lesson)
-    if lesson.story_line_file_name
-      if lesson.parent_lesson_id
-        lesson_id = lesson.parent_lesson_id
-      else
-        lesson_id = lesson.id
-      end
+    if lesson.story_line_file_name.present?
       directory = lesson.story_line_file_name.chomp(".zip")
-      story_line_url = "/storylines/#{lesson_id}/#{directory}/story.html"
-      content_tag(:iframe, nil, src: story_line_url, class: "story_line")
+      story_line_url = "/storylines/#{lesson.id}/#{directory}/story.html"
+      content_tag(:iframe, nil, src: story_line_url, class: "story_line", title: lesson.summary, id: "asl-iframe")
     else
       content_tag(:p, "There are no available lessons.", class: "note")
     end

@@ -47,6 +47,9 @@ gem "rack-attack" # Prevent botspam and allow white/blacklisting IPs, etc
 # AWS sdk for s3
 gem 'aws-sdk-s3', '~>1'
 
+# Rack::Proxy for S3 Proxy middleware
+gem 'rack-proxy'
+
 group :development, :test do
   gem "pry"
   gem "pry-byebug"

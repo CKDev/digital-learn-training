@@ -22,6 +22,10 @@ module DigitalLearnTraining
     # Use routing for error pages
     config.exceptions_app = self.routes
 
+    # Proxy requests to /storyines to S3 bucket
+    require Rails.root.join("lib/s3_proxy.rb")
+    config.middleware.use S3Proxy, streaming: false
+
     # S3 configuration
     config.s3_enabled = true
     config.s3_bucket_name = "dl-training-uploads-#{Rails.env}"
