@@ -68,4 +68,6 @@ Rails.application.configure do
     Bullet.add_footer = true
   end
 
+  # S3 Overrides
+  #config.s3_enabled = false
 end

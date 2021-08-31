@@ -51,7 +51,7 @@
   <h2>Class Files</h2>
   <%= render partial: "file_grid", locals: { course_material: @course_material } %>
   <div style="text-align: center;">
-    <%= link_to course_material_course_materials_files_path(@course_material) do %>
+    <%= link_to course_material_course_materials_files_path(@course_material), target: "_blank" do %>
       <button class="image-button">
         <%= svg_tag "icon-download", class: "svg-icon white" %>
         <span>Download All Files</span>
@@ -66,7 +66,7 @@
   <h2>Sample Images</h2>
   <%= render partial: "media_grid", locals: { course_material: @course_material } %>
   <div class="extra-margin-bottom" style="text-align: center;">
-    <%= link_to course_material_course_materials_medias_path(@course_material) do %>
+    <%= link_to course_material_course_materials_medias_path(@course_material), target: "_blank" do %>
       <button class="image-button">
         <%= svg_tag "icon-download", class: "svg-icon white" %>
         <span>Download All Images</span>
