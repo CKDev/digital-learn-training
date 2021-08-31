@@ -5,7 +5,7 @@ class Lesson < ApplicationRecord
   friendly_id :title, use: :slugged
 
   belongs_to :course
-  has_attached_file :story_line, url: "/system/lessons/story_lines/:id/:style/:basename.:extension"
+  has_attached_file :story_line, Rails.configuration.storyline_paperclip_opts
   before_post_process :skip_for_zip
 
   validates :title, length: { maximum: 90 }, presence: true, uniqueness: { scope: :course, message: "should be unique for the training" }

@@ -33,5 +33,14 @@ module DigitalLearnTraining
       s3_region: config.s3_region,
       s3_host_name: "s3-#{config.s3_region}.amazonaws.com"
     }
+
+
+    config.zipped_storyline_bucket_name = "dl-training-storylines-#{Rails.env}-zipped"
+    config.storyline_bucket_name = "dl-training-storylines-#{Rails.env}"
+
+    config.storyline_paperclip_opts = config.paperclip_defaults.merge({
+      bucket: config.zipped_storyline_bucket_name,
+      url: "storylines/:id/:basename.:extension"
+    })
   end
 end
