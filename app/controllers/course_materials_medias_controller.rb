@@ -16,17 +16,10 @@ class CourseMaterialsMediasController < ApplicationController
     @course_material = CourseMaterial.friendly.find(params[:course_material_id])
     @files = @course_material.course_material_medias.all
 
-    tempfile = Tempfile.new("media_archive", "tmp")
+    zip_data = AttachmentZipper.new(@files).create_zip("media")
 
-    ::Zip::File.open(tempfile.path, ::Zip::File::CREATE) do |zipfile|
-      @files.each do |filename|
-        zipfile.add(filename.media_file_name, filename.media.path)
-      end
-    end
-
-    data = open(tempfile)
     file_options = { filename: "media_archive.zip", disposition: "inline", x_sendfile: true }
-    send_data data.read, file_options
+    send_data zip_data.read, file_options
   end
 
 end
