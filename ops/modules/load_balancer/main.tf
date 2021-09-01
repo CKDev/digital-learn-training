@@ -9,8 +9,8 @@ resource "aws_lb" "load_balancer" {
 resource "aws_lb_target_group" "load_balancer_tg" {
   name        = "${var.project_name}-lb-tg"
   target_type = "instance"
-  port        = 80
-  protocol    = "HTTP"
+  port        = 443
+  protocol    = "HTTPS"
   vpc_id      = var.vpc_id
 
   health_check {
@@ -25,11 +25,27 @@ resource "aws_lb_target_group" "load_balancer_tg" {
   }
 }
 
-resource "aws_lb_listener" "lb_listener" {
+resource "aws_lb_listener" "http_listener" {
   load_balancer_arn = aws_lb.load_balancer.arn
   port              = 80
   protocol          = "HTTP"
-  depends_on        = [aws_lb_target_group.load_balancer_tg]
+
+  default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+resource "aws_lb_listener" "https_listener" {
+  load_balancer_arn = aws_lb.load_balancer.arn
+  port              = 443
+  protocol          = "HTTPS"
+  certificate_arn   = var.certificate_arn
 
   default_action {
     type             = "forward"
