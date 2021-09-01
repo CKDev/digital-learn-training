@@ -1,5 +1,5 @@
 resource "aws_lb" "load_balancer" {
-  name            = "${var.project_name}-lb"
+  name            = "${var.project_name}-${var.environment_name}-lb"
   security_groups = [aws_security_group.load_balancer_sg.id, var.default_security_group_id]
   subnets         = var.public_subnet_ids
 
@@ -7,10 +7,10 @@ resource "aws_lb" "load_balancer" {
 }
 
 resource "aws_lb_target_group" "load_balancer_tg" {
-  name        = "${var.project_name}-lb-tg"
+  name        = "${var.project_name}-${var.environment_name}-lb-tg"
   target_type = "instance"
-  port        = 443
-  protocol    = "HTTPS"
+  port        = 80
+  protocol    = "HTTP"
   vpc_id      = var.vpc_id
 
   health_check {
