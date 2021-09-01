@@ -6,7 +6,7 @@ resource "aws_ecs_service" "ecs_service" {
   name                              = "${var.project_name}-${var.environment_name}-service"
   cluster                           = aws_ecs_cluster.ecs_cluster.id
   task_definition                   = aws_ecs_task_definition.app_service.arn
-  desired_count                     = 1
+  desired_count                     = var.desired_instance_count
   iam_role                          = aws_iam_role.instance.name
   health_check_grace_period_seconds = 60
 

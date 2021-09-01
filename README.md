@@ -74,6 +74,8 @@ The infrastructure for this app is managed with Terraform. You should use Terraf
 
 You will need an appropriate AWS IAM role to make infrastructure changes. If granted this access, please be careful and deliberate with your changes.
 
+The Terraform scripts expect an AWS profile named `digitallearn` with credentials for your digitallearn AWS account IAM profile.
+
 Initialize the project's terraform state by navigating to one of the environment ops directories (ex/ `/ops/staging`) and run `terraform init`. Once the state is initialized, you can begin making infrastructure changes.
 
 ### Secrets

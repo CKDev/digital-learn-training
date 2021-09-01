@@ -40,13 +40,13 @@ data "aws_iam_policy_document" "instance_policy" {
 }
 
 resource "aws_iam_policy" "instance_policy" {
-  name   = "dl-training-ecs-instance"
+  name   = "${var.project_name}-${var.environment_name}-ecs-instance"
   path   = "/"
   policy = data.aws_iam_policy_document.instance_policy.json
 }
 
 resource "aws_iam_role" "instance" {
-  name = "dl-training-${var.environment_name}-instance-role"
+  name = "${var.project_name}-${var.environment_name}-instance-role"
 
   assume_role_policy = <<EOF
 {

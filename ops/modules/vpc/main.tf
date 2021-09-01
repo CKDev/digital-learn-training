@@ -22,6 +22,10 @@ resource "aws_eip" "nat_eip" {
   depends_on = [
     aws_internet_gateway.gateway
   ]
+
+  tags = {
+    Name = "${var.project_name} EIP (${var.environment_name})"
+  }
 }
 
 /* NAT */
