@@ -7,7 +7,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "dl-training-ops-staging"
+    bucket  = "dl-training-ops-production"
     key     = "terraform_state"
     region  = "us-west-2"
     profile = "digitallearn"
@@ -56,7 +56,7 @@ module "load_balancer" {
   vpc_id                    = module.vpc.vpc_id
   public_subnet_ids         = module.vpc.public_subnet_ids
   default_security_group_id = module.vpc.default_security_group_id
-  certificate_arn           = "arn:aws:acm:us-west-2:917415714855:certificate/54a42ae6-ae72-40a5-a3d0-cd4f1383a557"
+  certificate_arn           = "arn:aws:acm:us-west-2:917415714855:certificate/59029bf5-610c-4057-aff4-6fa500856917"
 }
 
 module "bastian" {
@@ -76,14 +76,16 @@ module "database" {
   environment_name    = var.environment_name
   region              = var.region
   vpc_id              = module.vpc.vpc_id
-  db_snapshot_name    = "training-db-snapshot"
+  db_snapshot_name    = "dl-training-production-9-1-21"
+  multi_az            = true
   bastian_sg_id       = module.bastian.bastian_sg_id
   application_sg_id   = module.application.application_sg_id
   private_subnet_ids  = module.vpc.private_subnet_ids
   database_name       = var.database_name
-  instance_size       = "db.t3.micro"
-  skip_final_snapshot = true
-  monitoring_interval = 0
+  instance_size       = "db.t3.small"
+  skip_final_snapshot = false
+  enable_monitoring   = true
+  monitoring_interval = 5
 }
 
 module "application" {
@@ -99,8 +101,8 @@ module "application" {
   db_username                 = var.db_username
   db_password                 = var.db_password
   public_subnet_ids           = module.vpc.public_subnet_ids
+  instance_type               = "t3.medium"
   desired_instance_count      = 1
-  instance_type               = "t2.small"
   lb_target_group_arn         = module.load_balancer.lb_target_group_arn
   ssh_key_name                = "ec2_test_key"
   rails_master_key            = var.rails_master_key
@@ -118,7 +120,7 @@ module "pipeline" {
   ecr_project_uri    = aws_ecr_repository.ecr_repo.repository_url
   github_owner       = "CKDev"
   github_repo        = "digital-learn-training"
-  branch             = "develop"
+  branch             = "main"
   oauth_token        = var.github_oauth_token
   rails_master_key   = var.rails_master_key
   docker_username    = var.docker_username

@@ -1,7 +1,7 @@
 variable "project_name" { default = "dl-training" }
-variable "environment_name" { default = "staging" }
+variable "environment_name" { default = "production" }
 variable "region" { default = "us-west-2" }
-variable "database_name" { default = "railsapp_staging" }
+variable "database_name" { default = "railsapp_production" }
 
 variable "db_username" {
   description = "Database administrator username"
