@@ -1,7 +1,7 @@
 class CourseMaterialMedia < ApplicationRecord
   belongs_to :course_material
   has_attached_file :media, styles: { thumb: "212x140#" },
-                            path: "coursematerialmedia/media/:id/:style/:basename.:extension"
+                            url: "/coursematerialmedia/media/:id/:style/:basename.:extension"
 
   validates :media_file_name, uniqueness: { scope: :course_material, message: "should be unique for the course" }
 

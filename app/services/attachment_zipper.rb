@@ -13,7 +13,7 @@ class AttachmentZipper
           s3_tempfile << AttachmentReader.new(file).read_attachment_data(attachment_name)
           zipfile.add(file.send("#{attachment_name}_file_name"), s3_tempfile.path)
         else
-          zipfile.add(file.send("#{attachment_name}_file_name"), file.file.path)
+          zipfile.add(file.send("#{attachment_name}_file_name"), file.send(attachment_name).path)
         end
       end
     end
