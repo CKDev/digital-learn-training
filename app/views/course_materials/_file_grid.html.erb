@@ -1,6 +1,6 @@
 <div class="clearfix">
   <% course_material.course_material_files.each do |f| %>
-    <%= link_to course_material_course_materials_file_path(@course_material, f) do %>
+    <%= link_to course_material_course_materials_file_path(@course_material, f), target: "_blank" do %>
       <div class="course-material-file-widget">
         <div class="file-icon"><%= svg_tag "icon-download", class: "svg-icon-large white" %></div>
         <div class="file-type"><%= f.file_file_name.truncate(14) %></div>

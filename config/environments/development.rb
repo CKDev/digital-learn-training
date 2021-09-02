@@ -1,3 +1,6 @@
+# Enable S3
+require File.expand_path('../../s3_enabled_environment', __FILE__)
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -67,4 +70,7 @@ Rails.application.configure do
     Bullet.rails_logger = true
     Bullet.add_footer = true
   end
+
+  # S3 Overrides
+  #config.s3_enabled = false
 end

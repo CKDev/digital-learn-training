@@ -21,5 +21,10 @@ module DigitalLearnTraining
 
     # Use routing for error pages
     config.exceptions_app = self.routes
+
+    config.storyline_paperclip_opts = {
+      path: ":rails_root/public/system:url",
+      url: "/lessons/storylines/:id/:style/:basename.:extension"
+    }
   end
 end

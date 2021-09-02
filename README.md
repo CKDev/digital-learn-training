@@ -4,7 +4,7 @@
 
 ### Ruby Version
 
-2.7.3
+2.7.4
 
 [asdf version manager](https://github.com/asdf-vm/asdf) is recommended. Navigate to the project directory and run `asdf install`.
 
@@ -14,11 +14,25 @@
 
 ### System dependencies
 
-- Postgresql
+- Docker
+
+### Install gems
+
+`docker compose run web bundle install`
+
+### Migrate database
+
+`docker compose run rake db:create db:migrate`
+
+### Start Application
+
+`docker compose up --build`
 
 ## Testing
 
 Rspec is used on this project, which can be run with: `rspec`
+
+#################################
 
 ## Deployment instructions
 
@@ -50,32 +64,32 @@ A feature test to prove the actual working feature is preferred. Edge cases aren
 
 At any time, the working state of the app should be provable by running the test suite.
 
-## Server Environments
+## Deployements
 
-I am following a simple branching strategy. Master at this time is the main branch, and is deployed to staging for review. Developers should use feature branches for development, but then merge to master for review. The Production server environment maps to the production github branch.
+Deployment happens automatically through CodePipeline and CodeBuild. To deploy to Staging, merge PRs into the `develop` (default) branch. Merge release PRs into `main` to deploy to Production.
 
-I'm following a tagged release strategy, loosely based on SemVer. Master should be tagged, using SemVer, and then the cuts of the production branch can be made a specific tag points, with the release notes being the oneline commit titles from the previous tag.
+## Dev Ops
 
-For example:
+The infrastructure for this app is managed with Terraform. You should use Terraform version >= 1.0.
 
-- First get release notes (in a different tab)
-  `git log --oneline`
-  `git tag -a vx.x.x` (Add title for release, then paste in release notes from above step)
-  `git push origin vx.x.x`
+You will need an appropriate AWS IAM role to make infrastructure changes. If granted this access, please be careful and deliberate with your changes.
 
-## Git Commits
+The Terraform scripts expect an AWS profile named `digitallearn` with credentials for your digitallearn AWS account IAM profile.
 
-Git commits are like any other piece of code, and should be done with intention. There are two parts to the commit - the
-title and the body. The title in Github is limited to 50 characters, so the first line of a commit should also be limited to 50 characters. The body is limited to 72 characters in width, make sure your lines are no longer than 72 characters.
+Initialize the project's terraform state by navigating to one of the environment ops directories (ex/ `/ops/staging`) and run `terraform init`. Once the state is initialized, you can begin making infrastructure changes.
 
-More importantly, a title should have a tag like [CHG], [FEAT], [REFAC], [BUG] etc, so that when a release is made, the corresponding changes are all easily visible. The body of a commit should list the why, not the how. The how should be obvious by the corresponding code changes. The title should be in the active voice, i.e. "Change timeout to two hours", not "Changes timeout to two hours." An easy way to remember this is that the commit title should finish the sentence, "If I pull in this change it will ..."
+### Secrets
 
-Commits should be "squashed" into atomic chunks of code, usually corresponding with a full feature or change. WIP commits are not within the code standards of this project. Any checkin should be deployable, without having to consider the surrounding commits.
+The current method for handling sensitive information is with `.tfvars` files. See Terraform's [Sensitive Variables Documentation](https://learn.hashicorp.com/tutorials/terraform/sensitive-variables).
 
-## Other things to know, tricky areas of this application
+You can put `ops/staging/secret.tfvars` and `ops/production/secret.tfvars` in your environment in order to work with `staging` and `production` respectively with all of the variables marked `sensitive` in `variables.tf`.
 
-We changed the language a little bit and now have Trainings and Courses. However, in the app the models are Courses (Trainings) and CourseMaterials (Courses). At some point it would be nice to fix this, but it's a bit of work for sure.
+Otherwise, Terraform will prompt you to enter the secrets every time you work with the infrastructure.
 
-...
+### Apply infrastructure changes
 
-TODO: We don't have a strikethrough font, remove from ckeditor.
+1. Navigate to the ops directory corresponding to the environment you wish to update (`/ops/staging` or `/ops/production`).
+
+2. Inspect the changes to be made (and validate the Terraform code) with `terraform plan -var-file="secret.tfvars"`.
+
+3. If everything looks good, you can run `terraform apply -var-file="secret.tfvars"` to apply the changes.

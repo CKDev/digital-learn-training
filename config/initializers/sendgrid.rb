@@ -1,7 +1,7 @@
 # Initialize ActionMailer settings for sendgrid
-login = Rails.application.secrets.sendgrid_login
-password = Rails.application.secrets.sendgrid_password
-domain = Rails.application.secrets.sendgrid_domain || "commercekitchen.com"
+login = Rails.application.credentials[Rails.env.to_sym][:sendgrid_login]
+password = Rails.application.credentials[Rails.env.to_sym][:sendgrid_password]
+domain = Rails.application.credentials[Rails.env.to_sym][:sendgrid_domain] || "commercekitchen.com"
 
 if login.nil? && password.nil?
   abort "Please ensure the sendgrid_login and sendgrid_password are defined in secrets.yml"

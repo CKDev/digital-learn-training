@@ -25,7 +25,9 @@ gem "neat", "1.8.0" # Careful, as v2.0 removes some mixins in use.
 # Reporting tools
 gem "rollbar"
 
-gem "paperclip" # File uploads
+# File uploads
+gem "paperclip"
+
 gem "rubyzip" # ASL files
 
 # API Requests and Caching
@@ -45,13 +47,15 @@ gem "cocoon" # Dynamic forms for has-many relationships
 gem "rack-attack" # Prevent botspam and allow white/blacklisting IPs, etc
 
 # AWS sdk for s3
-gem 'aws-sdk', '~>1'
-gem 'aws-sdk-s3'
+gem 'aws-sdk-s3', '~>1'
+
+# Rack::Proxy for S3 Proxy middleware
+gem 'rack-proxy'
 
 group :development, :test do
   gem "pry"
   gem "pry-byebug"
-  gem "awesome_print", require: "ap"
+  gem "awesome_print"
   gem "bullet"
   gem "listen" # Required by Rails
   # gem "httplog"
@@ -80,16 +84,4 @@ group :test do
   gem "timecop"
   gem "webmock"
   gem "rspec-sidekiq"
-end
-
-# Capistrano Deployment
-group :development, :deployment do
-  gem "capistrano", "3.4.0", require: false # Deploy is locked to this version.
-  gem "capistrano-rails", "~> 1.1.3", require: false
-  gem "capistrano-rvm", require: false
-  gem "capistrano-faster-assets", "~> 1.0", require: false
-  gem "capistrano-db-tasks", "~> 0.4", require: false
-  gem "capistrano3-puma", require: false
-  gem "capistrano-bundler", require: false
-  gem "capistrano-sidekiq", require: false
 end
