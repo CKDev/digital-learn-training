@@ -22,29 +22,9 @@ module DigitalLearnTraining
     # Use routing for error pages
     config.exceptions_app = self.routes
 
-    # Proxy requests to /storyines to S3 bucket
-    require Rails.root.join("lib/s3_proxy.rb")
-    config.middleware.use S3Proxy, streaming: false
-
-    # S3 configuration
-    config.s3_enabled = true
-    config.s3_bucket_name = "dl-training-uploads-#{Rails.env}"
-    config.s3_region = "us-west-2"
-
-    config.paperclip_defaults = {
-      storage: :s3,
-      bucket: config.s3_bucket_name,
-      s3_region: config.s3_region,
-      s3_host_name: "s3-#{config.s3_region}.amazonaws.com"
+    config.storyline_paperclip_opts = {
+      path: ":rails_root/public/system:url",
+      url: "/lessons/storylines/:id/:style/:basename.:extension"
     }
-
-
-    config.zipped_storyline_bucket_name = "dl-training-storylines-#{Rails.env}-zipped"
-    config.storyline_bucket_name = "dl-training-storylines-#{Rails.env}"
-
-    config.storyline_paperclip_opts = config.paperclip_defaults.merge({
-      bucket: config.zipped_storyline_bucket_name,
-      url: "storylines/:id/:basename.:extension"
-    })
   end
 end
