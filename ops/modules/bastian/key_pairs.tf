@@ -1,4 +1,8 @@
 resource "aws_key_pair" "developer" {
   key_name   = "developer-key"
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDpyGHQ1GMwaS2ZCWLhHUSGaUsct3JkLK9QLSo03JlvmqzmCXO4Os25bvyZ9tuZhvEqgpNYpUlwwWcr+NJfTbA8yAaGbNtoI0817D79QYfIgsUt482fgHUvVjg07aHQp079VH71enlk22veg+M5Lh9+Sr1lFB76mOs8BIKHJv8pCAYy+Sd1/3mF68Wuo/HHZ7zXGxvSuPyD1Z9dvIFxtcj1VkB0fjDm8FWs5CqxUg7udNIYUnIJ+kpzup4BAr38mshedBDVReivqMCazfNMMC8FI4jHfri3WTViyulqeznF+rgvDaKSUPmO7+TasqTyMUTVCfI6qE7B+7nrliV6fRzh"
+
+  tags = {
+    Environment = "Multiple"
+  }
 }

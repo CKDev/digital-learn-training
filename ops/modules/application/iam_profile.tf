@@ -37,6 +37,26 @@ data "aws_iam_policy_document" "instance_policy" {
       "*"
     ]
   }
+
+  statement {
+    sid = "ListObjectsInBucket"
+
+    actions = [
+      "s3:ListBucket"
+    ]
+
+    resources = var.s3_bucket_arns
+  }
+
+  statement {
+    sid = "AllObjectActions"
+    
+    actions = [
+      "s3:*Object*"
+    ]
+
+    resources = formatlist("%s/*", var.s3_bucket_arns)
+  }
 }
 
 resource "aws_iam_policy" "instance_policy" {
