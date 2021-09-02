@@ -16,23 +16,13 @@
 
 - Docker
 
-### Install gems
-
-`docker compose run web bundle install`
-
-### Migrate database
-
-`docker compose run rake db:create db:migrate`
-
-### Start Application
+### Start project
 
 `docker compose up --build`
 
 ## Testing
 
 Rspec is used on this project, which can be run with: `rspec`
-
-#################################
 
 ## Developer Norms/Standards
 

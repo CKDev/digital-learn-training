@@ -24,22 +24,18 @@ RUN apt-get clean all && \
 RUN mkdir /rails-app
 WORKDIR /rails-app
 
-# Adding gems
-COPY Gemfile Gemfile
-COPY Gemfile.lock Gemfile.lock
-RUN gem install bundler && \
-  bundle install --quiet --jobs 3 --retry 3
-
-COPY . /rails-app
-
 ARG RAILS_ENV
 ARG RAILS_MASTER_KEY
 
-# Precompile assets
-RUN rm -rf /app/public/assets/
+# Adding gems
+COPY Gemfile Gemfile
+COPY Gemfile.lock Gemfile.lock
 
-RUN env
-RUN bundle exec rake assets:precompile
+# Install gems and precompile assetsß
+COPY install.sh install.sh
+RUN chmod u+x install.sh && ./install.sh
+
+COPY . /rails-app
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
