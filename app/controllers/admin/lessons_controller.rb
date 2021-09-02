@@ -22,7 +22,7 @@ module Admin
       @lesson.lesson_order = @course.lessons.count + 1
 
       if @lesson.save
-        Unzipper.new(@lesson.story_line)
+        Unzipper.new(@lesson.story_line) unless Rails.application.config.s3_enabled
         redirect_to edit_admin_course_lesson_path(@course, @lesson), notice: "Lesson was successfully created."
       else
         render :new
@@ -36,7 +36,7 @@ module Admin
       @lesson_params[:duration] = @lesson.duration_to_int(lesson_params[:duration])
 
       if @lesson.update(@lesson_params)
-        Unzipper.new(@lesson.story_line) if @lesson.story_line_updated_at.present?
+        Unzipper.new(@lesson.story_line) if @lesson.story_line_updated_at.present? && !Rails.application.config.s3_enabled
         redirect_to edit_admin_course_lesson_path, notice: "Lesson successfully updated."
       else
         render :edit, notice: "Lesson failed to update."

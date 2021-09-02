@@ -10,6 +10,7 @@ module DigitalLearnTraining
     config.s3_region = "us-west-2"
 
     config.paperclip_defaults = {
+      path: ":url",
       storage: :s3,
       bucket: config.s3_bucket_name,
       s3_region: config.s3_region,
@@ -20,6 +21,7 @@ module DigitalLearnTraining
     config.storyline_bucket_name = "dl-training-storylines-#{Rails.env}"
 
     config.storyline_paperclip_opts = config.paperclip_defaults.merge({
+      bucket: config.zipped_storyline_bucket_name,
       url: "storylines/:id/:basename.:extension"
     })
   end

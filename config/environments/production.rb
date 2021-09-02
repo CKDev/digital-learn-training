@@ -1,5 +1,5 @@
 # Enable S3
-require File.expand_path('../s3_enabled_environment', __FILE__)
+require File.expand_path('../../s3_enabled_environment', __FILE__)
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
