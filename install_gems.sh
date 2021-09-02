@@ -11,9 +11,6 @@ then
 else
   bundle config set without "development test"
   bundle install --quiet --jobs 3 --retry 3
-
-  rm -rf /app/public/assets/
-  bundle exec rake assets:precompile
 fi
 
 exec "$@"
