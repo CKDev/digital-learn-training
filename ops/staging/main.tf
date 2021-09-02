@@ -35,6 +35,10 @@ resource "aws_ecr_repository" "ecr_repo" {
   image_scanning_configuration {
     scan_on_push = true
   }
+
+  tags = {
+    Environment = "Multiple"
+  }
 }
 
 module "vpc" {
@@ -104,6 +108,10 @@ module "application" {
   lb_target_group_arn         = module.load_balancer.lb_target_group_arn
   ssh_key_name                = "ec2_test_key"
   rails_master_key            = var.rails_master_key
+  s3_bucket_arns = [
+    "arn:aws:s3:::dl-training-uploads-${var.environment_name}",
+    "arn:aws:s3:::dl-training-storylines-${var.environment_name}-zipped"
+  ]
 }
 
 module "pipeline" {
