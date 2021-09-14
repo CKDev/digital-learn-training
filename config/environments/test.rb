@@ -44,5 +44,5 @@ Rails.application.configure do
   config.s3_enabled = false
 
   # Paperclip test path
-  Paperclip::Attachment.default_options[:path] = "#{Rails.root}/spec/test_files:url"
+  Paperclip::Attachment.default_options[:path] = "#{Rails.root}/spec/test_files/:url"
 end

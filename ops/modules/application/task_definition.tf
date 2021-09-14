@@ -15,12 +15,6 @@ resource "aws_ecs_task_definition" "app_service" {
       name      = "application",
       image     = "917415714855.dkr.ecr.us-west-2.amazonaws.com/dl-training:latest",
       essential = true,
-      #      mountPoints = [
-      #        {
-      #          containerPath = "/public/system",
-      #          sourceVolume  = "dl-training-storage-${var.environment_name}"
-      #        }
-      #      ],
       portMappings = [
         {
           hostPort      = 0,
@@ -65,15 +59,4 @@ resource "aws_ecs_task_definition" "app_service" {
       }
     }
   ])
-
-
-  #  volume {
-  #    name = "dl-training-storage-${var.environment_name}"
-
-  #    docker_volume_configuration {
-  #      scope         = "task"
-  #      autoprovision = false
-  #      driver        = "rexray/ebs"
-  #    }
-  #  }
 }

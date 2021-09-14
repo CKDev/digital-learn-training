@@ -21,27 +21,29 @@ RUN apt-get clean all && \
   nodejs \
   yarn
 
+# Set working directory
 RUN mkdir /rails-app
 WORKDIR /rails-app
 
-# Adding gems
-COPY Gemfile Gemfile
-COPY Gemfile.lock Gemfile.lock
-RUN gem install bundler && \
-  bundle install --quiet --jobs 3 --retry 3
-
-COPY . /rails-app
-
+# Consume build args
 ARG RAILS_ENV
 ARG RAILS_MASTER_KEY
 
+# Add gems
+COPY Gemfile Gemfile
+COPY Gemfile.lock Gemfile.lock
+
+# Install gems
+COPY install_gems.sh install_gems.sh
+RUN chmod u+x install_gems.sh && ./install_gems.sh
+
+COPY . /rails-app
+
 # Precompile assets
-RUN rm -rf /app/public/assets/
+COPY precompile_assets.sh precompile_assets.sh
+RUN chmod u+x precompile_assets.sh && ./precompile_assets.sh
 
-RUN env
-RUN bundle exec rake assets:precompile
-
-# Add a script to be executed every time the container starts.
+# Add entrypoint script
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 

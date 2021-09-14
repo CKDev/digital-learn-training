@@ -5,6 +5,6 @@ set -e
 rm -f /rails-app/tmp/pids/server.pid
 
 # Ensure db exists, run migrations
-bundle exec rake db:migrate
+bundle exec rake db:create db:migrate
 
 exec "$@"
