@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_20_162715) do
+ActiveRecord::Schema.define(version: 2021_09_24_080820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2021_08_20_162715) do
     t.string "pub_status", default: "D"
     t.string "slug"
     t.integer "sort_order", default: 1, null: false
+    t.string "language", default: "en"
   end
 
   create_table "courses", force: :cascade do |t|

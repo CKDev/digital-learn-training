@@ -15,6 +15,7 @@ class CourseMaterialsController < ApplicationController
       .published
       .not_self(@course_material.id)
       .in_category(@course_material.category.id)
+      .in_language(current_language)
       .limit(3)
   end
 

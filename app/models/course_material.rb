@@ -13,6 +13,7 @@ class CourseMaterial < ApplicationRecord
   validates :summary, presence: true, length: { maximum: 74 }
   validates :pub_status, presence: true,
     inclusion: { in: %w(P D A), message: "%{value} is not a valid status" }
+  validates :language, presence: true, inclusion: { in: %w(en es) }
   validate :allowed_change?
   validates :sort_order, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
@@ -31,6 +32,7 @@ class CourseMaterial < ApplicationRecord
   scope :archived, -> { where(pub_status: "A") }
   scope :not_archived, -> { where.not(pub_status: "A") }
   scope :not_self, ->(id) { where.not(id: id) }
+  scope :in_language, ->(language) { where(language: language) }
 
   private
 

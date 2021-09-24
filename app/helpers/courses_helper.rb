@@ -23,4 +23,7 @@ module CoursesHelper
     percent.round
   end
 
+  def hide_language_links?
+    current_organization.subdomain != 'att'
+  end
 end
