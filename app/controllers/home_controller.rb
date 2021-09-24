@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
-  prepend_before_action :redirect_unauthenticated_subdomain_user
+  prepend_before_action :redirect_unauthenticated_subdomain_user, only: :index
+  skip_before_action :authenticate_user!, only: :language_toggle
 
   def index
     @courses = Course.published.limit(2)
@@ -8,6 +9,13 @@ class HomeController < ApplicationController
     @hardware = @categories.where(tag: "Hardware")
     @software_and_applications = @categories.where(tag: "Software & Applications")
     @job_and_career = @categories.where(tag: "Job & Career")
+  end
+
+  def language_toggle
+    requested_locale = params['lang']
+    whitelisted_locales = %w(en es)
+    session[:locale] = requested_locale if whitelisted_locales.include?(requested_locale)
+    redirect_back(fallback_location: root_path)
   end
 
   private
