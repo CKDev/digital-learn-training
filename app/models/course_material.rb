@@ -8,7 +8,8 @@ class CourseMaterial < ApplicationRecord
   has_many :course_material_medias, dependent: :destroy
   has_many :course_material_videos, dependent: :destroy
 
-  validates :title, length: { maximum: 90 }, presence: true, uniqueness: true
+  validates :title, length: { maximum: 90 }, presence: true
+  validate :unique_title
   validates :contributor, length: { maximum: 156 }, presence: true
   validates :summary, presence: true, length: { maximum: 74 }
   validates :pub_status, presence: true,
@@ -32,7 +33,7 @@ class CourseMaterial < ApplicationRecord
   scope :archived, -> { where(pub_status: "A") }
   scope :not_archived, -> { where.not(pub_status: "A") }
   scope :not_self, ->(id) { where.not(id: id) }
-  scope :in_language, ->(language) { where(language: language) }
+  scope :non_organization, -> { joins(:category).where(categories: { organization_id: nil }).references(:categories) }
 
   private
 
@@ -48,6 +49,11 @@ class CourseMaterial < ApplicationRecord
       end
     end
 
+  end
+
+  def unique_title
+    scope = category&.organization.present? ? category.organization.course_materials : CourseMaterial.non_organization
+    errors.add(:title, 'has already been taken') if scope.where(title: title).where.not(id: id).exists?
   end
 
 end
