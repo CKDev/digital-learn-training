@@ -24,6 +24,6 @@ module CoursesHelper
   end
 
   def hide_language_links?
-    current_organization.subdomain != 'att'
+    current_organization&.subdomain != 'att'
   end
 end
