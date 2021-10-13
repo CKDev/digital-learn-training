@@ -34,6 +34,7 @@ class CourseMaterial < ApplicationRecord
   scope :not_archived, -> { where.not(pub_status: "A") }
   scope :not_self, ->(id) { where.not(id: id) }
   scope :non_organization, -> { joins(:category).where(categories: { organization_id: nil }).references(:categories) }
+  scope :in_language, ->(language) { where(language: language) }
 
   private
 
