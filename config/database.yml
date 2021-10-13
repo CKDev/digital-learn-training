@@ -25,6 +25,7 @@ default: &default
 
 development:
   <<: *default
+  database: digital_learn_training_development
 
 test:
   <<: *default

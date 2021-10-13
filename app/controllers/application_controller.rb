@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :admin_signed_in?
   helper_method :current_organization
+  helper_method :current_language
 
   def admin_signed_in?
     user_signed_in? && current_user.admin?
@@ -43,5 +44,9 @@ class ApplicationController < ActionController::Base
 
   def organization_subdomain?
     current_organization.present?
+  end
+
+  def current_language
+    session[:locale] || 'en'
   end
 end

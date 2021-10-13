@@ -36,6 +36,11 @@
     </fieldset>
 
     <fieldset>
+      <%= f.label :language %>
+      <%= f.select(:language, options_for_select([['English', :en], ["Espa&ntilde;ol".html_safe, :es]], @course_material.language), readonly: @readonly) %>
+    </fieldset>
+
+    <fieldset>
       <%= f.label :category_id, class: "required" %>
       <%= f.select :category_id, options_for_select(categories_array, @course_material.try(:category).try(:id)),
         include_blank: "Select ..." %>
