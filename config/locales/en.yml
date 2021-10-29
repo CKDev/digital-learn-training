@@ -2,6 +2,10 @@ en:
   course_materials_description: "Each class contains a minimum of three supporting documents, which generally include a Design Document (Instructor's Guide), an Activity Sheet, and a Handout. PowerPoint presentations, practice files and additional documents may also accompany classes when applicable.  With these items, and a bit of preparation and practice, you will be ready to teach any of our classes in no time!"
   multiple_assessments_msg: "There can only be one assessment for a Course. If you are sure you want to replace it, please delete the existing one and try again. Otherwise, please edit the existing assessment for this course."
   error_header: "The following errors prohibited this record from being saved:"
+  banner:
+    slogan:
+      default: "Tools and Resources for Trainers"
+      att: "Tools and Resources for Instructors"
   certificate:
     this_award: "This award certifies that"
     name_fill: "_____________________"
