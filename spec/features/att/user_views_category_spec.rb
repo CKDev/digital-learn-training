@@ -24,5 +24,7 @@ feature "ATT User views category" do
     visit category_path(category)
     expect(page).not_to have_content('There are currently no available courses.')
     expect(page).to have_content(course_material.title)
+    expect(page).to have_link('Click here', href: 'https://att.sharepoint.com/sites/EducationResources/SitePages/Welcome!.aspx?e=1:ea9598204c614f31bf1762f8bcef7f0b')
+    expect(page).to have_content('Click here for additional materials to conduct a workshop at an AT&T Connected Learning Center or other community engagement site.')
   end
 end
