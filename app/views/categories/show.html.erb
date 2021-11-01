@@ -2,6 +2,8 @@
 
 <h2><%= @category.title %></h2>
 <p><%= @category.description %></p>
+<% sharepoint_link = 'https://att.sharepoint.com/sites/EducationResources/SitePages/Welcome!.aspx?e=1:ea9598204c614f31bf1762f8bcef7f0b' %>
+<p><%= link_to 'Click here', sharepoint_link %> for additional materials to conduct a workshop at an AT&T Connected Learning Center or other community engagement site.</p>
 
 <% if @course_materials.present? || @sub_categorized_course_materials.present? %>
   <%= render "listing" %>
