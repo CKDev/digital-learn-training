@@ -1,30 +1,48 @@
 require "feature_helper"
 
-feature "ATT User views category" do
-  let!(:att) { FactoryBot.create(:att) }
-  let(:user) { FactoryBot.create(:user, provider: :saml) }
-  let(:category) { FactoryBot.create(:category, organization: att) }
+feature "User views category index" do
+  context 'User is part of an organization' do
+    let(:att) { FactoryBot.create(:att) }
+    let(:user) { FactoryBot.create(:user, provider: :saml) }
+    let(:category) { FactoryBot.create(:category, organization: att) }
 
-  before :each do
-    switch_to_subdomain 'training.att'
-    login_as(user, scope: :user)
+    before :each do
+      switch_to_subdomain 'training.att'
+      login_as(user, scope: :user)
+    end
+
+    after :each do
+      reset_subdomain
+    end
+
+    scenario 'no course materials in category' do
+      visit category_path(category)
+      expect(page).to have_content('AT&T Employees')
+      expect(page).to have_content('There are currently no available courses.')
+    end
+
+    scenario 'course materials in category' do
+      course_material = FactoryBot.create(:course_material, pub_status: 'P', category: category)
+      visit category_path(category)
+      expect(page).not_to have_content('There are currently no available courses.')
+      expect(page).to have_content(course_material.title)
+      expect(page).to have_link('Click here', href: 'https://att.sharepoint.com/sites/EducationResources/SitePages/Welcome!.aspx?e=1:ea9598204c614f31bf1762f8bcef7f0b')
+      expect(page).to have_content('Click here for additional materials to conduct a workshop at an AT&T Connected Learning Center or other community engagement site.')
+    end
   end
 
-  after :each do
-    reset_subdomain
-  end
+  context 'user is not part of an organization' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:category) { FactoryBot.create(:category) }
 
-  scenario 'no course materials in category' do
-    visit category_path(category)
-    expect(page).to have_content('There are currently no available courses.')
-  end
+    before :each do
+      login_as(user, scope: :user)
+    end
 
-  scenario 'course materials in category' do
-    course_material = FactoryBot.create(:course_material, pub_status: 'P', category: category)
-    visit category_path(category)
-    expect(page).not_to have_content('There are currently no available courses.')
-    expect(page).to have_content(course_material.title)
-    expect(page).to have_link('Click here', href: 'https://att.sharepoint.com/sites/EducationResources/SitePages/Welcome!.aspx?e=1:ea9598204c614f31bf1762f8bcef7f0b')
-    expect(page).to have_content('Click here for additional materials to conduct a workshop at an AT&T Connected Learning Center or other community engagement site.')
+    scenario 'no course materials in category' do
+      visit category_path(category)
+      expect(page).not_to have_content('AT&T Employees')
+      expect(page).to have_content('There are currently no available courses.')
+    end
   end
 end
