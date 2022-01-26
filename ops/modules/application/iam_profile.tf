@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "instance_policy" {
 
   statement {
     sid = "AllObjectActions"
-    
+
     actions = [
       "s3:*Object*"
     ]
@@ -96,6 +96,6 @@ resource "aws_iam_role_policy_attachment" "instance_policy" {
 }
 
 resource "aws_iam_instance_profile" "instance" {
-  name = "dl-training-${var.environment_name}-instance-profile"
+  name = "${var.project_name}-${var.environment_name}-instance-profile"
   role = aws_iam_role.instance.name
 }
