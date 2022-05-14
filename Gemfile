@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "5.2.6"
+gem "rails", "5.2.7"
 gem "pg", "~> 0.18"
 gem "puma"
 gem "sass-rails"
@@ -83,5 +83,4 @@ group :test do
   gem "simplecov", require: false
   gem "timecop"
   gem "webmock"
-  gem "rspec-sidekiq"
 end
