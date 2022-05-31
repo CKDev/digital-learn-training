@@ -4,13 +4,13 @@
 
 ### Ruby Version
 
-2.7.4
+2.7.6
 
 [asdf version manager](https://github.com/asdf-vm/asdf) is recommended. Navigate to the project directory and run `asdf install`.
 
 ### Rails Version
 
-5.1.2
+5.2.8
 
 ### System dependencies
 
