@@ -9,6 +9,11 @@ module DigitalLearnTraining
     config.s3_bucket_name = "dl-training-uploads-#{Rails.env}"
     config.s3_region = "us-west-2"
 
+    # Active storage S3 config for normal attachments
+    config.active_storage.service = :s3
+
+    # Paperclip for storyline files
+    # TODO? migrate storyline files into shared s3 bucket
     config.paperclip_defaults = {
       path: ":url",
       storage: :s3,

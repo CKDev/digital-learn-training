@@ -1,0 +1,4 @@
+s3:
+  service: S3
+  region: us-west-2
+  bucket: <%= "dl-training-uploads-#{Rails.env}" %>
