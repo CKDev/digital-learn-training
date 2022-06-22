@@ -4,7 +4,7 @@ class AttachmentReader
   end
 
   def read_attachment_data(attachment_name)
-    attachment_path = @file.send(attachment_name).path
+    attachment_path = ActiveStorage::Blob.service.path_for(@file.send(attachment_name).key)
 
     if Rails.application.config.s3_enabled
       s3 = Aws::S3::Client.new

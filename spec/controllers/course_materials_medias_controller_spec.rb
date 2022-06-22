@@ -18,7 +18,7 @@ describe CourseMaterialsMediasController do
     it "assigns all the requested instances of a course materials medias" do
       @course_material_media1 = FactoryBot.create(:course_material_media)
       @course_material = @course_material_media1.course_material
-      @course_material_media2 = FactoryBot.create(:course_material_media, course_material: @course_material, media_file_name: "test2.png")
+      @course_material_media2 = FactoryBot.create(:course_material_media, course_material: @course_material)
       get :index, params: { course_material_id: @course_material.id }
       expect(response).to have_http_status(:success)
     end

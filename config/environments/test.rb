@@ -43,6 +43,9 @@ Rails.application.configure do
   # S3 configuration
   config.s3_enabled = false
 
+  # Active storage test config
+  config.active_storage.service = :test
+
   # Paperclip test path
   Paperclip::Attachment.default_options[:path] = "#{Rails.root}/spec/test_files/:url"
 end

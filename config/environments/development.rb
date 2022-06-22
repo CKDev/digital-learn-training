@@ -72,5 +72,6 @@ Rails.application.configure do
   end
 
   # S3 Overrides
-  #config.s3_enabled = false
+  # config.s3_enabled = false
+  # config.active_storage.service = :local
 end

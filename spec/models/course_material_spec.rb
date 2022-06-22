@@ -68,24 +68,6 @@ describe CourseMaterial do
       expect(@course_material.valid?).to be false
     end
 
-    it "shouldn't allow two file attachments to have the same file name" do
-      @course_material_file1 = FactoryBot.create(:course_material_file, course_material: @course_material)
-      expect(@course_material.valid?).to be true
-
-      expect do
-        @course_material_file2 = FactoryBot.create(:course_material_file, course_material: @course_material)
-      end.to raise_error ActiveRecord::RecordInvalid
-    end
-
-    it "shouldn't allow two media attachments to have the same file name" do
-      @course_material_media1 = FactoryBot.create(:course_material_media, course_material: @course_material)
-      expect(@course_material.valid?).to be true
-
-      expect do
-        @course_material_media2 = FactoryBot.create(:course_material_media, course_material: @course_material)
-      end.to raise_error ActiveRecord::RecordInvalid
-    end
-
     it "should require the sort_order" do
       @course_material.update(sort_order: "")
       expect(@course_material.valid?).to be false

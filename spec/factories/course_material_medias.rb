@@ -1,6 +1,12 @@
 FactoryBot.define do
   factory :course_material_media do
     course_material
-    media { fixture_file_upload(Rails.root.join("spec", "fixtures", "test.png"), "image/png") }
+    after(:build) do |cmf|
+      cmf.media.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "test.png")),
+        filename: generate(:test_image_filename),
+        content_type: "image/png"
+      )
+    end
   end
 end
