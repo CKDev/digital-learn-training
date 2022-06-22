@@ -2,8 +2,8 @@
   <% course_material.course_material_medias.each do |f| %>
     <%= link_to course_material_course_materials_media_path(@course_material, f), target: "_blank" do %>
       <div class="course-material-media-widget">
-        <%= image_tag f.media.url(:thumb), class: "media-image" %>
-        <div class="media-title note"><%= f.media_file_name %></div>
+        <%= image_tag f.media.variant(resize: "212x140").processed, class: "media-image" %>
+        <div class="media-title note"><%= f.media.filename %></div>
       </div>
     <% end %>
   <% end %>

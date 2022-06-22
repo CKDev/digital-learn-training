@@ -8,7 +8,7 @@ class CourseMaterialsFilesController < ApplicationController
 
     data = AttachmentReader.new(@file).read_attachment_data("file")
 
-    file_options = { filename: @file.file_file_name, disposition: "inline" }
+    file_options = { filename: @file.file.filename, disposition: "inline" }
     send_data data, file_options
   end
 

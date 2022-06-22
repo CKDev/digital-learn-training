@@ -72,7 +72,7 @@
         <ul>
           <% @course.attachments.supplemental_attachments.each do |a| %>
             <li>
-              <%= a.document_file_name %> -
+              <%= a.document.filename %> -
               <%= link_to "Delete", admin_attachment_path(a), method: :delete, data: { confirm: "Are you sure you want to delete this attachment?" } %>
             </li>
           <% end %>
@@ -83,7 +83,7 @@
         <ul>
           <% @course.attachments.post_course_attachments.each do |a| %>
             <li>
-              <%= a.document_file_name %> -
+              <%= a.document.filename %> -
               <%= link_to "Delete", admin_attachment_path(a), method: :delete, data: { confirm: "Are you sure you want to delete this attachment?" } %>
             </li>
           <% end %>

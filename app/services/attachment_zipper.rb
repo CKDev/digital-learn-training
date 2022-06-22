@@ -11,9 +11,9 @@ class AttachmentZipper
         if Rails.application.config.s3_enabled
           s3_tempfile = Tempfile.new("s3_contents", "tmp")
           s3_tempfile << AttachmentReader.new(file).read_attachment_data(attachment_name)
-          zipfile.add(file.send("#{attachment_name}_file_name"), s3_tempfile.path)
+          zipfile.add(file.send("#{attachment_name}.filename"), s3_tempfile.url)
         else
-          zipfile.add(file.send("#{attachment_name}_file_name"), file.send(attachment_name).path)
+          zipfile.add(file.send("#{attachment_name}.filename"), file.send(attachment_name).path)
         end
       end
     end

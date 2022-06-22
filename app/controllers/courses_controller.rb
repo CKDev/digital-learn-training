@@ -52,7 +52,7 @@ class CoursesController < ApplicationController
   def view_attachment
     @course = Course.friendly.find(params[:course_id])
     @file = @course.attachments.find(params[:attachment_id])
-    extension = File.extname(@file.document_file_name)
+    extension = File.extname(@file.document.filename)
 
     data = AttachmentReader.new(@file).read_attachment_data("document")
 

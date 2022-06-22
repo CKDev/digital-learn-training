@@ -1,9 +1,9 @@
 <div class="nested-fields">
   <div class="js-form-upload">
     <%= f.label :file do %>
-      <% if f.object.file.present? %>
+      <% if f.object.file.attached? %>
         <small class="padding-left">
-          (<%= f.object.file_file_name %> - <%= number_to_human_size(f.object.file.size) %>)
+          (<%= f.object.file.filename %> - <%= number_to_human_size(f.object.file.byte_size) %>)
         </small>
       <% else %>
         <small>New File</small>
