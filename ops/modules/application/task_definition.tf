@@ -1,7 +1,7 @@
 resource "aws_ecs_task_definition" "app_service" {
   family                   = "training-app-task-definition-${var.environment_name}"
   requires_compatibilities = ["EC2"]
-  memory                   = 1024
+  memory                   = 512
   cpu                      = 1024
   network_mode             = "bridge"
 
