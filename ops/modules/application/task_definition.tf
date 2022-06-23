@@ -1,8 +1,6 @@
 resource "aws_ecs_task_definition" "app_service" {
   family                   = "training-app-task-definition-${var.environment_name}"
   requires_compatibilities = ["EC2"]
-  memory                   = 512
-  cpu                      = 512
   network_mode             = "bridge"
 
   placement_constraints {
@@ -12,9 +10,10 @@ resource "aws_ecs_task_definition" "app_service" {
 
   container_definitions = jsonencode([
     {
-      name      = "application",
-      image     = "917415714855.dkr.ecr.us-west-2.amazonaws.com/dl-training:latest",
-      essential = true,
+      name              = "application",
+      image             = "917415714855.dkr.ecr.us-west-2.amazonaws.com/dl-training:latest",
+      essential         = true,
+      memoryReservation = 512,
       portMappings = [
         {
           hostPort      = 0,
