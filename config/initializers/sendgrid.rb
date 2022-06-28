@@ -1,14 +1,13 @@
 # Initialize ActionMailer settings for sendgrid
-login = Rails.application.credentials[Rails.env.to_sym][:sendgrid_login]
-password = Rails.application.credentials[Rails.env.to_sym][:sendgrid_password]
+api_key = Rails.application.credentials[Rails.env.to_sym][:sendgrid_api_key]
 domain = Rails.application.credentials[Rails.env.to_sym][:sendgrid_domain] || "commercekitchen.com"
 
-if login.nil? && password.nil?
-  abort "Please ensure the sendgrid_login and sendgrid_password are defined in secrets.yml"
+if api_key.nil?
+  abort "Please ensure the sendgrid_api_key is defined in credentials file"
 else
   ActionMailer::Base.smtp_settings = {
-    user_name: login,
-    password: password,
+    user_name: 'apikey',
+    password: api_key,
     domain: domain,
     address: "smtp.sendgrid.net",
     port: 587,
