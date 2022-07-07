@@ -1,0 +1,18 @@
+<section class="clearfix">
+  <h2>Course Materials</h2>
+  <p>Select a course below to view and download the supporting materials.</p>
+  <p>Supporting materials vary by course but typically contain:</p>
+  <ul>
+    <li>Instructor's Guide/Design Document</li>
+    <li>Activity Sheet</li>
+    <li>Handouts</li>
+    <li>PowerPoint Presentations</li>
+    <li>Practice Files</li>
+  </ul>
+  <p>With these resources and a bit of preparation and practice, you will be ready to teach any of our classes in no time!</p>
+
+  <% @categories.each do |category| %>
+    <% next if category.course_materials.empty? %>
+    <%= render partial: "category", locals: { category: category } %>
+  <% end %>
+</section>

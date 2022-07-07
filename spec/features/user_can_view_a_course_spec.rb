@@ -1,7 +1,6 @@
 require "feature_helper"
 
 feature "Users can view a course" do
-
   context "single category" do
     let!(:course_material) { FactoryBot.create(:course_material, pub_status: "P") }
 
@@ -27,8 +26,6 @@ feature "Users can view a course" do
 
     scenario "published pages should show in the footer" do
       visit root_path
-      click_link category1_material.category.title
-      expect(current_path).to eq category_path(category1_material.category)
       click_link category1_material.title
       expect(current_path).to eq course_material_path(category1_material)
       expect(page).to have_content "Contributed by"
