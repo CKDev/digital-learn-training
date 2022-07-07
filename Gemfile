@@ -52,6 +52,9 @@ gem 'aws-sdk-s3', '~>1'
 # Rack::Proxy for S3 Proxy middleware
 gem 'rack-proxy'
 
+# Resize images for ActiveStorage
+gem 'mini_magick'
+
 group :development, :test do
   gem "pry"
   gem "pry-byebug"

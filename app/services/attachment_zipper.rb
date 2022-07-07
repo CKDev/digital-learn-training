@@ -8,13 +8,16 @@ class AttachmentZipper
   
     ::Zip::File.open(archive_tempfile.path, ::Zip::File::CREATE) do |zipfile|
       @files.each do |file|
+        attachment = file.send(attachment_name)
+
         if Rails.application.config.s3_enabled
-          s3_tempfile = Tempfile.new("s3_contents", "tmp")
-          s3_tempfile << AttachmentReader.new(file).read_attachment_data(attachment_name)
-          zipfile.add(file.send(attachment_name).filename, s3_tempfile.url)
+          blob = attachment.blob
+          blob.open do |tempfile|
+            zipfile.add(attachment.filename.to_s, tempfile.filename)
+          end
         else
-          file_path =  ActiveStorage::Blob.service.path_for(file.send(attachment_name).key)
-          zipfile.add(file.send(attachment_name).filename, file_path)
+          file_path =  ActiveStorage::Blob.service.path_for(attachment.key)
+          zipfile.add(attachment.filename.to_s, file_path)
         end
       end
     end
