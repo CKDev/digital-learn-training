@@ -1,5 +1,5 @@
 .att {
-  nav.primary-links {
+  nav.home-links {
     color: $att_action_blue;
 
     a:hover {
@@ -8,6 +8,7 @@
     }
 
     a.active {
+      text-decoration: none;
       border-bottom: 2px solid $att_action_blue;
     }
   }
