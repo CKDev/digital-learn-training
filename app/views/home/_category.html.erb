@@ -1,0 +1,14 @@
+<h2><%= category.title %></h2>
+<p><%= category.description %></p>
+
+<% course_materials = category.course_materials.published.in_language(current_language) %>
+
+<% if course_materials.present? %>
+  <div class="clearfix">
+    <% course_materials.each do |c| %>
+      <%= render partial: "shared/content_widget", locals: { destination: course_material_path(c.friendly_id), title: c.title, description: c.summary } %>
+    <% end %>
+  </div>
+<% else %>
+  <p>There are currently no available courses.</p>
+<% end %>

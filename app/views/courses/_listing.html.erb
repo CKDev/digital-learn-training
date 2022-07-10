@@ -1,4 +1,4 @@
-  <% @courses.each do |c| %>
+<% @courses.each do |c| %>
   <a class="course-widget" href="<%= course_path(c) %>">
     <header>
       <h3><%= c.title.truncate(45) %></h3>
