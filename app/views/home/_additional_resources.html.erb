@@ -4,7 +4,7 @@
   <% tech_skills_description = "A tool for Public Library Supervisors & Staff to Evaluate their Tech Skills" %>
   <% stay_connected_description = "Subscribe to the DigitalLearn Mailing List" %>
   <% social_media_description = "Follow DigitalLearn on Facebook" %>
-  <%= render partial: "shared/content_widget", locals: { destination: "tech-skills-checklist-survey-only.pdf", title: "Tech Skills Checklist", description: tech_skills_description, download: "tech-skills-checklist.pdf" } %>
+  <%= render partial: "shared/content_widget", locals: { destination: "tech-skills-checklist-survey-only.pdf", title: "Tech Skills Checklist", description: tech_skills_description, download: "tech-skills-checklist.pdf", target: "_blank" } %>
   <%= render partial: "shared/content_widget", locals: { destination: "#", title: "Stay Connected", description: stay_connected_description } %>
-  <%= render partial: "shared/content_widget", locals: { destination: "https://www.facebook.com/digitallearn.org/", title: "Connect on Social Media", description: social_media_description } %>
+  <%= render partial: "shared/content_widget", locals: { destination: "https://www.facebook.com/digitallearn.org/", title: "Connect on Social Media", description: social_media_description, target: "_blank" } %>
 </section>
