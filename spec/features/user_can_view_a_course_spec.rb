@@ -37,4 +37,31 @@ feature "Users can view a course" do
     end
   end
 
+  context "hide_courses_on_homepage flag" do
+    let(:normal_category) { FactoryBot.create(:category, title: "Normal Category") }
+    let(:collapsed_category) do
+      FactoryBot.create(:category, title: "Collapsed Category", hide_courses_on_homepage: true)
+    end
+    let!(:normal_cm) do
+      FactoryBot.create(:course_material, title: "Normal Course",
+                                          pub_status: "P",
+                                          category: normal_category)
+    end
+    let!(:hidden_cm) do
+      FactoryBot.create(:course_material, title: "Hidden Course",
+                                          pub_status: "P",
+                                          category: collapsed_category)
+    end
+
+    it "hides course material listing for homepage collapse categories" do
+      visit root_path
+      expect(page).to have_content("Normal Category")
+      expect(page).to have_content("Collapsed Category")
+      expect(page).to have_content("Normal Course")
+      expect(page).not_to have_content("Hidden Course")
+      click_link "Collapsed Category"
+      expect(current_path).to eq(category_path(collapsed_category))
+      expect(page).to have_content("Hidden Course")
+    end
+  end
 end
