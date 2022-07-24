@@ -13,6 +13,15 @@
 
   <% @categories.each do |category| %>
     <% next if category.course_materials.published.in_language(current_language).empty? %>
-    <%= render partial: "category", locals: { category: category } %>
+
+    <% if category.hide_courses_on_homepage %>
+      <h2><%= category.title %></h2>
+      <p><%= category.description %></p>
+      <div class="clearfix">
+        <%= render partial: "shared/content_widget", locals: { destination: category_path(category), title: category.title, description: "Click to view #{category.title} Course Materials" } %>
+      </div>
+    <% else %>
+      <%= render partial: "category", locals: { category: category } %>
+    <% end %>
   <% end %>
 </section>
