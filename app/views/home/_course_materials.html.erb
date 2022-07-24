@@ -14,6 +14,7 @@
   <% @categories.each do |category| %>
     <% next if category.course_materials.published.in_language(current_language).empty? %>
 
+    <div id=<%= "category-#{category.id}" %>>
     <% if category.hide_courses_on_homepage %>
       <h2><%= category.title %></h2>
       <p><%= category.description %></p>
