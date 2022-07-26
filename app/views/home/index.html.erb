@@ -1,11 +1,13 @@
 <% if current_organization %>
   <%= render "#{current_organization.subdomain}/courses/overview" %>
 <% else %>
-  <%= render "how_to_use" %>
-  <%= render "course_materials" %>
-  <%= render "instructional_design_training" %>
-  <%= render "materials_templates" %>
-  <%= render "contribute" %>
-  <%= render "additional_resources" %>
-  <%= render "stay_connected" %>
+  <div class="homepage">
+    <%= render "how_to_use" %>
+    <%= render "course_materials" %>
+    <%= render "instructional_design_training" %>
+    <%= render "materials_templates" %>
+    <%= render "contribute" %>
+    <%= render "additional_resources" %>
+    <%= render "stay_connected" %>
+  </div>
 <% end %>

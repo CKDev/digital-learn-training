@@ -11,18 +11,33 @@
   </ul>
   <p>With these resources and a bit of preparation and practice, you will be ready to teach any of our classes in no time!</p>
 
-  <% @categories.each do |category| %>
-    <% next if category.course_materials.published.in_language(current_language).empty? %>
+  <div class="language-tabs">
+    <div class="language-tabs-header">
+      <%= link_to "English Materials", root_path(anchor: "course-materials", lang: :en), class: "tab-link #{current_language == 'en' ? 'active' : ''}" %>
+      <%= link_to "Spanish Materials", root_path(anchor: "course-materials", lang: :es), class: "tab-link #{current_language == 'es' ? 'active' : ''}" %>
+    </div>
+    <div class="language-tab-content">
+      <% no_courses = true %>
+      <% @categories.each do |category| %>
+        <% next if category.course_materials.published.in_language(current_language).empty? %>
 
-    <div id=<%= "category-#{category.id}" %>>
-    <% if category.hide_courses_on_homepage %>
-      <h2><%= category.title %></h2>
-      <p><%= category.description %></p>
-      <div class="clearfix">
-        <%= render partial: "shared/content_widget", locals: { destination: category_path(category), title: category.title, description: "Click to view #{category.title} Course Materials" } %>
-      </div>
-    <% else %>
-      <%= render partial: "category", locals: { category: category } %>
-    <% end %>
-  <% end %>
+        <% no_courses = false %>
+
+        <div id=<%= "category-#{category.id}" %>>
+        <% if category.hide_courses_on_homepage %>
+          <h3><%= category.title %></h3>
+          <p><%= category.description %></p>
+          <div class="clearfix">
+            <%= render partial: "shared/content_widget", locals: { destination: category_path(category), title: category.title, description: "Click to view #{category.title} Course Materials" } %>
+          </div>
+        <% else %>
+          <%= render partial: "category", locals: { category: category } %>
+        <% end %>
+      <% end %>
+      <% if no_courses %>
+        <div class="no-courses-message">
+          No <%= current_language_name %> courses exist at this time
+        </div>
+      <% end %>
+    <div>
 </section>

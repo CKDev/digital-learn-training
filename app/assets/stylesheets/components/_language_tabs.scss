@@ -1,0 +1,29 @@
+.language-tabs {
+  border: 1px solid $medium-grey;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+  .language-tabs-header {
+    display: flex;
+    gap: 30px;
+
+    .tab-link {
+      font-size: 18px;
+      padding: 10px;
+
+      &.active {
+        font-weight: bold;
+        border-bottom: 2px solid $purple;
+      }
+    }
+  }
+
+  .language-tab-content {
+    padding: 20px;
+  }
+
+  .no-courses-message {
+    margin: 20px 0;
+  }
+}

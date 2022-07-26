@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   skip_before_action :authenticate_user!, only: :language_toggle
 
   def index
+    set_locale
     @courses = Course.published.limit(2)
     @categories = get_categories
     redirect_to category_path(@categories.first) if @categories.count == 1
@@ -13,9 +14,7 @@ class HomeController < ApplicationController
   end
 
   def language_toggle
-    requested_locale = params['lang']
-    whitelisted_locales = %w(en es)
-    session[:locale] = requested_locale if whitelisted_locales.include?(requested_locale)
+    set_locale
     redirect_back(fallback_location: root_path)
   end
 
@@ -31,6 +30,12 @@ class HomeController < ApplicationController
     if !current_user && current_organization
       redirect_to "/#{current_organization.subdomain}/login"
     end
+  end
+
+  def set_locale
+    requested_locale = params['lang']
+    whitelisted_locales = %w(en es)
+    session[:locale] = requested_locale if whitelisted_locales.include?(requested_locale)
   end
 
 end
