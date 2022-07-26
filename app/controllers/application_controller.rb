@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   helper_method :admin_signed_in?
   helper_method :current_organization
   helper_method :current_language
+  helper_method :current_language_name
 
   def admin_signed_in?
     user_signed_in? && current_user.admin?
@@ -48,5 +49,12 @@ class ApplicationController < ActionController::Base
 
   def current_language
     session[:locale] || 'en'
+  end
+
+  def current_language_name
+    case current_language
+    when 'es' then 'Spanish'
+    when 'en' then 'English'
+    end
   end
 end
