@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  mount Ckeditor::Engine => '/ckeditor'
   get 'home_language_toggle', to: 'home#language_toggle'
   resources :pages, only: [:show]
   resources :courses, only: [:index, :show], path: "trainings" do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_16_234453) do
+ActiveRecord::Schema.define(version: 2022_07_26_042355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,7 +57,19 @@ ActiveRecord::Schema.define(version: 2022_06_16_234453) do
     t.string "tag"
     t.string "slug"
     t.bigint "organization_id"
+    t.boolean "hide_courses_on_homepage", default: false, null: false
     t.index ["organization_id"], name: "index_categories_on_organization_id"
+  end
+
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string "data_file_name", null: false
+    t.string "data_content_type"
+    t.integer "data_file_size"
+    t.string "data_fingerprint"
+    t.string "type", limit: 30
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["type"], name: "index_ckeditor_assets_on_type"
   end
 
   create_table "course_material_files", force: :cascade do |t|
