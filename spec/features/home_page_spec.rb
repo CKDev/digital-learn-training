@@ -16,12 +16,12 @@ feature "Users can view a course" do
 
     it "toggles between english and spanish courses" do
       visit root_path
-      expect(page).to have_selector(".language-tab-link.active", text: "English")
+      expect(page).to have_selector(".tab-link.active", text: "English")
       expect(page).not_to have_content(spanish_course.title)
       within(".language-tabs-header") do
         click_link "Spanish"
       end
-      expect(page).to have_selector(".language-tab-link.active", text: "Spanish")
+      expect(page).to have_selector(".tab-link.active", text: "Spanish")
       expect(page).not_to have_content(english_course.title)
     end
   end
