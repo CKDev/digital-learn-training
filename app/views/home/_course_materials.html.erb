@@ -16,7 +16,7 @@
 
     <div id=<%= "category-#{category.id}" %>>
     <% if category.hide_courses_on_homepage %>
-      <h2><%= category.title %></h2>
+      <h3><%= category.title %></h3>
       <p><%= category.description %></p>
       <div class="clearfix">
         <%= render partial: "shared/content_widget", locals: { destination: category_path(category), title: category.title, description: "Click to view #{category.title} Course Materials" } %>
