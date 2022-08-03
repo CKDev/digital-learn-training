@@ -1,0 +1,8 @@
+<section class="clearfix" id="templates">
+  <h2>Templates to Make Your Own Materials</h2>
+  <% title = "Design Your Own Digital Literacy Classroom Materials" %>
+  <% description = "Use our templates to design your own classroom materials. When you're finished, send them to us to become a contributor." %>
+  <% if @blank_template.present? %>
+    <%= render partial: "shared/content_widget", locals: { destination: course_material_path(@blank_template), title: title, description: description } %>
+  <% end %>
+</section>

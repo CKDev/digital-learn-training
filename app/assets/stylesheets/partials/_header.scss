@@ -1,36 +1,5 @@
-nav.primary-links {
-  color: $purple;
-  padding-bottom: 1em;
-  float: right;
-  margin-top: 27px;
-  @include clearfix;
-
-  @include media($mobile-large) {
-    float: left;
-  }
-
-  a {
-    display: inline-block;
-    padding-bottom: 2px;
-  }
-
-  a:hover {
-    text-decoration: none;
-    border-bottom: 2px solid $purple;
-  }
-
-  a.active {
-    border-bottom: 2px solid $purple;
-  }
-
-  .divider {
-    display: inline-block;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-}
-
 nav.secondary-links {
+  grid-area: secondary-links;
   padding-bottom: 1em;
   font-size: 13px;
   @include clearfix;
@@ -39,120 +8,87 @@ nav.secondary-links {
     color: $purple;
     display: inline-block;
 
-    @include media($mobile-large) {
+    @include media($mobile-xlarge) {
       font-size: 0.9rem;
     }
   }
 }
 
-.site-header {
-  position: relative;
+nav.home-links {
+  grid-area: nav;
 
-  @include media($mobile-large) {
-    position: static;
-    min-height: 0;
-    border-bottom: none;
+  @include media($mobile-xlarge) {
+    margin-top: 20px;
   }
 
-  top: 0;
-  width: 100%;
-  padding: 0.8em 0 1.5em 0;
-  background-color: $white;
-  border-bottom: 1px solid $grey;
-  z-index: 100;
+  .home-link-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
-  .language-links {
-    color: $purple;
-    padding-bottom: 1em;
-
-    a {
-      color: $purple;
-
-      @include media($mobile-large) {
-        font-size: 0.9rem;
-      }
+    .nav-link:not(:last-child) {
+      padding-right: 6px;
+      border-right: 2px solid $purple;
     }
   }
 
-  .logo {
-    float: left;
-
-    @include media($mobile) {
-      text-align: center;
-      display: block;
-      float: none;
-    }
-
-    .logo-icon {
+  &.non-flex-links {
+    text-align: right;
+    
+    .divider {
       display: inline-block;
-
-      img {
-        max-width: 350px;
-        max-height: 120px;
-        margin: 0.2em;
-
-        @include media($mobile-large) {
-          height: 70px;
-        }
-      }
-
-      /* The given svg file isn't cropped to the edge, so ... */
-      position: relative;
-    }
-  }
-
-  nav {
-    position: relative;
-  }
-}
-
-.actual-logo {
-  overflow: hidden;
-}
-
-.signup-box {
-  text-align: right;
-  @include media($mobile-large) {
-    float: none;
-  }
-}
-
-.link-box {
-  width: 65%;
-  @include media($mobile-large) {
-    width: 100%;
-    float: left;
-  }
-}
-
-.html5-link {
-  display: block;
-}
-
-.logo-link-container {
-  vertical-align: top;
-  display: block;
-  @include clearfix;
-
-  .search-container {
-    display: inline-block;
-    float: right;
-    min-width: 300px;
-
-    @include media($mobile) {
-      margin-top: 20px;
-      float: none;
-      display: block;
+      margin-left: 10px;
+      margin-right: 10px;
     }
 
-    .signup-box {
-      a {
-        width: 100%;
-      }
+    a.active {
+      border-bottom: 2px solid $purple;
+    }
 
-      .header-top-nav {
-        text-align: center;
-      }
+    a:hover {
+      text-decoration: none;
+      border-bottom: 2px solid $purple;
+    }
+  }
+}
+
+.header-grid {
+  display: grid;
+  align-items: center;
+  padding-bottom: 1rem;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 3rem auto;
+  grid-template-areas:
+    "secondary-links secondary-links"
+    "logo nav";
+
+  @include media($mobile-xlarge) {
+    grid-template-columns: 30% 70%;
+    grid-template-areas:
+      "secondary-links secondary-links"
+      "logo logo"
+      "nav nav";
+  }
+}
+
+.logo-link {
+  grid-area: logo;
+}
+
+.logo {
+  @include media($mobile-xlarge) {
+    text-align: center;
+  }
+
+  img {
+    max-width: 350px;
+    max-height: 120px;
+    margin: 0.2em;
+
+    @include media($mobile-large) {
+      height: 70px;
     }
   }
 }

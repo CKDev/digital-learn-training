@@ -1,0 +1,9 @@
+<% target = local_assigns[:target] || "_self" %>
+<%= link_to destination, class: "course-widget", download: local_assigns[:download_filename], target: target do %>
+  <header>
+    <h3><%= title.truncate(50) %></h3>
+  </header>
+  <div class="description">
+    <p><%= description&.truncate(80) %></p>
+  </div>
+<% end %>

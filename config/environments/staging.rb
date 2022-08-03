@@ -51,10 +51,10 @@ Rails.application.configure do
   # config.force_ssl = true
 
   # Mailer configuration
-  config.action_mailer.default_url_options = { host: "dl-training.ckstage.com" }
+  config.action_mailer.default_url_options = { host: "staging.training.digitallearn.org" }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.asset_host = "http://dl-training.ckstage.com/"
+  config.action_mailer.asset_host = "http://staging.training.digitallearn.org/"
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.

@@ -14,7 +14,6 @@ describe "pages/show.html.erb" do
   end
 
   context "as logged out user (and search engine)" do
-
     it "uses the meta_desc field as a meta description tag" do
       render template: "pages/show", layout: "layouts/application"
       expect(rendered).to have_selector("meta[name='description'][content='Meta description.']", visible: false)

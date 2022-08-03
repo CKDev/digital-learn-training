@@ -1,31 +1,33 @@
 <header class="site-header">
-  <div class="container">
+  <div class="container header-grid">
     <nav class="secondary-links">
       <%= link_to "Tools for Learners", "https://www.digitallearn.org/" %>
     </nav>
-    <div class="logo-link-container">
-      <%= link_to root_path do %>
-        <div class="logo">
-          <div class="logo-icon">
-            <%= image_tag "dl_logo" %>
-          </div>
+    <%= link_to root_path, class: "logo-link" do %>
+      <div class="logo">
+        <div class="logo-icon">
+          <%= image_tag "dl_logo" %>
         </div>
-      <% end %>
-      <nav class="primary-links">
-        <% if admin_signed_in? %>
-          <span class="black">Hi Admin!</span><span class="divider">|</span>
-          <%= link_to "Admin Dashboard", admin_course_materials_path %><span class="divider">|</span>
-          <%= link_to "Sign Out", destroy_user_session_path, method: "delete" %>
-        <% else %>
-          <% courses_base_links = ["/courses", "/categories"] %>
-          <% training_base_links = ["/trainings"] %>
-          <%= link_to "Courses", course_materials_path, class: add_active_base_link(courses_base_links) %><span class="divider">|</span>
-          <% if @blank_template.present? %>
-            <%= link_to "Get Blank Templates", course_material_path(@blank_template) %><span class="divider">|</span>
-          <% end %>
-          <%= link_to "Instructional Design Training", courses_path, class: add_active_base_link(training_base_links) %>
-        <% end %>
+      </div>
+    <% end %>
+    <% if admin_signed_in? %>
+      <nav class="home-links non-flex-links">
+        <span class="black">Hi Admin!</span><span class="divider">|</span>
+        <%= link_to "Admin Dashboard", admin_course_materials_path %><span class="divider">|</span>
+        <%= link_to "Sign Out", destroy_user_session_path, method: "delete" %>
       </nav>
-    </div>
+    <% else %>
+      <nav class="home-links">
+        <div class="home-link-row">
+          <%= link_to "Course Materials", root_path(anchor: "course-materials"), class: "nav-link" %>
+          <%= link_to "Instructional Design Training", root_path(anchor: "instructional-design-training"), class: "nav-link" %>
+        </div>
+        <div class="home-link-row">
+          <%= link_to "Templates", root_path(anchor: "templates"), class: "nav-link" %>
+          <%= link_to "Contribute", root_path(anchor: "contribute"), class: "nav-link" %>
+          <%= link_to "Additional Resources", root_path(anchor: "additional-resources"), class: "nav-link" %>
+        </div>
+      </nav>
+    <% end %>
   </div>
 </header>
