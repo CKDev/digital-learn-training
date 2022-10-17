@@ -1,4 +1,5 @@
-<div class="extra-margin-bottom">
+<div class="extra-margin-bottom breadcrumbs">
+  <%= link_to "Home", root_path %> >>
   <%= link_to @course_material.category.title, category_path(@course_material.category) %> >>
   <% if @course_material.sub_category.present? %>
     <%= @course_material.sub_category.title %> >>
