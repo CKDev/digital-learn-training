@@ -59,7 +59,7 @@ class CoursesController < ApplicationController
     if extension == ".pdf"
       file_options = { disposition: "inline", type: "application/pdf", x_sendfile: true }
     else
-      file_options = { disposition: "attachment", type: Constants.acceptable_doc_types, x_sendfile: true }
+      file_options = { disposition: "attachment", type: @file.document_content_type, x_sendfile: true }
     end
     send_data data, file_options
   end

@@ -6,4 +6,11 @@ FactoryBot.define do
     doc_type { "supplemental" }
   end
 
+  factory :docx_attachment, class: 'Attachment' do
+    course
+    document { fixture_file_upload(Rails.root.join("spec", "fixtures", "test_document.docx"), "application/vnd.openxmlformats-officedocument.wordprocessingml.document") }
+    document_content_type { "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }
+    doc_type { "supplemental" }
+  end
+
 end

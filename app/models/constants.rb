@@ -1,12 +1,5 @@
 class Constants
 
-  def self.acceptable_doc_types
-    [
-      "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-    ].join(", ")
-  end
-
   def self.course_material_file_types
     [
       "application/pdf", "application/vnd.ms-excel", "text/csv",
