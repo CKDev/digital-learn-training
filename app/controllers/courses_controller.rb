@@ -57,9 +57,9 @@ class CoursesController < ApplicationController
     data = AttachmentReader.new(@file).read_attachment_data("document")
 
     if extension == ".pdf"
-      file_options = { disposition: "inline", type: "application/pdf", x_sendfile: true }
+      file_options = { disposition: "inline", filename: @file.document_file_name, type: "application/pdf", x_sendfile: true }
     else
-      file_options = { disposition: "attachment", type: Constants.acceptable_doc_types, x_sendfile: true }
+      file_options = { disposition: "attachment", filename: @file.document_file_name, type: @file.document_content_type, x_sendfile: true }
     end
     send_data data, file_options
   end

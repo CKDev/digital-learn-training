@@ -70,3 +70,6 @@ examples.txt
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Local paperclip attachments
+/publicattachments/*

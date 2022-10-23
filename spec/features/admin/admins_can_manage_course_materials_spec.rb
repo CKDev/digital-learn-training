@@ -1,18 +1,30 @@
 require "feature_helper"
 
 feature "Admins can manage course pages" do
+  let(:category) { FactoryBot.create(:category) }
+  let(:admin) { FactoryBot.create(:admin) }
 
   before :each do
-    @category = FactoryBot.create(:category)
-    @admin = FactoryBot.create(:admin)
-    log_in @admin
+    log_in admin
   end
 
   scenario "can view course page index" do
+    att = FactoryBot.create(:att)
+    org_category = FactoryBot.create(:category, organization: att)
+    category_course_material = FactoryBot.create(:course_material, category: category)
+    org_category_course_material = FactoryBot.create(:course_material, category: org_category)
     visit admin_root_path
     click_link "Courses"
     expect(current_path).to eq(admin_course_materials_path)
     expect(page).to have_content "Courses"
+    within('.list-titles') do
+      expect(page).to have_selector('.cell', text: 'Course')
+      expect(page).to have_selector('.cell', text: 'Contributor')
+      expect(page).to have_selector('.cell', text: 'Status')
+    end
+
+    expect(page).to have_content(category.title)
+    expect(page).to have_content("#{org_category.title} - #{att.title}")
   end
 
   scenario "can add new Courses" do
@@ -23,7 +35,7 @@ feature "Admins can manage course pages" do
     find("#course_material_contributor").set("Alejandro Brinkster")
     find("#course_material_summary").set("Summary")
     find("#course_material_description").set("Description")
-    select @category.title
+    select category.title
     click_button "Save Course"
     expect(current_path).to eq admin_course_materials_path
     expect(page).to have_content "New Course Title"
