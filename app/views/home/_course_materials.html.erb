@@ -23,18 +23,19 @@
 
         <% no_courses = false %>
 
-        <div id=<%= "category-#{category.id}" %>>
-        <% if category.hide_courses_on_homepage %>
-          <h3><%= category.title %></h3>
-          <p><%= category.description %></p>
-          <div class="clearfix">
-            <%= render partial: "shared/content_widget", locals: { destination: category_path(category), title: category.title, description: "Click to view #{category.title} Course Materials" } %>
-          </div>
-        <% else %>
-          <%= render partial: "category", locals: { category: category } %>
-        <% end %>
+        <div id=<%= category_anchor_id(category) %>>
+          <% if category.hide_courses_on_homepage %>
+            <h3><%= category.title %></h3>
+            <p><%= category.description %></p>
+            <div class="clearfix">
+              <%= render partial: "shared/content_widget", locals: { destination: category_path(category), title: category.title, description: "Click to view #{category.title} Course Materials" } %>
+            </div>
+          <% else %>
+            <%= render partial: "category", locals: { category: category } %>
+          <% end %>
+        </div>
       <% end %>
-      <div class='clearfix'>
+      <div class='clearfix' id='digital-connections-video-series'>
         <h3>Digital Connections Video Series (6-8th Grade)</h3>
         <% @video_links.select { |link| link.language == current_language }.each do |video_link| %>
           <%= render partial: "shared/content_widget", locals: { destination: video_link.url, title: video_link.title, description: video_link.description, target: "_blank" } %>
@@ -45,5 +46,5 @@
           No <%= current_language_name %> training materials exist at this time
         </div>
       <% end %>
-    <div>
+    </div>
 </section>
