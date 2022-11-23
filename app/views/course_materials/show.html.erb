@@ -90,7 +90,7 @@
 <% unless @course_material.category.title == "Other" %>
   <h2 class="extra-margin-bottom">
     More Classes in <%= @course_material.category.title %> Category
-    <% view_all_path = current_organization ? category_path(@course_material.category) : root_path(anchor: "category-#{@course_material.category_id}") %>
+    <% view_all_path = current_organization ? category_path(@course_material.category) : root_path(anchor: category_anchor_id(@course_material.category)) %>
     <small><%= link_to "View All >>", view_all_path %></small>
   </h2>
 
