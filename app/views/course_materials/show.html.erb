@@ -43,7 +43,7 @@
 </div>
 
 <div class="extra-margin-bottom">
-  <p><%= sanitize @course_material.description %></p>
+  <p><%= sanitize @course_material.description, attributes: %w(href target) %></p>
 </div>
 
 <hr />
