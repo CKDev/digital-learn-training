@@ -41,7 +41,7 @@ gem "wkhtmltopdf-binary"
 # Misc
 gem "local_time" # Client-side timezone rendering
 gem "friendly_id" # Slugs for urls
-gem "ckeditor", "~> 4.2.4" # HTML Editor
+gem "ckeditor", "~> 4.3.0" # HTML Editor
 gem "cocoon" # Dynamic forms for has-many relationships
 
 gem "rack-attack" # Prevent botspam and allow white/blacklisting IPs, etc
