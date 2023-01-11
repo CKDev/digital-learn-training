@@ -35,12 +35,6 @@
           <% end %>
         </div>
       <% end %>
-      <div class='clearfix' id='digital-connections-video-series'>
-        <h3>Digital Connections Video Series (6-8th Grade)</h3>
-        <% @video_links.select { |link| link.language == current_language }.each do |video_link| %>
-          <%= render partial: "shared/content_widget", locals: { destination: video_link.url, title: video_link.title, description: video_link.description, target: "_blank" } %>
-        <% end %>
-      </div>
       <% if no_courses %>
         <div class="no-courses-message">
           No <%= current_language_name %> training materials exist at this time
