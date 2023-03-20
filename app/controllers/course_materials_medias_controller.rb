@@ -18,7 +18,9 @@ class CourseMaterialsMediasController < ApplicationController
 
     zip_data = AttachmentZipper.new(@course_material, @files).create_zip("media")
 
-    file_options = { filename: "media_archive.zip", disposition: "inline", x_sendfile: true }
+    course_title = @course_material.title.parameterize(separator: '_')
+
+    file_options = { filename: "#{course_title}_media_archive.zip", disposition: "inline", x_sendfile: true }
     send_data zip_data.read, file_options
   end
 
