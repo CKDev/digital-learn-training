@@ -16,7 +16,7 @@ class CourseMaterialsMediasController < ApplicationController
     @course_material = CourseMaterial.friendly.find(params[:course_material_id])
     @files = @course_material.course_material_medias.all
 
-    zip_data = AttachmentZipper.new(@files).create_zip("media")
+    zip_data = AttachmentZipper.new(@course_material, @files).create_zip("media")
 
     file_options = { filename: "media_archive.zip", disposition: "inline", x_sendfile: true }
     send_data zip_data.read, file_options
