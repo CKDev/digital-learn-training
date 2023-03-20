@@ -1,10 +1,11 @@
 class AttachmentZipper
-  def initialize(files)
+  def initialize(course_material, files)
+    @course_title = course_material.title.parameterize(separator: '_')
     @files = files
   end
 
   def create_zip(attachment_name)
-    archive_tempfile = Tempfile.new("file_archive", "tmp")
+    archive_tempfile = Tempfile.new("#{@course_title}_archive", "tmp")
 
     # Avoid premature garbage collection by keeping tempfiles in array
     s3_tempfiles = []
