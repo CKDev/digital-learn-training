@@ -2,7 +2,7 @@ resource "aws_ecs_cluster" "ecs_cluster" {
   name = "${var.project_name}-cluster-${var.environment_name}"
 }
 
-resource "aws_ecs_service" "ecs_service" {
+resource "aws_ecs_service" "app_service" {
   name                              = "${var.project_name}-${var.environment_name}-service"
   cluster                           = aws_ecs_cluster.ecs_cluster.id
   task_definition                   = aws_ecs_task_definition.app_service.arn

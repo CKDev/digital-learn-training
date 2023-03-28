@@ -119,7 +119,7 @@ module "pipeline" {
   environment_name   = var.environment_name
   region             = var.region
   ecs_cluster_name   = module.application.cluster_name
-  ecs_service_name   = module.application.service_name
+  app_service_name   = module.application.app_service_name
   ecr_repository_url = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com"
   ecr_project_uri    = aws_ecr_repository.ecr_repo.repository_url
   github_owner       = "CKDev"
