@@ -91,21 +91,22 @@ module "database" {
 module "application" {
   source = "../modules/application"
 
-  project_name                = var.project_name
-  vpc_id                      = module.vpc.vpc_id
-  region                      = var.region
-  environment_name            = var.environment_name
-  default_security_group_id   = module.vpc.default_security_group_id
-  db_access_security_group_id = module.database.db_access_security_group_id
-  db_host                     = module.database.database_host
-  db_username                 = var.db_username
-  db_password                 = var.db_password
-  public_subnet_ids           = module.vpc.public_subnet_ids
-  instance_type               = "t3.medium"
-  desired_instance_count      = 1
-  lb_target_group_arn         = module.load_balancer.lb_target_group_arn
-  ssh_key_name                = "ec2_test_key"
-  rails_master_key            = var.rails_master_key
+  project_name                   = var.project_name
+  vpc_id                         = module.vpc.vpc_id
+  region                         = var.region
+  environment_name               = var.environment_name
+  default_security_group_id      = module.vpc.default_security_group_id
+  db_access_security_group_id    = module.database.db_access_security_group_id
+  db_host                        = module.database.database_host
+  db_username                    = var.db_username
+  db_password                    = var.db_password
+  public_subnet_ids              = module.vpc.public_subnet_ids
+  instance_type                  = "t3.medium"
+  desired_instance_count         = 1
+  desired_sidekiq_instance_count = 1
+  lb_target_group_arn            = module.load_balancer.lb_target_group_arn
+  ssh_key_name                   = "ec2_test_key"
+  rails_master_key               = var.rails_master_key
   s3_bucket_arns = [
     "arn:aws:s3:::dl-training-uploads-${var.environment_name}",
     "arn:aws:s3:::dl-training-storylines-${var.environment_name}-zipped"
