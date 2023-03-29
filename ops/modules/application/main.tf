@@ -2,8 +2,8 @@ resource "aws_ecs_cluster" "ecs_cluster" {
   name = "${var.project_name}-cluster-${var.environment_name}"
 }
 
-resource "aws_ecs_service" "ecs_service" {
-  name                              = "${var.project_name}-${var.environment_name}-service"
+resource "aws_ecs_service" "app_service" {
+  name                              = "${var.project_name}-${var.environment_name}-app-service"
   cluster                           = aws_ecs_cluster.ecs_cluster.id
   task_definition                   = aws_ecs_task_definition.app_service.arn
   desired_count                     = var.desired_instance_count
@@ -15,6 +15,13 @@ resource "aws_ecs_service" "ecs_service" {
     container_name   = "application"
     container_port   = 3000
   }
+}
+
+resource "aws_ecs_service" "sidekiq_service" {
+  name            = "${var.project_name}-${var.environment_name}-sidekiq-service"
+  cluster         = aws_ecs_cluster.ecs_cluster.id
+  task_definition = aws_ecs_task_definition.sidekiq_service.arn
+  desired_count   = var.desired_sidekiq_instance_count
 }
 
 data "aws_ami" "ecs_ami" {
@@ -42,7 +49,8 @@ resource "aws_launch_configuration" "instance" {
   security_groups = [
     var.default_security_group_id,
     aws_security_group.application_sg.id,
-    var.db_access_security_group_id
+    var.db_access_security_group_id,
+    var.redis_access_security_group_id
   ]
 
   user_data = <<-EOF

@@ -93,41 +93,54 @@ module "database" {
 module "application" {
   source = "../modules/application"
 
-  project_name                = var.project_name
-  vpc_id                      = module.vpc.vpc_id
-  region                      = var.region
-  environment_name            = var.environment_name
-  default_security_group_id   = module.vpc.default_security_group_id
-  db_access_security_group_id = module.database.db_access_security_group_id
-  db_host                     = module.database.database_host
-  db_username                 = var.db_username
-  db_password                 = var.db_password
-  public_subnet_ids           = module.vpc.public_subnet_ids
-  desired_instance_count      = 1
-  instance_type               = "t2.small"
-  lb_target_group_arn         = module.load_balancer.lb_target_group_arn
-  ssh_key_name                = "ec2_test_key"
-  rails_master_key            = var.rails_master_key
+  project_name                   = var.project_name
+  vpc_id                         = module.vpc.vpc_id
+  region                         = var.region
+  environment_name               = var.environment_name
+  default_security_group_id      = module.vpc.default_security_group_id
+  db_access_security_group_id    = module.database.db_access_security_group_id
+  redis_access_security_group_id = module.redis.redis_access_security_group_id
+  db_host                        = module.database.database_host
+  db_username                    = var.db_username
+  db_password                    = var.db_password
+  public_subnet_ids              = module.vpc.public_subnet_ids
+  desired_instance_count         = 1
+  desired_sidekiq_instance_count = 1
+  instance_type                  = "t2.small"
+  lb_target_group_arn            = module.load_balancer.lb_target_group_arn
+  ssh_key_name                   = "ec2_test_key"
+  rails_master_key               = var.rails_master_key
   s3_bucket_arns = [
     "arn:aws:s3:::dl-training-uploads-${var.environment_name}",
     "arn:aws:s3:::dl-training-storylines-${var.environment_name}-zipped"
   ]
 }
 
-module "pipeline" {
-  source = "../modules/pipeline"
+module "redis" {
+  source = "../modules/redis"
 
   project_name       = var.project_name
   environment_name   = var.environment_name
-  region             = var.region
-  ecs_cluster_name   = module.application.cluster_name
-  ecs_service_name   = module.application.service_name
-  ecr_repository_url = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com"
-  ecr_project_uri    = aws_ecr_repository.ecr_repo.repository_url
-  github_owner       = "CKDev"
-  github_repo        = "digital-learn-training"
-  branch             = "develop"
-  rails_master_key   = var.rails_master_key
-  docker_username    = var.docker_username
-  docker_password    = var.docker_password
+  node_type          = "cache.t3.small"
+  private_subnet_ids = module.vpc.private_subnet_ids
+  vpc_id             = module.vpc.vpc_id
+}
+
+module "pipeline" {
+  source = "../modules/pipeline"
+
+  project_name         = var.project_name
+  environment_name     = var.environment_name
+  region               = var.region
+  ecs_cluster_name     = module.application.cluster_name
+  app_service_name     = module.application.app_service_name
+  sidekiq_service_name = module.application.sidekiq_service_name
+  ecr_repository_url   = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com"
+  ecr_project_uri      = aws_ecr_repository.ecr_repo.repository_url
+  github_owner         = "CKDev"
+  github_repo          = "digital-learn-training"
+  branch               = "develop"
+  rails_master_key     = var.rails_master_key
+  docker_username      = var.docker_username
+  docker_password      = var.docker_password
 }

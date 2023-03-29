@@ -1,5 +1,5 @@
-resource "aws_ecs_task_definition" "app_service" {
-  family                   = "training-app-task-definition-${var.environment_name}"
+resource "aws_ecs_task_definition" "sidekiq_service" {
+  family                   = "${var.project_name}-sidekiq-task-definition-${var.environment_name}"
   requires_compatibilities = ["EC2"]
   network_mode             = "bridge"
 
@@ -10,18 +10,11 @@ resource "aws_ecs_task_definition" "app_service" {
 
   container_definitions = jsonencode([
     {
-      name              = "application",
+      name              = "sidekiq",
       image             = "917415714855.dkr.ecr.us-west-2.amazonaws.com/dl-training:latest",
       essential         = true,
       memoryReservation = 512,
-      portMappings = [
-        {
-          hostPort      = 0,
-          protocol      = "tcp",
-          containerPort = 3000
-        }
-      ],
-      command = ["puma", "-C", "config/puma.rb"],
+      command           = ["sidekiq"],
       environment = [
         {
           name  = "RAILS_MASTER_KEY",
@@ -55,7 +48,7 @@ resource "aws_ecs_task_definition" "app_service" {
       logConfiguration = {
         logDriver = "awslogs",
         options = {
-          awslogs-group         = "${aws_cloudwatch_log_group.instance.name}",
+          awslogs-group         = "${aws_cloudwatch_log_group.sidekiq_instance.name}",
           awslogs-region        = "${var.region}",
           awslogs-stream-prefix = "ecs"
         }
