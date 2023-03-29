@@ -129,17 +129,18 @@ module "redis" {
 module "pipeline" {
   source = "../modules/pipeline"
 
-  project_name       = var.project_name
-  environment_name   = var.environment_name
-  region             = var.region
-  ecs_cluster_name   = module.application.cluster_name
-  app_service_name   = module.application.app_service_name
-  ecr_repository_url = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com"
-  ecr_project_uri    = aws_ecr_repository.ecr_repo.repository_url
-  github_owner       = "CKDev"
-  github_repo        = "digital-learn-training"
-  branch             = "develop"
-  rails_master_key   = var.rails_master_key
-  docker_username    = var.docker_username
-  docker_password    = var.docker_password
+  project_name         = var.project_name
+  environment_name     = var.environment_name
+  region               = var.region
+  ecs_cluster_name     = module.application.cluster_name
+  app_service_name     = module.application.app_service_name
+  sidekiq_service_name = module.application.sidekiq_service_name
+  ecr_repository_url   = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com"
+  ecr_project_uri      = aws_ecr_repository.ecr_repo.repository_url
+  github_owner         = "CKDev"
+  github_repo          = "digital-learn-training"
+  branch               = "develop"
+  rails_master_key     = var.rails_master_key
+  docker_username      = var.docker_username
+  docker_password      = var.docker_password
 }

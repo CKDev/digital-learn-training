@@ -30,7 +30,7 @@ resource "aws_codepipeline" "pipeline" {
     name = "Build"
 
     action {
-      name             = "Build"
+      name             = "BuildApp"
       category         = "Build"
       owner            = "AWS"
       provider         = "CodeBuild"
@@ -42,13 +42,27 @@ resource "aws_codepipeline" "pipeline" {
         ProjectName = aws_codebuild_project.codebuild_project.name
       }
     }
+
+    action {
+      name             = "BuildSidekiq"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      input_artifacts  = ["source"]
+      output_artifacts = ["imagedefinitions-sidekiq"]
+
+      configuration = {
+        ProjectName = aws_codebuild_project.sidekiq_codebuild_project.name
+      }
+    }
   }
 
   stage {
     name = "Deploy"
 
     action {
-      name            = "Deploy"
+      name            = "DeployApp"
       category        = "Deploy"
       owner           = "AWS"
       provider        = "ECS"
@@ -59,6 +73,21 @@ resource "aws_codepipeline" "pipeline" {
         ClusterName = var.ecs_cluster_name
         ServiceName = var.app_service_name
         FileName    = "imagedefinitions.json"
+      }
+    }
+
+    action {
+      name            = "DeploySidekiq"
+      category        = "Deploy"
+      owner           = "AWS"
+      provider        = "ECS"
+      input_artifacts = ["imagedefinitions-sidekiq"]
+      version         = "1"
+
+      configuration = {
+        ClusterName = var.ecs_cluster_name
+        ServiceName = var.sidekiq_service_name
+        FileName    = "imagedefinitions-sidekiq.json"
       }
     }
   }

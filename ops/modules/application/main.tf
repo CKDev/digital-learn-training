@@ -18,12 +18,10 @@ resource "aws_ecs_service" "app_service" {
 }
 
 resource "aws_ecs_service" "sidekiq_service" {
-  name                              = "${var.project_name}-${var.environment_name}-sidekiq-service"
-  cluster                           = aws_ecs_cluster.ecs_cluster.id
-  task_definition                   = aws_ecs_task_definition.sidekiq_service.arn
-  desired_count                     = var.desired_sidekiq_instance_count
-  iam_role                          = aws_iam_role.instance.name
-  health_check_grace_period_seconds = 60
+  name            = "${var.project_name}-${var.environment_name}-sidekiq-service"
+  cluster         = aws_ecs_cluster.ecs_cluster.id
+  task_definition = aws_ecs_task_definition.sidekiq_service.arn
+  desired_count   = var.desired_sidekiq_instance_count
 }
 
 data "aws_ami" "ecs_ami" {
