@@ -26,5 +26,8 @@ module DigitalLearnTraining
       path: ":rails_root/public/system:url",
       url: "/lessons/storylines/:id/:style/:basename.:extension"
     }
+
+    # Sidekiq for job processing
+    config.active_job.queue_adapter = :sidekiq
   end
 end
