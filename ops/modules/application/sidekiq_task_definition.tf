@@ -44,6 +44,14 @@ resource "aws_ecs_task_definition" "sidekiq_service" {
           name  = "RAILS_LOG_TO_STDOUT",
           value = "true"
         },
+        {
+          name  = "REDIS_HOST",
+          value = "${var.redis_host}"
+        },
+        {
+          name  = "REDIS_PORT",
+          value = "6379"
+        }
       ],
       logConfiguration = {
         logDriver = "awslogs",
