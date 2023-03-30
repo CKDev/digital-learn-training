@@ -7,6 +7,7 @@ variable "redis_access_security_group_id" {}
 variable "project_name" {}
 variable "environment_name" {}
 variable "db_host" {}
+variable "redis_host" {}
 variable "rails_master_key" {}
 variable "db_username" {}
 variable "db_password" {}
