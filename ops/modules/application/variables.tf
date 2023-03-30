@@ -16,3 +16,4 @@ variable "ssh_key_name" {}
 variable "desired_instance_count" {}
 variable "desired_sidekiq_instance_count" {}
 variable "s3_bucket_arns" {}
+variable "log_retention_days" { default = 0 }
