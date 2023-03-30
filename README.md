@@ -4,7 +4,7 @@
 
 ### Ruby Version
 
-2.7.6
+2.7.7
 
 [asdf version manager](https://github.com/asdf-vm/asdf) is recommended. Navigate to the project directory and run `asdf install`.
 
