@@ -52,11 +52,11 @@ resource "aws_ecs_task_definition" "app_service" {
           value = "true"
         },
         {
-          name = "REDIS_HOST",
-          value = "redis"
+          name  = "REDIS_HOST",
+          value = "${var.redis_host}"
         },
         {
-          name = "REDIS_PORT",
+          name  = "REDIS_PORT",
           value = "6379"
         }
       ],

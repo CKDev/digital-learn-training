@@ -7,6 +7,7 @@ variable "redis_access_security_group_id" {}
 variable "project_name" {}
 variable "environment_name" {}
 variable "db_host" {}
+variable "redis_host" {}
 variable "rails_master_key" {}
 variable "db_username" {}
 variable "db_password" {}
@@ -16,3 +17,4 @@ variable "ssh_key_name" {}
 variable "desired_instance_count" {}
 variable "desired_sidekiq_instance_count" {}
 variable "s3_bucket_arns" {}
+variable "log_retention_days" { default = 0 }
