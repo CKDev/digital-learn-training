@@ -121,11 +121,12 @@ module "application" {
 module "redis" {
   source = "../modules/redis"
 
-  project_name     = var.project_name
-  environment_name = var.environment_name
-  node_type        = "cache.t3.small"
-  subnet_ids       = module.vpc.private_subnet_ids
-  vpc_id           = module.vpc.vpc_id
+  project_name              = var.project_name
+  environment_name          = var.environment_name
+  node_type                 = "cache.t3.small"
+  subnet_ids                = module.vpc.private_subnet_ids
+  vpc_id                    = module.vpc.vpc_id
+  default_security_group_id = module.vpc.default_security_group_id
 }
 
 module "pipeline" {

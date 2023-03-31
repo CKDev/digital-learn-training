@@ -1,5 +1,5 @@
 resource "aws_security_group" "load_balancer_sg" {
-  name        = "${var.project_name}-load-balancer-sg"
+  name        = "${var.project_name}-${var.environment_name}-load-balancer-sg"
   description = "Allow access to application load balancer"
   vpc_id      = var.vpc_id
 
@@ -25,7 +25,6 @@ resource "aws_security_group" "load_balancer_sg" {
     protocol    = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
 
   egress {
     from_port   = 0
