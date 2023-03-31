@@ -1,4 +1,4 @@
-sidekiq_config = { url: "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}/0" }
+sidekiq_config = { url: "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}/0", network_timeout: 5 }
 
 Sidekiq.configure_server do |config|
   config.redis = sidekiq_config
