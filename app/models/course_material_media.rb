@@ -8,4 +8,15 @@ class CourseMaterialMedia < ApplicationRecord
   validates_attachment_content_type :media, content_type: Constants.course_material_media_types,
     message: "Only PNG, JPG and GIF files are allowed."
 
+  after_commit :create_zip_archive
+
+  def self.attachment_name
+    'media'
+  end
+
+  private
+
+  def create_zip_archive
+    CourseMaterialArchiveJob.perform_later course_material.id, 'course_material_medias', 'media'
+  end
 end
