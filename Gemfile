@@ -29,7 +29,7 @@ gem "rollbar"
 # File uploads
 gem "paperclip"
 
-gem "rubyzip" # ASL files
+gem "rubyzip", require: "zip" # ASL files
 
 # API Requests and Caching
 gem "api_cache"

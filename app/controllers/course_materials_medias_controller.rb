@@ -1,5 +1,3 @@
-require "zip"
-
 class CourseMaterialsMediasController < ApplicationController
 
   def show
