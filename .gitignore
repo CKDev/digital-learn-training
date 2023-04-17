@@ -72,4 +72,4 @@ examples.txt
 /config/master.key
 
 # Local paperclip attachments
-/publicattachments/*
+/public/*/
