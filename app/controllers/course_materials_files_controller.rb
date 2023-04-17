@@ -1,5 +1,3 @@
-require "zip"
-
 class CourseMaterialsFilesController < ApplicationController
 
   def show
@@ -15,14 +13,11 @@ class CourseMaterialsFilesController < ApplicationController
   def index
     @course_material = CourseMaterial.friendly.find(params[:course_material_id])
 
-    @files = @course_material.course_material_files.all
-
-    zip_data = AttachmentZipper.new(@course_material, @files).create_zip("file")
-
     course_title = @course_material.title.parameterize(separator: '_')
-
     file_options = { filename: "#{course_title}_file_archive.zip", disposition: "inline", x_sendfile: true }
-    send_data zip_data.read, file_options
-  end
 
+    file_location = Rails.application.config.s3_enabled ? @course_material.file_archive.url : @course_material.file_archive.path
+
+    send_file open(file_location), file_options
+  end
 end
