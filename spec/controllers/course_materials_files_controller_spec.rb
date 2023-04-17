@@ -15,11 +15,9 @@ describe CourseMaterialsFilesController do
 
   describe "GET #index" do
 
-    it "assigns all the requested instances of a course materials files" do
-      @course_material_file1 = FactoryBot.create(:course_material_file)
-      @course_material = @course_material_file1.course_material
-      @course_material_file2 = FactoryBot.create(:course_material_file, course_material: @course_material, file_file_name: "test_upload_2.pdf")
-      get :index, params: { course_material_id: @course_material.id }
+    it "returns a success" do
+      course_material = FactoryBot.create(:course_material, :with_file_archive)
+      get :index, params: { course_material_id: course_material.id }
       expect(response).to have_http_status(:success)
     end
 
