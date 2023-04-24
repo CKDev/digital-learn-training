@@ -14,7 +14,7 @@ module DigitalLearnTraining
       storage: :s3,
       bucket: config.s3_bucket_name,
       s3_region: config.s3_region,
-      s3_host_name: "s3-#{config.s3_region}.amazonaws.com"
+      s3_host_name: "s3-#{config.s3_region}.amazonaws.com",
       s3_protocol: :https
     }
 
