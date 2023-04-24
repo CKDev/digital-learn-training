@@ -7,7 +7,7 @@ gem "sass-rails"
 gem "coffee-rails"
 gem "uglifier", ">= 1.3.0"
 gem "jquery-rails"
-gem "sidekiq", "< 7"
+gem "sidekiq", "< 8"
 
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 5.0"
