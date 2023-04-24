@@ -53,6 +53,9 @@ gem 'aws-sdk-s3', '~>1'
 # Rack::Proxy for S3 Proxy middleware
 gem 'rack-proxy'
 
+# Data migrations
+gem 'data_migrate'
+
 group :development, :test do
   gem "pry"
   gem "pry-byebug"
