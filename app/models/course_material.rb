@@ -27,6 +27,13 @@ class CourseMaterial < ApplicationRecord
   accepts_nested_attributes_for :course_material_videos, reject_if: :all_blank, allow_destroy: true
   validates_associated :course_material_videos
 
+  # Zipped attachments
+  has_attached_file :file_archive, url: "course_material_file_archives/:id/:basename.:extension"
+  has_attached_file :media_archive, url: "course_material_media_archives/:id/:basename.:extension"
+
+  validates_attachment :file_archive, content_type: { content_type: ["application/zip", "application/x-zip"] }
+  validates_attachment :media_archive, content_type: { content_type: ["application/zip", "application/x-zip"] }
+
   default_scope { order("sort_order") }
   scope :in_category, ->(category_id) { joins(:category).where("categories.id = ?", category_id) }
   scope :published, -> { where(pub_status: "P") }

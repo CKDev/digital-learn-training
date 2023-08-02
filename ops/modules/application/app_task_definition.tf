@@ -1,5 +1,5 @@
 resource "aws_ecs_task_definition" "app_service" {
-  family                   = "training-app-task-definition-${var.environment_name}"
+  family                   = "${var.project_name}-app-task-definition-${var.environment_name}"
   requires_compatibilities = ["EC2"]
   network_mode             = "bridge"
 
@@ -51,11 +51,19 @@ resource "aws_ecs_task_definition" "app_service" {
           name  = "RAILS_LOG_TO_STDOUT",
           value = "true"
         },
+        {
+          name  = "REDIS_HOST",
+          value = "${var.redis_host}"
+        },
+        {
+          name  = "REDIS_PORT",
+          value = "6379"
+        }
       ],
       logConfiguration = {
         logDriver = "awslogs",
         options = {
-          awslogs-group         = "${aws_cloudwatch_log_group.instance.name}",
+          awslogs-group         = "${aws_cloudwatch_log_group.app_instance.name}",
           awslogs-region        = "${var.region}",
           awslogs-stream-prefix = "ecs"
         }

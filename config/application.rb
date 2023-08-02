@@ -22,9 +22,19 @@ module DigitalLearnTraining
     # Use routing for error pages
     config.exceptions_app = self.routes
 
+    # Default paperclip options
+    config.paperclip_defaults = {
+      storage: :filesystem,
+      path: ":rails_root/public/:url",
+    }
+
+    # Storyline paperclip options
     config.storyline_paperclip_opts = {
       path: ":rails_root/public/system:url",
       url: "/lessons/storylines/:id/:style/:basename.:extension"
     }
+
+    # Sidekiq for job processing
+    config.active_job.queue_adapter = :sidekiq
   end
 end

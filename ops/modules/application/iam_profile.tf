@@ -22,7 +22,8 @@ data "aws_iam_policy_document" "instance_policy" {
     ]
 
     resources = [
-      "${aws_cloudwatch_log_group.instance.arn}",
+      "${aws_cloudwatch_log_group.app_instance.arn}",
+      "${aws_cloudwatch_log_group.sidekiq_instance.arn}"
     ]
   }
 

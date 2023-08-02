@@ -1,5 +1,3 @@
-require "zip"
-
 class Lesson < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged

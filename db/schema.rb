@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_24_031756) do
+ActiveRecord::Schema.define(version: 2023_04_17_040229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,17 @@ ActiveRecord::Schema.define(version: 2022_07_24_031756) do
     t.index ["organization_id"], name: "index_categories_on_organization_id"
   end
 
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string "data_file_name", null: false
+    t.string "data_content_type"
+    t.integer "data_file_size"
+    t.string "data_fingerprint"
+    t.string "type", limit: 30
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["type"], name: "index_ckeditor_assets_on_type"
+  end
+
   create_table "course_material_files", force: :cascade do |t|
     t.integer "course_material_id"
     t.string "file_file_name"
@@ -101,6 +112,14 @@ ActiveRecord::Schema.define(version: 2022_07_24_031756) do
     t.string "slug"
     t.integer "sort_order", default: 1, null: false
     t.string "language", default: "en"
+    t.string "file_archive_file_name"
+    t.string "file_archive_content_type"
+    t.bigint "file_archive_file_size"
+    t.datetime "file_archive_updated_at"
+    t.string "media_archive_file_name"
+    t.string "media_archive_content_type"
+    t.bigint "media_archive_file_size"
+    t.datetime "media_archive_updated_at"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -117,6 +136,9 @@ ActiveRecord::Schema.define(version: 2022_07_24_031756) do
     t.datetime "pub_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

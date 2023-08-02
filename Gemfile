@@ -7,9 +7,10 @@ gem "sass-rails"
 gem "coffee-rails"
 gem "uglifier", ">= 1.3.0"
 gem "jquery-rails"
+gem "sidekiq", "< 8"
 
 # Use Redis adapter to run Action Cable in production
-gem "redis", "~> 3.0"
+gem "redis", "~> 5.0"
 gem "redis-namespace"
 
 # Authentication and authorization
@@ -28,7 +29,7 @@ gem "rollbar"
 # File uploads
 gem "paperclip"
 
-gem "rubyzip" # ASL files
+gem "rubyzip", require: "zip" # ASL files
 
 # API Requests and Caching
 gem "api_cache"
@@ -51,6 +52,9 @@ gem 'aws-sdk-s3', '~>1'
 
 # Rack::Proxy for S3 Proxy middleware
 gem 'rack-proxy'
+
+# Data migrations
+gem 'data_migrate'
 
 group :development, :test do
   gem "pry"
