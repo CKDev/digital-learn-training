@@ -100,6 +100,8 @@ module "application" {
   db_host                        = module.database.database_host
   db_username                    = var.db_username
   db_password                    = var.db_password
+  redis_access_security_group_id = module.redis.redis_access_security_group_id
+  redis_host                     = module.redis.redis_address
   public_subnet_ids              = module.vpc.public_subnet_ids
   instance_type                  = "t3.medium"
   desired_instance_count         = 1
@@ -107,11 +109,22 @@ module "application" {
   lb_target_group_arn            = module.load_balancer.lb_target_group_arn
   ssh_key_name                   = "ec2_test_key"
   rails_master_key               = var.rails_master_key
-  log_retention_days             = 0
+  log_retention_days             = 14
   s3_bucket_arns = [
     "arn:aws:s3:::dl-training-uploads-${var.environment_name}",
     "arn:aws:s3:::dl-training-storylines-${var.environment_name}-zipped"
   ]
+}
+
+module "redis" {
+  source = "../modules/redis"
+
+  project_name              = var.project_name
+  environment_name          = var.environment_name
+  node_type                 = "cache.t3.medium"
+  subnet_ids                = module.vpc.private_subnet_ids
+  vpc_id                    = module.vpc.vpc_id
+  default_security_group_id = module.vpc.default_security_group_id
 }
 
 module "pipeline" {

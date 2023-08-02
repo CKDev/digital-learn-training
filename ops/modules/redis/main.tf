@@ -1,5 +1,5 @@
 resource "aws_elasticache_cluster" "redis" {
-  cluster_id           = "${var.project_name}-redis"
+  cluster_id           = "${var.project_name}-${var.environment_name}-redis"
   engine               = "redis"
   node_type            = var.node_type
   num_cache_nodes      = 1
@@ -11,6 +11,6 @@ resource "aws_elasticache_cluster" "redis" {
 }
 
 resource "aws_elasticache_subnet_group" "redis" {
-  name       = "redis-subnet-group"
+  name       = "${var.project_name}-${var.environment_name}-redis-subnet-group"
   subnet_ids = var.subnet_ids
 }
