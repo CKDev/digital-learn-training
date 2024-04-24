@@ -14,7 +14,7 @@ button, input[type="submit"], .btn {
   min-width: 300px;
   letter-spacing: 1px;
 
-  @include media($tablet) {
+  @media (max-width: $tablet) {
     min-width: 0;
   }
 

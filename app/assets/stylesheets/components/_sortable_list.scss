@@ -10,7 +10,7 @@
 .cell {
   display: table-cell;
   width: 185px;
-  @include media($mobile-large) {
+  @media (max-width: $mobile-large) {
     display: block;
   }
 }

@@ -1,5 +1,7 @@
 {
   "name": "digital-learn-training",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "local-time": "^3.0.2"
+  }
 }

@@ -33,7 +33,7 @@
   }
 
   .modal-trigger {
-    @include button(flat, $action-color);
+    //@include button(flat, $action-color);
     padding: 0.8em 1em;
   }
 
@@ -44,8 +44,8 @@
   }
 
   .modal-fade-screen {
-    @include transition(opacity 0.25s ease);
-    @include position(fixed, 0px 0px 0px 0px);
+    //@include transition(opacity 0.25s ease);
+    //@include position(fixed, 0px 0px 0px 0px);
     background: rgba(0,0,0, 0.85);
     opacity: 0;
     padding-top: 0.6em;
@@ -53,27 +53,27 @@
     visibility: hidden;
     z-index: 99999999999;
 
-    @include media($large-screen) {
+    @media (max-width: $large-screen) {
       padding-top: 10em;
     }
 
     .modal-bg {
-      @include position(absolute, 0px 0px 0px 0px);
+      //@include position(absolute, 0px 0px 0px 0px);
       cursor: pointer;
     }
   }
 
   .modal-close {
-    @include position(absolute, ($modal-padding /2) ($modal-padding /2) null null);
-    @include size(1.5em);
+    //@include position(absolute, ($modal-padding /2) ($modal-padding /2) null null);
+    //@include size(1.5em);
     background: $modal-background;
     cursor: pointer;
 
     &:after,
     &:before {
-      @include position(absolute, 3px 3px 0 50%);
-      @include transform(rotate(45deg));
-      @include size(0.15em 1.5em);
+      //@include position(absolute, 3px 3px 0 50%);
+      //@include transform(rotate(45deg));
+      //@include size(0.15em 1.5em);
       background: $modal-close-color;
       content: '';
       display: block;
@@ -86,12 +86,12 @@
     }
 
     &:before {
-      @include transform(rotate(-45deg));
+      //@include transform(rotate(-45deg));
     }
   }
 
   .modal-inner {
-    @include transition(opacity 0.25s ease);
+    //@include transition(opacity 0.25s ease);
     background: $modal-background;
     border-radius: $base-border-radius;
     margin-top: 0;
@@ -116,23 +116,23 @@
       ol {
         padding-left: 1.5em;
       }
-      @include media($medium-screen) {
+      @media (max-width: $medium-screen) {
         padding: $modal-padding;
         width: 90%;
       }
 
-      @include media($desktop) {
+      @media (max-width: $desktop) {
         width: 70%;
       }
     }
 
     &.lesson-modal-inner {
-      @include media($medium-screen) {
+      @media (max-width: $medium-screen) {
         padding: $modal-padding;
         width: 60%;
       }
 
-      @include media($desktop) {
+      @media (max-width: $desktop) {
         width: 50%;
       }
     }

@@ -2,13 +2,13 @@ nav.secondary-links {
   grid-area: secondary-links;
   padding-bottom: 1em;
   font-size: 13px;
-  @include clearfix;
+  //@include clearfix;
 
   a {
     color: $purple;
     display: inline-block;
 
-    @include media($mobile-xlarge) {
+    @media (max-width: $mobile-xlarge) {
       font-size: 0.9rem;
     }
   }
@@ -17,7 +17,7 @@ nav.secondary-links {
 nav.home-links {
   grid-area: nav;
 
-  @include media($mobile-xlarge) {
+  @media (max-width: $mobile-xlarge) {
     margin-top: 20px;
   }
 
@@ -64,7 +64,7 @@ nav.home-links {
     "secondary-links secondary-links"
     "logo nav";
 
-  @include media($mobile-xlarge) {
+  @media (max-width: $mobile-xlarge) {
     grid-template-columns: 30% 70%;
     grid-template-areas:
       "secondary-links secondary-links"
@@ -78,7 +78,7 @@ nav.home-links {
 }
 
 .logo {
-  @include media($mobile-xlarge) {
+  @media (max-width: $mobile-xlarge) {
     text-align: center;
   }
 
@@ -87,7 +87,7 @@ nav.home-links {
     max-height: 120px;
     margin: 0.2em;
 
-    @include media($mobile-large) {
+    @media (max-width: $mobile-large) {
       height: 70px;
     }
   }

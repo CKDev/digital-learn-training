@@ -5,6 +5,6 @@ FactoryBot.define do
     duration { 90 }
     lesson_order { 1 }
     pub_status { "P" }
-    story_line { fixture_file_upload(Rails.root.join("spec", "fixtures", "BasicSearch1.zip"), "application/zip") }
+    story_line { Rack::Test::UploadedFile.new(Rails.root.join("spec", "fixtures", "BasicSearch1.zip"), "application/zip") }
   end
 end

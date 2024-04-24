@@ -47,7 +47,7 @@ a.note {
 }
 
 small {
-  @include media($mobile-large) {
+  @media(max-width: $mobile-large) {
     font-size: 1rem;
   }
 }
@@ -59,10 +59,10 @@ small {
 
 .large-top-padding {
   margin-top: 185px;
-  @include media($mobile-xlarge) {
+  @media (max-width: $mobile-xlarge) {
     margin-top: 202px;
   }
-  @include media($mobile-large) {
+  @media (max-width: $mobile-large) {
     margin-top: 80px;
   }
 }
@@ -94,7 +94,7 @@ small {
   margin: 1em 0 .5em 0;
   font-weight: 200;
 
-  @include media($mobile-large) {
+  @media (max-width: $mobile-large) {
     font-size: 1.6em;
   }
 }
@@ -110,7 +110,7 @@ small {
 
 .left-or-right {
   text-align: right;
-  @include media($mobile-large) {
+  @media (max-width: $mobile-large) {
     text-align: left;
   }
 }
@@ -125,14 +125,14 @@ small {
 
 .border-left {
   border-left: 1px solid $grey;
-  @include media($mobile) {
+  @media (max-width: $mobile) {
     border-left: none;
   }
 }
 
 .border-right {
   border-right: 1px solid $grey;
-  @include media($mobile) {
+  @media (max-width: $mobile) {
     border-right: none;
   }
 }
@@ -147,7 +147,7 @@ small {
 
 .extra-padding-left {
   padding-left: 5em;
-  @include media($mobile) {
+  @media (max-width: $mobile) {
     padding-left: 0em;
   }
 }
@@ -158,19 +158,19 @@ small {
 
 .extra-padding-right {
   padding-right: 4em;
-  @include media($mobile) {
+  @media (max-width: $mobile) {
     padding-right: 0em;
   }
 }
 
 .hide-on-mobile {
-  @include media($mobile) {
+  @media (max-width: $mobile) {
     display: none;
   }
 }
 
 .hide-on-tablet {
-  @include media($tablet) {
+  @media (max-width: $tablet) {
     display: none;
   }
 }
@@ -226,12 +226,12 @@ header.lesson-listing:before {
 }
 
 .right-third {
-  @include media($desktop) {
-    @include span-columns(4);
-    @include shift(8);
+  @media (max-width: $desktop) {
+    //@include span-columns(4);
+    //@include shift(8);
   }
-  @include media($mobile) {
-    @include span-columns(12);
+  @media (max-width: $mobile) {
+    //@include span-columns(12);
   }
 }
 
@@ -242,7 +242,7 @@ header.lesson-listing:before {
 }
 
 .clearfix {
-  @include clearfix;
+  //@include clearfix;
 }
 
 label.inline-label {

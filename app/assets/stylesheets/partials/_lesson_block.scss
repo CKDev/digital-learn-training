@@ -10,7 +10,7 @@
   cursor: pointer;
   float: left;
 
-  @include media($tablet) {
+  @media (max-width: $tablet) {
     margin-right: 2em;
   }
 

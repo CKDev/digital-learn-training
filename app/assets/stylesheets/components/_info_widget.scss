@@ -6,13 +6,13 @@
   overflow: hidden;
   border-top-left-radius: 20px;
 
-  @include media($desktop) {
+  @media (max-width: $desktop) {
     &:nth-child(3n) {
       margin-right: 0;
     }
   }
 
-  @include media($tablet) {
+  @media (max-width: $tablet) {
     margin-right: 2em;
   }
 
