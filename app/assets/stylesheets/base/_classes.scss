@@ -225,16 +225,6 @@ header.lesson-listing:before {
   border-radius: 6px;
 }
 
-.right-third {
-  @media (max-width: $desktop) {
-    //@include span-columns(4);
-    //@include shift(8);
-  }
-  @media (max-width: $mobile) {
-    //@include span-columns(12);
-  }
-}
-
 .left-two-thirds {
   max-width: 676px;
   float: left;
@@ -242,7 +232,9 @@ header.lesson-listing:before {
 }
 
 .clearfix {
-  //@include clearfix;
+  content: "";
+  clear: both;
+  display: table;
 }
 
 label.inline-label {
