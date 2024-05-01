@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_17_040229) do
+ActiveRecord::Schema.define(version: 2024_05_01_042544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 2023_04_17_040229) do
     t.string "media_archive_content_type"
     t.bigint "media_archive_file_size"
     t.datetime "media_archive_updated_at"
+    t.boolean "new_course", default: false, null: false
   end
 
   create_table "courses", force: :cascade do |t|
@@ -136,6 +137,7 @@ ActiveRecord::Schema.define(version: 2023_04_17_040229) do
     t.datetime "pub_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "new_course", default: false, null: false
   end
 
   create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
