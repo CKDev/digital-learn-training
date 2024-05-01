@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
-gem "rails", "5.2.8.1"
-gem "pg", "~> 0.18"
+gem "rails", "~> 6.1"
+gem "pg"
 gem "puma"
 gem "sass-rails"
 gem "coffee-rails"
@@ -10,7 +10,7 @@ gem "jquery-rails"
 gem "sidekiq", "< 8"
 
 # Use Redis adapter to run Action Cable in production
-gem "redis", "~> 5.0"
+gem "redis"
 gem "redis-namespace"
 
 # Authentication and authorization
@@ -20,8 +20,8 @@ gem "devise"
 gem 'devise_saml_authenticatable', '~> 1.6.3'
 
 # Bourbon for sass mixins, and neat for the grid framework
-gem "bourbon", "4.2.7"
-gem "neat", "1.8.0" # Careful, as v2.0 removes some mixins in use.
+# gem "bourbon", "4.3.4"
+# gem "neat", "1.9.0" # Careful, as v2.0 removes some mixins in use.
 
 # Reporting tools
 gem "rollbar"
@@ -62,15 +62,13 @@ group :development, :test do
   gem "awesome_print"
   gem "bullet"
   gem "listen" # Required by Rails
-  # gem "httplog"
-  gem "rspec-rails", "~> 5.0.0"
+  gem "rspec-rails"
 end
 
 group :development do
   gem "rubocop", require: false
   gem "brakeman", require: false
   gem "foreman", require: false
-  # gem "rack-mini-profiler"
   gem "letter_opener"
   gem "web-console"
   gem "colorize" # For colored spec/capybara output

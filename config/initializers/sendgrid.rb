@@ -1,6 +1,6 @@
 # Initialize ActionMailer settings for sendgrid
-api_key = Rails.application.credentials[Rails.env.to_sym][:sendgrid_api_key]
-domain = Rails.application.credentials[Rails.env.to_sym][:sendgrid_domain] || "commercekitchen.com"
+api_key = Rails.application.credentials.dig(Rails.env.to_sym, :sendgrid_api_key)
+domain = Rails.application.credentials.dig(Rails.env.to_sym, :sendgrid_domain) || "commercekitchen.com"
 
 if api_key.nil?
   abort "Please ensure the sendgrid_api_key is defined in credentials file"

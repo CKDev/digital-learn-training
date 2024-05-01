@@ -6,7 +6,7 @@ class VideoValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     return if value.blank?
     r = parse_iframe(value) || parse_embed_code(value)
-    record.errors[attribute] << (options[:message] || "is not a valid video Link/URL") unless r
+    record.errors.add(attribute, (options[:message] || "is not a valid video Link/URL")) unless r
   end
 
   private
