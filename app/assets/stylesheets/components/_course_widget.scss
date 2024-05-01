@@ -4,7 +4,7 @@
   border: 1px solid $medium-grey;
   margin-bottom: 2em;
   margin-right: .75em;
-  height: 175px;
+  min-height: 175px;
   overflow: hidden;
   border-top-left-radius: 20px;
   float: left;
@@ -13,10 +13,14 @@
     margin-right: 2em;
   }
 
+  &.new-course {
+    border: 3px solid $glow-blue;
+  }
+
   header {
     height: 75px;
     overflow: hidden;
-    border-top-left-radius: 20px;
+    border-top-left-radius: 16px;
   }
 
   h3 {
@@ -36,31 +40,33 @@
     margin: 0;
     font-weight: 300;
   }
+  
+  .summary {
+    flex-grow: 1;
+  }
 
   .percent-complete {
-    position: absolute;
-    display: inline-block;
-    bottom: 0;
-    left: 0;
     color: $grey;
   }
 
   .description {
+    display: flex;
+    flex-direction: column;
     position: relative;
     background-color: $white;
-    height: 80px;
-    margin: .75em 1em 0;
+    height: 8.5rem;
+    margin: 0.75em 1em 0;
   }
 
   .duration {
-    position: absolute;
-    display: inline-block;
-    bottom: 0;
-    right: 0;
     color: $grey;
-    padding-top: 1px;
-    padding-left: 1.3em;
     font-weight: 400;
+  }
+
+  .attribution {
+    padding-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: $glow-blue;
   }
 
   &.completed header {

@@ -6,6 +6,8 @@ en:
     slogan:
       default: "Tools and Resources for Trainers"
       att: "Tools and Resources for Instructors"
+  home:
+    att_course_attribution: "This module was made possible by AT&T"
   certificate:
     this_award: "This award certifies that"
     name_fill: "_____________________"
