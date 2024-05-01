@@ -15,7 +15,7 @@
           <p><%= t("certificate.has_completed") %></p>
 
           <h2 class="course"><%= @course.title %></h2>
-          <p><%= t("certificate.as_of") %>  <%= local_time(Time.zone.now, DateFormats.long_month_day_year) %></p>
+          <p><%= t("certificate.as_of") %> <div id='timestamp'></div></p>
           <%= image_tag "dl_logo.png" %>
         </div>
       </div>
@@ -54,3 +54,15 @@
     <%= render "post_course_materials", course: @course %>
   </div>
 </div>
+
+<script>
+  var timestampElement = document.getElementById('timestamp');
+  var now = new Date();
+
+  var dateOptions = {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  }
+  timestampElement.innerHTML = now.toLocaleDateString('en-US', dateOptions)
+</script>

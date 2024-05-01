@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require local-time
 //= require ckeditor/init
 //= require cocoon
 //= require html-sortable
