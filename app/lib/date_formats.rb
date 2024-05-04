@@ -20,10 +20,6 @@ class DateFormats
     "%m/%d/%Y" # 01/31/2010
   end
 
-  def self.long_month_day_year
-    "%B %e, %Y" # August 3, 2017
-  end
-
   def self.time
     "%l:%M %p" # "7:47 PM"
   end

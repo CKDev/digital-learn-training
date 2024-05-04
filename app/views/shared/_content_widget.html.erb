@@ -4,6 +4,8 @@
     <h3><%= title.truncate(50) %></h3>
   </header>
   <div class="description">
-    <p><%= description&.truncate(80) %></p>
+    <div class="summary">
+      <p><%= description&.truncate(80) %></p>
+    </div>
   </div>
 <% end %>

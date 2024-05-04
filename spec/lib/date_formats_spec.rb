@@ -27,11 +27,6 @@ describe DateFormats do
     expect(t.strftime(DateFormats.month_day_year)).to eq "09/01/2016"
   end
 
-  it "should return the expected date format for long_month_day_year" do
-    t = Time.zone.local(2016, 9, 1, 10, 5, 0)
-    expect(t.strftime(DateFormats.long_month_day_year)).to eq "September  1, 2016"
-  end
-
   it "should return the expected date format for time" do
     t = Time.zone.local(2016, 9, 1, 10, 5, 0)
     expect(t.strftime(DateFormats.time)).to eq "10:05 AM"

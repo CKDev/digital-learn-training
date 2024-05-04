@@ -7,17 +7,13 @@ module Admin
       @courses = Course.not_archived
     end
 
-    def show
-
-    end
+    def show; end
 
     def new
       @course = Course.new
     end
 
-    def edit
-
-    end
+    def edit; end
 
     def create
       @course = Course.new
@@ -63,12 +59,22 @@ module Admin
     end
 
     def course_params
-      permitted_attributes = [:title, :seo_page_title, :meta_desc, :summary,
-        :description, :contributor, :pub_status, :notes, :delete_document,
-        :course_order, :pub_date, attachments_attributes:
-          [:course_id, :document, :title, :doc_type, :file_description, :_destroy]]
+      permitted_attributes = [
+        :title,
+        :seo_page_title,
+        :meta_desc,
+        :summary,
+        :description,
+        :contributor,
+        :pub_status,
+        :notes,
+        :delete_document,
+        :course_order,
+        :pub_date,
+        :new_course,
+        attachments_attributes: [:course_id, :document, :title, :doc_type, :file_description, :_destroy]
+      ]
       params.require(:course).permit(permitted_attributes)
     end
-
   end
 end

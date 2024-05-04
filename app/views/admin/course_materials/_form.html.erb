@@ -51,6 +51,11 @@
       <%= f.grouped_collection_select :sub_category_id, Category.order(:title), :sub_categories, :title, :id, :title,
       selected: @course_material.try(:sub_category).try(:id), include_blank: "Select ..." %>
     </fieldset>
+
+    <fieldset>
+      <%= f.check_box :new_course %>
+      <%= f.label :new_course, "AT&T Course", class: "inline-label" %>
+    </fieldset>
   <% end %>
 
   <h3>Course Files <small>(acceptable formats: PDF, CSV, Word, PowerPoint, or Excel)</small></h3>

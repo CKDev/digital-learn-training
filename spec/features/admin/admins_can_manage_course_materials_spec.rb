@@ -35,10 +35,13 @@ feature "Admins can manage course pages" do
     find("#course_material_contributor").set("Alejandro Brinkster")
     find("#course_material_summary").set("Summary")
     find("#course_material_description").set("Description")
+    check "AT&T Course"
     select category.title
     click_button "Save Course"
     expect(current_path).to eq admin_course_materials_path
     expect(page).to have_content "New Course Title"
+    click_link "New Course Title"
+    expect(page).to have_field("AT&T Course", checked: true)
   end
 
   scenario "sees correct category options" do

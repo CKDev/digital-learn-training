@@ -29,6 +29,11 @@
     <%= f.select(:pub_status, options_for_select(Constants.pub_status_select_options, @course.pub_status)) %>
   </fieldset>
 
+  <fieldset>
+    <%= f.check_box :new_course %>
+    <%= f.label :new_course, "AT&T Course", class: "inline-label" %>
+  </fieldset>
+
   <div class="row">
     <div class="six columns">
       <%= f.fields_for :attachments, @course.attachments.build do |a| %>
