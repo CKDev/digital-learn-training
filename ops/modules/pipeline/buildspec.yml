@@ -29,4 +29,8 @@ phases:
       - echo Writing sidekiq image definitions file...
       - printf '[{"name":"sidekiq","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions-sidekiq.json
 artifacts:
-  files: '**/*'
+  files:
+    - imagedefinitions.json
+    - imagedefinitions-sidekiq.json
+
+
