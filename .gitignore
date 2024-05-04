@@ -9,8 +9,11 @@ capybara-*.html
 .rspec
 /log/*
 /tmp/*
+/tmp/pids/*
 !/log/.keep
 !/tmp/.keep
+!/tmp/pids
+!/tmp/pids/.keep
 /public/system
 /coverage/
 /spec/tmp
