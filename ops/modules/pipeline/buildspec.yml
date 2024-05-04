@@ -27,14 +27,17 @@ phases:
       - echo Writing image definitions file...
       - printf '[{"name":"application","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - echo Writing sidekiq image definitions file...
-      - printf '[{"name":"sidekiq","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions-sidekiq.json
+      - printf '[{"name":"sidekiq","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions_sidekiq.json
 artifacts:
   files: '**/*'
-  appImagedefinition:
-    files: imagedefinitions.json
-    name: app_imagedefinition
-  sidekiqImagedefinition:
-    files: imagedefinitions-sidekiq.json
-    name: sidekiq_imagedefinition
+  secondary-artifacts:
+    appImagedefinition:
+      base-directory: $CODEBUILD_SRC_DIR
+      files: imagedefinitions.json
+      name: app_imagedefinition
+    sidekiqImagedefinition:
+      base-directory: $CODEBUILD_SRC_DIR
+      files: imagedefinitions_sidekiq.json
+      name: sidekiq_imagedefinition
 
 
