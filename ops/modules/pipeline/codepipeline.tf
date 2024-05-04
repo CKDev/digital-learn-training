@@ -36,7 +36,7 @@ resource "aws_codepipeline" "pipeline" {
       provider         = "CodeBuild"
       version          = "1"
       input_artifacts  = ["source"]
-      output_artifacts = ["imagedefinitions", "imagedefinitions-sidekiq"]
+      output_artifacts = ["appImagedefinition", "sidekiqImagedefinition"]
 
       configuration = {
         ProjectName = aws_codebuild_project.codebuild_project.name
@@ -52,7 +52,7 @@ resource "aws_codepipeline" "pipeline" {
       category        = "Deploy"
       owner           = "AWS"
       provider        = "ECS"
-      input_artifacts = ["imagedefinitions"]
+      input_artifacts = ["appImagedefinition"]
       version         = "1"
 
       configuration = {
@@ -67,7 +67,7 @@ resource "aws_codepipeline" "pipeline" {
       category        = "Deploy"
       owner           = "AWS"
       provider        = "ECS"
-      input_artifacts = ["imagedefinitions-sidekiq"]
+      input_artifacts = ["sidekiqImagedefinition"]
       version         = "1"
 
       configuration = {
