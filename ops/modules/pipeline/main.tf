@@ -48,7 +48,7 @@ data "template_file" "sidekiq_buildspec" {
 
 resource "aws_codebuild_project" "codebuild_project" {
   name          = "${var.project_name}-${var.environment_name}-codebuild-project"
-  build_timeout = 10
+  build_timeout = 20
   service_role  = aws_iam_role.codebuild_role.arn
 
   artifacts {
@@ -70,7 +70,7 @@ resource "aws_codebuild_project" "codebuild_project" {
 
 resource "aws_codebuild_project" "sidekiq_codebuild_project" {
   name          = "${var.project_name}-${var.environment_name}-sidekiq-codebuild-project"
-  build_timeout = 10
+  build_timeout = 20
   service_role  = aws_iam_role.codebuild_role.arn
 
   artifacts {
