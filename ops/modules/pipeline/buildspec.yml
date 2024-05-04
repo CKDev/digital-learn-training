@@ -31,9 +31,11 @@ phases:
 artifacts:
   files: '**/*'
   appImagedefinition:
+    base-directory: $CODEBUILD_SRC_DIR
     files: imagedefinitions.json
     name: app_imagedefinition
   sidekiqImagedefinition:
+    base-directory: $CODEBUILD_SRC_DIR
     files: imagedefinitions_sidekiq.json
     name: sidekiq_imagedefinition
 
