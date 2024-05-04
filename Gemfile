@@ -54,7 +54,7 @@ gem 'aws-sdk-s3', '~>1'
 gem 'rack-proxy'
 
 # Data migrations
-gem 'data_migrate'
+gem 'data_migrate', '~>9.2.0'
 
 group :development, :test do
   gem "pry"
