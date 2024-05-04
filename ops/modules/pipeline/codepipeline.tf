@@ -73,7 +73,7 @@ resource "aws_codepipeline" "pipeline" {
       configuration = {
         ClusterName = var.ecs_cluster_name
         ServiceName = var.sidekiq_service_name
-        FileName    = "imagedefinitions_sidekiq.json"
+        FileName    = "imagedefinitions-sidekiq.json"
       }
     }
   }
