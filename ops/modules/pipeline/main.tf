@@ -50,5 +50,3 @@ resource "aws_codebuild_project" "codebuild_project" {
     buildspec = local.buildspec
   }
 }
-
-
