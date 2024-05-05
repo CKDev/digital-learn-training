@@ -1,7 +1,9 @@
-<section class="clearfix" id="instructional-design-training">
+<section id="instructional-design-training">
   <h2>Instructional Design Training</h2>
 
-  <% @courses.each do |course| %>
-    <%= render partial: "shared/content_widget", locals: { destination: course_path(course), title: course.title, description: course.summary } %>
-  <% end %>
+  <div class="course-widget-grid">
+    <% @courses.each do |course| %>
+      <%= render partial: "shared/content_widget", locals: { destination: course_path(course), title: course.title, description: course.summary, new_course: course.new_course } %>
+    <% end %>
+  </div>
 </section>

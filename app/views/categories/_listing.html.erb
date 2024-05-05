@@ -1,4 +1,4 @@
-<div class="clearfix">
+<div class="course-widget-grid">
   <% @course_materials.each do |c| %>
     <a class="course-widget <%= c.new_course? ? 'new-course' : '' %>" href="<%= course_material_path(c.friendly_id) %>">
       <header>
@@ -20,22 +20,23 @@
 
 <% @sub_categorized_course_materials.group_by { |h| h[:sub_category_id] }.sort.to_h.each do |k, v| %>
   <h3><%= SubCategory.find(k).title %></h3>
-  <% v.each do |c| %>
-    <a class="course-widget <%= c.new_course? ? 'new-course' : '' %>" href="<%= course_material_path(c.friendly_id) %>">
-      <header>
-        <h3><%= c.title.truncate(50) %></h3>
-      </header>
-      <div class="description">
-        <div class="summary">
-          <p><%= c.summary.truncate(80) %></p>
-        </div>
-        <% if c.new_course? %>
-          <div class="attribution">
-            <%= I18n.t('home.att_course_attribution')%>
+  <div class="course-widget-grid">
+    <% v.each do |c| %>
+      <a class="course-widget <%= c.new_course? ? 'new-course' : '' %>" href="<%= course_material_path(c.friendly_id) %>">
+        <header>
+          <h3><%= c.title.truncate(50) %></h3>
+        </header>
+        <div class="description">
+          <div class="summary">
+            <p><%= c.summary.truncate(80) %></p>
           </div>
-        <% end %>
-      </div>
-    </a>
-  <% end %>
-  <div class="clearfix"></div>
+          <% if c.new_course? %>
+            <div class="attribution">
+              <%= I18n.t('home.att_course_attribution')%>
+            </div>
+          <% end %>
+        </div>
+      </a>
+    <% end %>
+  </div>
 <% end %>

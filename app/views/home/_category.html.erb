@@ -4,9 +4,9 @@
 <% course_materials = category.course_materials.published.in_language(current_language) %>
 
 <% if course_materials.present? %>
-  <div class="clearfix">
+  <div class="course-widget-grid">
     <% course_materials.each do |c| %>
-      <%= render partial: "shared/content_widget", locals: { destination: course_material_path(c.friendly_id), title: c.title, description: c.summary } %>
+      <%= render partial: "shared/content_widget", locals: { destination: course_material_path(c.friendly_id), title: c.title, description: c.summary, new_course: c.new_course } %>
     <% end %>
   </div>
 <% else %>

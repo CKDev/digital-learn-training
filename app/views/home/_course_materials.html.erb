@@ -27,7 +27,7 @@
           <% if category.hide_courses_on_homepage %>
             <h3><%= category.title %></h3>
             <p><%= category.description %></p>
-            <div class="clearfix">
+            <div class="course-widget-grid">
               <%= render partial: "shared/content_widget", locals: { destination: category_path(category), title: category.title, description: "Click to view #{category.title} Course Materials" } %>
             </div>
           <% else %>
