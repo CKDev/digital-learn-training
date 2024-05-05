@@ -1,3 +1,7 @@
+.course-widget-grid {
+  display: flex;
+}
+
 .course-widget {
   display: block;
   width: 329px;
@@ -7,7 +11,6 @@
   min-height: 175px;
   overflow: hidden;
   border-top-left-radius: 20px;
-  float: left;
 
   @media (max-width: $tablet) {
     margin-right: 2em;
