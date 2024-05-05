@@ -13,6 +13,10 @@
   box-sizing: border-box;
 }
 
+.row {
+  width: 100%;
+}
+
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {

@@ -1,15 +1,17 @@
-<% @courses.each do |c| %>
-  <a class="course-widget <%= c.new_course? ? 'new-course' : '' %>" href="<%= course_path(c) %>">
-    <header>
-      <h3><%= c.title.truncate(45) %></h3>
-    </header>
-    <div class="description">
-      <div class="summary">
-        <p><%= c.summary.truncate(80) %></p>
+<div class="course-widget-grid">
+  <% @courses.each do |c| %>
+    <a class="course-widget <%= c.new_course? ? 'new-course' : '' %>" href="<%= course_path(c) %>">
+      <header>
+        <h3><%= c.title.truncate(45) %></h3>
+      </header>
+      <div class="description">
+        <div class="summary">
+          <p><%= c.summary.truncate(80) %></p>
+        </div>
+        <div class="duration">
+          <i class="icon-clock grey"></i><%= c.duration %>
+        </div>
       </div>
-      <div class="duration">
-        <i class="icon-clock grey"></i><%= c.duration %>
-      </div>
-    </div>
-  </a>
-<% end %>
+    </a>
+  <% end %>
+</div>
