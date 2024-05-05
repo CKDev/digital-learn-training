@@ -1,5 +1,6 @@
 <% target = local_assigns[:target] || "_self" %>
-<%= link_to destination, class: "course-widget", download: local_assigns[:download_filename], target: target do %>
+<% new_course = local_assigns[:new_course] %>
+<%= link_to destination, class: "course-widget #{new_course ? 'new-course' : ''}", download: local_assigns[:download_filename], target: target do %>
   <header>
     <h3><%= title.truncate(50) %></h3>
   </header>
@@ -7,5 +8,10 @@
     <div class="summary">
       <p><%= description&.truncate(80) %></p>
     </div>
+    <% if new_course %>
+      <div class="attribution">
+        <%= I18n.t('home.att_course_attribution')%>
+      </div>
+    <% end %>
   </div>
 <% end %>

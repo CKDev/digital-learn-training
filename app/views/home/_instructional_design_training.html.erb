@@ -2,6 +2,6 @@
   <h2>Instructional Design Training</h2>
 
   <% @courses.each do |course| %>
-    <%= render partial: "shared/content_widget", locals: { destination: course_path(course), title: course.title, description: course.summary } %>
+    <%= render partial: "shared/content_widget", locals: { destination: course_path(course), title: course.title, description: course.summary, new_course: course.new_course } %>
   <% end %>
 </section>
