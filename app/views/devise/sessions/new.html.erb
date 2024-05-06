@@ -30,3 +30,10 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+<% if current_organization&.access_requests_enabled %>
+  <div class='access-request-prompt'>
+    Don't have a collaborator account?
+    <%= link_to 'Request Access', new_access_request_path %>
+  </div>
+<% end %>

@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_01_042544) do
+ActiveRecord::Schema.define(version: 2024_05_06_034730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "access_requests", force: :cascade do |t|
+    t.bigint "organization_id"
+    t.string "full_name", null: false
+    t.string "email", null: false
+    t.string "organization_name", null: false
+    t.string "phone"
+    t.string "poc_name"
+    t.string "poc_email"
+    t.text "request_reason"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_access_requests_on_organization_id"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -182,6 +196,7 @@ ActiveRecord::Schema.define(version: 2024_05_01_042544) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "contact_email"
+    t.jsonb "settings", default: {}, null: false
   end
 
   create_table "pages", force: :cascade do |t|

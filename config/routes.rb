@@ -41,6 +41,8 @@ Rails.application.routes.draw do
     get 'login'
   end
 
+  resources :access_requests, only: [:new, :create]
+
   devise_for :users, controllers: {
     sessions: "sessions",
     registrations: "registrations",

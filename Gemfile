@@ -8,6 +8,8 @@ gem "coffee-rails"
 gem "uglifier", ">= 1.3.0"
 gem "jquery-rails"
 gem "sidekiq", "< 8"
+gem "recaptcha", "~> 5.16"
+gem "net-http"
 
 # Use Redis adapter to run Action Cable in production
 gem "redis"
@@ -63,6 +65,7 @@ group :development, :test do
   gem "bullet"
   gem "listen" # Required by Rails
   gem "rspec-rails"
+  gem "faker"
 end
 
 group :development do

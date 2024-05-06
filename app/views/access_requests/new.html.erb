@@ -1,0 +1,34 @@
+<h1>Request Collaborator Access</h1>
+
+<%= form_for @access_request do |f| %>
+  <fieldset>
+    <%= f.label :full_name, 'Full Name', required: true %>
+    <%= f.text_field :full_name, required: true %>
+
+    <%= f.label :organization_name, 'Organization Name', required: true %>
+    <%= f.text_field :organization_name, required: true %>
+
+    <%= f.label :email, required: true %>
+    <%= f.email_field :email, required: true %>
+
+    <%= f.label :phone, 'Phone Number', required: true %>
+    <%= f.phone_field :phone, required: true, maxlength: 10 %>
+  </fieldset>
+
+  <fieldset>
+    <h4>AT&T Point of Contact info (if applicable)</h4>
+
+    <%= f.label :poc_name, 'AT&T Point of Contact first and last name (if applicable)' %>
+    <%= f.text_field :poc_name %>
+
+    <%= f.label :poc_email, 'AT&T Point of Contact email address (if applicable)' %>
+    <%= f.text_field :poc_email %>
+  </fieldset>
+
+  <fieldset>
+    <%= f.label :request_reason, 'Please describe your reasons for reaching out' %>
+    <%= f.text_area :request_reason %>
+  </fieldset>
+
+  <%= f.submit 'Submit Access Request' %>
+<% end %>
