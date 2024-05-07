@@ -26,6 +26,19 @@ describe AccessRequest do
     it 'requires phone' do
       access_request.phone = nil
       expect(access_request).not_to be_valid
+      expect(access_request.errors.full_messages).to contain_exactly('Phone number can\'t be blank')
+    end
+
+    it 'require 10 digit phone' do
+      access_request.phone = "123123"
+      expect(access_request).not_to be_valid
+      expect(access_request.errors.full_messages).to contain_exactly('Phone number must be 10 numeric digits')
+    end
+
+    it 'requires only numeric phone' do
+      access_request.phone = "abc1231234"
+      expect(access_request).not_to be_valid
+      expect(access_request.errors.full_messages).to contain_exactly('Phone number must be 10 numeric digits')
     end
 
     it 'requires request_reason' do

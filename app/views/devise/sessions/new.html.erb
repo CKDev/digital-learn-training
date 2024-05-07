@@ -1,4 +1,8 @@
-<h2>Log in</h2>
+<% if current_organization&.access_requests_enabled %>
+  <h2>Log in as Collaborator</h2>
+<% else %>
+  <h2>Log in</h2>
+<% end %>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <fieldset>
@@ -32,6 +36,7 @@
 <%= render "devise/shared/links" %>
 
 <% if current_organization&.access_requests_enabled %>
+  <br />
   <div class='access-request-prompt'>
     Don't have a collaborator account?
     <%= link_to 'Request Access', new_access_request_path %>
