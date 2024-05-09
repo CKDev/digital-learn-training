@@ -1,0 +1,19 @@
+New DigitalLearn Access Request
+
+Full Name: <%= @access_request.full_name %>
+
+Organization Name: <%= @access_request.organization_name %>
+
+Email: <%= @access_request.email %>
+
+Phone: <%= @access_request.phone %>
+
+Request Reason: <%= @access_request.request_reason %>
+
+AT&T Point of Contact Name: <%= @access_request.poc_name || 'Not Provided' %>
+
+AT&T Point of Contact Email: <%= @access_request.poc_email || 'Not Provided' %>
+
+Access Requested At: <%= @access_request.created_at.strftime(DateFormats.datetime) %>
+
+Invite User via DigitalLearn:

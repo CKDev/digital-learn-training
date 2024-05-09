@@ -9,6 +9,8 @@ class AccessRequest < ApplicationRecord
 
   before_validation :verify_phone_number
 
+  after_create :send_email_notificatioin
+
   private
 
   def verify_phone_number
@@ -18,5 +20,9 @@ class AccessRequest < ApplicationRecord
     if !phone.match(/^\d{10}$/)
       errors.add(:phone, "must be 10 numeric digits")
     end
+  end
+
+  def send_email_notificatioin
+    AdminMailer.new_access_request(self.id).deliver_later
   end
 end

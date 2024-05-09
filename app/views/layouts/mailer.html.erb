@@ -1,13 +1,222 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <style>
-      /* Email styles need to be inline */
-    </style>
-  </head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">
 
-  <body>
-    <%= yield %>
-  </body>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <!--[if !mso]><!-->
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <!--<![endif]-->
+  <!--[if (gte mso 9)|(IE)]>
+      <xml>
+        <o:OfficeDocumentSettings>
+          <o:AllowPNG/>
+          <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+      </xml>
+  <![endif]-->
+  <!--[if (gte mso 9)|(IE)]>
+    <style type="text/css">
+      body {width: 600px;margin: 0 auto;}
+      table {border-collapse: collapse;}
+      table, td {mso-table-lspace: 0pt;mso-table-rspace: 0pt;}
+      img {-ms-interpolation-mode: bicubic;}
+    </style>
+  <![endif]-->
+
+  <style type="text/css">
+    body,
+    p,
+    div {
+      font-family: sans-serif;
+      font-size: 16px;
+      color: #444;
+    }
+
+    body {
+      color: #444;
+    }
+
+    body a {
+      color: #009fdb;
+      text-decoration: none;
+    }
+
+    h1 {
+      line-height: 2.5rem;
+    }
+
+    p {
+      margin: 0;
+      margin-bottom: 16px;
+      padding: 0;
+    }
+
+    .emphasis p {
+      color: #38697a;
+      font-weight: bold;
+    }
+
+    table.wrapper {
+      width: 100% !important;
+      table-layout: fixed;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+      -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    img.max-width {
+      max-width: 100% !important;
+    }
+
+    .button,
+    button {
+      display: inline-block;
+      height: 38px;
+      padding: 0 30px;
+      color: white !important;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 38px;
+      letter-spacing: 0.1rem;
+      text-transform: uppercase;
+      text-decoration: none;
+      white-space: nowrap;
+      background-color: #009fdb;
+      border-radius: 4px;
+      border: 1px solid #009fdb;
+      cursor: pointer;
+      box-sizing: border-box;
+      font-family: "Roboto Condensed", sans-serif;
+    }
+
+    .button:hover,
+    button:hover,
+    .button:focus,
+    button:focus {
+      color: white !important;
+      background-color: #009fdb;
+      border-color: #009fdb;
+    }
+  </style>
+
+</head>
+
+<body>
+  <center class="wrapper">
+    <div class="webkit">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" class="wrapper">
+        <tbody>
+          <tr>
+            <td valign="top" width="100%">
+              <table width="100%" role="content-container" class="outer" align="center" cellpadding="0" cellspacing="0"
+                border="0">
+                <tbody>
+                  <tr>
+                    <td width="100%">
+                      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tbody>
+                          <tr>
+                            <td>
+                              <!--[if mso]>
+                                <center>
+                                <table><tr><td width="600">
+                              <![endif]-->
+                              <table width="100%" cellpadding="0" cellspacing="0" border="0"
+                                style="width:100%; max-width:600px;" align="center">
+                                <tbody>
+                                  <tr>
+                                    <td role="modules-container"
+                                      style="padding:0px 0px 0px 0px; color:#38697a; text-align:left;"
+                                      width="100%" align="left">
+                                      <table class="module preheader preheader-hide" role="module" data-type="preheader"
+                                        border="0" cellpadding="0" cellspacing="0" width="100%"
+                                        style="display: none !important; mso-hide: all; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0;">
+                                        <tbody>
+                                          <tr>
+                                            <td role="module-content">
+                                              <p>DigitalLearn Training</p>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                      <table class="wrapper" role="module" data-type="image" border="0" cellpadding="0"
+                                        cellspacing="0" width="100%" style="table-layout: fixed;">
+                                        <tbody>
+                                          <tr>
+                                            <td style="font-size:6px; line-height:10px; padding:30px 0px 0px 0px;"
+                                              valign="top" align="center">
+                                              <% logo_path = @mailer_subdomain.present? ? "#{@mailer_subdomain}_logo.png" : "dl_logo.png" %>
+                                              <%= link_to root_url(subdomain: @mailer_subdomain) do %>
+                                                <%= image_tag logo_path, width: '240', style: 'width: 100%; max-width: 240px; border: 0px;', border: '0' %>
+                                              <% end %>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                      <table class="module" role="module" data-type="text" border="0" cellpadding="0"
+                                        cellspacing="0" width="100%" style="table-layout: fixed;">
+                                        <tbody>
+                                          <tr>
+                                            <td
+                                              style="padding:50px 0px 10px 0px; line-height:30px; text-align:inherit;"
+                                              height="100%" valign="top">
+                                              <div>
+                                                <div style="font-family: inherit; text-align: center">
+                                                  <% if @header.present? %>
+                                                    <span style="color: #516775; font-size: 28px; font-family: georgia, serif;">
+                                                      <strong><%= @header %></strong>
+                                                    </span>
+                                                  <% end %>
+                                                </div>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                      <table class="module" role="module" data-type="text" border="0" cellpadding="0"
+                                        cellspacing="0" width="100%" style="table-layout: fixed;">
+                                        <tbody>
+                                          <tr>
+                                            <td
+                                              style="padding:30px 40px 50px 40px; line-height:22px; text-align:inherit;"
+                                              height="100%" valign="top">
+                                              <div>
+                                                <div style="font-family: inherit; text-align: left">
+                                                  <span style="font-family: verdana, geneva, sans-serif">
+                                                    <%= yield %>
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <!--[if mso]>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </center>
+                              <![endif]-->
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </center>
+</body>
 </html>
