@@ -8,5 +8,9 @@ FactoryBot.define do
     factory :admin do
       admin { true }
     end
+
+    trait :with_collaborator_profile do
+      collaborator_profile
+    end
   end
 end

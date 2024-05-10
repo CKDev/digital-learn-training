@@ -1,0 +1,14 @@
+<div class="login-warning" id="login-warning">
+  <em><%= warning %></em>
+  <%= link_to "Dismiss", "#", class: "dismiss-link", id: "dismiss-link" %>
+</div>
+
+<script>
+  var dismissLink = document.getElementById("dismiss-link");
+  dismissLink.addEventListener("click", function(e) {
+    e.preventDefault();
+    var warningElement = document.getElementById("login-warning");
+    warningElement.parentNode.removeChild(warningElement);
+    window.history.replaceState(null, '', window.location.pathname);
+  });
+</script>

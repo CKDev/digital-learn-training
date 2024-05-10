@@ -37,9 +37,6 @@ describe InvitationsController do
       end
     end
 
-    it "accepts invitation" do
-    end
-
     it "creates a collaborator profile" do
       expect do
         put :update, params: valid_acceptance_params

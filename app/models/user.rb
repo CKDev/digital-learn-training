@@ -17,6 +17,10 @@ class User < ApplicationRecord
     admin
   end
 
+  def collaborator?
+    collaborator_profile.present?
+  end
+
   private
 
   def password_required?

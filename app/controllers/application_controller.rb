@@ -15,6 +15,14 @@ class ApplicationController < ActionController::Base
     user_signed_in? && current_user.admin?
   end
 
+  def after_sign_in_path_for(user)
+    if user.collaborator?
+      root_path(user, login_warning: true)
+    else
+      stored_location_for(user) || signed_in_root_path(user)
+    end
+  end
+
   def after_sign_out_path_for(resource)
     if authenticated_with_saml?
       destroy_saml_user_session_path
