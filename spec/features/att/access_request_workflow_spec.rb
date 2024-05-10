@@ -25,9 +25,9 @@ feature "User access request" do
     fill_in 'Organization', with: 'Good Collaborators Inc.'
     fill_in 'Email', with: 'steve@gc.com'
     fill_in 'Phone Number', with: '1231231234'
-    # expect(page).to have_content('AT&T Point of Contact info (if applicable)')
-    fill_in 'AT&T Point of Contact first and last name (if applicable)', with: 'Some Contact'
-    fill_in 'AT&T Point of Contact email address (if applicable)', with: 'poc@att.com'
+    expect(page).to have_content('AT&T Point of Contact info (if applicable)')
+    fill_in 'Point of Contact First Name', with: 'Some Contact'
+    fill_in 'Point of Contact Email address', with: 'poc@att.com'
     fill_in 'Please describe your reasons for reaching out', with: 'I would like to help design content'
     click_link_or_button 'Submit Access Request'
     expect(page).to have_current_path(new_user_session_path)

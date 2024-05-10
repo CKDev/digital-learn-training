@@ -11,7 +11,7 @@ en:
       invitation_removed: "Your invitation was removed."
       new:
         header: "Invite Collaborator to DigitalLearn"
-        submit_button: "Send invitation"
+        submit_button: "Send Invitation"
       edit:
         header: "Create Collaborator Account"
         submit_button: "Create Account"

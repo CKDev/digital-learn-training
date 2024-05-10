@@ -150,7 +150,7 @@
                                               valign="top" align="center">
                                               <% logo_path = @mailer_subdomain.present? ? "#{@mailer_subdomain}_logo.png" : "dl_logo.png" %>
                                               <%= link_to root_url(subdomain: @mailer_subdomain) do %>
-                                                <%= image_tag 'dl_logo.png', width: '240', style: 'width: 100%; max-width: 240px; border: 0px;', border: '0' %>
+                                                <%= image_tag logo_path, width: '240', style: 'width: 100%; max-width: 240px; border: 0px;', border: '0' %>
                                               <% end %>
                                             </td>
                                           </tr>

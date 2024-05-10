@@ -13,7 +13,8 @@ feature "ATT User visits app" do
   scenario "Sees login page at root path" do
     visit root_path
 
-    expect(page).to have_link 'Sign In with AT&T CSP'
+    expect(page).to have_link 'Login with AT&T SSO (AT&T Employees Only)'
+    expect(page).to have_link 'Login as Collaborator'
     expect(page).not_to have_content 'You need to sign in or sign up before continuing.'
   end
 

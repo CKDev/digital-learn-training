@@ -28,7 +28,7 @@
       </fieldset>
     <% end %>
 
-    <%= f.fields_for :collaborator_profile, resource.collaborator_profile do |profile_fields| %>
+    <%= f.fields_for :collaborator_profile, resource.build_collaborator_profile do |profile_fields| %>
       <fieldset>
         <%= profile_fields.label :first_name, "First Name", required: true %>
         <%= profile_fields.text_field :first_name, required: true %>
