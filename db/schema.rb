@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_06_034730) do
+ActiveRecord::Schema.define(version: 2024_05_10_175659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,22 @@ ActiveRecord::Schema.define(version: 2024_05_06_034730) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["type"], name: "index_ckeditor_assets_on_type"
+  end
+
+  create_table "collaborator_profiles", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "phone"
+    t.string "organization_name"
+    t.string "organization_city"
+    t.string "organization_state"
+    t.string "poc_name"
+    t.string "poc_email"
+    t.boolean "terms_of_service", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_collaborator_profiles_on_user_id"
   end
 
   create_table "course_material_files", force: :cascade do |t|
@@ -243,8 +259,16 @@ ActiveRecord::Schema.define(version: 2024_05_06_034730) do
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
     t.string "provider", default: "email", null: false
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.integer "invited_by_id"
+    t.string "invited_by_type"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end

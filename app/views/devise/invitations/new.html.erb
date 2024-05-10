@@ -1,0 +1,18 @@
+<h2><%= t "devise.invitations.new.header" %></h2>
+
+<%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <fieldset>
+    <% resource.class.invite_key_fields.each do |field| -%>
+      <div class="field">
+        <%= f.label field %>
+        <%= f.text_field field %>
+      </div>
+    <% end -%>
+  </fieldset>
+
+  <fieldset class="actions">
+    <%= f.submit t("devise.invitations.new.submit_button") %>
+  </fieldset>
+<% end %>

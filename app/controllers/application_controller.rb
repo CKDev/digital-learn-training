@@ -23,6 +23,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def after_invite_path_for(inviter, invitee)
+    admin_root_path
+  end
+
+  protected
+
+  def authenticate_inviter!
+    # Limit invitations to admins only
+    unless current_user.present? && current_user.admin?
+      flash[:alert] = "You are not authorized to view this page"
+      redirect_to root_path
+    end
+
+    return current_user
+  end
+
   private
 
   def current_organization

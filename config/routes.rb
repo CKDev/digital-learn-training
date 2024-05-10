@@ -47,7 +47,8 @@ Rails.application.routes.draw do
     sessions: "sessions",
     registrations: "registrations",
     passwords: "passwords",
-    saml_sessions: "saml_sessions"
+    saml_sessions: "saml_sessions",
+    invitations: "invitations"
   }
 
   match "/404", to: "errors#error_404", via: [:all]

@@ -136,6 +136,9 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise_invitable (2.0.9)
+      actionmailer (>= 5.0)
+      devise (>= 4.6)
     devise_saml_authenticatable (1.6.3)
       devise (> 2.0.0)
       ruby-saml (~> 1.7)
@@ -419,6 +422,7 @@ DEPENDENCIES
   data_migrate (~> 9.2.0)
   database_cleaner
   devise
+  devise_invitable (~> 2.0.0)
   devise_saml_authenticatable (~> 1.6.3)
   factory_bot_rails
   faker

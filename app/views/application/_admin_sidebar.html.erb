@@ -11,3 +11,7 @@
 <ul class="sidebar-links unmarked">
   <li><%= link_to "Change Login Information", edit_user_registration_path, class: add_active_base_link(["users/edit"]) %></li>
 </ul>
+<hr />
+<ul class="sidebar-links unmarked">
+  <li><%= link_to "Invite Collaborator", new_user_invitation_path, class: add_active_base_link(["users/invitation/new"]) %></li>
+</ul>
