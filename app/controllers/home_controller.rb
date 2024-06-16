@@ -11,11 +11,6 @@ class HomeController < ApplicationController
     @hardware = @categories.where(tag: "Hardware")
     @software_and_applications = @categories.where(tag: "Software & Applications")
     @job_and_career = @categories.where(tag: "Job & Career")
-    
-
-    if params[:login_warning]
-      @login_warning = collaborator_redistribution_warning
-    end
   end
 
   def language_toggle
@@ -41,11 +36,5 @@ class HomeController < ApplicationController
     requested_locale = params['lang']
     whitelisted_locales = %w(en es)
     session[:locale] = requested_locale if whitelisted_locales.include?(requested_locale)
-  end
-
-  def collaborator_redistribution_warning
-    "I understand and agree that any unauthorized modification, alteration, " +
-    "or revision of the Content is strictly prohibited without the express written consent of AT&T. " +
-    "For permissions or inquiries, I understand that I should contact AT&T directly."
   end
 end

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :course_materials_medias, only: [:index, :show]
   end
   resources :categories, only: [:show]
+  resource :collaborator_warnings, only: [:destroy]
 
   namespace :admin do
     root "course_materials#index"

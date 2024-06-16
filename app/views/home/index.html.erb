@@ -1,7 +1,3 @@
-<% if @login_warning %>
-  <%= render "shared/login_warning", warning: @login_warning %>
-<% end %>
-
 <% if current_organization %>
   <%= render "#{current_organization.subdomain}/courses/overview" %>
 <% else %>

@@ -1,0 +1,7 @@
+<% if current_organization&.subdomain == 'att' %>
+  <% if current_user&.collaborator? %>
+    <% unless session[:dismissed_collaborator_warning] %>
+      <%= render "shared/login_warning", warning: t('home.att_collaborator_warning') %>
+    <% end %>
+  <% end %>
+<% end %>

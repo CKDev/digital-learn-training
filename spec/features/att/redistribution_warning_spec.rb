@@ -14,11 +14,13 @@ feature "User access request" do
     log_in user
   end
 
-  scenario "shows warning on login only" do
+  scenario "shows warning until dismissal" do
     expect(page).to have_current_path(root_path, ignore_query: true)
     expect(page).to have_content(warning_message)
     click_link "Courses"
-    visit root_path
+    expect(page).to have_content(warning_message)
+    click_link "Dismiss"
+    expect(current_path).to eq(course_materials_path)
     expect(page).not_to have_content(warning_message)
   end
 end

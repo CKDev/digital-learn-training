@@ -1,14 +1,13 @@
 <div class="login-warning" id="login-warning">
   <em><%= warning %></em>
-  <%= link_to "Dismiss", "#", class: "dismiss-link", id: "dismiss-link" %>
+  <%= link_to "Dismiss", collaborator_warnings_path, method: :delete, class: "dismiss-link", id: "dismiss-link" %>
 </div>
 
 <script>
   var dismissLink = document.getElementById("dismiss-link");
   dismissLink.addEventListener("click", function(e) {
     e.preventDefault();
-    var warningElement = document.getElementById("login-warning");
-    warningElement.parentNode.removeChild(warningElement);
-    window.history.replaceState(null, '', window.location.pathname);
+    var form = dismissLink.closest('form');
+    form.submit();
   });
 </script>
