@@ -46,7 +46,7 @@ Capybara.server = :webrick
 Capybara.javascript_driver = :selenium_chrome_headless
 
 # Configure webmock to disallow network connections
-allowed_hosts = ['chromedriver.storage.googleapis.com','googlechromelabs.github.io']
+allowed_hosts = ['storage.googleapis.com', 'googlechromelabs.github.io']
 WebMock.disable_net_connect!({ allow_localhost: true,
                                allow: allowed_hosts })
 

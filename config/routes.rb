@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :course_materials_medias, only: [:index, :show]
   end
   resources :categories, only: [:show]
+  resource :collaborator_warnings, only: [:destroy]
 
   namespace :admin do
     root "course_materials#index"
@@ -41,11 +42,14 @@ Rails.application.routes.draw do
     get 'login'
   end
 
+  resources :access_requests, only: [:new, :create]
+
   devise_for :users, controllers: {
     sessions: "sessions",
     registrations: "registrations",
     passwords: "passwords",
-    saml_sessions: "saml_sessions"
+    saml_sessions: "saml_sessions",
+    invitations: "invitations"
   }
 
   match "/404", to: "errors#error_404", via: [:all]

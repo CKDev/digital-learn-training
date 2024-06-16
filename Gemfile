@@ -8,6 +8,8 @@ gem "coffee-rails"
 gem "uglifier", ">= 1.3.0"
 gem "jquery-rails"
 gem "sidekiq", "< 8"
+gem "recaptcha", "~> 5.16"
+gem "net-http"
 
 # Use Redis adapter to run Action Cable in production
 gem "redis"
@@ -56,6 +58,9 @@ gem 'rack-proxy'
 # Data migrations
 gem 'data_migrate', '~>9.2.0'
 
+# Invitations
+gem 'devise_invitable', '~> 2.0.0'
+
 group :development, :test do
   gem "pry"
   gem "pry-byebug"
@@ -63,6 +68,7 @@ group :development, :test do
   gem "bullet"
   gem "listen" # Required by Rails
   gem "rspec-rails"
+  gem "faker"
 end
 
 group :development do

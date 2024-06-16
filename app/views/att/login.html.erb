@@ -1,3 +1,9 @@
-<%= link_to new_saml_user_session_path do %>
-  <button class="att-csp-button">Sign In with AT&T CSP</button>
-<% end %>
+<div class='login-links'>
+  <%= link_to new_saml_user_session_path do %>
+    <button class="att-csp-button">Login with AT&T SSO (AT&T Employees Only)</button>
+  <% end %>
+
+  <%= link_to new_user_session_path do %>
+    <button class="att-csp-button">Login as Collaborator</button>
+  <% end %>
+</div>
