@@ -33,5 +33,5 @@
 </p>
 
 <p>
-  <%= link_to 'Invite User via DigitalLearn', new_user_invitation_url(subdomain: @access_request.organization.subdomain, access_request_id: @access_request), class: 'button' %>
+  <%= link_to 'Invite User via DigitalLearn', new_user_invitation_url(access_request_id: @access_request), class: 'button' %>
 </p>
