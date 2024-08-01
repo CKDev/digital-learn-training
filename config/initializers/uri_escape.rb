@@ -1,5 +1,6 @@
 module URI
   def self.escape(url)
-    encode_www_form_component(url)
+    parser = URI::Parser.new
+    parser.escape(url)
   end
 end
