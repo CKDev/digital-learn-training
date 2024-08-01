@@ -148,7 +148,7 @@
                                           <tr>
                                             <td style="font-size:6px; line-height:10px; padding:30px 0px 0px 0px;"
                                               valign="top" align="center">
-                                              <% logo_path = @mailer_subdomain.present? ? "#{@mailer_subdomain}_logo.png" : "dl_logo.png" %>
+                                              <% logo_path = @organization_subdomain.present? ? "#{@organization_subdomain}_logo.png" : "dl_logo.png" %>
                                               <%= link_to root_url(subdomain: @mailer_subdomain) do %>
                                                 <%= image_tag logo_path, width: '240', style: 'width: 100%; max-width: 240px; border: 0px;', border: '0' %>
                                               <% end %>
