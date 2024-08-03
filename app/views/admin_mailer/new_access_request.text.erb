@@ -16,4 +16,4 @@ AT&T Point of Contact Email: <%= @access_request.poc_email || 'Not Provided' %>
 
 Access Requested At: <%= @access_request.created_at.strftime(DateFormats.datetime) %>
 
-Invite User via DigitalLearn: <%= new_user_invitation_url(access_request_id: @access_request) %>
+Invite User via DigitalLearn: <%= new_user_invitation_url(subdomain: @mailer_subdomain, access_request_id: @access_request) %>
