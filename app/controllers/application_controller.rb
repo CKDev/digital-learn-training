@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
     # Limit invitations to admins only
     unless current_user.present? && current_user.admin?
       flash[:alert] = "You are not authorized to view this page"
-      redirect_to root_path
+      redirect_to admin_root_path
     end
 
     return current_user
