@@ -1,0 +1,37 @@
+<h3>New DigitalLearn Access Request</h3>
+
+<p>
+  <strong>Full Name:</strong> <%= @access_request.full_name %>
+</p>
+
+<p>
+  <strong>Organization Name:</strong> <%= @access_request.organization_name %>
+</p>
+
+<p>
+  <strong>Email:</strong> <%= mail_to @access_request.email %>
+</p>
+
+<p>
+  <strong>Phone:</strong> <%= link_to @access_request.phone, "tel:#{@access_request.phone}" %>
+</p>
+
+<p>
+  <strong>Request Reason:</strong> <%= @access_request.request_reason %>
+</p>
+
+<p>
+  <strong>AT&T Point of Contact Name:</strong> <%= @access_request.poc_name || 'Not Provided' %>
+</p>
+
+<p>
+  <strong>AT&T Point of Contact Email:</strong> <%= @access_request.poc_email || 'Not Provided' %>
+</p>
+
+<p>
+  <strong>Access Requested At:</strong> <%= @access_request.created_at.in_time_zone('Mountain Time (US & Canada)').strftime(DateFormats.datetime) %>
+</p>
+
+<p>
+  <%= link_to 'Invite User via DigitalLearn', new_user_invitation_url(subdomain: @mailer_subdomain, access_request_id: @access_request), class: 'button' %>
+</p>

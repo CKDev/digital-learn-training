@@ -8,6 +8,7 @@ en:
       att: "Tools and Resources for Instructors"
   home:
     att_course_attribution: "This module was made possible by AT&T"
+    att_collaborator_warning: "I understand and agree that any unauthorized modification, alteration, or revision of the Content is strictly prohibited without the express written consent of AT&T. For permissions or inquiries, I understand that I should contact AT&T directly."
   certificate:
     this_award: "This award certifies that"
     name_fill: "_____________________"
@@ -59,3 +60,7 @@ en:
     activity: "Activity"
     continue: "Continue"
     repeat_activity: "Repeat Activity"
+  activerecord:
+    attributes:
+      access_request:
+        phone: "Phone number"

@@ -1,0 +1,97 @@
+<h2><%= t "devise.invitations.edit.header" %></h2>
+
+<%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  <%= f.hidden_field :invitation_token, readonly: true %>
+
+  <div class="eight columns">
+    <% if f.object.class.require_password_on_accepting %>
+      <fieldset>
+        <div class="field">
+          <%= f.label :email, "Email Address" %>
+          <%= f.email_field :email, disabled: true %>
+        </div>
+      </fieldset>
+      
+      <fieldset>
+        <div class="field">
+          <%= f.label :password, required: true %>
+          <%= f.password_field :password, required: true %>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <div class="field">
+          <%= f.label :password_confirmation, required: true %>
+          <%= f.password_field :password_confirmation, required: true %>
+        </div>
+      </fieldset>
+    <% end %>
+
+    <%= f.fields_for :collaborator_profile, resource.build_collaborator_profile do |profile_fields| %>
+      <fieldset>
+        <%= profile_fields.label :first_name, "First Name", required: true %>
+        <%= profile_fields.text_field :first_name, required: true %>
+      </fieldset>
+
+      <fieldset>
+        <%= profile_fields.label :last_name, "Last Name", required: true %>
+        <%= profile_fields.text_field :last_name, required: true %>
+      </fieldset>
+
+      <fieldset>
+        <%= profile_fields.label :phone, "Phone Number" %>
+        <%= profile_fields.text_field :phone, required: true, maxlength: 10 %>
+      </fieldset>
+
+      <fieldset>
+        <%= profile_fields.label :organization_name, "Organization Name", required: true %>
+        <%= profile_fields.text_field :organization_name, required: true %>
+      </fieldset>
+
+      <fieldset>
+        <%= profile_fields.label :organization_city, "Organization City", required: true %>
+        <%= profile_fields.text_field :organization_city, required: true %>
+      </fieldset>
+
+      <fieldset>
+        <%= profile_fields.label :organization_state, "Organization State", required: true %>
+        <%= profile_fields.select :organization_state, options_for_select(STATE_SELECT_OPTIONS), required: true %>
+      </fieldset>
+
+      <fieldset>
+        <%= profile_fields.label :poc_name, "AT&T Point of Contact first and last name", required: true %>
+        <%= profile_fields.text_field :poc_name, required: true %>
+      </fieldset>
+
+      <fieldset>
+        <%= profile_fields.label :poc_email, "AT&T Point of Contact email address", required: true %>
+        <%= profile_fields.email_field :poc_email, required: true %>
+      </fieldset>
+
+      <fieldset>
+        <div class="terms">
+          <p>
+            By accessing these materials, data, and documents ("Content") contained herein,
+            I hereby acknowledge and accept that they are the proprietary property of AT&T Services, Inc.
+            or its affiliates. I understand and agree that any unauthorized modification, alteration,
+            or revision of the Content is strictly prohibited without the express written consent of AT&T.
+            I also acknowledge that any violation of these terms may be subject to legal action.
+            I hereby express my understanding and willingness to comply with these terms.
+            For permissions or inquiries, I understand that I should contact AT&T directly.
+          </p>
+        </div>
+        <%= profile_fields.check_box :terms_of_service, required: true %>
+        <%= profile_fields.label :terms_of_service, "I accept these Terms and Conditions", required: true, class: "inline-label" %>
+      </fieldset>
+    <% end %>
+
+    <fieldset>
+      <%= recaptcha_tags %>
+    </fieldset>
+
+    <fieldset class="actions">
+      <%= f.submit t("devise.invitations.edit.submit_button") %>
+    </fieldset>
+  </div>
+<% end %>

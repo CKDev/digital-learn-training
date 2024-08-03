@@ -15,12 +15,36 @@ class ApplicationController < ActionController::Base
     user_signed_in? && current_user.admin?
   end
 
+  def after_sign_in_path_for(user)
+    if user.collaborator?
+      root_path(user, login_warning: true)
+    else
+      stored_location_for(user) || signed_in_root_path(user)
+    end
+  end
+
   def after_sign_out_path_for(resource)
     if authenticated_with_saml?
       destroy_saml_user_session_path
     else
       root_path
     end
+  end
+
+  def after_invite_path_for(inviter, invitee)
+    admin_root_path
+  end
+
+  protected
+
+  def authenticate_inviter!
+    # Limit invitations to admins only
+    unless current_user.present? && current_user.admin?
+      flash[:alert] = "You are not authorized to view this page"
+      redirect_to admin_root_path
+    end
+
+    return current_user
   end
 
   private

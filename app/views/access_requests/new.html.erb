@@ -1,0 +1,54 @@
+<h1>Request Collaborator Access</h1>
+
+<%= form_for @access_request do |f| %>
+  <section class='six columns'>
+    <fieldset>
+      <%= f.label :full_name, 'Full Name', required: true %>
+      <%= f.text_field :full_name, required: true %>
+    </fieldset>
+
+    <fieldset>
+      <%= f.label :organization_name, 'Organization Name', required: true %>
+      <%= f.text_field :organization_name, required: true %>
+    </fieldset>
+
+    <fieldset>
+      <%= f.label :email, required: true %>
+      <%= f.email_field :email, required: true %>
+    </fieldset>
+
+    <fieldset>
+      <%= f.label :phone, 'Phone Number', required: true %>
+      <%= f.text_field :phone, required: true, maxlength: 10 %>
+    </fieldset>
+
+    <fieldset>
+      <%= f.label :request_reason, 'Please provide a brief explanation for requesting access to materials', required: true %>
+      <%= f.text_area :request_reason %>
+    </fieldset>
+  </section>
+
+  <section class='six columns'>
+    <h4>AT&T Point of Contact info</h4>
+
+    <fieldset>
+      <%= f.label :poc_name, 'Point of Contact First Name' %>
+      <%= f.text_field :poc_name %>
+    </fieldset>
+
+    <fieldset>
+      <%= f.label :poc_email, 'Point of Contact Email address' %>
+      <%= f.email_field :poc_email %>
+    </fieldset>
+  </section>
+
+  <section class='six columns'>
+    <fieldset>
+      <%= recaptcha_tags %>
+    </fieldset>
+  </section>
+
+  <section class='six columns'>
+    <%= f.submit 'Submit Access Request' %>
+  </section>
+<% end %>

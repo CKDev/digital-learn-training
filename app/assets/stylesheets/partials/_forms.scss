@@ -23,6 +23,13 @@ label.plain {
   font-weight: bold;
 }
 
+label[required="required"] {
+  &:after {
+    content: " *";
+    font-weight: bold;
+  }
+}
+
 input[type="text"], input[type="email"], input[type="password"], input[type="url"], textarea {
   width: 100%;
   padding: 0.8rem;
