@@ -41,4 +41,12 @@
     Don't have a collaborator account?
     <%= link_to 'Request Access', new_access_request_path %>
   </div>
+
+  <br />
+  <div class='access-request-prompt'>
+    Are you an AT&T Employee?
+    <%= link_to 'Login with AT&T SSO', new_saml_user_session_path %>
+  </div>
 <% end %>
+
+

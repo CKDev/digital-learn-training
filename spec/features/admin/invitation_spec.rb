@@ -6,13 +6,14 @@ feature "Admins can send invitations" do
     log_in user
     visit new_user_invitation_path
     expect(page).to have_current_path(root_path)
-    expect(page).to have_content("You are not authorized to view this page")
+    expect(page).to have_content("You are not authorized to view this page.")
   end
 
   context "authenticated admin" do
     let(:admin) { FactoryBot.create(:admin) }
 
     before :each do
+      FactoryBot.create(:att)
       log_in admin
       click_link "Admin Dashboard"
     end

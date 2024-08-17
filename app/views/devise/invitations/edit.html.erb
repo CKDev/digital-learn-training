@@ -28,7 +28,7 @@
       </fieldset>
     <% end %>
 
-    <%= f.fields_for :collaborator_profile, resource.build_collaborator_profile do |profile_fields| %>
+    <%= f.fields_for :collaborator_profile, f.object.collaborator_profile do |profile_fields| %>
       <fieldset>
         <%= profile_fields.label :first_name, "First Name", required: true %>
         <%= profile_fields.text_field :first_name, required: true %>
@@ -56,7 +56,7 @@
 
       <fieldset>
         <%= profile_fields.label :organization_state, "Organization State", required: true %>
-        <%= profile_fields.select :organization_state, options_for_select(STATE_SELECT_OPTIONS), required: true %>
+        <%= profile_fields.select :organization_state, options_for_select(STATE_SELECT_OPTIONS, f.object.collaborator_profile.organization_state), required: true %>
       </fieldset>
 
       <fieldset>

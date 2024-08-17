@@ -14,6 +14,24 @@ class InvitationsController < Devise::InvitationsController
     render :new
   end
 
+  def edit
+    access_request = AccessRequest.find_by(email: resource.email)
+    collaborator_profile = resource.build_collaborator_profile
+
+    if access_request.present?
+      collaborator_profile.assign_attributes(
+        first_name: access_request.full_name.split(' ', 2).first,
+        last_name: access_request.full_name.split(' ', 2).last,
+        phone: access_request.phone,
+        organization_name: access_request.organization_name,
+        poc_name: access_request.poc_name,
+        poc_email: access_request.poc_email
+      )
+    end
+
+    super
+  end
+
   def update
     super do |user|
       verify_recaptcha(model: user)
