@@ -5,7 +5,7 @@ module Admin
 
     def authorize_admin!
       unless current_user.admin?
-        flash[:alert] = "Access denied."
+        flash[:alert] = "You are not authorized to view this page."
         redirect_to root_path
       end
     end
