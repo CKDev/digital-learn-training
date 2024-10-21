@@ -6,7 +6,6 @@ class HomeController < ApplicationController
     set_locale
     @courses = Course.published.limit(2)
     @categories = get_categories
-    redirect_to category_path(@categories.first) if @categories.count == 1
     @getting_started = @categories.where(tag: "Getting Started")
     @hardware = @categories.where(tag: "Hardware")
     @software_and_applications = @categories.where(tag: "Software & Applications")
