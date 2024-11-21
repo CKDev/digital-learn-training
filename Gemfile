@@ -84,11 +84,8 @@ group :test do
   gem "factory_bot_rails"
   gem "rails-controller-testing"
   gem "capybara"
-  gem "webdrivers"
-  gem "database_cleaner"
-  gem "launchy"
+  gem "selenium-webdriver", '~> 4.0'
   gem "mocha"
   gem "simplecov", require: false
   gem "timecop"
-  gem "webmock"
 end
