@@ -1,9 +1,8 @@
 require "feature_helper"
 
 feature "User access request" do
-  let!(:att) { FactoryBot.create(:att) }
-
   before do
+    FactoryBot.create(:att)
     switch_to_subdomain "training.att"
   end
 
@@ -39,6 +38,7 @@ feature "User access request" do
   end
 
   scenario "admin sends user invite" do
+    skip "Need to write this test"
   end
 
   scenario "user accepts invitation" do
@@ -74,5 +74,6 @@ feature "User access request" do
   end
 
   scenario "existing approved user signs in with credentials" do
+    skip "Need to write"
   end
 end

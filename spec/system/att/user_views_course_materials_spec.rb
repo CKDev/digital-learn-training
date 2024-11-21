@@ -13,7 +13,7 @@ feature "ATT User views course materials" do
     reset_subdomain
   end
 
-  context "no categories" do
+  context "when no categories" do
     scenario "via homepage" do
       visit root_path
 

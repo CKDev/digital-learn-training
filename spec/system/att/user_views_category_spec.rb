@@ -1,7 +1,7 @@
 require "feature_helper"
 
 feature "User views category index" do
-  context "User is part of an organization" do
+  context "when user is part of an organization" do
     let(:att) { FactoryBot.create(:att) }
     let(:user) { FactoryBot.create(:user, provider: :saml) }
     let(:category) { FactoryBot.create(:category, organization: att) }
@@ -28,7 +28,7 @@ feature "User views category index" do
     end
   end
 
-  context "user is not part of an organization" do
+  context "when user is not part of an organization" do
     let(:user) { FactoryBot.create(:user) }
     let(:category) { FactoryBot.create(:category) }
 

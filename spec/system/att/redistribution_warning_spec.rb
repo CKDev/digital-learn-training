@@ -1,7 +1,6 @@
 require "feature_helper"
 
 feature "User access request" do
-  let!(:att) { FactoryBot.create(:att) }
   let(:user) { FactoryBot.create(:user, :with_collaborator_profile) }
   let(:warning_message) do
     "I understand and agree that any unauthorized modification, alteration, " \
@@ -10,6 +9,7 @@ feature "User access request" do
   end
 
   before do
+    FactoryBot.create(:att)
     switch_to_subdomain "training.att"
     log_in user
   end

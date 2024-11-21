@@ -2,11 +2,11 @@ require "feature_helper"
 
 feature "Admins can manage categories pages" do
   let!(:att_org) { FactoryBot.create(:att) }
+  let!(:category) { FactoryBot.create(:category) }
 
   before do
-    @category = FactoryBot.create(:category)
-    @admin = FactoryBot.create(:admin)
-    log_in @admin
+    admin = FactoryBot.create(:admin)
+    log_in admin
   end
 
   scenario "can view categories index" do
@@ -23,7 +23,7 @@ feature "Admins can manage categories pages" do
     select "None (Main Training Site)", from: "Organization"
     find("#category_title").set("New Category Title")
     find("#category_description").set("Description")
-    select @category.tag, from: "Tag"
+    select category.tag, from: "Tag"
     click_link "Add Subcategory"
     fill_in "category[sub_categories_attributes][0][title]", with: "Subcategory Title"
     click_button "Save Category"
@@ -37,7 +37,7 @@ feature "Admins can manage categories pages" do
     select "AT&T", from: "Organization"
     fill_in "Title", with: "AT&T Category Title"
     fill_in "Description", with: "Description"
-    select @category.tag, from: "Tag"
+    select category.tag, from: "Tag"
 
     expect do
       click_button "Save Category"
@@ -53,9 +53,9 @@ feature "Admins can manage categories pages" do
   scenario "can edit an existing Category page" do
     visit admin_categories_path
     within "main" do
-      click_link @category.title
+      click_link category.title
     end
-    expect(current_path).to eq edit_admin_category_path(@category)
+    expect(current_path).to eq edit_admin_category_path(category)
     find("#category_title").set("Updated Title")
     click_button "Save Category"
     expect(current_path).to eq admin_categories_path
@@ -65,10 +65,9 @@ feature "Admins can manage categories pages" do
   end
 
   scenario "can edit existing Organization category" do
-    category = FactoryBot.create(:category, organization: att_org)
+    category.update(organization: att_org)
     visit edit_admin_category_path(category)
 
     expect(page).to have_select("Organization", selected: "AT&T")
   end
-
 end
