@@ -29,13 +29,9 @@ gem 'devise_saml_authenticatable', '~> 1.6.3'
 gem "rollbar"
 
 # File uploads
-gem "paperclip"
+gem "kt-paperclip"
 
 gem "rubyzip", require: "zip" # ASL files
-
-# API Requests and Caching
-gem "api_cache"
-gem "moneta"
 
 # PDF generation for completion certificate
 gem "wicked_pdf"
