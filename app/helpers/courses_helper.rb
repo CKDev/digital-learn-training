@@ -18,12 +18,13 @@ module CoursesHelper
     completed = session[:completed_lessons][course_id].reject(&:blank?).size
     total_lessons = course.lessons.published.count
     return 0 if total_lessons.zero?
+
     percent = (completed.to_f / total_lessons) * 100
     percent = 100 if percent > 100
     percent.round
   end
 
   def hide_language_links?
-    current_organization&.subdomain != 'att'
+    current_organization&.subdomain != "att"
   end
 end

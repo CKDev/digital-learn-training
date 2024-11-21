@@ -6,7 +6,7 @@ describe InvitationsController do
   end
 
   describe "PUT update" do
-    let(:email) { 'test@example.com' }
+    let(:email) { "test@example.com" }
     let(:user) { User.find_by(email: email) }
     let(:valid_acceptance_params) do
       {

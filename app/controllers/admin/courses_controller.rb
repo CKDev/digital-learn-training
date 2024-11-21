@@ -1,7 +1,7 @@
 module Admin
   class CoursesController < BaseController
 
-    before_action :set_course, only: [:show, :edit, :update, :destroy]
+    before_action :set_course, only: %i[show edit update destroy]
 
     def index
       @courses = Course.not_archived
@@ -72,7 +72,7 @@ module Admin
         :course_order,
         :pub_date,
         :new_course,
-        attachments_attributes: [:course_id, :document, :title, :doc_type, :file_description, :_destroy]
+        { attachments_attributes: %i[course_id document title doc_type file_description _destroy] }
       ]
       params.require(:course).permit(permitted_attributes)
     end

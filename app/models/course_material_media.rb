@@ -11,12 +11,12 @@ class CourseMaterialMedia < ApplicationRecord
   after_commit :create_zip_archive
 
   def self.attachment_name
-    'media'
+    "media"
   end
 
   private
 
   def create_zip_archive
-    CourseMaterialArchiveJob.perform_later course_material.id, 'course_material_medias', 'media'
+    CourseMaterialArchiveJob.perform_later course_material.id, "course_material_medias", "media"
   end
 end

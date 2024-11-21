@@ -32,8 +32,8 @@ class HomeController < ApplicationController
   end
 
   def set_locale
-    requested_locale = params['lang']
-    whitelisted_locales = %w(en es)
+    requested_locale = params["lang"]
+    whitelisted_locales = %w[en es]
     session[:locale] = requested_locale if whitelisted_locales.include?(requested_locale)
   end
 end

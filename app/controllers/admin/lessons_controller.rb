@@ -66,8 +66,8 @@ module Admin
 
     def lesson_params
       params.require(:lesson).permit(:title, :summary, :duration,
-        :story_line, :seo_page_title, :meta_desc,
-        :is_assessment, :lesson_order, :pub_status)
+                                     :story_line, :seo_page_title, :meta_desc,
+                                     :is_assessment, :lesson_order, :pub_status)
     end
   end
 end

@@ -13,7 +13,7 @@ class CourseMaterialsFilesController < ApplicationController
   def index
     @course_material = CourseMaterial.friendly.find(params[:course_material_id])
 
-    course_title = @course_material.title.parameterize(separator: '_')
+    course_title = @course_material.title.parameterize(separator: "_")
     file_options = { filename: "#{course_title}_file_archive.zip", disposition: "inline", x_sendfile: true }
 
     file_location = Rails.application.config.s3_enabled ? @course_material.file_archive.url : @course_material.file_archive.path

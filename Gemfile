@@ -19,7 +19,7 @@ gem "redis-namespace"
 gem "devise"
 
 # SAML authentication
-gem 'devise_saml_authenticatable', '~> 1.6.3'
+gem "devise_saml_authenticatable", "~> 1.6.3"
 
 # Bourbon for sass mixins, and neat for the grid framework
 # gem "bourbon", "4.3.4"
@@ -46,16 +46,16 @@ gem "cocoon" # Dynamic forms for has-many relationships
 gem "rack-attack" # Prevent botspam and allow white/blacklisting IPs, etc
 
 # AWS sdk for s3
-gem 'aws-sdk-s3', '~>1'
+gem "aws-sdk-s3", "~>1"
 
 # Rack::Proxy for S3 Proxy middleware
-gem 'rack-proxy'
+gem "rack-proxy"
 
 # Data migrations
-gem 'data_migrate', '~>9.2.0'
+gem "data_migrate", "~>9.2.0"
 
 # Invitations
-gem 'devise_invitable', '~> 2.0.0'
+gem "devise_invitable", "~> 2.0.0"
 
 group :development, :test do
   gem "pry"
@@ -80,7 +80,7 @@ group :test do
   gem "factory_bot_rails"
   gem "rails-controller-testing"
   gem "capybara"
-  gem "selenium-webdriver", '~> 4.0'
+  gem "selenium-webdriver", "~> 4.0"
   gem "mocha"
   gem "simplecov", require: false
   gem "timecop"

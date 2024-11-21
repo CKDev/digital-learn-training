@@ -13,7 +13,7 @@ class CourseMaterial < ApplicationRecord
   validates :contributor, length: { maximum: 156 }, presence: true
   validates :summary, presence: true, length: { maximum: 74 }
   validates :pub_status, presence: true,
-    inclusion: { in: %w(P D A), message: "%{value} is not a valid status" }
+    inclusion: { in: %w(P D A), message: "%<value>s is not a valid status" }
   validates :language, presence: true, inclusion: { in: %w(en es) }
   validate :allowed_change?
   validates :sort_order, presence: true, numericality: { only_integer: true, greater_than: 0 }
@@ -61,7 +61,7 @@ class CourseMaterial < ApplicationRecord
 
   def unique_title
     scope = category&.organization.present? ? category.organization.course_materials : CourseMaterial.non_organization
-    errors.add(:title, 'has already been taken') if scope.where(title: title).where.not(id: id).exists?
+    errors.add(:title, "has already been taken") if scope.where(title: title).where.not(id: id).exists?
   end
 
 end

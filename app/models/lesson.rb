@@ -12,7 +12,7 @@ class Lesson < ApplicationRecord
   validates :lesson_order, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :seo_page_title, length: { maximum: 90 }
   validates :meta_desc, length: { maximum: 156 }
-  validates :pub_status, presence: true, inclusion: { in: %w(P D A), message: "%{value} is not a valid status" }
+  validates :pub_status, presence: true, inclusion: { in: %w(P D A), message: "%<value>s is not a valid status" }
   validates_attachment :story_line, presence: true,
     content_type: { content_type: ["application/zip", "application/x-zip"] }, size: { in: 0..100.megabytes }
 
@@ -57,6 +57,7 @@ class Lesson < ApplicationRecord
 
   def published_lesson_order
     return 0 unless self.published?
+
     self.course.lessons.published.map(&:id).index(self.id) + 1
   end
 

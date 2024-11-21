@@ -10,7 +10,7 @@ feature "Users can view a course" do
 
     let!(:spanish_course) do
       FactoryBot.create(:course_material, title: "El Curso de Español",
-                                          pub_status: "P", 
+                                          pub_status: "P",
                                           language: :es)
     end
 

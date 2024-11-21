@@ -1,7 +1,7 @@
 class AttachmentZipper
   def initialize(course_material_id, association_name, attachment_type)
     @course_material = CourseMaterial.find(course_material_id)
-    @course_title = @course_material.title.parameterize(separator: '_')
+    @course_title = @course_material.title.parameterize(separator: "_")
     @attachments = @course_material.send(association_name.to_sym)
     @attachment_type = attachment_type
   end

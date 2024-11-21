@@ -75,8 +75,8 @@ describe CoursesController do
       attachment = FactoryBot.create(:docx_attachment)
       course = attachment.course
       get :view_attachment, params: { course_id: course.id, attachment_id: attachment.id }
-      returned_content_types = response.headers['Content-Type']
-      expect(returned_content_types).to eq('application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+      returned_content_types = response.headers["Content-Type"]
+      expect(returned_content_types).to eq("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
     end
 
   end

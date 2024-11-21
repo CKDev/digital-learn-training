@@ -8,16 +8,16 @@ class SubdomainBuilder
     subdomain_components = []
 
     case @environment
-    when 'production'
+    when "production"
       # training.[org_subdomain?].digitallearn.org
-      subdomain_components << 'training'
-    when 'staging'
+      subdomain_components << "training"
+    when "staging"
       # staging.training.[org_subdomain?].digitallearn.org
-      subdomain_components << 'staging'
-      subdomain_components << 'training'
+      subdomain_components << "staging"
+      subdomain_components << "training"
     end
 
     subdomain_components << @organization.subdomain
-    return subdomain_components.join('.')
+    subdomain_components.join(".")
   end
 end

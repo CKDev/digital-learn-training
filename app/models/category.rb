@@ -10,7 +10,7 @@ class Category < ApplicationRecord
   has_many :course_materials
 
   validates :title, presence: true
-  validates :tag, presence: true, inclusion: { in: ALLOWED_TAGS.map(&:to_s), message: "%{value} is not valid" }
+  validates :tag, presence: true, inclusion: { in: ALLOWED_TAGS.map(&:to_s), message: "%<value>s is not valid" }
 
   accepts_nested_attributes_for :sub_categories, reject_if: :all_blank, allow_destroy: true
   validates_associated :sub_categories

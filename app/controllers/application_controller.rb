@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_out_path_for(resource)
+  def after_sign_out_path_for(_resource)
     if authenticated_with_saml?
       destroy_saml_user_session_path
     else
@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_invite_path_for(inviter, invitee)
+  def after_invite_path_for(_inviter, _invitee)
     admin_root_path
   end
 
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
       redirect_to admin_root_path
     end
 
-    return current_user
+    current_user
   end
 
   private
@@ -72,13 +72,13 @@ class ApplicationController < ActionController::Base
   end
 
   def current_language
-    session[:locale] || 'en'
+    session[:locale] || "en"
   end
 
   def current_language_name
     case current_language
-    when 'es' then 'Spanish'
-    when 'en' then 'English'
+    when "es" then "Spanish"
+    when "en" then "English"
     end
   end
 end

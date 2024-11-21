@@ -38,7 +38,7 @@ feature "Admins can manage categories pages" do
     fill_in "Title", with: "AT&T Category Title"
     fill_in "Description", with: "Description"
     select @category.tag, from: "Tag"
-    
+
     expect do
       click_button "Save Category"
     end.to change { Category.where(organization: att_org).count }.by(1)

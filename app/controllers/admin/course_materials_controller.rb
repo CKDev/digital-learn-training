@@ -60,9 +60,10 @@ module Admin
         :pub_status,
         :language,
         :new_course,
-        course_material_files_attributes: [:id, :file, :_destroy],
-        course_material_medias_attributes: [:id, :media, :_destroy],
-        course_material_videos_attributes: [:id, :url, :_destroy])
+        course_material_files_attributes: %i[id file _destroy],
+        course_material_medias_attributes: %i[id media _destroy],
+        course_material_videos_attributes: %i[id url _destroy]
+)
     end
 
     def categories_array

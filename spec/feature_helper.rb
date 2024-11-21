@@ -1,14 +1,14 @@
 require "rails_helper"
 require "capybara/rails"
 require "capybara/rspec"
-require 'selenium/webdriver'
+require "selenium/webdriver"
 
 Capybara.register_driver :selenium_headless do |app|
   options = Selenium::WebDriver::Chrome::Options.new
-  options.add_argument('--headless')
-  options.add_argument('--disable-gpu')
-  options.add_argument('--no-sandbox')
-  options.add_argument('--window-size=1920,1400')
+  options.add_argument("--headless")
+  options.add_argument("--disable-gpu")
+  options.add_argument("--no-sandbox")
+  options.add_argument("--window-size=1920,1400")
 
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
@@ -49,15 +49,14 @@ end
 
 def alert_present?
   driver.switch_to.alert
-  return true
-rescue
-  return false
+  true
+rescue StandardError
+  false
 end
-
 
 def switch_to_subdomain(subdomain, tld = nil)
   # lvh.me always resolves to 127.0.0.1
-  tld ||= 'lvh.me'
+  tld ||= "lvh.me"
   host = subdomain ? "#{subdomain}.#{tld}" : tld
   Capybara.app_host = "http://#{host}"
 end
@@ -65,4 +64,3 @@ end
 def reset_subdomain
   Capybara.app_host = nil
 end
-

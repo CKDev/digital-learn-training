@@ -16,9 +16,10 @@ class CollaboratorProfile < ApplicationRecord
 
   def verify_phone_number
     return unless phone.present?
-    self.phone = phone.gsub(/\D/, '')
 
-    if !phone.match(/^\d{10}$/)
+    self.phone = phone.gsub(/\D/, "")
+
+    unless phone.match(/^\d{10}$/)
       errors.add(:phone, "must be 10 numeric digits")
     end
   end

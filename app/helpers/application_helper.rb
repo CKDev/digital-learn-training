@@ -43,7 +43,7 @@ module ApplicationHelper
     end
     classes
   end
-  
+
   def contact_email
     current_organization&.contact_email || "support@digitallearn.org"
   end

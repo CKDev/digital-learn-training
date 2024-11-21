@@ -12,7 +12,7 @@ class Course < ApplicationRecord
   validates :seo_page_title, length: { maximum: 90 }
   validates :meta_desc, length: { maximum: 156 }
   validates :pub_status, presence: true,
-    inclusion: { in: %w(P D A), message: "%{value} is not a valid status" }
+    inclusion: { in: %w(P D A), message: "%<value>s is not a valid status" }
 
   accepts_nested_attributes_for :attachments, reject_if: proc { |a| a[:document].blank? }, allow_destroy: true
 
@@ -31,14 +31,16 @@ class Course < ApplicationRecord
     begin
       lesson_order = lessons.published.find(current_lesson_id).lesson_order
       return lessons.order("lesson_order").last.id if lesson_order >= last_lesson_order
+
       self.lessons.published.where("lesson_order > ?", lesson_order).first.id
-    rescue
+    rescue StandardError
       lessons.published.order("lesson_order").first.id
     end
   end
 
   def last_lesson_order
     raise StandardError, "There are no available lessons for this course." if lessons.count.zero?
+
     lessons.maximum("lesson_order")
   end
 
