@@ -22,10 +22,10 @@ class LessonsController < ApplicationController
       @next_lesson = @course.lessons.find(@course.next_lesson_id(@lesson.id))
 
       # The change of course slug should 301 redirect.
-      if request.path != course_lesson_path(@course, @lesson)
-        redirect_to course_lesson_path(@course, @lesson), status: :moved_permanently
-      else
+      if request.path == course_lesson_path(@course, @lesson)
         render :show
+      else
+        redirect_to course_lesson_path(@course, @lesson), status: :moved_permanently
       end
 
     end

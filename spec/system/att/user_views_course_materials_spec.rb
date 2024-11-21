@@ -4,12 +4,12 @@ feature "ATT User views course materials" do
   let!(:att) { FactoryBot.create(:att) }
   let(:user) { FactoryBot.create(:user, provider: :saml) }
 
-  before :each do
+  before do
     switch_to_subdomain "training.att"
     login_as(user, scope: :user)
   end
 
-  after :each do
+  after do
     reset_subdomain
   end
 

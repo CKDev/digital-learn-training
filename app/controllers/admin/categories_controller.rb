@@ -2,12 +2,16 @@ module Admin
   class CategoriesController < BaseController
 
     def index
-      @categories = Category.all.order(:title)
+      @categories = Category.order(:title)
     end
 
     def new
       @category = Category.new
       @category.sub_categories.build
+    end
+
+    def edit
+      @category = Category.friendly.find(params[:id])
     end
 
     def create
@@ -17,10 +21,6 @@ module Admin
       else
         render :new
       end
-    end
-
-    def edit
-      @category = Category.friendly.find(params[:id])
     end
 
     def update

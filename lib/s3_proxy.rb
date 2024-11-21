@@ -20,7 +20,7 @@ class S3Proxy < Rack::Proxy
       # don't send your sites cookies to target service, unless it is a trusted internal service that can parse all your cookies
       env["HTTP_COOKIE"] = ""
 
-      super(env)
+      super
     else
       @app.call(env)
     end

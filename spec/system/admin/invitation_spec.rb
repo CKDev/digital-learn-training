@@ -12,7 +12,7 @@ feature "Admins can send invitations" do
   context "authenticated admin" do
     let(:admin) { FactoryBot.create(:admin) }
 
-    before :each do
+    before do
       FactoryBot.create(:att)
       log_in admin
       click_link "Admin Dashboard"

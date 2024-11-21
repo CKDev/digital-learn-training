@@ -4,11 +4,11 @@ describe CourseMaterialFile do
 
   context "validations" do
 
-    before :each do
+    before do
       @course_material_file = FactoryBot.create(:course_material_file)
     end
 
-    it "should initially be valid" do
+    it "initiallies be valid" do
       expect(@course_material_file.valid?).to be true
     end
 

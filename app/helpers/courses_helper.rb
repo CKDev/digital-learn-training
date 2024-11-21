@@ -15,7 +15,7 @@ module CoursesHelper
       session[:completed_lessons][course_id] = [lesson_id]
     end
 
-    completed = session[:completed_lessons][course_id].reject(&:blank?).size
+    completed = session[:completed_lessons][course_id].compact_blank.size
     total_lessons = course.lessons.published.count
     return 0 if total_lessons.zero?
 

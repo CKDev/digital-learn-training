@@ -3,7 +3,7 @@ class CourseMaterial < ApplicationRecord
   friendly_id :title, use: :slugged
 
   belongs_to :category
-  belongs_to :sub_category, required: false
+  belongs_to :sub_category, optional: true
   has_many :course_material_files, dependent: :destroy
   has_many :course_material_medias, dependent: :destroy
   has_many :course_material_videos, dependent: :destroy
@@ -35,7 +35,7 @@ class CourseMaterial < ApplicationRecord
   validates_attachment :media_archive, content_type: { content_type: ["application/zip", "application/x-zip"] }
 
   default_scope { order("sort_order") }
-  scope :in_category, ->(category_id) { joins(:category).where("categories.id = ?", category_id) }
+  scope :in_category, ->(category_id) { joins(:category).where(categories: { id: category_id }) }
   scope :published, -> { where(pub_status: "P") }
   scope :archived, -> { where(pub_status: "A") }
   scope :not_archived, -> { where.not(pub_status: "A") }

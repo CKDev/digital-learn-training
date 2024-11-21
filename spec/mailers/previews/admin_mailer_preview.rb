@@ -5,7 +5,7 @@ class AdminMailerPreview < ActionMailer::Preview
     access_request = AccessRequest.first
 
     if access_request.blank?
-      att = Organization.find_by_subdomain("att")
+      att = Organization.find_by(subdomain: "att")
       access_request = FactoryBot.create(:access_request, organization: att)
     end
 

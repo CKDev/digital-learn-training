@@ -14,7 +14,7 @@ class AccessRequest < ApplicationRecord
   private
 
   def verify_phone_number
-    return unless phone.present?
+    return if phone.blank?
 
     self.phone = phone.gsub(/\D/, "")
 

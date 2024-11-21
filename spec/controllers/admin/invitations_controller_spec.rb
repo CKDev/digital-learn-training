@@ -40,7 +40,7 @@ describe InvitationsController do
     it "creates a collaborator profile" do
       expect do
         put :update, params: valid_acceptance_params
-      end.to change { CollaboratorProfile.count }.by(1)
+      end.to change(CollaboratorProfile, :count).by(1)
 
       new_profile = CollaboratorProfile.last
       expect(new_profile.user).to eq(user)
@@ -52,7 +52,7 @@ describe InvitationsController do
       expect(new_profile.organization_state).to eq("CO")
       expect(new_profile.poc_name).to eq("Contact")
       expect(new_profile.poc_email).to eq("contact@example.com")
-      expect(new_profile.terms_of_service).to eq(true)
+      expect(new_profile.terms_of_service).to be(true)
     end
   end
 end

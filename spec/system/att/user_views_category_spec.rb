@@ -6,12 +6,12 @@ feature "User views category index" do
     let(:user) { FactoryBot.create(:user, provider: :saml) }
     let(:category) { FactoryBot.create(:category, organization: att) }
 
-    before :each do
+    before do
       switch_to_subdomain "training.att"
       login_as(user, scope: :user)
     end
 
-    after :each do
+    after do
       reset_subdomain
     end
 
@@ -32,7 +32,7 @@ feature "User views category index" do
     let(:user) { FactoryBot.create(:user) }
     let(:category) { FactoryBot.create(:category) }
 
-    before :each do
+    before do
       login_as(user, scope: :user)
     end
 

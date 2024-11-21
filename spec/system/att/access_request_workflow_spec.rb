@@ -3,11 +3,11 @@ require "feature_helper"
 feature "User access request" do
   let!(:att) { FactoryBot.create(:att) }
 
-  before :each do
+  before do
     switch_to_subdomain "training.att"
   end
 
-  after :each do
+  after do
     reset_subdomain
   end
 

@@ -4,7 +4,7 @@ feature "Admins can manage course pages" do
   let!(:category) { FactoryBot.create(:category) }
   let(:admin) { FactoryBot.create(:admin) }
 
-  before :each do
+  before do
     log_in admin
   end
 

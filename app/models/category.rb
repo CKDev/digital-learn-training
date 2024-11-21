@@ -2,7 +2,7 @@ class Category < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-  belongs_to :organization, required: false
+  belongs_to :organization, optional: true
 
   ALLOWED_TAGS = ["Getting Started", "Hardware", "Software & Applications", "Job & Career", "Other"].freeze
   has_many :sub_categories

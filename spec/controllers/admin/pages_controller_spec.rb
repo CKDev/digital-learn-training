@@ -137,7 +137,7 @@ describe Admin::PagesController do
       expect(@page.author).to eq "admin-2"
       expect(@page.seo_title).to eq "Updated SEO Title"
       expect(@page.meta_desc).to eq "Updated Meta Desc"
-      expect(@page.pub_at).to be nil
+      expect(@page.pub_at).to be_nil
     end
 
     it "renders the edit view if there is missing information" do

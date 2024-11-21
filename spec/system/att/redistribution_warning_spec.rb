@@ -4,12 +4,12 @@ feature "User access request" do
   let!(:att) { FactoryBot.create(:att) }
   let(:user) { FactoryBot.create(:user, :with_collaborator_profile) }
   let(:warning_message) do
-    "I understand and agree that any unauthorized modification, alteration, " +
-    "or revision of the Content is strictly prohibited without the express written consent of AT&T. " +
-    "For permissions or inquiries, I understand that I should contact AT&T directly."
+    "I understand and agree that any unauthorized modification, alteration, " \
+      "or revision of the Content is strictly prohibited without the express written consent of AT&T. " \
+      "For permissions or inquiries, I understand that I should contact AT&T directly."
   end
 
-  before :each do
+  before do
     switch_to_subdomain "training.att"
     log_in user
   end

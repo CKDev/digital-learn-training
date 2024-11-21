@@ -2,7 +2,7 @@ require "feature_helper"
 
 feature "Admins can manage CMS pages" do
 
-  before :each do
+  before do
     @admin = FactoryBot.create(:admin)
     log_in @admin
   end

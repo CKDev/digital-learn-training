@@ -11,6 +11,9 @@ module Admin
       @page = Page.new
     end
 
+    def edit
+    end
+
     def create
       @page = Page.new(page_params)
       if @page.save
@@ -19,9 +22,6 @@ module Admin
       else
         render :new
       end
-    end
-
-    def edit
     end
 
     def update

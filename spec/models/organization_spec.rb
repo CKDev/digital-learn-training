@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Organization do
   describe "validations" do
-    let(:subject) { Organization.new }
+    let(:subject) { described_class.new }
 
     it "requires a title" do
       expect(subject).not_to be_valid

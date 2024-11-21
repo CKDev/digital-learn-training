@@ -1,12 +1,12 @@
 require "feature_helper"
 
 feature "ATT User visits app" do
-  before :each do
+  before do
     FactoryBot.create(:att)
     switch_to_subdomain "training.att"
   end
 
-  after :each do
+  after do
     reset_subdomain
   end
 

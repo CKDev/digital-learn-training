@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Course do
 
-  before :each do
+  before do
     @course = FactoryBot.create(:course)
   end
 
@@ -12,23 +12,23 @@ describe Course do
       expect(@course.valid?).to be true
     end
 
-    it "should require the title to be unique" do
+    it "requires the title to be unique" do
       @course2 = FactoryBot.build(:course, title: @course.title)
       expect(@course2.valid?).to be false
     end
 
   end
 
-  context "#next_lesson_id" do
+  describe "#next_lesson_id" do
 
-    it "should raise an error if there are no lessons" do
+    it "raises an error if there are no lessons" do
       expect do
         @course = FactoryBot.create(:course)
         @course.next_lesson_id(@course.lessons.first.id)
       end.to raise_error StandardError
     end
 
-    it "should return the id of the next lesson in order" do
+    it "returns the id of the next lesson in order" do
       @course = FactoryBot.create(:course, :with_lessons)
       expect(@course.next_lesson_id).to eq @course.lessons.first.id
       expect(@course.next_lesson_id(nil)).to eq @course.lessons.first.id
@@ -37,7 +37,7 @@ describe Course do
       expect(@course.next_lesson_id(@course.lessons.third.id)).to eq @course.lessons.third.id
     end
 
-    it "should return the next lesson id, even if the lessons are out of order" do
+    it "returns the next lesson id, even if the lessons are out of order" do
       @course = FactoryBot.create(:course, :with_lessons)
       @course.lessons.third.update(lesson_order: 5)
       expect(@course.next_lesson_id(@course.lessons.first.id)).to eq @course.lessons.second.id
@@ -45,7 +45,7 @@ describe Course do
       expect(@course.next_lesson_id(@course.lessons.third.id)).to eq @course.lessons.third.id
     end
 
-    it "should skip unpublished lessons" do
+    it "skips unpublished lessons" do
       @course = FactoryBot.create(:course, :with_lessons)
       @course.lessons.second.update(pub_status: "D")
       @course.lessons.third.update(lesson_order: 5)
@@ -55,14 +55,14 @@ describe Course do
 
   end
 
-  context "#duration" do
+  describe "#duration" do
 
-    it "should add up the durations of all lessons" do
+    it "adds up the durations of all lessons" do
       @course = FactoryBot.create(:course, :with_lessons)
       expect(@course.duration).to eq "4 mins" # 90 * 3 = 270 / 60 = 4.5 mins
     end
 
-    it "should not count draft lessons" do
+    it "does not count draft lessons" do
       @course = FactoryBot.create(:course, :with_lessons)
       @course.lessons.first.update(pub_status: "D")
       expect(@course.duration).to eq "3 mins" # 90 * 2 = 180 / 60 = 3 mins
@@ -70,24 +70,24 @@ describe Course do
 
   end
 
-  context "#update_pub_date" do
+  describe "#update_pub_date" do
 
-    it "should set the pub_date to the current timestamp the pub_status is now P" do
+    it "sets the pub_date to the current timestamp the pub_status is now P" do
       @course = FactoryBot.create(:course, pub_status: "D")
-      expect(@course.pub_date).to be nil
+      expect(@course.pub_date).to be_nil
       @course.update(pub_status: "P")
       expect(@course.pub_date.present?).to be true
     end
 
-    it "should set the pub_date nil if the course is no longer published" do
+    it "sets the pub_date nil if the course is no longer published" do
       @course = FactoryBot.create(:course, pub_status: "P", pub_date: Time.zone.now)
       expect(@course.pub_date.present?).to be true
       @course.update(pub_status: "A")
-      expect(@course.pub_date).to be nil
+      expect(@course.pub_date).to be_nil
     end
   end
 
-  context "#pub_date_str" do
+  describe "#pub_date_str" do
 
     it "print the published date in a nice format" do
       Timecop.freeze(Time.zone.local(2017, 9, 1, 12, 0, 0)) do
@@ -96,7 +96,7 @@ describe Course do
       end
     end
 
-    it "should print N/A if the course isn't published" do
+    it "prints N/A if the course isn't published" do
       @course = FactoryBot.create(:course, pub_status: "D")
       expect(@course.pub_date_str).to eq "N/A"
     end

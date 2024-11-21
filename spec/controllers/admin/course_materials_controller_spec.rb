@@ -39,16 +39,16 @@ describe Admin::CourseMaterialsController do
 
   describe "POST #create" do
 
-    before :each do
+    before do
       @category = FactoryBot.create(:category)
     end
 
     let(:file_upload) do
-      fixture_file_upload(Rails.root.join("spec", "fixtures", "test_upload.pdf"), "application/pdf")
+      fixture_file_upload(Rails.root.join("spec/fixtures/test_upload.pdf"), "application/pdf")
     end
 
     let(:media_upload) do
-      fixture_file_upload(Rails.root.join("spec", "fixtures", "test.png"), "image/png")
+      fixture_file_upload(Rails.root.join("spec/fixtures/test.png"), "image/png")
     end
 
     let(:valid_attributes) do
@@ -136,7 +136,7 @@ describe Admin::CourseMaterialsController do
 
   describe "PUT #update" do
 
-    before :each do
+    before do
       @category = FactoryBot.create(:category)
     end
 
@@ -202,20 +202,20 @@ describe Admin::CourseMaterialsController do
 
   describe "PUT #sort" do
 
-    before :each do
+    before do
       @course_material1 = FactoryBot.create(:course_material)
       @course_material2 = FactoryBot.create(:course_material)
       @course_material3 = FactoryBot.create(:course_material)
     end
 
-    it "should update to the given sort order" do
+    it "updates to the given sort order" do
       @admin = FactoryBot.create(:admin)
       sign_in @admin
 
       order = {
-        "0": { "id": @course_material3.id, "position": "1" },
-        "1": { "id": @course_material1.id, "position": "2" },
-        "2": { "id": @course_material2.id, "position": "3" }
+        "0": { id: @course_material3.id, position: "1" },
+        "1": { id: @course_material1.id, position: "2" },
+        "2": { id: @course_material2.id, position: "3" }
       }
       put :sort, params: { order: order }, format: :json
 

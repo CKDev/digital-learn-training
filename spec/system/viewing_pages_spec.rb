@@ -2,7 +2,7 @@ require "feature_helper"
 
 feature "Users can view CMS pages", type: :system do
 
-  scenario "any xss should be sanitized", js: true do
+  scenario "any xss should be sanitized", :js do
     html_body = <<~BODY
       <p>
         Body with some XSS

@@ -19,7 +19,7 @@ Capybara.javascript_driver = :selenium_headless
 RSpec.configure do |config|
   config.before(:each, type: :system) { driven_by Capybara.default_driver }
 
-  config.before(:each, type: :system, js: true) do
+  config.before(:each, :js, type: :system) do
     driven_by Capybara.javascript_driver
     Capybara.current_session.driver.browser.manage.delete_all_cookies
 

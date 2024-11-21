@@ -46,7 +46,7 @@ module Admin
     end
 
     def sort
-      params[:order].each { |_k, v| Course.find(v[:id]).update(course_order: v[:position]) }
+      params[:order].each_value { |v| Course.find(v[:id]).update(course_order: v[:position]) }
       respond_to do |format|
         format.json { render json: true, status: :ok }
       end

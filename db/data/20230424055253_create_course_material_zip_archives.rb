@@ -2,11 +2,11 @@
 
 class CreateCourseMaterialZipArchives < ActiveRecord::Migration[5.2]
   def up
-    CourseMaterialFile.all.each do |cmf|
+    CourseMaterialFile.find_each do |cmf|
       CourseMaterialArchiveJob.perform_later cmf.course_material_id, "course_material_files", "file"
     end
 
-    CourseMaterialMedia.all.each do |cmm|
+    CourseMaterialMedia.find_each do |cmm|
       CourseMaterialArchiveJob.perform_later cmm.course_material_id, "course_material_medias", "media"
     end
   end

@@ -3,7 +3,7 @@ require "rails_helper"
 describe CategoriesController do
 
   context "GET #show" do
-    it "should show courses, by category" do
+    it "shows courses, by category" do
       @category = FactoryBot.create(:category)
       @sub_category = FactoryBot.create(:sub_category)
       @course_material1 = FactoryBot.create(:course_material, category: @category, pub_status: "P")

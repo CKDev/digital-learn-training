@@ -2,22 +2,22 @@ require "rails_helper"
 
 describe CourseMaterialVideo do
 
-  before :each do
+  before do
     @course_material_video = FactoryBot.create(:course_material_video)
   end
 
   context "validations" do
 
-    it "should initially be valid" do
+    it "initiallies be valid" do
       expect(@course_material_video.valid?).to be true
     end
 
-    it "should require the url" do
+    it "requires the url" do
       @course_material_video.update(url: "")
       expect(@course_material_video.valid?).to be false
     end
 
-    it "should only allow valid formatted urls" do
+    it "onlies allow valid formatted urls" do
       @course_material_video = FactoryBot.build(:course_material_video)
 
       @course_material_video.update(url: "something")

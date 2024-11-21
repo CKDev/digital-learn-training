@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Lesson do
 
-  before :each do
+  before do
     @course = FactoryBot.create(:course)
     @lesson = FactoryBot.create(:lesson, course: @course)
   end
@@ -22,7 +22,7 @@ describe Lesson do
 
   context "scopes" do
 
-    context ".published" do
+    describe ".published" do
 
       it "returns all published lessons" do
         @course = FactoryBot.create(:course, :with_lessons)
@@ -45,16 +45,16 @@ describe Lesson do
 
   end
 
-  context "#duration_str" do
+  describe "#duration_str" do
 
-    it "should add up the durations of all lessons" do
+    it "adds up the durations of all lessons" do
       @course = FactoryBot.create(:course, :with_lessons)
       expect(@course.lessons.first.duration_str).to eq "01:30"
     end
 
   end
 
-  context "#published_lesson_order" do
+  describe "#published_lesson_order" do
 
     it "returns the order of only published lessons" do
       @course = FactoryBot.create(:course, :with_lessons)

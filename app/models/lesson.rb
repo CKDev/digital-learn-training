@@ -14,7 +14,7 @@ class Lesson < ApplicationRecord
   validates :meta_desc, length: { maximum: 156 }
   validates :pub_status, presence: true, inclusion: { in: %w(P D A), message: "%<value>s is not a valid status" }
   validates_attachment :story_line, presence: true,
-    content_type: { content_type: ["application/zip", "application/x-zip"] }, size: { in: 0..100.megabytes }
+    content_type: { content_type: ["application/zip", "application/x-zip"] }, size: { in: 0..(100.megabytes) }
 
   before_save :remove_other_assessments
   before_destroy :delete_associated_asl_files
@@ -32,7 +32,7 @@ class Lesson < ApplicationRecord
   end
 
   def delete_associated_asl_files
-    FileUtils.remove_dir "#{Rails.root}/public/storylines/#{id}", true
+    FileUtils.remove_dir Rails.root.join("public/storylines/#{id}").to_s, true
   end
 
   def duration_str

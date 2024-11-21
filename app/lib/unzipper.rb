@@ -8,8 +8,8 @@ class Unzipper
     file_name   = @file.instance.story_line_file_name.chomp(".zip")
     import_path = "public/system/lessons/storylines/#{@file.instance.id}"
     public_path = "public/storylines/#{@file.instance.id}"
-    zip_file    = File.join(Rails.root, "#{import_path}/original/#{file_name}.zip")
-    dest_path   = File.join(Rails.root, "#{public_path}/#{file_name}")
+    zip_file    = Rails.root.join("#{import_path}/original/#{file_name}.zip").to_s
+    dest_path   = Rails.root.join("#{public_path}/#{file_name}").to_s
     unzip_asl(zip_file, dest_path)
   end
 
