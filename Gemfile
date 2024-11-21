@@ -11,6 +11,9 @@ gem "sidekiq", "< 8"
 gem "recaptcha", "~> 5.16"
 gem "net-http"
 
+# Front-end tooling
+gem "vite_rails"
+
 # Use Redis adapter to run Action Cable in production
 gem "redis"
 gem "redis-namespace"
