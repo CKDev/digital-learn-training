@@ -1,17 +1,21 @@
 import { defineConfig } from 'vite'
 import RubyPlugin from 'vite-plugin-ruby'
 import FullReload from 'vite-plugin-full-reload';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
   plugins: [
     RubyPlugin(),
     FullReload(['config/routes.rb', 'app/views/**/*']),
     svelte({
-      emitCss: true,
+      preprocess: vitePreprocess(),
     })
   ],
-  resolve: {
-    extensions: ['.js', '.ts', '.svelte', '.svelte.erb'], // Include .svelte.erb
+  css: {
+    preprocessorOptions: {
+      scss: {
+        includePaths: ['node_modules'],
+      },
+    },
   },
 })

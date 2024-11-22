@@ -6,7 +6,8 @@
 <% if course_materials.present? %>
   <div class="course-widget-grid">
     <% course_materials.each do |c| %>
-      <%= render partial: "shared/content_widget", locals: { destination: course_material_path(c.friendly_id), title: c.title, description: c.summary, new_course: c.new_course } %>
+      <%= render "shared/course_material_card", destination: course_material_path(c.friendly_id), title: c.title, description: c.summary, att_course: c.new_course %>
+      <%#= render partial: "shared/content_widget", locals: { destination: course_material_path(c.friendly_id), title: c.title, description: c.summary, new_course: c.new_course } %>
     <% end %>
   </div>
 <% else %>

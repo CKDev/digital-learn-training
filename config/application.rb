@@ -18,6 +18,10 @@ module DigitalLearnTraining
 
     config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
 
+    # Add node modules to assets and Dart sass load paths
+    # config.assets.paths << Rails.root.join('node_modules')
+    # config.sass.load_paths << Rails.root.join('node_modules')
+
     Paperclip.options[:content_type_mappings] = { story:  %w(application/octet-stream application/zip) }
 
     # Use routing for error pages

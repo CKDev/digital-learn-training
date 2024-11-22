@@ -55,10 +55,13 @@ gem "aws-sdk-s3", "~>1"
 gem "rack-proxy"
 
 # Data migrations
-gem "data_migrate", "~>9.2.0"
+gem "data_migrate", "~> 9.2.0"
 
 # Invitations
 gem "devise_invitable", "~> 2.0.0"
+
+# Dart Sass for updated sass pre-processing
+gem "dartsass-rails", "~> 0.5.0"
 
 group :development, :test do
   gem "pry"

@@ -1,3 +1,4 @@
 
 vite: bin/vite dev
 web: bin/rails s -b lvh.me -p 3000
+css: bin/rails dartsass:watch

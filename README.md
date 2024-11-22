@@ -18,7 +18,7 @@
 
 ### Start project
 
-`docker compose up --build`
+`foreman start -f Procfile.dev`
 
 ## Testing
 
