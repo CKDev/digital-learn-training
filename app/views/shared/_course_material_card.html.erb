@@ -1,2 +1,2 @@
-<%= content_tag :div, "", class: "course-material-card", data: { title: title, body: description, destination: destination } %>
-<%= vite_typescript_tag 'course-material-card' %>
+<%= content_tag :div, "", class: "course-material-card", data: { props: course_material.card_props } %>
+<%= vite_javascript_tag 'course-material-card.jsx' %>

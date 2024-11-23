@@ -20,22 +20,8 @@
 @import "base/base";
 @import "base/classes";
 
-//@import "components/*";
+@import "components/*";
+@import "partials/*";
 
-@import "partials/banner";
-@import "partials/buttons";
-@import "partials/color_scheme";
-@import "partials/errors";
-@import "partials/footer";
-@import "partials/forms";
-@import "partials/header";
-@import "partials/icons";
-@import "partials/lesson_block";
-@import "partials/screen_reader_text";
-@import "partials/tables";
-
-//@import "theme/smui-theme";
-//@import "theme/dark/smui-theme";
-
-// @import "att/vars";
-// @import "att/**/*";
+@import "att/vars";
+@import "att/**/*";

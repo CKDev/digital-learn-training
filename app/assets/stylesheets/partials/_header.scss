@@ -54,22 +54,9 @@ nav.home-links {
 }
 
 .header-grid {
-  display: grid;
-  align-items: center;
+  display: flex;
+  align-items: space-between;
   padding-bottom: 1rem;
-  grid-template-columns: 40% 60%;
-  grid-template-rows: 3rem auto;
-  grid-template-areas:
-    "secondary-links secondary-links"
-    "logo nav";
-
-  @media (max-width: $mobile-xlarge) {
-    grid-template-columns: 30% 70%;
-    grid-template-areas:
-      "secondary-links secondary-links"
-      "logo logo"
-      "nav nav";
-  }
 }
 
 .logo-link {

@@ -16,9 +16,9 @@
 
 - Docker
 
-### Start project
+### Start project for development
 
-`foreman start -f Procfile.dev`
+`./bin/dev`
 
 ## Testing
 

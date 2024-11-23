@@ -43,6 +43,17 @@ class CourseMaterial < ApplicationRecord
   scope :non_organization, -> { joins(:category).where(categories: { organization_id: nil }).references(:categories) }
   scope :in_language, ->(language) { where(language: language) }
 
+  def card_props
+    { title: title,
+      description: description,
+      courseMaterialUrl: Rails.application.routes.url_helpers.course_material_path(friendly_id),
+      materialsDownloadUrl: Rails.application.routes.url_helpers.course_material_course_materials_files_path(self),
+      fileCount: course_material_files.count,
+      imageCount: course_material_medias.count,
+      videoCount: course_material_videos.count,
+      providedByAtt: new_course }
+  end
+
   private
 
   def allowed_change?

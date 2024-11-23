@@ -1,3 +1,5 @@
+require "open-uri"
+
 class CourseMaterialsFilesController < ApplicationController
 
   def index
@@ -6,9 +8,11 @@ class CourseMaterialsFilesController < ApplicationController
     course_title = @course_material.title.parameterize(separator: "_")
     file_options = { filename: "#{course_title}_file_archive.zip", disposition: "inline", x_sendfile: true }
 
-    file_location = Rails.application.config.s3_enabled ? @course_material.file_archive.url : @course_material.file_archive.path
-
-    send_file open(file_location), file_options
+    if Rails.application.config.s3_enabled
+      send_file URI.parse(@course_material.file_archive.url).open, file_options
+    else
+      send_file File.open(@course_material.file_archive.path), file_options
+    end
   end
 
   def show
