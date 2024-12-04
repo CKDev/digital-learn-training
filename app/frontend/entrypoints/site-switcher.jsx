@@ -2,15 +2,15 @@ import React from 'react';
 
 import SiteSwitcher from '../components/SiteSwitcher';
 import { createRoot } from 'react-dom/client';
+import ThemedComponent from '../components/ThemedComponent';
 
 const container = document.querySelector('.site-switcher')
 if (container) {
-  console.log(container.dataset.props);
   const props = JSON.parse(container.dataset.props);
   const root = createRoot(container);
   root.render(
-    <React.StrictMode>
+    <ThemedComponent>
       <SiteSwitcher {...props} />
-    </React.StrictMode>
+    </ThemedComponent>
   );
 }
