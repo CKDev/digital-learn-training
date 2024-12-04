@@ -7,7 +7,6 @@ let root;
 Array.prototype.slice.call(document.getElementsByClassName('course-material-card'))
   .forEach((container) => {
     if (container) {
-      console.log(container.dataset)
       const props = JSON.parse(container.dataset.props);
       root = createRoot(container);
       root.render(

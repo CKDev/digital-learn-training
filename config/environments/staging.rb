@@ -103,4 +103,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Learners site url host
+  config.learners_site_host = 'digitallearn.org'
 end

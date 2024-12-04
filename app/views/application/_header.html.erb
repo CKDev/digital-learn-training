@@ -1,8 +1,6 @@
 <header class="site-header">
-  <div class="container header-grid">
-    <nav class="secondary-links">
-      <%= link_to "Tools for Learners", "https://www.digitallearn.org/" %>
-    </nav>
+  <%= render "shared/layout/site_switcher" %>
+  <div class="content header-grid">
     <%= link_to root_path, class: "logo-link" do %>
       <div class="logo">
         <div class="logo-icon">

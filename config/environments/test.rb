@@ -63,4 +63,7 @@ Rails.application.configure do
 
   # Paperclip test path
   Paperclip::Attachment.default_options[:path] = "#{Rails.root}/spec/test_files/:url"
+
+  # Learners site url host
+  config.learners_site_host = 'digitallearn.test'
 end

@@ -1,4 +1,3 @@
-// app/javascript/components/App.jsx
 import React from 'react';
 import { Card, Button, Paper, CardHeader, CardContent, CardActions, Typography } from '@mui/material';
 
@@ -25,11 +24,6 @@ const CourseWidgetSubheader = ({fileCount, imageCount, videoCount }) => {
   ].filter((downloadable) => downloadable.count > 0)
   .map((downloadable) => downloadable.count + " " + downloadable.label)
   .join(' | ')
-
-  console.log("fileCount: " + fileCount);
-  console.log("imageCount: " + imageCount);
-  console.log("videoCount: " + videoCount);
-  console.log("downloadableCounts: " + downloadableCounts);
 
   return (
     <Typography variant='body2'>

@@ -17,7 +17,18 @@ class SubdomainBuilder
       subdomain_components << "training"
     end
 
-    subdomain_components << @organization.subdomain
+    subdomain_components << @organization&.subdomain
+    subdomain_components.compact.join(".")
+  end
+
+  def build_learners_subdomain
+    subdomain_components = []
+
+    subdomain_components << (@organization&.subdomain || "www")
+    if @environment == "staging"
+      subdomain_components << "staging"
+    end
+
     subdomain_components.join(".")
   end
 end

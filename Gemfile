@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem "rails", "~> 7.1.4"
 gem "pg"
 gem "puma"
-gem "sass-rails"
+gem "sassc-rails"
 gem "coffee-rails"
 gem "uglifier", ">= 1.3.0"
 gem "jquery-rails"
@@ -59,9 +59,6 @@ gem "data_migrate", "~> 9.2.0"
 
 # Invitations
 gem "devise_invitable", "~> 2.0.0"
-
-# Dart Sass for updated sass pre-processing
-gem "dartsass-rails", "~> 0.5.0"
 
 group :development, :test do
   gem "pry"

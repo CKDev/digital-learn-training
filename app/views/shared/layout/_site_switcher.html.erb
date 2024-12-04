@@ -1,0 +1,3 @@
+<% subdomain = SubdomainBuilder.new(current_organization).build_learners_subdomain %>
+<%= content_tag :div, "", class: "site-switcher", data: { props: { switcherUrl: "https://#{subdomain}.#{Rails.application.config.learners_site_host}" } } %>
+<%= vite_javascript_tag 'site-switcher.jsx' %>

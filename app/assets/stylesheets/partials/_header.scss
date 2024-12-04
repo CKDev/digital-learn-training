@@ -1,5 +1,4 @@
 nav.secondary-links {
-  grid-area: secondary-links;
   padding-bottom: 1em;
   font-size: 13px;
 
@@ -14,8 +13,6 @@ nav.secondary-links {
 }
 
 nav.home-links {
-  grid-area: nav;
-
   @media (max-width: $mobile-xlarge) {
     margin-top: 20px;
   }
@@ -23,7 +20,8 @@ nav.home-links {
   .home-link-row {
     display: flex;
     gap: 10px;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
     margin-top: 10px;
     margin-bottom: 10px;
 
@@ -55,12 +53,11 @@ nav.home-links {
 
 .header-grid {
   display: flex;
-  align-items: space-between;
+  align-items: center;
+  justify-content: space-between;
   padding-bottom: 1rem;
-}
-
-.logo-link {
-  grid-area: logo;
+  flex-wrap: wrap;
+  justify-items: center;
 }
 
 .logo {
