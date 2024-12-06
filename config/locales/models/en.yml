@@ -1,6 +1,8 @@
 en:
   activerecord:
     attributes:
+      access_request:
+        phone: "Phone number"
       course:
         title: "Training Title"
         description: "Training Description"
@@ -25,3 +27,27 @@ en:
         is_assessment: "Assessment"
       sub_category:
         title: "Subcategory Title"
+    errors:
+      messages:
+        unique_filename: "should be unique for the course"
+      models:
+        category:
+          attributes:
+            tag:
+              inclusion: "\"%{value}\" is not a valid category tag"
+        course:
+          attributes:
+            title:
+              uniqueness: "must be unique"
+            pub_status:
+              inclusion: "\"%{value}\" is not a valid status"
+        course_material:
+          attributes:
+            pub_status:
+              inclusion: "\"%{value}\" is not a valid status"
+        lesson:
+          attributes:
+            title:
+              uniqueness: "should be unique for the training"
+            pub_status:
+              inclusion: "\"%{value}\" is not a valid status"

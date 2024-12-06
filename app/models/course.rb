@@ -2,17 +2,16 @@ class Course < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-  has_many :lessons
+  has_many :lessons, dependent: :destroy
   has_many :attachments, dependent: :destroy
 
   validates :description, presence: true
   validates :contributor, presence: true
-  validates :title, length: { maximum: 90 }, presence: true, uniqueness: { message: "must be unique" }
+  validates :title, length: { maximum: 90 }, presence: true, uniqueness: true
   validates :summary, length: { maximum: 156 }, presence: true
   validates :seo_page_title, length: { maximum: 90 }
   validates :meta_desc, length: { maximum: 156 }
-  validates :pub_status, presence: true,
-    inclusion: { in: %w(P D A), message: "%<value>s is not a valid status" }
+  validates :pub_status, presence: true, inclusion: { in: %w(P D A) }
 
   accepts_nested_attributes_for :attachments, reject_if: proc { |a| a[:document].blank? }, allow_destroy: true
 

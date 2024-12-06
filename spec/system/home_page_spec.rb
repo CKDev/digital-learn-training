@@ -1,7 +1,7 @@
 require "feature_helper"
 
-feature "Users can view a course" do
-  context "language tabs" do
+feature "Users can view a course", :js do
+  describe "language tabs" do
     let!(:english_course) do
       FactoryBot.create(:course_material, title: "English Course",
                                           pub_status: "P",

@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_one :collaborator_profile
+  has_one :collaborator_profile, dependent: :destroy
   accepts_nested_attributes_for :collaborator_profile
 
   # Include default devise modules. Others available are:
