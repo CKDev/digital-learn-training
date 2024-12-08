@@ -18,4 +18,10 @@ class Category < ApplicationRecord
   def self.select_options
     ALLOWED_TAGS.reject { |t| t == "Other" }.map { |t| [t, t] }
   end
+
+  def to_props
+    { id: id,
+      title: title,
+      courseMaterials: course_materials.map(&:to_props) }
+  end
 end

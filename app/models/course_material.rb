@@ -42,9 +42,12 @@ class CourseMaterial < ApplicationRecord
   scope :non_organization, -> { joins(:category).where(categories: { organization_id: nil }).references(:categories) }
   scope :in_language, ->(language) { where(language: language) }
 
-  def card_props
-    { title: title,
+  def to_props
+    { id: id,
+      title: title,
       description: description,
+      language: language,
+      subCategory: sub_category&.title,
       courseMaterialUrl: Rails.application.routes.url_helpers.course_material_path(friendly_id),
       materialsDownloadUrl: Rails.application.routes.url_helpers.course_material_course_materials_files_path(self),
       fileCount: course_material_files.count,
