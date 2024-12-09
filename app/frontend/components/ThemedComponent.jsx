@@ -7,6 +7,8 @@ const theme = createTheme({
     MuiTab: {
       styleOverrides: {
         root: {
+          alignItems: "flex-start",
+          textAlign: "left",
           boxShadow: "none", // Remove elevation shadows
         },
       },

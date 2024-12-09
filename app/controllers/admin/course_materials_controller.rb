@@ -1,6 +1,5 @@
 module Admin
   class CourseMaterialsController < BaseController
-
     helper_method :categories_array
 
     def index

@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :current_organization
+
+  layout :set_layout
+
+  before_action :current_organization # Set current organization instance var
   before_action :set_blank_templates
   before_action :set_footer_links
 
@@ -51,6 +54,22 @@ class ApplicationController < ActionController::Base
 
   def current_organization
     @current_organization ||= Organization.find_by(subdomain: request.subdomains.last)
+  end
+
+  def set_layout
+    organization = current_organization
+    return "application" if organization.blank?
+
+    custom_org_layout_file = Rails.root.join "app", "views", "layouts", "#{organization.subdomain}.html.erb"
+    if custom_org_layout_file
+      current_organization.subdomain # Use subomain as layout file name
+    else
+      "application"
+    end
+  end
+
+  def include_user_sidebar
+    @include_user_sidebar = true
   end
 
   def set_blank_templates

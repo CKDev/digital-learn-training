@@ -5,15 +5,6 @@
     <%= vite_client_tag %>
 
     <%= vite_react_refresh_tag %>
-    <!--
-      If using a TypeScript entrypoint file:
-        vite_typescript_tag 'application'
-
-      If using a .jsx or .tsx entrypoint, add the extension:
-        vite_javascript_tag 'application.jsx'
-
-      Visit the guide for more information: https://vite-ruby.netlify.app/guide/rails
-    -->
 
   </head>
   <body class="<%= "#{current_organization&.subdomain} #{controller_name}-#{action_name}" %>">
@@ -22,26 +13,16 @@
     <% else %>
       <%= render "application/header" %>
     <% end %>
-    <div class="banner">
-      <div class="container row">
-        <div class="eight columns">
-          <% if content_for?(:callout) %>
-            <%= yield :callout %>
-          <% else %>
-            <h1 class="slogan"><%= t("banner.slogan.#{current_organization&.subdomain || 'default'}") %></h1>
-          <% end %>
-        </div>
-        <div class="four columns">
-          <% if content_for?(:course_progress) %>
-            <%= yield :course_progress %>
-          <% end %>
+    <main class="content">
+      <%= render "flashes" %>
+      <div class="page-content">
+        <% if @include_user_sidebar %>
+          <%= render "user_sidebar" %>
+        <% end %>
+        <div class="main-content">
+          <%= yield %>
         </div>
       </div>
-    </div>
-    <main class="container">
-      <%= render "flashes" %>
-      <%= render "collaborator_warning" %>
-      <%= yield %>
     </main>
     <% if current_organization %>
       <%= render "#{current_organization.subdomain}/footer" %>

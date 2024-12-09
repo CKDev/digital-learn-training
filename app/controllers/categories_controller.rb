@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_action :include_user_sidebar
 
   def show
     @category = Category.friendly.find(params[:id])

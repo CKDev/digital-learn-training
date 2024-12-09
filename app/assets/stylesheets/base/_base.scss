@@ -18,6 +18,21 @@ body {
   box-sizing: border-box;
 }
 
+.page-content {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  flex-wrap: nowrap;
+
+  .user-sidebar {
+    width: 25%;
+  }
+
+  .main-content {
+    width: 100%;
+  }
+}
+
 a {
   text-decoration: none;
   color: $purple;

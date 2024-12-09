@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   prepend_before_action :redirect_unauthenticated_subdomain_user, only: :index
   skip_before_action :authenticate_user!, only: :language_toggle
+  before_action :include_user_sidebar
 
   def index
     set_locale
