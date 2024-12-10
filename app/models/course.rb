@@ -18,7 +18,6 @@ class Course < ApplicationRecord
   before_save :update_pub_date
 
   default_scope { order("course_order") }
-  scope :with_category, ->(category_id) { where(category_id: category_id) }
   scope :archived, -> { where(pub_status: "A") }
   scope :not_archived, -> { where.not(pub_status: "A") }
   scope :published, -> { where(pub_status: "P") }
@@ -70,4 +69,10 @@ class Course < ApplicationRecord
     self.attachments.where(doc_type: "supplemental")
   end
 
+  def to_props
+    { id: id,
+      title: title,
+      description: description,
+      courseUrl: Rails.application.routes.url_helpers.course_path(friendly_id) }
+  end
 end
