@@ -1,16 +1,15 @@
 import React from "react";
 
-import CourseMaterials from "../components/pages/CourseMaterials";
+import Contribute from "../components/pages/Contribute";
 import { createRoot } from "react-dom/client";
 import ThemedComponent from "../components/ThemedComponent";
 
-const container = document.querySelector("#course-materials");
+const container = document.querySelector(".contribute-page");
 if (container) {
-  const props = JSON.parse(container.dataset.props);
   const root = createRoot(container);
   root.render(
     <ThemedComponent>
-      <CourseMaterials {...props} />
+      <Contribute />
     </ThemedComponent>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Box, Tab, Tabs } from "@mui/material";
-import CategoryPanelContainer from "./category_panel/CategoryPanelContainer";
+import CategoryPanelContainer from "../category_panel/CategoryPanelContainer";
 
 const CourseMaterials = ({ categories }) => {
   const [selectedCategoryId, setSelectedCategoryId] = React.useState(

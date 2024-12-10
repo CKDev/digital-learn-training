@@ -17,7 +17,7 @@ const UserSidebar = ({ currentPath }) => {
     },
     {
       title: "Additional Resources",
-      path: "/additional-resources",
+      path: "/additional_resources",
     },
     {
       title: "Contribute to DigitalLearn",
