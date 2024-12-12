@@ -17,7 +17,7 @@ const SiteSwitcher = ({ switcherUrl }) => (
           variant="text"
           disableElevation
           endIcon={<ForwardRoundedIcon />}
-          onClick={() => (window.location.href = switcherUrl)}
+          href={switcherUrl}
         >
           Switch to Learners Site
         </Button>

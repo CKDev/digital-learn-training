@@ -1,5 +1,4 @@
 import React from "react";
-import { red } from "@mui/material/colors";
 import { ThemeProvider, createTheme } from "@mui/material";
 
 const theme = createTheme({
@@ -15,11 +14,17 @@ const theme = createTheme({
     },
   },
   // Get subsite theme from somewhere
-  // palette: {
-  //   primary: {
-  //     main: red[500],
-  //   },
-  // },
+  palette: {
+    primary: {
+      main: "#01579B",
+      light: "#29B6F6",
+    },
+    info: {
+      main: "#548687",
+      dark: "#548687",
+      contrastText: "#FFFFFF",
+    },
+  },
 });
 
 const ThemedComponent = ({ children }) => (

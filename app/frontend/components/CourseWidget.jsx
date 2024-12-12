@@ -32,11 +32,7 @@ const CourseWidget = ({
       />
       <CardContent dangerouslySetInnerHTML={{ __html: description }} />
       <CardActions>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => (window.location.href = courseMaterialUrl)}
-        >
+        <Button variant="contained" color="primary" href={courseMaterialUrl}>
           View Course Materials
         </Button>
         {fileCount + imageCount + videoCount > 0 && (

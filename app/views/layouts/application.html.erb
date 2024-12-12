@@ -5,30 +5,31 @@
     <%= vite_client_tag %>
 
     <%= vite_react_refresh_tag %>
-
   </head>
   <body class="<%= "#{current_organization&.subdomain} #{controller_name}-#{action_name}" %>">
-    <% if current_organization %>
-      <%= render "#{current_organization.subdomain}/header" %>
-    <% else %>
-      <%= render "application/header" %>
-    <% end %>
-    <main class="content">
-      <%= render "flashes" %>
-      <div class="page-content">
-        <% if @include_user_sidebar %>
-          <%= render "user_sidebar" %>
-        <% end %>
-        <div class="main-content">
-          <%= yield %>
+    <div class="page-wrapper">
+      <% if current_organization %>
+        <%= render "#{current_organization.subdomain}/header" %>
+      <% else %>
+        <%= render "application/header" %>
+      <% end %>
+      <main class="content">
+        <%= render "flashes" %>
+        <div class="page-content">
+          <% if @include_user_sidebar %>
+            <%= render "user_sidebar" %>
+          <% end %>
+          <div class="main-content">
+            <%= yield %>
+          </div>
         </div>
-      </div>
-    </main>
-    <% if current_organization %>
-      <%= render "#{current_organization.subdomain}/footer" %>
-    <% else %>
-      <%= render "footer" %>
-    <% end %>
+      </main>
+      <% if current_organization %>
+        <%= render "#{current_organization.subdomain}/footer" %>
+      <% else %>
+        <%= render "footer" %>
+      <% end %>
+    </div>
     <%= render "google_analytics" if Rails.env.production? %>
   </body>
 </html>
