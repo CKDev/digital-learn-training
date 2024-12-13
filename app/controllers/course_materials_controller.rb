@@ -1,12 +1,13 @@
 class CourseMaterialsController < ApplicationController
-  before_action :include_user_sidebar
+  before_action :include_user_sidebar, only: :index
 
   def index
     @categories = categories
     @blank_template = CourseMaterial.find_by(title: "Course Templates")
 
     @course_materials_data = {
-      categories: @categories.map(&:to_props)
+      categories: @categories.map(&:to_props),
+      initialCategoryId: params[:selected_category]
     }
   end
 

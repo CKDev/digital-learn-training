@@ -3,13 +3,26 @@ import React from "react";
 import { Box, Tab, Tabs } from "@mui/material";
 import CategoryPanelContainer from "../category_panel/CategoryPanelContainer";
 
-const CourseMaterials = ({ categories }) => {
+const CourseMaterials = ({ categories, initialCategoryId }) => {
   const [selectedCategoryId, setSelectedCategoryId] = React.useState(
-    categories[0].id
+    parseInt(initialCategoryId) || categories[0].id
   );
 
-  const handleChangeCategory = (_event, selectedCategoryId) =>
+  const handleChangeCategory = (_event, selectedCategoryId) => {
+    // Clear initial category selection from url
+    let params = new URLSearchParams(window.location.search);
+    params.delete("selected_category");
+
+    window.history.replaceState(
+      null,
+      "",
+      window.location.pathname +
+        (params.size > 0 ? "?" + params : "") +
+        window.location.hash
+    );
+
     setSelectedCategoryId(selectedCategoryId);
+  };
 
   function a11yProps(index) {
     return {

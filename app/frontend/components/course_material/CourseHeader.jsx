@@ -1,27 +1,27 @@
-import React from "react";
 import {
-  Card,
   Button,
-  Paper,
+  Card,
   CardHeader,
   CardContent,
   CardActions,
+  Paper,
   Typography,
 } from "@mui/material";
-import ContributorAttribution from "./ContributorAttribution";
+import React from "react";
+import ContributorAttribution from "../ContributorAttribution";
 
-const CourseWidget = ({
+const CourseHeader = ({
   title,
   summary,
-  courseMaterialUrl,
-  materialsDownloadUrl,
+  description,
+  providedByAtt,
   fileCount,
   imageCount,
   videoCount,
-  providedByAtt,
+  materialsDownloadUrl,
 }) => (
-  <Card sx={{ width: 570 }}>
-    <Paper>
+  <Card elevation={0}>
+    <Paper elevation={0} sx={{ bgcolor: "primary.light" }}>
       <CardHeader
         title={title}
         action={providedByAtt == true && <ContributorAttribution />}
@@ -35,11 +35,9 @@ const CourseWidget = ({
       />
       <CardContent>{summary}</CardContent>
       <CardActions>
-        <Button variant="contained" color="primary" href={courseMaterialUrl}>
-          View Course Materials
-        </Button>
         {fileCount + imageCount + videoCount > 0 && (
           <Button
+            sx={{ bgcolor: "white" }}
             variant="outlined"
             onClick={() => window.open(materialsDownloadUrl, "_blank")}
           >
@@ -64,4 +62,4 @@ const CourseWidgetSubheader = ({ fileCount, imageCount, videoCount }) => {
   return <Typography variant="body2">{downloadableCounts}</Typography>;
 };
 
-export default CourseWidget;
+export default CourseHeader;

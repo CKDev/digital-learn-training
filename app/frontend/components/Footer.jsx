@@ -34,7 +34,7 @@ const Footer = ({ pages, contactEmail, logoFile, logoLinkDestination }) => (
           Send us an Email
         </Button>
         <Link href={logoLinkDestination} target="_blank">
-          <img src={logoFile} />
+          <img src={logoFile} alt="Footer Logo" />
         </Link>
       </Grid2>
     </Grid2>

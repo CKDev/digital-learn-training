@@ -45,8 +45,11 @@ class CourseMaterial < ApplicationRecord
   def to_props
     { id: id,
       title: title,
+      summary: summary,
       description: description,
       language: language,
+      category: category.title,
+      categoryId: category.id,
       subCategory: sub_category&.title,
       courseMaterialUrl: Rails.application.routes.url_helpers.course_material_path(friendly_id),
       materialsDownloadUrl: Rails.application.routes.url_helpers.course_material_course_materials_files_path(self),
