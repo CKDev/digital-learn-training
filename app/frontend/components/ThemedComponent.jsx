@@ -24,6 +24,7 @@ const theme = createTheme({
       dark: "#548687",
       contrastText: "#FFFFFF",
     },
+    iconColor: "rgba(0, 0, 0, 0.56)",
   },
 });
 

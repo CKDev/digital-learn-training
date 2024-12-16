@@ -33,5 +33,4 @@ class CourseMaterialVideo < ApplicationRecord
   rescue StandardError
     false
   end
-
 end

@@ -26,7 +26,8 @@ const AdditionalResources = ({}) => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => window.open(checklistDownloadPath, "_blank")}
+              href={checklistDownloadPath}
+              target="_blank"
             >
               Download Checklist (PDF)
             </Button>

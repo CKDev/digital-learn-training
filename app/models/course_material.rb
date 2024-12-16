@@ -42,21 +42,28 @@ class CourseMaterial < ApplicationRecord
   scope :non_organization, -> { joins(:category).where(categories: { organization_id: nil }).references(:categories) }
   scope :in_language, ->(language) { where(language: language) }
 
-  def to_props
-    { id: id,
-      title: title,
-      summary: summary,
-      description: description,
-      language: language,
-      category: category.title,
-      categoryId: category.id,
-      subCategory: sub_category&.title,
-      courseMaterialUrl: Rails.application.routes.url_helpers.course_material_path(friendly_id),
-      materialsDownloadUrl: Rails.application.routes.url_helpers.course_material_course_materials_files_path(self),
-      fileCount: course_material_files.count,
-      imageCount: course_material_medias.count,
-      videoCount: course_material_videos.count,
-      providedByAtt: new_course }
+  def to_props(include_attachments: false)
+    props = { id: id,
+              title: title,
+              summary: summary,
+              description: description,
+              language: language,
+              category: category.title,
+              categoryId: category.id,
+              subCategory: sub_category&.title,
+              courseMaterialUrl: Rails.application.routes.url_helpers.course_material_path(friendly_id),
+              materialsDownloadUrl: Rails.application.routes.url_helpers.course_material_course_materials_files_path(self),
+              fileCount: course_material_files.count,
+              imageCount: course_material_medias.count,
+              videoCount: course_material_videos.count,
+              providedByAtt: new_course }
+
+    if include_attachments
+      props.merge!(files: course_material_files.map(&:to_props),
+                   images: course_material_medias.map(&:to_props))
+    end
+
+    props
   end
 
   private

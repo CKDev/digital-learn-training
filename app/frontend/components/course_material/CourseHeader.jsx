@@ -39,7 +39,8 @@ const CourseHeader = ({
           <Button
             sx={{ bgcolor: "white" }}
             variant="outlined"
-            onClick={() => window.open(materialsDownloadUrl, "_blank")}
+            href={materialsDownloadUrl}
+            target="_blank"
           >
             Download All Materials
           </Button>

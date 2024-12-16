@@ -1,6 +1,6 @@
 class CourseMaterialMedia < ApplicationRecord
   belongs_to :course_material
-  has_attached_file :media, styles: { thumb: "212x140#" },
+  has_attached_file :media, styles: { thumb: "112X75#" },
                             url: "coursematerialmedia/media/:id/:style/:basename.:extension"
 
   validates :media_file_name, uniqueness: { scope: :course_material, message: :unique_filename }
@@ -12,6 +12,14 @@ class CourseMaterialMedia < ApplicationRecord
 
   def self.attachment_name
     "media"
+  end
+
+  def to_props
+    { id: id,
+      fileName: media_file_name,
+      fileType: MimeTypeTranslator.readable_mime_type(media_content_type),
+      thumbnailUrl: media.url(:thumb),
+      downloadPath: Rails.application.routes.url_helpers.course_material_course_materials_media_path(course_material, id) }
   end
 
   private

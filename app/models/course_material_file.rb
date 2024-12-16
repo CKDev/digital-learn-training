@@ -13,6 +13,13 @@ class CourseMaterialFile < ApplicationRecord
     "file"
   end
 
+  def to_props
+    { id: id,
+      fileName: file_file_name,
+      fileType: MimeTypeTranslator.readable_mime_type(file_content_type),
+      downloadPath: Rails.application.routes.url_helpers.course_material_course_materials_file_path(course_material, id) }
+  end
+
   private
 
   def create_zip_archive

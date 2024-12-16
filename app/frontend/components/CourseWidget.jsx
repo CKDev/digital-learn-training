@@ -41,7 +41,8 @@ const CourseWidget = ({
         {fileCount + imageCount + videoCount > 0 && (
           <Button
             variant="outlined"
-            onClick={() => window.open(materialsDownloadUrl, "_blank")}
+            href={materialsDownloadUrl}
+            target="_blank"
           >
             Download All Materials
           </Button>
