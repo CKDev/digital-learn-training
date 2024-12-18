@@ -5,6 +5,11 @@ class HomeController < ApplicationController
 
   def index
     set_locale
+
+    unless current_organization&.subdomain == "att"
+      redirect_to course_materials_path
+    end
+
     @courses = Course.published.limit(2)
     @categories = get_categories
     @getting_started = @categories.where(tag: "Getting Started")

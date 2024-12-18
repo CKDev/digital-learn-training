@@ -52,7 +52,7 @@ class CourseMaterial < ApplicationRecord
               categoryId: category.id,
               subCategory: sub_category&.title,
               courseMaterialUrl: Rails.application.routes.url_helpers.course_material_path(friendly_id),
-              materialsDownloadUrl: Rails.application.routes.url_helpers.course_material_course_materials_files_path(self),
+              materialsDownloadUrl: Rails.application.routes.url_helpers.course_material_course_attachments_path(self),
               fileCount: course_material_files.count,
               imageCount: course_material_medias.count,
               videoCount: course_material_videos.count,

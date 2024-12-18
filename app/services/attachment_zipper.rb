@@ -20,6 +20,8 @@ class AttachmentZipper
       end
     end
 
-    @course_material.update_attribute("#{@attachment_type}_archive", @archive_tempfile)
+    @course_material.update("#{@attachment_type}_archive" => @archive_tempfile)
+    @archive_tempfile.close
+    @archive_tempfile.unlink
   end
 end
