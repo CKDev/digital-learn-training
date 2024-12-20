@@ -1,6 +1,4 @@
 class InvitationsController < Devise::InvitationsController
-  layout "admin/base", only: %i[new create]
-
   before_action :configure_update_params, only: :update
 
   def new

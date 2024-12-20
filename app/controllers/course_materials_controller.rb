@@ -6,7 +6,7 @@ class CourseMaterialsController < ApplicationController
     @blank_template = CourseMaterial.find_by(title: "Course Templates")
 
     @course_materials_data = {
-      categories: @categories.map(&:to_props),
+      categories: @categories.map { |c| c.to_props(include_materials: true) },
       initialCategoryId: params[:selected_category]
     }
   end

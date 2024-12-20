@@ -1,6 +1,5 @@
 module Admin
   class CategoriesController < BaseController
-
     def index
       @categories = Category.order(:title)
     end

@@ -3,10 +3,9 @@
   <head>
     <%= render "meta_tags" %>
     <%= vite_client_tag %>
-
     <%= vite_react_refresh_tag %>
   </head>
-  <body class="<%= "#{current_organization&.subdomain} #{controller_name}-#{action_name}" %>">
+  <body class="<%= "#{current_organization&.subdomain} #{controller_name}-#{action_name}" %> <%= @use_ui_v2 ? 'v2-ui' : ''%>">
     <div class="page-wrapper">
       <% if current_organization %>
         <%= render "#{current_organization.subdomain}/header" %>
@@ -18,6 +17,9 @@
         <div class="page-content">
           <% if @include_user_sidebar %>
             <%= render "user_sidebar" %>
+          <% end %>
+          <% if @include_admin_sidebar %>
+            <%= render "admin_sidebar" %>
           <% end %>
           <div class="main-content">
             <%= yield %>

@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   def index
     set_locale
 
-    unless current_organization&.subdomain == "att"
+    if @use_ui_v2
       redirect_to course_materials_path
     end
 

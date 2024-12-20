@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :current_organization # Set current organization instance var
   before_action :set_blank_templates
   before_action :set_footer_links
+  before_action :set_ui_v2
 
   before_action :authenticate_user!, if: :organization_subdomain?
 
@@ -99,5 +100,9 @@ class ApplicationController < ActionController::Base
     when "es" then "Spanish"
     when "en" then "English"
     end
+  end
+
+  def set_ui_v2
+    @use_ui_v2 = current_organization&.subdomain != "att" # Use legacy UI for att subdomain
   end
 end

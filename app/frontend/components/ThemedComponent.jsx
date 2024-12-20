@@ -1,5 +1,5 @@
 import React from "react";
-import { ThemeProvider, createTheme } from "@mui/material";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 
 const theme = createTheme({
   components: {
@@ -30,6 +30,7 @@ const theme = createTheme({
 
 const ThemedComponent = ({ children }) => (
   <React.StrictMode>
+    <CssBaseline />
     <ThemeProvider theme={theme}>{children}</ThemeProvider>
   </React.StrictMode>
 );

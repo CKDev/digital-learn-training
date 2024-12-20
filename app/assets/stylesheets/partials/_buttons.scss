@@ -39,3 +39,10 @@ button, input[type="submit"], .btn {
     background-color: $teal;
   }
 }
+
+.v2-ui {
+  button, input[type="submit"], .btn {
+    min-width: unset;
+    box-shadow: none;
+  }
+}

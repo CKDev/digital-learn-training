@@ -5,4 +5,11 @@ class Organization < ApplicationRecord
   validates :title, presence: true
   store_accessor :settings, :access_requests_enabled, :access_request_emails
   store_accessor :theme
+
+  def to_props
+    {
+      id: id,
+      title: title
+    }
+  end
 end

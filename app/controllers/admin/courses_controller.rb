@@ -1,7 +1,7 @@
 module Admin
   class CoursesController < BaseController
 
-    before_action :set_course, only: %i[show edit update destroy]
+    before_action :set_course, only: %i[show edit update]
 
     def index
       @courses = Course.not_archived

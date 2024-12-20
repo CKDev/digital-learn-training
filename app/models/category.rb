@@ -19,9 +19,20 @@ class Category < ApplicationRecord
     ALLOWED_TAGS.reject { |t| t == "Other" }.map { |t| [t, t] }
   end
 
-  def to_props
-    { id: id,
+  def to_props(include_materials: false)
+    props = {
+      id: id,
       title: title,
-      courseMaterials: course_materials.map(&:to_props) }
+      tag: tag,
+      availableTags: ALLOWED_TAGS,
+      subcategories: sub_categories.map(&:title),
+      organization: organization&.to_props
+    }
+
+    if include_materials
+      props.merge!({ courseMaterials: course_materials.map(&:to_props) })
+    end
+
+    props
   end
 end
