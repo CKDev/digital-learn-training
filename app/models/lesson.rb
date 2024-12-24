@@ -60,4 +60,15 @@ class Lesson < ApplicationRecord
 
     self.course.lessons.published.map(&:id).index(self.id) + 1
   end
+
+  def to_props
+    { id: id,
+      title: title,
+      summary: summary,
+      duration: duration,
+      courseTitle: course.title,
+      coursePath: Rails.application.routes.url_helpers.course_path(course.friendly_id),
+      lessonPath: Rails.application.routes.url_helpers.course_lesson_path(course, id),
+      storylineUrl: "/storylines/#{id}/#{story_line_file_name.chomp(".zip")}/story.html" }
+  end
 end

@@ -1,8 +1,9 @@
-import { Grid2 } from "@mui/material";
+import { Grid2, Button } from "@mui/material";
 import React from "react";
 import CourseHeader from "../course_material/CourseHeader";
 import CourseDocuments from "../course_material/CourseDocuments";
 import LessonList from "../course/LessonList";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 
 const CourseOverview = ({
   lessons,
@@ -11,6 +12,13 @@ const CourseOverview = ({
   ...courseProps
 }) => (
   <Grid2>
+    <Button
+      variant="text"
+      startIcon={<ArrowBackRoundedIcon />}
+      href={`/trainings`}
+    >
+      Back to Instructional Design Training
+    </Button>
     <CourseHeader {...courseProps} />
     <LessonList lessons={lessons} />
     <CourseDocuments

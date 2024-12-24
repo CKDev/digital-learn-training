@@ -1,5 +1,5 @@
 class LessonsController < ApplicationController
-  before_action :include_user_sidebar
+  before_action :include_user_sidebar, only: :index
   before_action :set_course
 
   def index
