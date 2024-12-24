@@ -2,7 +2,7 @@ import { Box, Grid2, Typography } from "@mui/material";
 import React from "react";
 import CourseWidget from "../CourseWidget";
 
-const InstructionalDesignTraining = ({ courses }) => {
+const InstructionalDesignTrainings = ({ courses }) => {
   return (
     <Box>
       <Grid2
@@ -29,4 +29,4 @@ const InstructionalDesignTraining = ({ courses }) => {
   );
 };
 
-export default InstructionalDesignTraining;
+export default InstructionalDesignTrainings;

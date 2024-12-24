@@ -14,7 +14,7 @@ const Footer = ({ pages, contactEmail, logoFile, logoLinkDestination }) => {
         justifyContent="space-between"
       >
         <Grid2 container display="flex" direction="column">
-          <Typography variant="h67">Learn More</Typography>
+          <Typography variant="h6">Learn More</Typography>
           {pages.map((page) => (
             <Link key={`page-link-${page.label}`} href={page.path}>
               {page.label}

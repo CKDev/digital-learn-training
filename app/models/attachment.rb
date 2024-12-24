@@ -8,4 +8,11 @@ class Attachment < ApplicationRecord
 
   scope :supplemental_attachments, -> { where(doc_type: "supplemental") }
   scope :post_course_attachments, -> { where(doc_type: "post-course") }
+
+  def to_props
+    { id: id,
+      fileName: document_file_name,
+      fileType: MimeTypeTranslator.readable_mime_type(document_content_type),
+      downloadPath: Rails.application.routes.url_helpers.course_attachment_path(course, id) }
+  end
 end

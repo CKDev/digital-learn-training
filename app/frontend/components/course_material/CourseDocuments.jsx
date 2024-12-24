@@ -12,9 +12,9 @@ import InsertDriveFileRoundedIcon from "@mui/icons-material/InsertDriveFileRound
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import ThemedIcon from "../ThemedIcon";
 
-const CourseDocuments = ({ files }) => (
+const CourseDocuments = ({ files, title = "Documents" }) => (
   <Box sx={{ pt: 3 }}>
-    <Typography variant="h6">{`Documents (${files.length})`}</Typography>
+    <Typography variant="h6">{`${title} (${files.length})`}</Typography>
     <Grid container direction="column" spacing={1} sx={{ py: 1 }}>
       {files.map((file) => (
         <Card key={file.id}>

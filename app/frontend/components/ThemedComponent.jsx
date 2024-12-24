@@ -1,7 +1,14 @@
 import React from "react";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import "@fontsource/nunito/300.css";
+import "@fontsource/nunito/400.css";
+import "@fontsource/nunito/500.css";
+import "@fontsource/nunito/700.css";
 
 const theme = createTheme({
+  typography: {
+    fontFamily: ["nunito", "Roboto", '"Open Sans"'].join(","),
+  },
   components: {
     MuiTab: {
       styleOverrides: {
@@ -9,6 +16,9 @@ const theme = createTheme({
           alignItems: "flex-start",
           textAlign: "left",
           boxShadow: "none", // Remove elevation shadows
+          textTransform: "none",
+          fontWeight: "regular",
+          fontSize: "1rem",
         },
       },
     },

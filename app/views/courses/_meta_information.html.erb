@@ -8,4 +8,7 @@
   <h1><%= @course.title %></h1>
 <% end %>
 
-<div><small><%= link_to "Courses", courses_path %> >> <%= @course.title %></small></div>
+
+<% unless @use_ui_v2 %>
+  <div><small><%= link_to "Courses", courses_path %> >> <%= @course.title %></small></div>
+<% end %>

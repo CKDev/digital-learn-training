@@ -35,7 +35,7 @@ const Categories = ({ categories }) => {
                 selected={selectedCategory.id === category.id}
                 onClick={() => handleCategorySelect(category)}
               >
-                <ListItemText primary={category.title} />
+                <Typography variant="body1">{category.title}</Typography>
               </ListItemButton>
             </ListItem>
           ))}

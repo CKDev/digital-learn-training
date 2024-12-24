@@ -73,6 +73,11 @@ class Course < ApplicationRecord
     { id: id,
       title: title,
       description: description,
-      courseUrl: Rails.application.routes.url_helpers.course_path(friendly_id) }
+      summary: summary,
+      contributor: contributor,
+      courseUrl: Rails.application.routes.url_helpers.course_path(friendly_id),
+      lessons: lessons.map(&:to_props),
+      supplementalAttachments: supplemental_attachments.map(&:to_props),
+      postCourseAttachments: post_course_attachments.map(&:to_props) }
   end
 end

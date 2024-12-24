@@ -1,31 +1,36 @@
 <%= render "meta_information" %>
 
-<div class="row">
-  <div class="eight columns">
-    <div class="course-details">
-      <div class="margin-bottom"><i class="icon-pencil"></i><%= @course.lessons.published.count %> Activities</div>
-      <div><i class="icon-clock"></i><%= @course.duration(t("course_page.minutes")) %></div>
+<% if @use_ui_v2 %>
+  <%= content_tag :div, "", class: "course-overview", data: { props: @course.to_props } %>
+  <%= vite_javascript_tag 'course-overview.jsx' %>
+<% else %>
+  <div class="row">
+    <div class="eight columns">
+      <div class="course-details">
+        <div class="margin-bottom"><i class="icon-pencil"></i><%= @course.lessons.published.count %> Activities</div>
+        <div><i class="icon-clock"></i><%= @course.duration(t("course_page.minutes")) %></div>
+      </div>
+      <div><small><%= t("course_page.contributed_by") %> <%= @course.contributor %></small></div>
     </div>
-    <div><small><%= t("course_page.contributed_by") %> <%= @course.contributor %></small></div>
+
+    <div class="four columns left-or-right">
+      <% if admin_signed_in? %>
+        <p class="course-edit-add-remove"><small><%= link_to "Edit Course >>", edit_admin_course_path(@course) %></small></p>
+        <%= link_to "Start Training", course_start_path(@course), method: :post, class: "btn" %>
+      <% else %>
+        <%= link_to "Start Training", course_start_path(@course), method: :post, class: "btn unauth-start-course-button" %>
+      <% end %>
+    </div>
   </div>
 
-  <div class="four columns left-or-right">
-    <% if admin_signed_in? %>
-      <p class="course-edit-add-remove"><small><%= link_to "Edit Course >>", edit_admin_course_path(@course) %></small></p>
-      <%= link_to "Start Training", course_start_path(@course), method: :post, class: "btn" %>
-    <% else %>
-      <%= link_to "Start Training", course_start_path(@course), method: :post, class: "btn unauth-start-course-button" %>
-    <% end %>
-  </div>
-</div>
+  <div><%= sanitize @course.description %></div>
 
-<div><%= sanitize @course.description %></div>
+  <hr>
 
-<hr>
+  <h2>Activities in this Course</h2>
+  <%= render partial: "shared/lessons/grid", locals: { course: @course } %>
 
-<h2>Activities in this Course</h2>
-<%= render partial: "shared/lessons/grid", locals: { course: @course } %>
+  <hr>
 
-<hr>
-
-<%= render partial: "shared/courses/supplemental_materials", locals: { course: @course } %>
+  <%= render partial: "shared/courses/supplemental_materials", locals: { course: @course } %>
+<% end %>

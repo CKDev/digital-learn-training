@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :include_user_sidebar
+  before_action :include_user_sidebar, only: :index
 
   def index
     @courses = Course.includes(:lessons).published
