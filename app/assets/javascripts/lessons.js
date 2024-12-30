@@ -1,5 +1,4 @@
-$(document).ready(function() {
-
+$(function() {
   // NOTE: this method name should not be changed, it must
   // match the event from the ASL file:
   // window.parent.sendLessonCompletedEvent();

@@ -1,12 +1,15 @@
 import React from "react";
-import { Box, Typography, Tabs, Tab } from "@mui/material";
+import { Box, Tabs, Tab } from "@mui/material";
 import CourseMaterialList from "./CourseMaterialList";
 
-const CategoryPanelContainer = ({ category, ...other }) => {
-  const [selectedLanguage, setSelectedLanguage] = React.useState("en"); // TODO: Use site selected language?
-
-  const handleChangeLanguage = (_event, selectedLanguage) =>
-    setSelectedLanguage(selectedLanguage);
+const CategoryPanelContainer = ({
+  category,
+  selectedLanguage,
+  onLanguageChange,
+}) => {
+  const handleChangeLanguage = (_event, selectedLanguage) => {
+    onLanguageChange(selectedLanguage);
+  };
 
   const languageNames = {
     en: "English",
