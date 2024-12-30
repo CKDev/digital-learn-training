@@ -36,15 +36,19 @@ const UserSidebar = ({ currentPath }) => {
     };
   }
 
-  return (
-    <FullScreenSidebar
-      a11yProps={a11yProps}
-      currentPath={currentPath}
-      handleNavigation={handleNavigation}
-      checklistDownloadPath={checklistDownloadPath}
-      userHttpRoutes={userHttpRoutes}
-    />
-  );
+  if (isSmallScreen) {
+    return <div>Collapsable sidebar</div>;
+  } else {
+    return (
+      <FullScreenSidebar
+        a11yProps={a11yProps}
+        currentPath={currentPath}
+        handleNavigation={handleNavigation}
+        checklistDownloadPath={checklistDownloadPath}
+        userHttpRoutes={userHttpRoutes}
+      />
+    );
+  }
 };
 
 export default UserSidebar;

@@ -1,8 +1,8 @@
 import React from "react";
-import { Box, Typography, Tabs, Tab } from "@mui/material";
+import { Box, Tabs, Tab } from "@mui/material";
 import CourseMaterialList from "./CourseMaterialList";
 
-const CategoryPanelContainer = ({ category, ...other }) => {
+const CategoryPanelContainer = ({ category }) => {
   const [selectedLanguage, setSelectedLanguage] = React.useState("en"); // TODO: Use site selected language?
 
   const handleChangeLanguage = (_event, selectedLanguage) =>
@@ -27,6 +27,7 @@ const CategoryPanelContainer = ({ category, ...other }) => {
 
   return (
     <Box sx={{ p: 3 }}>
+      <Typography>{category.description}</Typography>
       <Tabs
         value={selectedLanguage}
         onChange={handleChangeLanguage}
