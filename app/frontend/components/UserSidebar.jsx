@@ -1,7 +1,13 @@
-import { Tab, Tabs } from "@mui/material";
 import React from "react";
+import FullScreenSidebar from "./user_sidebar/FullScreenSidebar";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const UserSidebar = ({ currentPath }) => {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const checklistDownloadPath = "tech-skills-checklist-survey-only.pdf";
+
   const userHttpRoutes = [
     {
       title: "Course Materials",
@@ -14,10 +20,6 @@ const UserSidebar = ({ currentPath }) => {
     {
       title: "Templates to Make Your Own Materials",
       path: "/templates",
-    },
-    {
-      title: "Additional Resources",
-      path: "/additional_resources",
     },
     {
       title: "Contribute to DigitalLearn",
@@ -35,23 +37,13 @@ const UserSidebar = ({ currentPath }) => {
   }
 
   return (
-    <Tabs
-      orientation="vertical"
-      variant="scrollable"
-      value={currentPath}
-      onChange={handleNavigation}
-      aria-label="User Navigation Menu"
-      sx={{ borderRight: 1, borderColor: "divider" }}
-    >
-      {userHttpRoutes.map((route) => (
-        <Tab
-          label={route.title}
-          value={route.path}
-          {...a11yProps(route.path)}
-          key={"user-nav-tab-" + route.path}
-        />
-      ))}
-    </Tabs>
+    <FullScreenSidebar
+      a11yProps={a11yProps}
+      currentPath={currentPath}
+      handleNavigation={handleNavigation}
+      checklistDownloadPath={checklistDownloadPath}
+      userHttpRoutes={userHttpRoutes}
+    />
   );
 };
 

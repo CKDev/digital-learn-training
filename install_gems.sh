@@ -2,7 +2,7 @@
 
 set -e
 
-gem install bundler -v '~> 2.4.22'
+gem install bundler -v '~> 2.5.23'
 
 if [ "$RAILS_ENV" = "development" ]
 then

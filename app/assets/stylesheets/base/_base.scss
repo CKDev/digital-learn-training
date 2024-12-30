@@ -38,11 +38,12 @@ body {
   flex-wrap: nowrap;
 
   .user-sidebar {
-    width: 25%;
+    flex-basis: 25%
   }
 
   .main-content {
     width: 100%;
+    flex-basis: 75%;
   }
 }
 
