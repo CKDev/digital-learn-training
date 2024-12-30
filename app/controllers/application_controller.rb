@@ -1,8 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :current_organization
+
+  layout :set_layout
+
+  before_action :current_organization # Set current organization instance var
   before_action :set_blank_templates
   before_action :set_footer_links
+  before_action :set_ui_v2
 
   before_action :authenticate_user!, if: :organization_subdomain?
 
@@ -16,14 +20,16 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    if user.collaborator?
+    if user.admin?
+      admin_root_path
+    elsif user.collaborator?
       root_path(user, login_warning: true)
     else
       stored_location_for(user) || signed_in_root_path(user)
     end
   end
 
-  def after_sign_out_path_for(resource)
+  def after_sign_out_path_for(_resource)
     if authenticated_with_saml?
       destroy_saml_user_session_path
     else
@@ -31,7 +37,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_invite_path_for(inviter, invitee)
+  def after_invite_path_for(_inviter, _invitee)
     admin_root_path
   end
 
@@ -44,13 +50,29 @@ class ApplicationController < ActionController::Base
       redirect_to admin_root_path
     end
 
-    return current_user
+    current_user
   end
 
   private
 
   def current_organization
     @current_organization ||= Organization.find_by(subdomain: request.subdomains.last)
+  end
+
+  def set_layout
+    organization = current_organization
+    return "application" if organization.blank?
+
+    custom_org_layout_file = Rails.root.join "app", "views", "layouts", "#{organization.subdomain}.html.erb"
+    if custom_org_layout_file
+      current_organization.subdomain # Use subomain as layout file name
+    else
+      "application"
+    end
+  end
+
+  def include_user_sidebar
+    @include_user_sidebar = true
   end
 
   def set_blank_templates
@@ -72,13 +94,17 @@ class ApplicationController < ActionController::Base
   end
 
   def current_language
-    session[:locale] || 'en'
+    session[:locale] || "en"
   end
 
   def current_language_name
     case current_language
-    when 'es' then 'Spanish'
-    when 'en' then 'English'
+    when "es" then "Spanish"
+    when "en" then "English"
     end
+  end
+
+  def set_ui_v2
+    @use_ui_v2 = current_organization&.subdomain != "att" # Use legacy UI for att subdomain
   end
 end

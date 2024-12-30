@@ -1,13 +1,16 @@
 module Admin
   class CategoriesController < BaseController
-
     def index
-      @categories = Category.all.order(:title)
+      @categories = Category.order(:title)
     end
 
     def new
       @category = Category.new
       @category.sub_categories.build
+    end
+
+    def edit
+      @category = Category.friendly.find(params[:id])
     end
 
     def create
@@ -17,10 +20,6 @@ module Admin
       else
         render :new
       end
-    end
-
-    def edit
-      @category = Category.friendly.find(params[:id])
     end
 
     def update
@@ -35,7 +34,7 @@ module Admin
     private
 
     def category_params
-      params.require(:category).permit(:title, :description, :organization_id, :tag, sub_categories_attributes: [:id, :title, :_destroy])
+      params.require(:category).permit(:title, :description, :organization_id, :tag, sub_categories_attributes: %i[id title _destroy])
     end
 
   end

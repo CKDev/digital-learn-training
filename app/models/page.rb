@@ -7,7 +7,7 @@ class Page < ApplicationRecord
   validates :author, presence: true, length: { maximum: 20 }
   validates :seo_title, length: { maximum: 90 }
   validates :meta_desc, length: { maximum: 156 }
-  validates :pub_status, presence: true, inclusion: { in: %w(P D A), message: "%{value} is not a valid status" }
+  validates :pub_status, presence: true, inclusion: { in: %w(P D A), message: "%<value>s is not a valid status" }
 
   before_save :update_pub_at
 

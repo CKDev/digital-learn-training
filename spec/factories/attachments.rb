@@ -2,13 +2,13 @@ FactoryBot.define do
 
   factory :attachment do
     course
-    document { Rack::Test::UploadedFile.new(Rails.root.join("spec", "fixtures", "test_upload.pdf"), "application/pdf") }
+    document { Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/test_upload.pdf"), "application/pdf") }
     doc_type { "supplemental" }
   end
 
-  factory :docx_attachment, class: 'Attachment' do
+  factory :docx_attachment, class: "Attachment" do
     course
-    document { Rack::Test::UploadedFile.new(Rails.root.join("spec", "fixtures", "test_document.docx"), "application/vnd.openxmlformats-officedocument.wordprocessingml.document") }
+    document { Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/test_document.docx"), "application/vnd.openxmlformats-officedocument.wordprocessingml.document") }
     document_content_type { "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }
     doc_type { "supplemental" }
   end

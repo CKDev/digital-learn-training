@@ -100,4 +100,7 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   # config.active_storage.service = :local
+  
+  # Learners site url host
+  config.learners_site_host = 'lvh.me:3000'
 end

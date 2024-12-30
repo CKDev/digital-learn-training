@@ -1,9 +1,15 @@
 class HomeController < ApplicationController
   prepend_before_action :redirect_unauthenticated_subdomain_user, only: :index
   skip_before_action :authenticate_user!, only: :language_toggle
+  before_action :include_user_sidebar
 
   def index
     set_locale
+
+    if @use_ui_v2
+      redirect_to course_materials_path, notice: params[:flash_message]
+    end
+
     @courses = Course.published.limit(2)
     @categories = get_categories
     @getting_started = @categories.where(tag: "Getting Started")
@@ -32,8 +38,8 @@ class HomeController < ApplicationController
   end
 
   def set_locale
-    requested_locale = params['lang']
-    whitelisted_locales = %w(en es)
+    requested_locale = params["lang"]
+    whitelisted_locales = %w[en es]
     session[:locale] = requested_locale if whitelisted_locales.include?(requested_locale)
   end
 end

@@ -2,24 +2,22 @@ class Course < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-  has_many :lessons
+  has_many :lessons, dependent: :destroy
   has_many :attachments, dependent: :destroy
 
   validates :description, presence: true
   validates :contributor, presence: true
-  validates :title, length: { maximum: 90 }, presence: true, uniqueness: { message: "must be unique" }
+  validates :title, length: { maximum: 90 }, presence: true, uniqueness: true
   validates :summary, length: { maximum: 156 }, presence: true
   validates :seo_page_title, length: { maximum: 90 }
   validates :meta_desc, length: { maximum: 156 }
-  validates :pub_status, presence: true,
-    inclusion: { in: %w(P D A), message: "%{value} is not a valid status" }
+  validates :pub_status, presence: true, inclusion: { in: %w(P D A) }
 
   accepts_nested_attributes_for :attachments, reject_if: proc { |a| a[:document].blank? }, allow_destroy: true
 
   before_save :update_pub_date
 
   default_scope { order("course_order") }
-  scope :with_category, ->(category_id) { where(category_id: category_id) }
   scope :archived, -> { where(pub_status: "A") }
   scope :not_archived, -> { where.not(pub_status: "A") }
   scope :published, -> { where(pub_status: "P") }
@@ -31,14 +29,16 @@ class Course < ApplicationRecord
     begin
       lesson_order = lessons.published.find(current_lesson_id).lesson_order
       return lessons.order("lesson_order").last.id if lesson_order >= last_lesson_order
+
       self.lessons.published.where("lesson_order > ?", lesson_order).first.id
-    rescue
+    rescue StandardError
       lessons.published.order("lesson_order").first.id
     end
   end
 
   def last_lesson_order
     raise StandardError, "There are no available lessons for this course." if lessons.count.zero?
+
     lessons.maximum("lesson_order")
   end
 
@@ -69,4 +69,15 @@ class Course < ApplicationRecord
     self.attachments.where(doc_type: "supplemental")
   end
 
+  def to_props
+    { id: id,
+      title: title,
+      description: description,
+      summary: summary,
+      contributor: contributor,
+      courseUrl: Rails.application.routes.url_helpers.course_path(friendly_id),
+      lessons: lessons.map(&:to_props),
+      supplementalAttachments: supplemental_attachments.map(&:to_props),
+      postCourseAttachments: post_course_attachments.map(&:to_props) }
+  end
 end

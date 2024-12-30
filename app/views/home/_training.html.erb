@@ -1,6 +1,6 @@
 <div class="extra-margin-bottom">
   <h3>Training</h3>
   <% @courses.each do |course| %>
-    <%= render "components/media_object_1", title: course.title, summary: course.summary, link: course_path(course), icon: "icon-training" %>
+    <%= render "components/media_object", title: course.title, summary: course.summary, link: course_path(course), icon: "icon-training" %>
   <% end %>
 </div>

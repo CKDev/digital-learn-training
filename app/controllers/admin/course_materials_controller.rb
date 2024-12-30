@@ -1,6 +1,5 @@
 module Admin
   class CourseMaterialsController < BaseController
-
     helper_method :categories_array
 
     def index
@@ -14,6 +13,11 @@ module Admin
       @course_material.course_material_videos.build
     end
 
+    def edit
+      @course_material = CourseMaterial.friendly.find(params[:id])
+      @readonly = @course_material.title.in? PROTECTED_COURSE_MATERIALS
+    end
+
     def create
       @course_material = CourseMaterial.new
       @course_material.sort_order = CourseMaterial.count + 1
@@ -22,11 +26,6 @@ module Admin
       else
         render :new
       end
-    end
-
-    def edit
-      @course_material = CourseMaterial.friendly.find(params[:id])
-      @readonly = @course_material.title.in? PROTECTED_COURSE_MATERIALS
     end
 
     def update
@@ -39,7 +38,7 @@ module Admin
     end
 
     def sort
-      params[:order].each { |_k, v| CourseMaterial.find(v[:id]).update(sort_order: v[:position]) }
+      params[:order].each_value { |v| CourseMaterial.find(v[:id]).update(sort_order: v[:position]) }
       respond_to do |format|
         format.json { render json: true, status: :ok }
       end
@@ -60,9 +59,10 @@ module Admin
         :pub_status,
         :language,
         :new_course,
-        course_material_files_attributes: [:id, :file, :_destroy],
-        course_material_medias_attributes: [:id, :media, :_destroy],
-        course_material_videos_attributes: [:id, :url, :_destroy])
+        course_material_files_attributes: %i[id file _destroy],
+        course_material_medias_attributes: %i[id media _destroy],
+        course_material_videos_attributes: %i[id url _destroy]
+)
     end
 
     def categories_array

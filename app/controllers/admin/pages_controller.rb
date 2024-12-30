@@ -1,7 +1,7 @@
 module Admin
   class PagesController < BaseController
 
-    before_action :set_page, only: [:edit, :update]
+    before_action :set_page, only: %i[edit update]
 
     def index
       @pages = Page.not_archived.alpha_order
@@ -9,6 +9,9 @@ module Admin
 
     def new
       @page = Page.new
+    end
+
+    def edit
     end
 
     def create
@@ -19,9 +22,6 @@ module Admin
       else
         render :new
       end
-    end
-
-    def edit
     end
 
     def update

@@ -1,17 +1,19 @@
-<ul class="sidebar-links unmarked">
-  <li><%= link_to "Courses", admin_course_materials_path, class: add_active_base_link(["admin/courses"]) %></li>
-  <li><%= link_to "Instructional Design Trainings", admin_courses_path, class: add_active_base_link(["admin/trainings"]) %></li>
-  <li><%= link_to "CMS Pages", admin_pages_path, class: add_active_base_link(["admin/pages"]) %></li>
-</ul>
-<hr />
-<ul class="sidebar-links unmarked">
-  <li><%= link_to "Course Categories", admin_categories_path, class: add_active_base_link(["admin/categories"]) %></li>
-</ul>
-<hr />
-<ul class="sidebar-links unmarked">
-  <li><%= link_to "Change Login Information", edit_user_registration_path, class: add_active_base_link(["users/edit"]) %></li>
-</ul>
-<hr />
-<ul class="sidebar-links unmarked">
-  <li><%= link_to "Invite Collaborator", new_user_invitation_path, class: add_active_base_link(["users/invitation/new"]) %></li>
-</ul>
+<div class="admin-sidebar">
+  <ul class="sidebar-links unmarked">
+    <li><%= link_to "Courses", admin_course_materials_path, class: add_active_base_link(["admin/courses"]) %></li>
+    <li><%= link_to "Instructional Design Trainings", admin_courses_path, class: add_active_base_link(["admin/trainings"]) %></li>
+    <li><%= link_to "CMS Pages", admin_pages_path, class: add_active_base_link(["admin/pages"]) %></li>
+  </ul>
+  <hr />
+  <ul class="sidebar-links unmarked">
+    <li><%= link_to "Course Categories", admin_categories_path, class: add_active_base_link(["admin/categories"]) %></li>
+  </ul>
+  <hr />
+  <ul class="sidebar-links unmarked">
+    <li><%= link_to "Change Login Information", edit_user_registration_path, class: add_active_base_link(["users/edit"]) %></li>
+  </ul>
+  <hr />
+  <ul class="sidebar-links unmarked">
+    <li><%= link_to "Invite Collaborator", new_user_invitation_path, class: add_active_base_link(["users/invitation/new"]) %></li>
+  </ul>
+</div>

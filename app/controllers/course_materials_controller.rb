@@ -1,12 +1,14 @@
 class CourseMaterialsController < ApplicationController
+  before_action :include_user_sidebar, only: :index
 
   def index
-    @categories = get_categories
-    @getting_started = @categories.where(tag: "Getting Started")
-    @hardware = @categories.where(tag: "Hardware")
-    @software_and_applications = @categories.where(tag: "Software & Applications")
-    @job_and_career = @categories.where(tag: "Job & Career")
+    @categories = categories
     @blank_template = CourseMaterial.find_by(title: "Course Templates")
+
+    @course_materials_data = {
+      categories: @categories.map { |c| c.to_props(include_materials: true) },
+      initialCategoryId: params[:selected_category]
+    }
   end
 
   def show
@@ -21,7 +23,7 @@ class CourseMaterialsController < ApplicationController
 
   private
 
-  def get_categories
+  def categories
     categories = current_organization ? Category.where(organization: current_organization) : Category.where(organization: nil)
 
     categories.includes(sub_categories: :course_materials)

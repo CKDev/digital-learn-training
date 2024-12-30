@@ -192,20 +192,20 @@ describe Admin::CoursesController do
 
   describe "PUT #sort" do
 
-    before :each do
+    before do
       @course1 = FactoryBot.create(:course)
       @course2 = FactoryBot.create(:course)
       @course3 = FactoryBot.create(:course)
     end
 
-    it "should update to the given sort order" do
+    it "updates to the given sort order" do
       @admin = FactoryBot.create(:admin)
       sign_in @admin
 
       order = {
-        "0": { "id": @course3.id, "position": "1" },
-        "1": { "id": @course1.id, "position": "2" },
-        "2": { "id": @course2.id, "position": "3" }
+        "0": { id: @course3.id, position: "1" },
+        "1": { id: @course1.id, position: "2" },
+        "2": { id: @course2.id, position: "3" }
       }
       put :sort, params: { order: order }, format: :json
 

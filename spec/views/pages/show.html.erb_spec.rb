@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe "pages/show.html.erb" do
 
-  before(:each) do
+  before do
     # Stub `current_organization` method
     view.stubs(:current_organization).returns(nil)
 

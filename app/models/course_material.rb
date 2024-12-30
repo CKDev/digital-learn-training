@@ -3,7 +3,7 @@ class CourseMaterial < ApplicationRecord
   friendly_id :title, use: :slugged
 
   belongs_to :category
-  belongs_to :sub_category, required: false
+  belongs_to :sub_category, optional: true
   has_many :course_material_files, dependent: :destroy
   has_many :course_material_medias, dependent: :destroy
   has_many :course_material_videos, dependent: :destroy
@@ -12,8 +12,7 @@ class CourseMaterial < ApplicationRecord
   validate :unique_title
   validates :contributor, length: { maximum: 156 }, presence: true
   validates :summary, presence: true, length: { maximum: 74 }
-  validates :pub_status, presence: true,
-    inclusion: { in: %w(P D A), message: "%{value} is not a valid status" }
+  validates :pub_status, presence: true, inclusion: { in: %w(P D A) }
   validates :language, presence: true, inclusion: { in: %w(en es) }
   validate :allowed_change?
   validates :sort_order, presence: true, numericality: { only_integer: true, greater_than: 0 }
@@ -35,13 +34,37 @@ class CourseMaterial < ApplicationRecord
   validates_attachment :media_archive, content_type: { content_type: ["application/zip", "application/x-zip"] }
 
   default_scope { order("sort_order") }
-  scope :in_category, ->(category_id) { joins(:category).where("categories.id = ?", category_id) }
+  scope :in_category, ->(category_id) { joins(:category).where(categories: { id: category_id }) }
   scope :published, -> { where(pub_status: "P") }
   scope :archived, -> { where(pub_status: "A") }
   scope :not_archived, -> { where.not(pub_status: "A") }
   scope :not_self, ->(id) { where.not(id: id) }
   scope :non_organization, -> { joins(:category).where(categories: { organization_id: nil }).references(:categories) }
   scope :in_language, ->(language) { where(language: language) }
+
+  def to_props(include_attachments: false)
+    props = { id: id,
+              title: title,
+              summary: summary,
+              description: description,
+              language: language,
+              category: category.title,
+              categoryId: category.id,
+              subCategory: sub_category&.title,
+              courseMaterialUrl: Rails.application.routes.url_helpers.course_material_path(friendly_id),
+              materialsDownloadUrl: Rails.application.routes.url_helpers.course_material_course_attachments_path(self),
+              fileCount: course_material_files.count,
+              imageCount: course_material_medias.count,
+              videoCount: course_material_videos.count,
+              providedByAtt: new_course }
+
+    if include_attachments
+      props.merge!(files: course_material_files.map(&:to_props),
+                   images: course_material_medias.map(&:to_props))
+    end
+
+    props
+  end
 
   private
 
@@ -61,7 +84,6 @@ class CourseMaterial < ApplicationRecord
 
   def unique_title
     scope = category&.organization.present? ? category.organization.course_materials : CourseMaterial.non_organization
-    errors.add(:title, 'has already been taken') if scope.where(title: title).where.not(id: id).exists?
+    errors.add(:title, "has already been taken") if scope.where(title: title).where.not(id: id).exists?
   end
-
 end

@@ -12,10 +12,14 @@ Rails.application.routes.draw do
     end
   end
   resources :course_materials, only: [:index, :show], path: "courses" do
+    resources :course_attachments, only: [:index]
     resources :course_materials_files, only: [:index, :show]
     resources :course_materials_medias, only: [:index, :show]
   end
   resources :categories, only: [:show]
+  resources :templates, only: [:index]
+  resources :additional_resources, only: [:index]
+  resources :contribute, only: [:index]
   resource :collaborator_warnings, only: [:destroy]
 
   namespace :admin do

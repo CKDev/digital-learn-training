@@ -17,20 +17,6 @@ module ApplicationHelper
     end
   end
 
-  def mime_type_conversion(mime_type)
-    case mime_type
-    when "application/pdf" then "PDF File"
-    when "text/csv" then "CSV File"
-    when "application/vnd.ms-excel" then "Microsoft Excel"
-    when "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" then "Microsoft Excel"
-    when "application/vnd.ms-powerpoint" then "Microsoft PowerPoint"
-    when "application/vnd.openxmlformats-officedocument.presentationml.presentation" then "Microsoft PowerPoint"
-    when "application/msword" then "Microsoft Word"
-    when "application/vnd.openxmlformats-officedocument.wordprocessingml.document" then "Microsoft Word"
-    else ""
-    end
-  end
-
   def add_active_base_link(base_paths, classes = "")
     if base_paths.is_a?(Array)
       base_paths.each do |path|
@@ -43,7 +29,7 @@ module ApplicationHelper
     end
     classes
   end
-  
+
   def contact_email
     current_organization&.contact_email || "support@digitallearn.org"
   end

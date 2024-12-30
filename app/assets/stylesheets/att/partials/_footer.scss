@@ -1,5 +1,40 @@
 .att {
   .footer-primary {
     background-color: $att_action_blue;
+    margin-top: 2em;
+    padding: 2em 0;
+    min-height: 270px;
+    color: $white;
+    display: flex;
+  }
+  
+  .link-pla {
+    width: auto;
+    max-height: 60px;
+    margin-bottom: 10px;
+  }
+  
+  .license {
+    text-align: left;
+  }
+  
+  .cms_nav {
+    padding-left: 0px;
+    text-align: left;
+  
+    h3 {
+      color: $white;
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+  
+    a {
+      color: $white !important;
+    }
+  
+  }
+  
+  .footer-box {
+    margin-top: 50px;
   }
 }
