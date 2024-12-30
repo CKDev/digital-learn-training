@@ -2,9 +2,11 @@
 <html lang="en">
   <head>
     <%= render "meta_tags" %>
+    <%= vite_client_tag %>
+    <%= vite_react_refresh_tag %>
   </head>
   <body>
-    <%= render "header" %>
+    <%= render "application/header" %>
     <div class="banner">
       <div class="container">
         <% if content_for?(:callout) %>

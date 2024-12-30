@@ -103,6 +103,11 @@ a.course-widget {
 
   &:hover {
     box-shadow: 0 0 10px $grey;
+    text-decoration: none;
+  }
+
+  &:active {
+    text-decoration: none;
   }
 }
 

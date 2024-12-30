@@ -1,6 +1,7 @@
-import { Box, Button, Container, Grid2, Typography } from "@mui/material";
-import ForwardRoundedIcon from "@mui/icons-material/ForwardRounded";
 import React from "react";
+
+import { Box, Button, Grid2, Typography } from "@mui/material";
+import ForwardRoundedIcon from "@mui/icons-material/ForwardRounded";
 
 const SiteSwitcher = ({ switcherUrl }) => (
   <Box pt={2} pb={2}>

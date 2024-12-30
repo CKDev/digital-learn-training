@@ -27,7 +27,7 @@ const ForgotPassword = ({ signInPath, requestPasswordResetPath }) => {
           Accept: "application/json",
           "X-CSRF-Token": csrfToken,
         },
-        body: JSON.stringify({ user: { email } }),
+        body: JSON.stringify({ user: { email: email } }),
       });
 
       if (!response.ok) {

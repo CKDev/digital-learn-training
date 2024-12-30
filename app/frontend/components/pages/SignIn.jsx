@@ -28,7 +28,7 @@ const SignIn = ({ signInPath, forgotPasswordPath }) => {
           Accept: "application/json",
           "X-CSRF-Token": csrfToken,
         },
-        body: JSON.stringify({ user: { email, password } }),
+        body: JSON.stringify({ user: { email: email, password: password } }),
       });
 
       if (!response.ok) {
