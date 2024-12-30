@@ -1,4 +1,5 @@
-$(document).ready(function() {
+$(function() {
+  console.log('Welcome to the DigitalLearn Training site');
   sortableTable.set_positions();
   sortableTable.init_sortables();
 });

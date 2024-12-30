@@ -11,10 +11,15 @@ const CourseMaterial = ({
   files,
   images,
   videos,
+  language,
   ...courseMaterialProps
 }) => (
   <Grid2>
-    <ReturnToCategoryLink category={category} categoryId={categoryId} />
+    <ReturnToCategoryLink
+      category={category}
+      categoryId={categoryId}
+      language={language}
+    />
     <CourseHeader {...courseMaterialProps} />
     <CourseDocuments files={files} />
     <CourseImages images={images} />

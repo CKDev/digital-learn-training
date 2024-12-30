@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import CategoryPanelContainer from "../category_panel/CategoryPanelContainer";
@@ -18,12 +18,19 @@ const NoMaterialsWidget = ({}) => (
   </Box>
 );
 
-const CourseMaterials = ({ categories, initialCategoryId }) => {
+const CourseMaterials = ({
+  categories,
+  initialCategoryId,
+  initialLanguage,
+}) => {
   if (categories.length == 0) {
     return <NoMaterialsWidget />;
   } else {
-    const [selectedCategoryId, setSelectedCategoryId] = React.useState(
+    const [selectedCategoryId, setSelectedCategoryId] = useState(
       parseInt(initialCategoryId) || categories[0].id
+    );
+    const [selectedLanguage, setSelectedLanguage] = useState(
+      initialLanguage || "en"
     );
 
     const handleChangeCategory = (_event, selectedCategoryId) => {
@@ -40,6 +47,22 @@ const CourseMaterials = ({ categories, initialCategoryId }) => {
       );
 
       setSelectedCategoryId(selectedCategoryId);
+    };
+
+    const handleChangeLanguage = (selectedLanguage) => {
+      // Clear initial category selection from url
+      let params = new URLSearchParams(window.location.search);
+      params.delete("selected_language");
+
+      window.history.replaceState(
+        null,
+        "",
+        window.location.pathname +
+          (params.size > 0 ? "?" + params : "") +
+          window.location.hash
+      );
+
+      setSelectedLanguage(selectedLanguage);
     };
 
     function a11yProps(index) {
@@ -76,22 +99,25 @@ const CourseMaterials = ({ categories, initialCategoryId }) => {
           ))}
         </Tabs>
         {categories.map((category) => (
-          <div
+          <Box
             role="tabpanel"
             hidden={selectedCategoryId !== category.id}
             id={`category-tabpanel-${category.id}`}
             aria-labelledby={`category-tab-${category.id}`}
             key={`category-tab-${category.id}`}
+            sx={{ flexGrow: 1 }}
           >
             {selectedCategoryId === category.id && (
               <CategoryPanelContainer
                 category={category}
                 selectedCategoryId={selectedCategoryId}
+                selectedLanguage={selectedLanguage}
                 panelIndex={category.id}
+                onLanguageChange={handleChangeLanguage}
                 key={"category-tab-content-" + category.id}
               />
             )}
-          </div>
+          </Box>
         ))}
       </Box>
     );

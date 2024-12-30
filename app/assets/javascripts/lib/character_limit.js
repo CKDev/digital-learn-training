@@ -1,6 +1,10 @@
+$(function() {
+  CharacterLimit.init();
+});
+
 var CharacterLimit = (function($) {
   return {
-    init : function() {
+    init: function() {
       $("*[maxlength]").each(updateText);
       $("body").on("keyup", "*[maxlength]", updateText);
     }
@@ -13,7 +17,3 @@ var CharacterLimit = (function($) {
   }
 
 })(jQuery);
-
-$(document).ready(function() {
-  CharacterLimit.init();
-});
