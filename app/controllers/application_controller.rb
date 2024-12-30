@@ -20,7 +20,9 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    if user.collaborator?
+    if user.admin?
+      admin_root_path
+    elsif user.collaborator?
       root_path(user, login_warning: true)
     else
       stored_location_for(user) || signed_in_root_path(user)

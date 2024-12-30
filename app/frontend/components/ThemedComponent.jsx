@@ -31,7 +31,7 @@ const theme = createTheme({
     },
     info: {
       main: "#548687",
-      dark: "#548687",
+      dark: "#006064",
       contrastText: "#FFFFFF",
     },
     iconColor: "rgba(0, 0, 0, 0.56)",

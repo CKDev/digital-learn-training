@@ -7,7 +7,7 @@ class HomeController < ApplicationController
     set_locale
 
     if @use_ui_v2
-      redirect_to course_materials_path
+      redirect_to course_materials_path, notice: params[:flash_message]
     end
 
     @courses = Course.published.limit(2)
