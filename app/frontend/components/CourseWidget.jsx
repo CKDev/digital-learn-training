@@ -20,7 +20,7 @@ const CourseWidget = ({
   videoCount,
   providedByAtt,
 }) => (
-  <Card sx={{ width: 570 }}>
+  <Card>
     <Paper>
       <CardHeader
         title={title}

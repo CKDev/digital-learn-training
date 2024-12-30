@@ -33,7 +33,12 @@ const CourseHeader = ({
           />
         }
       />
-      <CardContent>{summary}</CardContent>
+      <CardContent>
+        <Typography>{summary}</Typography>
+        {description != undefined && (
+          <div dangerouslySetInnerHTML={{ __html: description }} />
+        )}
+      </CardContent>
       <CardActions>
         {fileCount + imageCount + videoCount > 0 && (
           <Button
