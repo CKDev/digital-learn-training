@@ -6,7 +6,7 @@ import ForwardRoundedIcon from "@mui/icons-material/ForwardRounded";
 const SiteSwitcher = ({ switcherUrl }) => (
   <Box pt={2} pb={2}>
     <Grid2 container display="flex" justifyContent="space-between">
-      <Grid2 display="flex" alignItems="baseline" container size={8} gap={1}>
+      <Grid2 display="flex" alignItems="baseline" container gap={1}>
         <Typography variant="overline" display="inline">
           Current Site:{" "}
         </Typography>

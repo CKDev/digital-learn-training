@@ -28,7 +28,7 @@ const CourseImages = ({ images }) => (
               alignItems="center"
             >
               <Grid sx={{ px: 1 }}>
-                <img src={`/${image.thumbnailUrl}`} alt={image.fileName} />
+                <img src={`${image.thumbnailUrl}`} alt={image.fileName} />
               </Grid>
               <Grid container size="grow" direction="column" sx={{ px: 2 }}>
                 <Grid>

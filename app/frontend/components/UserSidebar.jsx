@@ -1,6 +1,7 @@
 import React from "react";
-import FullScreenSidebar from "./user_sidebar/FullScreenSidebar";
 import { useMediaQuery, useTheme } from "@mui/material";
+import SidebarDrawer from "./user_sidebar/SidebarDrawer";
+import SidebarTabs from "./user_sidebar/SidebarTabs";
 
 const UserSidebar = ({ currentPath }) => {
   const theme = useTheme();
@@ -36,15 +37,27 @@ const UserSidebar = ({ currentPath }) => {
     };
   }
 
-  return (
-    <FullScreenSidebar
-      a11yProps={a11yProps}
-      currentPath={currentPath}
-      handleNavigation={handleNavigation}
-      checklistDownloadPath={checklistDownloadPath}
-      userHttpRoutes={userHttpRoutes}
-    />
-  );
+  if (isSmallScreen) {
+    return (
+      <SidebarDrawer
+        a11yProps={a11yProps}
+        currentPath={currentPath}
+        handleNavigation={handleNavigation}
+        checklistDownloadPath={checklistDownloadPath}
+        userHttpRoutes={userHttpRoutes}
+      />
+    );
+  } else {
+    return (
+      <SidebarTabs
+        a11yProps={a11yProps}
+        currentPath={currentPath}
+        handleNavigation={handleNavigation}
+        checklistDownloadPath={checklistDownloadPath}
+        userHttpRoutes={userHttpRoutes}
+      />
+    );
+  }
 };
 
 export default UserSidebar;

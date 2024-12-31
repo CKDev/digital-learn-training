@@ -24,6 +24,7 @@ class Category < ApplicationRecord
       id: id,
       title: title,
       tag: tag,
+      description: description,
       availableTags: ALLOWED_TAGS,
       subcategories: sub_categories.map(&:title),
       organization: organization&.to_props

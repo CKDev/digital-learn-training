@@ -23,6 +23,8 @@ body {
 }
 
 .content {
+  position: relative;
+  overflow: hidden;
   flex: 1;
   width: 100%;
   margin: 0 auto;
@@ -38,11 +40,21 @@ body {
   flex-wrap: nowrap;
 
   .user-sidebar {
-    flex-basis: 25%
+    flex-basis: 25%;
   }
 
   .user-sidebar ~ .main-content {
     flex-basis: 75%;
+  }
+
+  @media (max-width: $medium) {
+    .user-sidebar {
+      flex-basis: unset;
+    }
+  
+    .user-sidebar ~ .main-content {
+      flex-basis: unset;
+    }
   }
 
   .main-content {

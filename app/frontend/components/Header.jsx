@@ -35,7 +35,7 @@ const Header = ({ logoLinkUrl, logoFile, switcherUrl, isAuthenticated }) => {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ mb: 2 }}>
       <SiteSwitcher switcherUrl={switcherUrl} />
       <Grid container justifyContent="space-between">
         <Link href={logoLinkUrl}>
