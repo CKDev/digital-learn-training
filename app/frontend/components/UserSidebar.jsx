@@ -1,6 +1,7 @@
 import React from "react";
-import FullScreenSidebar from "./user_sidebar/FullScreenSidebar";
 import { useMediaQuery, useTheme } from "@mui/material";
+import SidebarDrawer from "./user_sidebar/SidebarDrawer";
+import SidebarTabs from "./user_sidebar/SidebarTabs";
 
 const UserSidebar = ({ currentPath }) => {
   const theme = useTheme();
@@ -37,10 +38,18 @@ const UserSidebar = ({ currentPath }) => {
   }
 
   if (isSmallScreen) {
-    return <div>Collapsable sidebar</div>;
+    return (
+      <SidebarDrawer
+        a11yProps={a11yProps}
+        currentPath={currentPath}
+        handleNavigation={handleNavigation}
+        checklistDownloadPath={checklistDownloadPath}
+        userHttpRoutes={userHttpRoutes}
+      />
+    );
   } else {
     return (
-      <FullScreenSidebar
+      <SidebarTabs
         a11yProps={a11yProps}
         currentPath={currentPath}
         handleNavigation={handleNavigation}

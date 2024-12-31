@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const FullScreenSidebar = ({
+const SidebarTabs = ({
   a11yProps,
   handleNavigation,
   checklistDownloadPath,
@@ -41,7 +41,7 @@ const FullScreenSidebar = ({
         />
       ))}
     </Tabs>
-    <Box sx={{ py: 2, px: 1 }}>
+    <Box sx={{ p: 2 }}>
       <Grid container direction="column" spacing={1}>
         <Typography variant="h6">Tech Skills Checklist</Typography>
         <Typography variant="caption">
@@ -63,4 +63,4 @@ const FullScreenSidebar = ({
   </Box>
 );
 
-export default FullScreenSidebar;
+export default SidebarTabs;

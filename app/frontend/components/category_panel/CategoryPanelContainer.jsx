@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Tabs, Tab } from "@mui/material";
+import { Box, Tabs, Tab, Typography } from "@mui/material";
 import CourseMaterialList from "./CourseMaterialList";
 
 const CategoryPanelContainer = ({
@@ -29,8 +29,8 @@ const CategoryPanelContainer = ({
   }
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography>{category.description}</Typography>
+    <Box sx={{ px: 3 }}>
+      <Typography sx={{ mb: 2 }}>{category.description}</Typography>
       <Tabs
         value={selectedLanguage}
         onChange={handleChangeLanguage}
