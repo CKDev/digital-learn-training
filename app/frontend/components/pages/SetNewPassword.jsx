@@ -74,7 +74,7 @@ const SetNewPassword = ({
         console.log("Password Reset success:", data);
         window.location = data.redirectPath;
       } catch (err) {
-        setError(err.message);
+        setErrors({ submitError: err.message });
       }
     }
   };

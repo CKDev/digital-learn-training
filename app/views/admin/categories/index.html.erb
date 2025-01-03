@@ -1,23 +1,28 @@
-<%= content_for(:callout) { %><h1>Course Categories</h1><% } %>
-<h2 class="screen-reader-text">Course Categories Index View</h2>
+<% if @use_ui_v2 %>
+  <%= content_tag :div, "", class: "admin-categories", data: { props: { categories: @categories.map(&:to_props), categoryTags: Category::ALLOWED_TAGS } } %>
+  <%= vite_javascript_tag 'admin-categories.jsx' %>
+<% else %>
+  <%= content_for(:callout) { %><h1>Course Categories</h1><% } %>
+  <h2 class="screen-reader-text">Course Categories Index View</h2>
 
-<div class="row extra-margin-bottom">
-  <%= link_to "Add a New Course Category", new_admin_category_path, class: "btn" %>
-</div>
-
-<div class="extra-margin-bottom">
-  <div class="list-titles">
-    <div class="cell">Course Category</div>
+  <div class="row extra-margin-bottom">
+    <%= link_to "Add a New Course Category", new_admin_category_path, class: "btn" %>
   </div>
-  <% if @categories.present? %>
-    <ul class="objects">
-      <% @categories.each do |course| %>
-        <li>
-          <div class="cell"><%= link_to course.title, edit_admin_category_path(course), class: "no_drag_link" %></div>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>There are no available course categories.</p>
-  <% end %>
-</div>
+
+  <div class="extra-margin-bottom">
+    <div class="list-titles">
+      <div class="cell">Course Category</div>
+    </div>
+    <% if @categories.present? %>
+      <ul class="objects">
+        <% @categories.each do |course| %>
+          <li>
+            <div class="cell"><%= link_to course.title, edit_admin_category_path(course), class: "no_drag_link" %></div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>There are no available course categories.</p>
+    <% end %>
+  </div>
+<% end %>

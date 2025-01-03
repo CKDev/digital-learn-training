@@ -1,7 +1,7 @@
 module Admin
   class CategoriesController < BaseController
     def index
-      @categories = Category.order(:title)
+      @categories = Category.where(organization: current_organization).order(:title)
     end
 
     def new
@@ -14,21 +14,46 @@ module Admin
     end
 
     def create
-      @category = Category.new
-      if @category.update(category_params)
-        redirect_to admin_categories_path, notice: "Successfully created new category"
-      else
-        render :new
+      @category = Category.new(organization: current_organization)
+
+      respond_to do |format|
+        format.json do
+          if @category.update(category_params)
+            render json: { message: "Successfully created new category" }, status: :created
+          else
+            render json: { error: @category.errors.full_messages.join(", ") }
+          end
+        end
+        format.html do
+          if @category.update(category_params)
+            redirect_to admin_categories_path, notice: "Successfully created new category"
+          else
+            render :new
+          end
+        end
       end
     end
 
     def update
       @category = Category.friendly.find(params[:id])
-      if @category.update(category_params)
-        redirect_to admin_categories_path, notice: "Successfully updated category"
-      else
-        render :edit
+
+      respond_to do |format|
+        format.json do
+          if @category.update(category_params)
+            render json: { message: "Successfully updated category" }, status: :created
+          else
+            render json: { error: @category.errors.full_messages.join(", ") }
+          end
+        end
+        format.html do
+          if @category.update(category_params)
+            redirect_to admin_categories_path, notice: "Successfully updated category"
+          else
+            render :edit
+          end
+        end
       end
+
     end
 
     private
