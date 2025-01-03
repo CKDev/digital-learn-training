@@ -1,45 +1,50 @@
-<%= content_for(:callout) { %><h1>Courses</h1><% } %>
+<% if @use_ui_v2 %>
+  <%= content_tag :div, "", class: "admin-course-materials", data: { props: { courseMaterials: @course_materials.map(&:to_props) } } %>
+  <%= vite_javascript_tag 'admin-course-materials.jsx' %>
+<% else %>
+  <%= content_for(:callout) { %><h1>Courses</h1><% } %>
 
-<h2 class="screen-reader-text">Course Index View</h2>
+  <h2 class="screen-reader-text">Course Index View</h2>
 
-<div class="row extra-margin-bottom">
-  <div class="six columns">
-    <%= link_to "Add New Course", new_admin_course_material_path, class: "btn" %>
-  </div>
-  <div class="six columns">
-    <p class="note no-top-margin">
-      Re-order courses on the homepage by clicking on the arrow icon to drag and drop courses. Edit by clicking the appropriate course below.
-    </p>
-  </div>
-</div>
-
-<%= hidden_field_tag :sort_url, "/admin/courses/sort" %>
-<div class="extra-margin-bottom">
-  <div class="sortable-list">
-    <div class="list-titles">
-      <div class="cell">Course</div>
-      <div class="cell">Contributor</div>
-      <div class="cell">Status</div>
+  <div class="row extra-margin-bottom">
+    <div class="six columns">
+      <%= link_to "Add New Course", new_admin_course_material_path, class: "btn" %>
     </div>
-    <% if @course_materials.present? %>
-      <% @course_materials.group_by(&:category).each do |category, materials| %>
-        <h3><%= "#{category.title}#{category.organization.present? ? " - #{category.organization.title}" : ''}" %></h3>
-        <ul class="objects sortable reorderable">
-          <% materials.each do |course_material| %>
-            <li class="sortable-item" data-id="<%= course_material.id %>">
-              <div class="cell"><%= link_to course_material.title, edit_admin_course_material_path(course_material), class: "no_drag_link" %></div>
-              <div class="cell"><%= course_material.contributor %></div>
-              <div class="cell"><%= pub_status(course_material.pub_status) %></div>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    <% else %>
-      <p>There are no available courses.</p>
-    <% end %>
+    <div class="six columns">
+      <p class="note no-top-margin">
+        Re-order courses on the homepage by clicking on the arrow icon to drag and drop courses. Edit by clicking the appropriate course below.
+      </p>
+    </div>
   </div>
-</div>
 
-<p>
-  <%= link_to "View Archived Courses", admin_course_materials_archive_index_path, class: "note" %>
-</p>
+  <%= hidden_field_tag :sort_url, "/admin/courses/sort" %>
+  <div class="extra-margin-bottom">
+    <div class="sortable-list">
+      <div class="list-titles">
+        <div class="cell">Course</div>
+        <div class="cell">Contributor</div>
+        <div class="cell">Status</div>
+      </div>
+      <% if @course_materials.present? %>
+        <% @course_materials.group_by(&:category).each do |category, materials| %>
+          <h3><%= "#{category.title}#{category.organization.present? ? " - #{category.organization.title}" : ''}" %></h3>
+          <ul class="objects sortable reorderable">
+            <% materials.each do |course_material| %>
+              <li class="sortable-item" data-id="<%= course_material.id %>">
+                <div class="cell"><%= link_to course_material.title, edit_admin_course_material_path(course_material), class: "no_drag_link" %></div>
+                <div class="cell"><%= course_material.contributor %></div>
+                <div class="cell"><%= pub_status(course_material.pub_status) %></div>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      <% else %>
+        <p>There are no available courses.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <p>
+    <%= link_to "View Archived Courses", admin_course_materials_archive_index_path, class: "note" %>
+  </p>
+<% end %>

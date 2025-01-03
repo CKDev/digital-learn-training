@@ -3,7 +3,7 @@ module Admin
     helper_method :categories_array
 
     def index
-      @course_materials = CourseMaterial.not_archived.order(:title)
+      @course_materials = CourseMaterial.for_organization(current_organization).not_archived.order(:sort_order)
     end
 
     def new
