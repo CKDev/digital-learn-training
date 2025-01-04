@@ -59,7 +59,8 @@ class CourseMaterial < ApplicationRecord
               fileCount: course_material_files.count,
               imageCount: course_material_medias.count,
               videoCount: course_material_videos.count,
-              providedByAtt: new_course }
+              providedByAtt: new_course,
+              friendlyId: friendly_id }
 
     if include_attachments
       props.merge!(files: course_material_files.map(&:to_props),

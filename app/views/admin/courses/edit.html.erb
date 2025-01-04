@@ -1,2 +1,6 @@
-<%= content_for(:callout) { %><h1>Edit Instructional Design Training</h1><% } %>
-<%= render "form" %>
+<% if @use_ui_v2 %>
+  
+<% else %>
+  <%= content_for(:callout) { %><h1>Edit Instructional Design Training</h1><% } %>
+  <%= render "form" %>
+<% end %>

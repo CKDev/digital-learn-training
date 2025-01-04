@@ -15,6 +15,7 @@ module Admin
 
     def edit
       @course_material = CourseMaterial.friendly.find(params[:id])
+      @categories = Category.where(organization: current_organization).order(:title)
       @readonly = @course_material.title.in? PROTECTED_COURSE_MATERIALS
     end
 

@@ -41,7 +41,6 @@ const CategoryForm = ({
     subcategories: "",
   });
 
-  // Handle form change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
