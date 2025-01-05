@@ -1,7 +1,7 @@
 <%= render "meta_information" %>
 
 <% if @use_ui_v2 %>
-  <%= content_tag :div, "", class: "course-overview", data: { props: @course.to_props } %>
+  <%= react_component class: "course-overview", data: { props: @course.to_props } %>
   <%= vite_javascript_tag 'course-overview.jsx' %>
 <% else %>
   <div class="row">

@@ -22,19 +22,44 @@ module Admin
     def create
       @course_material = CourseMaterial.new
       @course_material.sort_order = CourseMaterial.count + 1
-      if @course_material.update(course_material_params)
-        redirect_to admin_course_materials_path, notice: "Successfully created new Course"
-      else
-        render :new
+
+      respond_to do |format|
+        format.json do
+          if @course_material.update(course_material_params)
+            render json: { message: "Course created successfully" }, status: :created
+          else
+            render json: { error: @course_material.errors.full_messages.join(", ") }, status: :unprocessable_entity
+          end
+        end
+
+        format.html do
+          if @course_material.update(course_material_params)
+            redirect_to admin_course_materials_path, notice: "Course created successfully"
+          else
+            render :new
+          end
+        end
       end
     end
 
     def update
       @course_material = CourseMaterial.friendly.find(params[:id])
-      if @course_material.update(course_material_params)
-        redirect_to admin_course_materials_path, notice: "Successfully updated Course"
-      else
-        render :edit
+      respond_to do |format|
+        format.json do
+          if @course_material.update(course_material_params)
+            render json: { message: "Course updated successfully" }, status: :ok
+          else
+            render json: { error: @course_material.errors.full_messages.join(", ") }, status: :unprocessable_entity
+          end
+        end
+
+        format.html do
+          if @course_material.update(course_material_params)
+            redirect_to admin_course_materials_path, notice: "Course updated successfully"
+          else
+            render :edit
+          end
+        end
       end
     end
 

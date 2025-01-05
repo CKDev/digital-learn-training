@@ -19,14 +19,14 @@ module Admin
       respond_to do |format|
         format.json do
           if @category.update(category_params)
-            render json: { message: "Successfully created new category" }, status: :created
+            render json: { message: "Category created successfully" }, status: :created
           else
-            render json: { error: @category.errors.full_messages.join(", ") }
+            render json: { error: @category.errors.full_messages.join(", ") }, status: :unprocessable_entity
           end
         end
         format.html do
           if @category.update(category_params)
-            redirect_to admin_categories_path, notice: "Successfully created new category"
+            redirect_to admin_categories_path, notice: "Category created successfully"
           else
             render :new
           end
@@ -40,14 +40,14 @@ module Admin
       respond_to do |format|
         format.json do
           if @category.update(category_params)
-            render json: { message: "Successfully updated category" }, status: :created
+            render json: { message: "Category updated successfully" }, status: :created
           else
-            render json: { error: @category.errors.full_messages.join(", ") }
+            render json: { error: @category.errors.full_messages.join(", ") }, status: :unprocessable_entity
           end
         end
         format.html do
           if @category.update(category_params)
-            redirect_to admin_categories_path, notice: "Successfully updated category"
+            redirect_to admin_categories_path, notice: "Category updated successfully"
           else
             render :edit
           end

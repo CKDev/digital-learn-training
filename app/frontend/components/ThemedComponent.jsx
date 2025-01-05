@@ -1,5 +1,10 @@
-import React from "react";
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import React, { Suspense } from "react";
+import {
+  CircularProgress,
+  CssBaseline,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
 import "@fontsource/nunito/300.css";
 import "@fontsource/nunito/400.css";
 import "@fontsource/nunito/500.css";
@@ -41,7 +46,9 @@ const theme = createTheme({
 const ThemedComponent = ({ children }) => (
   <React.StrictMode>
     <CssBaseline />
-    <ThemeProvider theme={theme}>{children}</ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <Suspense fallback={<CircularProgress />}>{children}</Suspense>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

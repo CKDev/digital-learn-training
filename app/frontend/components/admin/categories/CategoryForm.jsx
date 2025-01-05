@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import { createCategory, updateCategory } from "../../api/CategoriesApi";
+import { createCategory, updateCategory } from "@api/CategoriesApi";
 
 // Placeholder for the CategoryForm component
 const CategoryForm = ({
@@ -241,12 +241,11 @@ const CategoryForm = ({
           >
             Save Category
           </Button>
-          {isNewCategory ||
-            (isDirty && (
-              <Button variant="text" onClick={handleCancel}>
-                Cancel
-              </Button>
-            ))}
+          {(isNewCategory || isDirty) && (
+            <Button variant="text" onClick={handleCancel}>
+              Cancel
+            </Button>
+          )}
         </Grid>
       </Grid>
     </Box>

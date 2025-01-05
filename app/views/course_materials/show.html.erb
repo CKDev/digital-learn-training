@@ -1,5 +1,5 @@
 <% if @use_ui_v2 %>
-  <%= content_tag :div, "", id: "course-material", data: { props: @course_material.to_props(include_attachments: true) } %>
+  <%= react_component id: "course-material", data: { props: @course_material.to_props(include_attachments: true) } %>
   <%= vite_javascript_tag 'course-material.jsx' %>
 <% else %>
   <%= render 'legacy_course_page' %>

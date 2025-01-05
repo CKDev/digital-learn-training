@@ -1,5 +1,5 @@
 <% if @use_ui_v2 %>
-  <%= content_tag :div, "", class: "set-new-password", data: { props: { resetPasswordToken: resource.reset_password_token, setNewPasswordPath: password_path(resource_name) } } %>
+  <%= react_component class: "set-new-password", data: { props: { resetPasswordToken: resource.reset_password_token, setNewPasswordPath: password_path(resource_name) } } %>
   <%= vite_javascript_tag 'set-new-password.jsx' %>
 <% else %>
   <h2>Change your password</h2>

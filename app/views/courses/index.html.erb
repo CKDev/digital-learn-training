@@ -1,2 +1,2 @@
-<%= content_tag :div, "", class: "instructional-design-training-page", data: { props: { courses: @courses.map(&:to_props) }} %>
+<%= react_component class: "instructional-design-training-page", data: { props: { courses: @courses.map(&:to_props) }} %>
 <%= vite_javascript_tag 'instructional-design-training-page.jsx' %>

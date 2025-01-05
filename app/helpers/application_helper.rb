@@ -34,4 +34,10 @@ module ApplicationHelper
     current_organization&.contact_email || "support@digitallearn.org"
   end
 
+  def react_component(*args)
+    content_tag :div, "", *args do
+      render "shared/loading"
+    end
+  end
+
 end
