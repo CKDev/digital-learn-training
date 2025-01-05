@@ -65,7 +65,8 @@ module Admin
     end
 
     def sort
-      params[:order].each_value { |v| CourseMaterial.find(v[:id]).update(sort_order: v[:position]) }
+      # Legacy sort
+      params[:order].each_value { |v| CourseMaterial.find(v[:id]).update!(sort_order: v[:position]) }
       respond_to do |format|
         format.json { render json: true, status: :ok }
       end

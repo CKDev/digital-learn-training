@@ -1,10 +1,20 @@
 import { sendRequest } from "./Api";
 
-export async function updateCourseMaterial(courseMaterialId, data) {
+export async function updateCourseMaterial(
+  courseMaterialId,
+  data,
+  multipart = true
+) {
   let path = `/admin/courses/${courseMaterialId}`;
 
   let body = data;
-  let response = await sendRequest(path, "PUT", body, {});
+  let response;
+
+  if (multipart) {
+    response = await sendRequest(path, "PUT", body, {}); // Unset content-type header
+  } else {
+    response = await sendRequest(path, "PUT", body); // Use default API headers
+  }
   return response;
 }
 

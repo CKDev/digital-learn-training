@@ -22,6 +22,7 @@ import {
   EditRounded,
   AddCircleRounded,
 } from "@mui/icons-material";
+import SortOrderInput from "../course_materials/SortOrderInput";
 
 export const STATUS_MAP = {
   D: "Draft",
@@ -30,6 +31,7 @@ export const STATUS_MAP = {
 };
 
 const CourseMaterials = ({ courseMaterials }) => {
+  const [courses, setCourses] = useState(courseMaterials);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [sortField, setSortField] = useState(null);
@@ -67,8 +69,12 @@ const CourseMaterials = ({ courseMaterials }) => {
     // Apply sorting
     if (sortField) {
       filtered = filtered.sort((a, b) => {
-        const valueA = a[sortField].toString().toLowerCase();
-        const valueB = b[sortField].toString().toLowerCase();
+        const valueA = isNaN(Number(a[sortField]))
+          ? a[sortField].toString().toLowerCase()
+          : Number(a[sortField]);
+        const valueB = isNaN(Number(b[sortField]))
+          ? b[sortField].toString().toLowerCase()
+          : Number(b[sortField]);
 
         if (valueA < valueB) return sortDirection === "asc" ? -1 : 1;
         if (valueA > valueB) return sortDirection === "asc" ? 1 : -1;
@@ -79,7 +85,7 @@ const CourseMaterials = ({ courseMaterials }) => {
     return filtered;
   };
 
-  const filteredAndSortedCourses = applyFiltersAndSorting(courseMaterials);
+  const filteredAndSortedCourses = applyFiltersAndSorting(courses);
 
   // Paginate courses
   const paginatedCourses = filteredAndSortedCourses.slice(
@@ -94,6 +100,16 @@ const CourseMaterials = ({ courseMaterials }) => {
     ) : (
       <ArrowDropDownRounded />
     );
+  };
+
+  const handleSortOrderChange = (courseId, newOrder) => {
+    let updatedCourses = [...courses]; // Create copy of courses
+    let courseIndex = updatedCourses.findIndex(
+      (course) => course.id === courseId
+    ); // Find course index
+    let updatedCourse = { ...updatedCourses[courseIndex], sortOrder: newOrder }; // Create updated copy of course
+    updatedCourses[courseIndex] = updatedCourse;
+    setCourses(updatedCourses);
   };
 
   return (
@@ -129,7 +145,7 @@ const CourseMaterials = ({ courseMaterials }) => {
           fullWidth
         >
           <MenuItem value="">All</MenuItem>
-          {[...new Set(courseMaterials.map((course) => course.category))].map(
+          {[...new Set(courses.map((course) => course.category))].map(
             (category) => (
               <MenuItem key={category} value={category}>
                 {category}
@@ -143,10 +159,11 @@ const CourseMaterials = ({ courseMaterials }) => {
           <TableHead>
             <TableRow>
               <TableCell
+                width="100px"
                 onClick={() => handleSort("sortOrder")}
                 style={{ cursor: "pointer" }}
               >
-                <Grid container>
+                <Grid container flexWrap={"nowrap"} alignItems={"center"}>
                   <Typography>Sort Order</Typography>
                   {renderSortIndicator("sortOrder")}
                 </Grid>
@@ -184,9 +201,15 @@ const CourseMaterials = ({ courseMaterials }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedCourses.map((course, index) => (
-              <TableRow>
-                <TableCell>{course.sortOrder}</TableCell>
+            {paginatedCourses.map((course) => (
+              <TableRow key={`course-materials-row-${course.id}`}>
+                <TableCell>
+                  <SortOrderInput
+                    key={`sort-order-input-${course.id}`}
+                    course={course}
+                    onSortOrderChange={handleSortOrderChange}
+                  />
+                </TableCell>
                 <TableCell>{course.title}</TableCell>
                 <TableCell>{STATUS_MAP[course.status]}</TableCell>
                 <TableCell>{course.category}</TableCell>

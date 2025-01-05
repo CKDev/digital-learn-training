@@ -240,6 +240,19 @@ describe Admin::CourseMaterialsController do
         put :update, params: { id: course_material.id, course_material: invalid_attributes }, xhr: true, format: :json
         expect(response.parsed_body["error"]).to eq("Title can't be blank")
       end
+
+      it "updates json sort order update" do
+        course_material.update(sort_order: 4)
+        expect do
+          put :update, params: { id: course_material.id, course_material: { sort_order: 2 } }, xhr: true, format: :json
+        end.to change { course_material.reload.sort_order }.from(4).to(2)
+      end
+
+      it "handles failed sort order update with appropriate error" do
+        put :update, params: { id: course_material.id, course_material: { sort_order: "foobar" } }, xhr: true, format: :json
+        expect(response).to have_http_status :unprocessable_entity
+        expect(response.parsed_body["error"]).to eq("Sort order is not a number")
+      end
     end
   end
 
