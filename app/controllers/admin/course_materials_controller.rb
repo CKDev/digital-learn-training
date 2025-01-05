@@ -8,6 +8,7 @@ module Admin
 
     def new
       @course_material = CourseMaterial.new
+      @categories = Category.where(organization: current_organization).order(:title)
       @course_material.course_material_files.build
       @course_material.course_material_medias.build
       @course_material.course_material_videos.build
@@ -26,7 +27,7 @@ module Admin
       respond_to do |format|
         format.json do
           if @course_material.update(course_material_params)
-            render json: { message: "Course created successfully" }, status: :created
+            render json: { message: "Course created successfully", course_material_id: @course_material.id }, status: :created
           else
             render json: { error: @course_material.errors.full_messages.join(", ") }, status: :unprocessable_entity
           end

@@ -92,8 +92,8 @@ const CourseMaterialForm = ({
         (key) => data.append(`course_material[${key}]`, formData[key])
       );
 
-      data.append("category_id", formData.categoryId);
-      data.append("pub_status", formData.status);
+      data.append("course_material[category_id]", formData.categoryId);
+      data.append("course_material[pub_status]", formData.status);
 
       // Append course_material_files
       files.forEach((file, index) => {

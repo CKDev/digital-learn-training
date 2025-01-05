@@ -14,6 +14,7 @@ import {
   Grid2 as Grid,
   Typography,
   Box,
+  Button,
 } from "@mui/material";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import {
@@ -21,6 +22,7 @@ import {
   ArrowDropDownRounded,
   DragHandleRounded,
   EditRounded,
+  AddCircleRounded,
 } from "@mui/icons-material";
 
 export const STATUS_MAP = {
@@ -129,6 +131,14 @@ const CourseMaterials = ({ courseMaterials }) => {
 
   return (
     <Paper>
+      <Button
+        variant="text"
+        size="small"
+        startIcon={<AddCircleRounded />}
+        href="/admin/courses/new"
+      >
+        Add New Course
+      </Button>
       <div style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
         <TextField
           label="Filter by Status"

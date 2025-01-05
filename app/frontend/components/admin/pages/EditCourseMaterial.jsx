@@ -22,7 +22,7 @@ const EditCourseMaterial = ({ courseMaterial, categories }) => {
       // Set flash message
       localStorage.setItem("flash_message", response.data.message);
 
-      // Reload categories page to pick up changes
+      // Reload page to pick up changes
       window.location.reload();
     } else {
       console.error("Error submitting form:", response);
