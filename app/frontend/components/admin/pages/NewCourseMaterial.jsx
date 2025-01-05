@@ -1,6 +1,7 @@
 import React from "react";
 import CourseMaterialForm from "../course_materials/CourseMaterialForm";
 import { createCourseMaterial } from "@api/CourseMaterialsApi";
+import { Box, Breadcrumbs, Link, Paper, Typography } from "@mui/material";
 
 const NewCourseMaterial = ({ categories }) => {
   const initialFormData = {
@@ -35,12 +36,26 @@ const NewCourseMaterial = ({ categories }) => {
     }
   };
 
+  const breadcrumbs = [
+    <Link underline="hover" key="1" color="inherit" href="/admin/courses">
+      All Courses
+    </Link>,
+    <Typography key="2">New Course</Typography>,
+  ];
+
   return (
-    <CourseMaterialForm
-      initialData={initialFormData}
-      categories={categories}
-      onSubmit={handleSubmit}
-    />
+    <Box>
+      <Paper elevation={0} sx={{ p: 1, bgcolor: "primary.light" }}>
+        <Breadcrumbs separator="›" aria-label="breadcrumb">
+          {breadcrumbs}
+        </Breadcrumbs>
+      </Paper>
+      <CourseMaterialForm
+        initialData={initialFormData}
+        categories={categories}
+        onSubmit={handleSubmit}
+      />
+    </Box>
   );
 };
 

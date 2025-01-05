@@ -171,7 +171,7 @@ const CourseMaterialForm = ({
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit}>
+    <Box component="form" onSubmit={handleSubmit} sx={{ pt: 2 }}>
       <Grid container direction="column" spacing={3}>
         {error && (
           <Alert severity="error" sx={{ mb: 2 }}>

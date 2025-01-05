@@ -16,11 +16,9 @@ import {
   Box,
   Button,
 } from "@mui/material";
-import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import {
   ArrowDropUpRounded,
   ArrowDropDownRounded,
-  DragHandleRounded,
   EditRounded,
   AddCircleRounded,
 } from "@mui/icons-material";
@@ -32,42 +30,11 @@ export const STATUS_MAP = {
 };
 
 const CourseMaterials = ({ courseMaterials }) => {
-  const [courses, setCourses] = useState(courseMaterials);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [sortField, setSortField] = useState(null);
   const [sortDirection, setSortDirection] = useState("asc");
   const [filters, setFilters] = useState({ status: "", category: "" });
-
-  const handleDragEnd = (result) => {
-    if (!result.destination) return;
-
-    const reorderedCourses = [...courses];
-    const [removed] = reorderedCourses.splice(result.source.index, 1);
-    reorderedCourses.splice(result.destination.index, 0, removed);
-
-    // Update sortOrder based on new position
-    reorderedCourses.forEach((course, index) => {
-      course.sortOrder = index + 1;
-    });
-
-    setCourses(reorderedCourses);
-
-    // Update the backend with the new order
-    const updatedOrder = reorderedCourses.map((course, index) => ({
-      id: course.id,
-      order: index, // Assuming the backend expects an order field
-    }));
-
-    // Replace this with your actual API call
-    updateBackendOrder(updatedOrder)
-      .then(() => {
-        console.log("Order updated successfully!");
-      })
-      .catch((error) => {
-        console.error("Error updating order:", error);
-      });
-  };
 
   const handleSort = (field) => {
     const isAsc = sortField === field && sortDirection === "asc";
@@ -75,7 +42,7 @@ const CourseMaterials = ({ courseMaterials }) => {
     setSortDirection(isAsc ? "desc" : "asc");
   };
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (_event, newPage) => {
     setPage(newPage);
   };
 
@@ -112,7 +79,7 @@ const CourseMaterials = ({ courseMaterials }) => {
     return filtered;
   };
 
-  const filteredAndSortedCourses = applyFiltersAndSorting(courses);
+  const filteredAndSortedCourses = applyFiltersAndSorting(courseMaterials);
 
   // Paginate courses
   const paginatedCourses = filteredAndSortedCourses.slice(
@@ -130,7 +97,7 @@ const CourseMaterials = ({ courseMaterials }) => {
   };
 
   return (
-    <Paper>
+    <Paper elevation={0}>
       <Button
         variant="text"
         size="small"
@@ -162,7 +129,7 @@ const CourseMaterials = ({ courseMaterials }) => {
           fullWidth
         >
           <MenuItem value="">All</MenuItem>
-          {[...new Set(courses.map((course) => course.category))].map(
+          {[...new Set(courseMaterials.map((course) => course.category))].map(
             (category) => (
               <MenuItem key={category} value={category}>
                 {category}
@@ -172,88 +139,69 @@ const CourseMaterials = ({ courseMaterials }) => {
         </TextField>
       </div>
       <TableContainer>
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <Droppable droppableId="courses">
-            {(provided) => (
-              <Table {...provided.droppableProps} ref={provided.innerRef}>
-                <TableHead>
-                  <TableRow>
-                    <TableCell />
-                    <TableCell>
-                      <Typography>Sort Order</Typography>
-                    </TableCell>
-                    <TableCell
-                      onClick={() => handleSort("title")}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <Grid container>
-                        <Typography>Title</Typography>
-                        {renderSortIndicator("title")}
-                      </Grid>
-                    </TableCell>
-                    <TableCell
-                      onClick={() => handleSort("status")}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <Grid container>
-                        <Typography>Status</Typography>
-                        {renderSortIndicator("status")}
-                      </Grid>
-                    </TableCell>
-                    <TableCell
-                      onClick={() => handleSort("category")}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <Grid container>
-                        <Typography>Category</Typography>
-                        {renderSortIndicator("category")}
-                      </Grid>
-                    </TableCell>
-                    <TableCell>
-                      <Typography>Edit</Typography>
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {paginatedCourses.map((course, index) => (
-                    <Draggable
-                      key={course.id}
-                      draggableId={course.id.toString()}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <TableRow
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          <TableCell>
-                            <IconButton>
-                              <DragHandleRounded />
-                            </IconButton>
-                          </TableCell>
-                          <TableCell>{course.sortOrder}</TableCell>
-                          <TableCell>{course.title}</TableCell>
-                          <TableCell>{STATUS_MAP[course.status]}</TableCell>
-                          <TableCell>{course.category}</TableCell>
-                          <TableCell>
-                            <IconButton
-                              href={`/admin/courses/${course.friendlyId}/edit`}
-                              aria-label="Edit Course"
-                            >
-                              <EditRounded />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </TableBody>
-              </Table>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell
+                onClick={() => handleSort("sortOrder")}
+                style={{ cursor: "pointer" }}
+              >
+                <Grid container>
+                  <Typography>Sort Order</Typography>
+                  {renderSortIndicator("sortOrder")}
+                </Grid>
+              </TableCell>
+              <TableCell
+                onClick={() => handleSort("title")}
+                style={{ cursor: "pointer" }}
+              >
+                <Grid container>
+                  <Typography>Title</Typography>
+                  {renderSortIndicator("title")}
+                </Grid>
+              </TableCell>
+              <TableCell
+                onClick={() => handleSort("status")}
+                style={{ cursor: "pointer" }}
+              >
+                <Grid container>
+                  <Typography>Status</Typography>
+                  {renderSortIndicator("status")}
+                </Grid>
+              </TableCell>
+              <TableCell
+                onClick={() => handleSort("category")}
+                style={{ cursor: "pointer" }}
+              >
+                <Grid container>
+                  <Typography>Category</Typography>
+                  {renderSortIndicator("category")}
+                </Grid>
+              </TableCell>
+              <TableCell>
+                <Typography>Edit</Typography>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {paginatedCourses.map((course, index) => (
+              <TableRow>
+                <TableCell>{course.sortOrder}</TableCell>
+                <TableCell>{course.title}</TableCell>
+                <TableCell>{STATUS_MAP[course.status]}</TableCell>
+                <TableCell>{course.category}</TableCell>
+                <TableCell>
+                  <IconButton
+                    href={`/admin/courses/${course.friendlyId}/edit`}
+                    aria-label="Edit Course"
+                  >
+                    <EditRounded />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 50]}
