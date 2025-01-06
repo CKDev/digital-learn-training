@@ -36,6 +36,7 @@ const CategoryForm = ({
 
   const [formData, setFormData] = useState(initialFormData);
   const [isDirty, setIsDirty] = useState(false);
+  const [subcategoryIdsToDelete, setSubcategoryIdsToDelete] = useState([]);
   const [errors, setErrors] = useState({
     submitError: "",
     subcategories: "",
@@ -57,7 +58,10 @@ const CategoryForm = ({
   }, [formData]);
 
   const handleAddSubcategory = () => {
-    let updatedSubcategories = [...formData.subcategories, "New Subcategory"];
+    let updatedSubcategories = [
+      ...formData.subcategories,
+      { id: 0, title: "New Subcategory" },
+    ];
     setFormData((prev) => ({
       ...prev,
       ["subcategories"]: updatedSubcategories,
@@ -66,7 +70,7 @@ const CategoryForm = ({
 
   const handleSubcategoryNameChange = (index, newName) => {
     let updatedSubcategories = [...formData.subcategories];
-    updatedSubcategories[index] = newName;
+    updatedSubcategories[index].title = newName;
     setFormData((prev) => ({
       ...prev,
       ["subcategories"]: updatedSubcategories,
@@ -77,6 +81,15 @@ const CategoryForm = ({
     const updatedSubcategories = formData.subcategories.filter(
       (_, i) => i !== index
     );
+
+    const removedSubcategory = formData.subcategories[index];
+    if (removedSubcategory.id !== 0) {
+      setSubcategoryIdsToDelete([
+        ...subcategoryIdsToDelete,
+        removedSubcategory.id,
+      ]);
+    }
+
     setFormData((prev) => ({
       ...prev,
       ["subcategories"]: updatedSubcategories,
@@ -85,7 +98,7 @@ const CategoryForm = ({
 
   const validateSubcategories = () => {
     let subcategories = formData.subcategories.filter(
-      (subcat) => subcat.replace(/ /g, "") !== ""
+      (subcat) => subcat.title.replace(/ /g, "") !== ""
     );
 
     // Remove empty categories from list
@@ -94,9 +107,11 @@ const CategoryForm = ({
       ["subcategories"]: subcategories,
     }));
 
-    let uniqueSubcategories = [...new Set(subcategories)];
+    let uniqueSubcategoryTitles = [
+      ...new Set(subcategories.map((subcat) => subcat.title)),
+    ];
 
-    if (subcategories.length != uniqueSubcategories.length) {
+    if (subcategories.length != uniqueSubcategoryTitles.length) {
       setErrors({ subcategories: "Subcategories must be unique values" });
     } else {
       setErrors({ subcategories: "" });
@@ -117,7 +132,11 @@ const CategoryForm = ({
       if (isNewCategory) {
         result = await createCategory(formData);
       } else {
-        result = await updateCategory(category.id, formData);
+        result = await updateCategory(
+          category.id,
+          formData,
+          subcategoryIdsToDelete
+        );
       }
 
       if (result.success) {
@@ -195,7 +214,7 @@ const CategoryForm = ({
             <ListItem key={index} disablePadding sx={{ pb: 2 }}>
               <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
                 <TextField
-                  value={subcategory}
+                  value={subcategory.title}
                   onChange={(e) =>
                     handleSubcategoryNameChange(index, e.target.value)
                   }

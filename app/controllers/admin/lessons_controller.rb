@@ -1,7 +1,7 @@
 module Admin
   class LessonsController < BaseController
-
     before_action :set_course, except: [:sort]
+    before_action :set_legacy_ui
 
     def show
 
@@ -68,6 +68,10 @@ module Admin
       params.require(:lesson).permit(:title, :summary, :duration,
                                      :story_line, :seo_page_title, :meta_desc,
                                      :is_assessment, :lesson_order, :pub_status)
+    end
+
+    def set_legacy_ui
+      @legacy_page = true
     end
   end
 end

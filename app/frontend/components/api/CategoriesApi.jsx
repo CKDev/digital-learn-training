@@ -1,14 +1,30 @@
 import { sendRequest } from "./Api";
 
-export async function updateCategory(categoryId, categoryParams) {
+export async function updateCategory(
+  categoryId,
+  categoryParams,
+  subcategoryIdsToDelete
+) {
   let path = `/admin/categories/${categoryId}`;
 
-  // Convert categories list into sub_categories_attributes
-  categoryParams.sub_categories_attributes = categoryParams.subcategories.map(
-    (category) => {
-      return { title: category };
+  // Convert subcategory data into sub_categories_attributes
+  // Add new subcategories
+  let newSubcategoryData = categoryParams.subcategories.map((subcategory) => {
+    if (subcategory.id == 0) {
+      // Only add new subcategories (id defaulted to 0)
+      return { title: subcategory.title };
     }
-  );
+  });
+
+  // Delete deleted subcategories
+  let subcategoriesToDelete = subcategoryIdsToDelete.map((id) => {
+    return { id: id, _destroy: true };
+  });
+
+  categoryParams.sub_categories_attributes = [
+    ...newSubcategoryData,
+    ...subcategoriesToDelete,
+  ];
 
   delete categoryParams.subcategories; // remove unrecognized subcategories key
 

@@ -55,6 +55,10 @@ const AdminSidebar = ({ currentPath, accessRequestsEnabled }) => {
     currentPath = "/admin/courses";
   }
 
+  if (currentPath.match(/\/trainings\//g)) {
+    currentPath = "/admin/trainings";
+  }
+
   return (
     <Tabs
       orientation="vertical"

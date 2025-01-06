@@ -42,7 +42,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="url
   }
 }
 
-.v2-ui {
+.v2-ui:not(.legacy-page) {
   input[type="text"], input[type="email"], input[type="password"], input[type="url"], textarea {
     border: none;
   }
