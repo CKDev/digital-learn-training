@@ -4,10 +4,13 @@
     <%= render "meta_tags" %>
     <%= vite_client_tag %>
     <%= vite_react_refresh_tag %>
+    <%= javascript_tag do %>
+      window.orgThemeOverrides = <%= (current_organization&.theme_overrides || {}).to_json.html_safe %>;
+    <% end %>
   </head>
   <body class="<%= "#{current_organization&.subdomain} #{controller_name}-#{action_name}" %> <%= @use_ui_v2 ? 'v2-ui' : ''%>">
     <div class="page-wrapper">
-      <% if current_organization %>
+      <% if current_organization && lookup_context.exists?('header', [current_organization.subdomain], true) %>
         <%= render "#{current_organization.subdomain}/header" %>
       <% else %>
         <%= render "application/header" %>
@@ -26,7 +29,7 @@
           </div>
         </div>
       </main>
-      <% if current_organization %>
+      <% if current_organization && lookup_context.exists?('footer', [current_organization.subdomain], true) %>
         <%= render "#{current_organization.subdomain}/footer" %>
       <% else %>
         <%= render "footer" %>

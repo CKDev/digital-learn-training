@@ -1,6 +1,6 @@
 <%= render "shared/courses/language_links" %>
 
-<% if current_organization %>
+<% if current_organization && lookup_context.exists?('show', ["#{current_organization.subdomain}/categories"], true) %>
   <%= render "#{current_organization.subdomain}/categories/show" %>
 <% else %>
   <h2><%= @category.title %></h2>

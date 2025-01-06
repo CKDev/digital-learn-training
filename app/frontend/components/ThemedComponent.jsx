@@ -10,7 +10,7 @@ import "@fontsource/nunito/400.css";
 import "@fontsource/nunito/500.css";
 import "@fontsource/nunito/700.css";
 
-const theme = createTheme({
+const defaultThemeData = {
   typography: {
     fontFamily: ["nunito", "Roboto", '"Open Sans"'].join(","),
   },
@@ -41,15 +41,20 @@ const theme = createTheme({
     },
     iconColor: "rgba(0, 0, 0, 0.56)",
   },
-});
+};
 
-const ThemedComponent = ({ children }) => (
-  <React.StrictMode>
-    <CssBaseline />
-    <ThemeProvider theme={theme}>
-      <Suspense fallback={<CircularProgress />}>{children}</Suspense>
-    </ThemeProvider>
-  </React.StrictMode>
-);
+const ThemedComponent = ({ children }) => {
+  const themeData = { ...defaultThemeData, ...window.orgThemeOverrides };
+  const theme = createTheme(themeData);
+
+  return (
+    <React.StrictMode>
+      <CssBaseline />
+      <ThemeProvider theme={theme}>
+        <Suspense fallback={<CircularProgress />}>{children}</Suspense>
+      </ThemeProvider>
+    </React.StrictMode>
+  );
+};
 
 export default ThemedComponent;
