@@ -1,7 +1,7 @@
 import { Box, Grid2 as Grid, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
 import ImageDropzone from "./ImageDropzone";
-import FileDropzone from "./FileDropZone";
+import FileDropzone from "./FileDropzone";
 import FileAttachment from "./FileAttachment";
 import RejectedFileAttachment from "./RejectedFileAttachment";
 import ImageAttachment from "./ImageAttachment";
