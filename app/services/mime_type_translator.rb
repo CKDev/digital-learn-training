@@ -11,7 +11,16 @@ class MimeTypeTranslator
       "Microsoft PowerPoint"
     when "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
       "Microsoft Word"
-    else ""
+    when "image/png"
+      "PNG Image"
+    when "image/jpeg"
+      "JPEG Image"
+    when "image/gif"
+      "GIF Image"
+    when "image/webp"
+      "WebP Image"
+    else
+      ""
     end
   end
 end

@@ -1,7 +1,7 @@
 <%= render "meta_description" %>
 
 <% if @use_ui_v2 %>
-  <%= content_tag :div, "", class: "lesson", data: { props: { course: @course.to_props, lesson: @lesson.to_props } } %>
+  <%= react_component class: "lesson", data: { props: { course: @course.to_props, lesson: @lesson.to_props } } %>
   <%= vite_javascript_tag 'lesson.jsx' %>
 <% else %>
   <%= asl_iframe(@lesson) %>

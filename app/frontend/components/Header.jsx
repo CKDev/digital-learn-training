@@ -6,7 +6,6 @@ import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 import FlashMessage from "./FlashMessage";
 
 const Header = ({ logoLinkUrl, logoFile, switcherUrl, isAuthenticated }) => {
-  console.log("Rendering header component");
   const handleSignOut = async (event) => {
     event.preventDefault();
 

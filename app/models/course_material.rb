@@ -39,7 +39,7 @@ class CourseMaterial < ApplicationRecord
   scope :archived, -> { where(pub_status: "A") }
   scope :not_archived, -> { where.not(pub_status: "A") }
   scope :not_self, ->(id) { where.not(id: id) }
-  scope :non_organization, -> { joins(:category).where(categories: { organization_id: nil }).references(:categories) }
+  scope :for_organization, ->(organization) { joins(:category).where(categories: { organization_id: organization&.id }).references(:categories) }
   scope :in_language, ->(language) { where(language: language) }
 
   def to_props(include_attachments: false)
@@ -51,12 +51,18 @@ class CourseMaterial < ApplicationRecord
               category: category.title,
               categoryId: category.id,
               subCategory: sub_category&.title,
+              status: pub_status,
+              contributor: contributor,
+              sortOrder: sort_order,
               courseMaterialUrl: Rails.application.routes.url_helpers.course_material_path(friendly_id),
               materialsDownloadUrl: Rails.application.routes.url_helpers.course_material_course_attachments_path(self),
               fileCount: course_material_files.count,
               imageCount: course_material_medias.count,
               videoCount: course_material_videos.count,
-              providedByAtt: new_course }
+              providedByAtt: new_course,
+              friendlyId: friendly_id,
+              files: course_material_files.map(&:to_props),
+              images: course_material_medias.map(&:to_props) }
 
     if include_attachments
       props.merge!(files: course_material_files.map(&:to_props),
@@ -83,7 +89,7 @@ class CourseMaterial < ApplicationRecord
   end
 
   def unique_title
-    scope = category&.organization.present? ? category.organization.course_materials : CourseMaterial.non_organization
+    scope = CourseMaterial.for_organization(category&.organization)
     errors.add(:title, "has already been taken") if scope.where(title: title).where.not(id: id).exists?
   end
 end

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :set_footer_links
   before_action :set_ui_v2
 
-  before_action :authenticate_user!, if: :organization_subdomain?
+  before_action :authenticate_user!, if: :authentication_required?
 
   helper_method :admin_signed_in?
   helper_method :current_organization
@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
     return "application" if organization.blank?
 
     custom_org_layout_file = Rails.root.join "app", "views", "layouts", "#{organization.subdomain}.html.erb"
-    if custom_org_layout_file
+    if File.exist? custom_org_layout_file
       current_organization.subdomain # Use subomain as layout file name
     else
       "application"
@@ -89,8 +89,8 @@ class ApplicationController < ActionController::Base
     false
   end
 
-  def organization_subdomain?
-    current_organization.present?
+  def authentication_required?
+    current_organization&.authentication_required
   end
 
   def current_language

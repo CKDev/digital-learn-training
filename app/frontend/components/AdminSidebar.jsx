@@ -1,7 +1,7 @@
-import { Divider, Tab, Tabs } from "@mui/material";
+import { Tab, Tabs } from "@mui/material";
 import React from "react";
 
-const AdminSidebar = ({ currentPath }) => {
+const AdminSidebar = ({ currentPath, accessRequestsEnabled }) => {
   const adminHttpRoutes = [
     {
       title: "Courses",
@@ -24,13 +24,20 @@ const AdminSidebar = ({ currentPath }) => {
       title: "Change Login Information",
       path: "/users/edit",
     },
-    {
-      title: "Invite Collaborator",
-      path: "/users/invitation/new",
-    },
   ];
 
+  if (accessRequestsEnabled) {
+    // Only add this option if access requests are enabled
+    adminHttpRoutes.push({
+      title: "Invite Collaborator",
+      path: "/users/invitation/new",
+    });
+  }
+
   const handleNavigation = (_event, path) => (window.location.href = path);
+  const handleClick = (event) => {
+    console.log(event.target);
+  };
 
   function a11yProps(path) {
     return {
@@ -44,12 +51,21 @@ const AdminSidebar = ({ currentPath }) => {
     currentPath = "/admin/courses";
   }
 
+  if (currentPath.match(/\/courses\//g)) {
+    currentPath = "/admin/courses";
+  }
+
+  if (currentPath.match(/\/trainings\//g)) {
+    currentPath = "/admin/trainings";
+  }
+
   return (
     <Tabs
       orientation="vertical"
       variant="scrollable"
       value={currentPath}
       onChange={handleNavigation}
+      onClick={handleClick}
       aria-label="User Navigation Menu"
       sx={{ borderRight: 1, borderColor: "divider" }}
     >

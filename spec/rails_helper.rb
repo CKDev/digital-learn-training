@@ -69,4 +69,9 @@ RSpec.configure do |config|
   # Allow warden helper methods
   config.include Warden::Test::Helpers
   Warden.test_mode!
+
+  config.before(:suite) do
+    # Precompile assets before the test suite
+    system("vite build") || raise("Vite build failed!")
+  end
 end

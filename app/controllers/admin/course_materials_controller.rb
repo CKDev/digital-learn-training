@@ -3,11 +3,12 @@ module Admin
     helper_method :categories_array
 
     def index
-      @course_materials = CourseMaterial.not_archived.order(:title)
+      @course_materials = CourseMaterial.for_organization(current_organization).not_archived.order(:sort_order)
     end
 
     def new
       @course_material = CourseMaterial.new
+      @categories = Category.where(organization: current_organization).order(:title)
       @course_material.course_material_files.build
       @course_material.course_material_medias.build
       @course_material.course_material_videos.build
@@ -15,30 +16,57 @@ module Admin
 
     def edit
       @course_material = CourseMaterial.friendly.find(params[:id])
+      @categories = Category.where(organization: current_organization).order(:title)
       @readonly = @course_material.title.in? PROTECTED_COURSE_MATERIALS
     end
 
     def create
       @course_material = CourseMaterial.new
       @course_material.sort_order = CourseMaterial.count + 1
-      if @course_material.update(course_material_params)
-        redirect_to admin_course_materials_path, notice: "Successfully created new Course"
-      else
-        render :new
+
+      respond_to do |format|
+        format.json do
+          if @course_material.update(course_material_params)
+            render json: { message: "Course created successfully", course_material_id: @course_material.id }, status: :created
+          else
+            render json: { error: @course_material.errors.full_messages.join(", ") }, status: :unprocessable_entity
+          end
+        end
+
+        format.html do
+          if @course_material.update(course_material_params)
+            redirect_to admin_course_materials_path, notice: "Course created successfully"
+          else
+            render :new
+          end
+        end
       end
     end
 
     def update
       @course_material = CourseMaterial.friendly.find(params[:id])
-      if @course_material.update(course_material_params)
-        redirect_to admin_course_materials_path, notice: "Successfully updated Course"
-      else
-        render :edit
+      respond_to do |format|
+        format.json do
+          if @course_material.update(course_material_params)
+            render json: { message: "Course updated successfully" }, status: :ok
+          else
+            render json: { error: @course_material.errors.full_messages.join(", ") }, status: :unprocessable_entity
+          end
+        end
+
+        format.html do
+          if @course_material.update(course_material_params)
+            redirect_to admin_course_materials_path, notice: "Course updated successfully"
+          else
+            render :edit
+          end
+        end
       end
     end
 
     def sort
-      params[:order].each_value { |v| CourseMaterial.find(v[:id]).update(sort_order: v[:position]) }
+      # Legacy sort
+      params[:order].each_value { |v| CourseMaterial.find(v[:id]).update!(sort_order: v[:position]) }
       respond_to do |format|
         format.json { render json: true, status: :ok }
       end

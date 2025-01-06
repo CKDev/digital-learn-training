@@ -1,5 +1,5 @@
 <% if @use_ui_v2 %>
-  <%= content_tag :div, "", id: "course-materials", data: { props: @course_materials_data } %>
+  <%= react_component id: "course-materials", data: { props: @course_materials_data } %>
   <%= vite_javascript_tag 'course-materials.jsx' %>
 <% else %>
   <%= render "#{current_organization.subdomain}/courses/overview" %>

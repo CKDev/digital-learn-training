@@ -1,3 +1,3 @@
 <% page_links = @footer_links.map { |page| { label: page.title, path: page_path(page) } } %>
-<%= content_tag :div, "", class: "footer", data: { props: { pages: page_links, contactEmail: contact_email, logoFile: image_url('pla_logo_white.png'), logoLinkDestination: "http://www.ala.org/pla/" } } %>
+<%= react_component class: "footer", data: { props: { pages: page_links, contactEmail: contact_email, logoFile: image_url('pla_logo_white.png'), logoLinkDestination: "http://www.ala.org/pla/" } } %>
 <%= vite_javascript_tag 'footer.jsx' %>

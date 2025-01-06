@@ -141,7 +141,7 @@ GEM
     data_migrate (9.2.0)
       activerecord (>= 6.1)
       railties (>= 6.1)
-    date (3.4.0)
+    date (3.4.1)
     devise (4.9.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -151,7 +151,7 @@ GEM
     devise_invitable (2.0.9)
       actionmailer (>= 5.0)
       devise (>= 4.6)
-    devise_saml_authenticatable (1.6.3)
+    devise_saml_authenticatable (1.9.1)
       devise (> 2.0.0)
       ruby-saml (~> 1.7)
     diff-lcs (1.5.1)
@@ -457,9 +457,10 @@ DEPENDENCIES
   coffee-rails
   colorize
   data_migrate (~> 9.2.0)
+  date (~> 3.4.1)
   devise
   devise_invitable (~> 2.0.0)
-  devise_saml_authenticatable (~> 1.6.3)
+  devise_saml_authenticatable (~> 1.9.1)
   factory_bot_rails
   faker
   foreman

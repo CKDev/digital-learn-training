@@ -127,5 +127,25 @@ describe CourseMaterial do
         expect(described_class.not_archived).to contain_exactly(draft_course_material, published_course_material)
       end
     end
+
+    describe ".for_organization" do
+      let(:organization) { FactoryBot.create(:organization) }
+      let(:org_category) { FactoryBot.create(:category, organization: organization) }
+      let(:main_site_category) { FactoryBot.create(:category) }
+
+      it "returns all course_materials for a specific organization" do
+        org_course = FactoryBot.create(:course_material, category: org_category)
+        FactoryBot.create(:course_material, category: main_site_category)
+
+        expect(described_class.for_organization(organization)).to contain_exactly(org_course)
+      end
+
+      it "returns course_materials for no organization (main site)" do
+        main_site_course = FactoryBot.create(:course_material, category: main_site_category)
+        FactoryBot.create(:course_material, category: org_category)
+
+        expect(described_class.for_organization(nil)).to contain_exactly(main_site_course)
+      end
+    end
   end
 end

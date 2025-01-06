@@ -1,7 +1,7 @@
 module Admin
   class CoursesController < BaseController
-
     before_action :set_course, only: %i[show edit update]
+    before_action :set_legacy_ui
 
     def index
       @courses = Course.not_archived
@@ -75,6 +75,10 @@ module Admin
         { attachments_attributes: %i[course_id document title doc_type file_description _destroy] }
       ]
       params.require(:course).permit(permitted_attributes)
+    end
+
+    def set_legacy_ui
+      @legacy_page = true
     end
   end
 end

@@ -1,2 +1,7 @@
-<%= content_for(:callout) { %><h1>Edit Course</h1><% } %>
-<%= render "form" %>
+<% if @use_ui_v2 && !@readonly %>
+  <%= react_component class: "admin-edit-course-material", data: { props: { courseMaterial: @course_material.to_props, categories: @categories.map(&:to_props) } } %>
+  <%= vite_javascript_tag 'admin-edit-course-material.jsx' %>
+<% else %>
+  <%= content_for(:callout) { %><h1>Edit Course</h1><% } %>
+  <%= render "form" %>
+<% end %>

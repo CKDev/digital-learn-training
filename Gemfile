@@ -21,7 +21,7 @@ gem "redis-namespace"
 gem "devise"
 
 # SAML authentication
-gem "devise_saml_authenticatable", "~> 1.6.3"
+gem "devise_saml_authenticatable", "~> 1.9.1"
 
 # Bourbon for sass mixins, and neat for the grid framework
 # gem "bourbon", "4.3.4"
@@ -58,6 +58,8 @@ gem "data_migrate", "~> 9.2.0"
 
 # Invitations
 gem "devise_invitable", "~> 2.0.0"
+
+gem "date", "~> 3.4.1"
 
 group :development, :test do
   gem "pry"

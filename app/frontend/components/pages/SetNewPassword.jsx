@@ -5,7 +5,6 @@ import {
   Button,
   Box,
   Typography,
-  Alert,
   Link,
   Grid2 as Grid,
 } from "@mui/material";
@@ -19,7 +18,7 @@ const SetNewPassword = ({
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [errors, setErrors] = useState({
     password: "",
-    confirmPassword: "",
+    passwordConfirmation: "",
   });
 
   const validate = () => {
@@ -74,7 +73,7 @@ const SetNewPassword = ({
         console.log("Password Reset success:", data);
         window.location = data.redirectPath;
       } catch (err) {
-        setError(err.message);
+        setErrors({ submitError: err.message });
       }
     }
   };

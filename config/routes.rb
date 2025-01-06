@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   end
   resources :categories, only: [:show]
   resources :templates, only: [:index]
-  resources :additional_resources, only: [:index]
   resources :contribute, only: [:index]
   resource :collaborator_warnings, only: [:destroy]
 

@@ -2,6 +2,7 @@ module Admin
   class PagesController < BaseController
 
     before_action :set_page, only: %i[edit update]
+    before_action :set_legacy_ui
 
     def index
       @pages = Page.not_archived.alpha_order
@@ -44,5 +45,8 @@ module Admin
       @page = Page.friendly.find(params[:id])
     end
 
+    def set_legacy_ui
+      @legacy_page = true
+    end
   end
 end
