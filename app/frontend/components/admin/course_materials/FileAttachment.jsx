@@ -3,6 +3,7 @@ import React from "react";
 import { Card, Grid2 as Grid, IconButton, Typography } from "@mui/material";
 import InsertDriveFileRoundedIcon from "@mui/icons-material/InsertDriveFileRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import ThemedIcon from "../../ThemedIcon";
 
 const FileAttachment = ({ file, onDelete }) => {
@@ -29,7 +30,14 @@ const FileAttachment = ({ file, onDelete }) => {
             <Typography variant="body2">{file.fileType}</Typography>
           </Grid>
         </Grid>
-        <Grid>
+        <Grid container>
+          <IconButton
+            aria-label="Download"
+            href={file.downloadPath}
+            target="_blank"
+          >
+            <DownloadRoundedIcon />
+          </IconButton>
           <IconButton
             color="primary"
             aria-label="Delete"

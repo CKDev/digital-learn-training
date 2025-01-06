@@ -5,7 +5,6 @@ import {
   Button,
   Box,
   Typography,
-  Alert,
   Link,
   Grid2 as Grid,
 } from "@mui/material";
@@ -19,7 +18,7 @@ const SetNewPassword = ({
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [errors, setErrors] = useState({
     password: "",
-    confirmPassword: "",
+    passwordConfirmation: "",
   });
 
   const validate = () => {

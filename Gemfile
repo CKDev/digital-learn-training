@@ -59,6 +59,8 @@ gem "data_migrate", "~> 9.2.0"
 # Invitations
 gem "devise_invitable", "~> 2.0.0"
 
+gem "date", "~> 3.4.1"
+
 group :development, :test do
   gem "pry"
   gem "pry-byebug"

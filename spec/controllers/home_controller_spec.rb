@@ -1,10 +1,9 @@
 require "rails_helper"
 
 describe HomeController do
-
   it "shows the homepage" do
     get :index
-    expect(response).to have_http_status(:success)
+    expect(response).to redirect_to course_materials_path
   end
 
   describe "non-organization subdomain" do

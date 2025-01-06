@@ -24,7 +24,7 @@ class User < ApplicationRecord
   private
 
   def password_required?
-    provider != "saml"
+    provider != "saml" && super
   end
 
 end

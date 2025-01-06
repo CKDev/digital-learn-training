@@ -1,6 +1,6 @@
 import { Alert, Snackbar, TextField } from "@mui/material";
 import React, { useState } from "react";
-import { updateCourseMaterial } from "../../../api/CourseMaterialsApi";
+import { updateCourseMaterial } from "@api/CourseMaterialsApi";
 
 const SortOrderInput = ({ course, onSortOrderChange }) => {
   const defaultSnackbarData = {
