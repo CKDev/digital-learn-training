@@ -7,4 +7,10 @@ class DeviseMailer < Devise::Mailer
     @mailer_subdomain = SubdomainBuilder.new(att).build_subdomain # Link subdomain
     super
   end
+
+  def reset_password_instructions(record, token, opts={})
+    organization = record.organization
+    @mailer_subdomain = SubdomainBuilder(organization).build_subdomain
+    super
+  end
 end
