@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_06_045402) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_06_071144) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -121,6 +121,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_06_045402) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["media_file_name", "course_material_id"], name: "index_course_material_media_on_title_and_course_material_id", unique: true
+  end
+
+  create_table "course_material_organizations", force: :cascade do |t|
+    t.bigint "organization_id"
+    t.bigint "course_material_id"
+    t.boolean "org_created", default: false, null: false
+    t.boolean "private", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_material_id"], name: "index_course_material_organizations_on_course_material_id"
+    t.index ["organization_id"], name: "index_course_material_organizations_on_organization_id"
   end
 
   create_table "course_material_videos", force: :cascade do |t|
@@ -234,6 +245,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_06_045402) do
     t.index ["title"], name: "index_pages_on_title", unique: true
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
   create_table "sub_categories", force: :cascade do |t|
     t.string "title"
     t.integer "category_id"
@@ -275,6 +296,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_06_045402) do
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
+  end
+
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "role_id"
+    t.index ["role_id"], name: "index_users_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+    t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

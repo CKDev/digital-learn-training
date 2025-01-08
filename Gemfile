@@ -61,6 +61,8 @@ gem "devise_invitable", "~> 2.0.0"
 
 gem "date", "~> 3.4.1"
 
+gem "rolify"
+
 group :development, :test do
   gem "pry"
   gem "pry-byebug"

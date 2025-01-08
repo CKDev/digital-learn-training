@@ -1,4 +1,5 @@
 class Organization < ApplicationRecord
+  resourcify
   has_many :categories, dependent: :destroy
   has_many :course_materials, through: :categories
 

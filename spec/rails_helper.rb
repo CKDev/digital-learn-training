@@ -46,6 +46,9 @@ RSpec.configure do |config|
   # Fixture file upload methods
   include ActionDispatch::TestProcess
 
+  # Use create() instead of FactoryBot.create()
+  config.include FactoryBot::Syntax::Methods
+
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
@@ -74,4 +77,8 @@ RSpec.configure do |config|
     # Precompile assets before the test suite
     system("vite build") || raise("Vite build failed!")
   end
+end
+
+Capybara.configure do |config|
+  config.always_include_port = true
 end
