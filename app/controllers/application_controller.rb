@@ -56,7 +56,14 @@ class ApplicationController < ActionController::Base
   private
 
   def current_organization
-    @current_organization ||= Organization.find_by(subdomain: request.subdomains.last)
+    if request.subdomains.last == "training"
+      subdomain = request.subdomains.first
+    else
+      # Legacy subdomain handling (AT&T)
+      subdomain = request.subdomains.last
+    end
+
+    @current_organization ||= Organization.find_by(subdomain: subdomain)
   end
 
   def set_layout

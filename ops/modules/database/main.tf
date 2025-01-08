@@ -23,7 +23,7 @@ resource "aws_db_parameter_group" "training" {
 
 resource "aws_db_instance" "app_db" {
   snapshot_identifier                   = var.db_snapshot_name
-  engine_version                        = "14.11"
+  engine_version                        = "14.15"
   allow_major_version_upgrade           = true
   instance_class                        = var.instance_size
   monitoring_interval                   = var.enable_monitoring ? var.monitoring_interval : 0

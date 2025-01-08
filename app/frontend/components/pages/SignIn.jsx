@@ -18,9 +18,11 @@ const SignIn = ({ signInPath, forgotPasswordPath }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const csrfToken = document
-        .querySelector('meta[name="csrf-token"]')
-        .getAttribute("content");
+      const csrfSelector = document.querySelector('meta[name="csrf-token"]');
+      const csrfToken = !!csrfSelector
+        ? csrfSelector.getAttribute("content")
+        : "";
+
       const response = await fetch(signInPath, {
         method: "POST",
         headers: {

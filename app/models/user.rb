@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  rolify
   has_one :collaborator_profile, dependent: :destroy
   accepts_nested_attributes_for :collaborator_profile
 

@@ -326,6 +326,7 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.3.9)
+    rolify (6.0.1)
     rollbar (3.6.0)
     rspec-core (3.13.2)
       rspec-support (~> 3.13.0)
@@ -483,6 +484,7 @@ DEPENDENCIES
   recaptcha (~> 5.16)
   redis
   redis-namespace
+  rolify
   rollbar
   rspec-rails
   rubocop

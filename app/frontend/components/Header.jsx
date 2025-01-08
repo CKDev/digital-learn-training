@@ -10,14 +10,17 @@ const Header = ({ logoLinkUrl, logoFile, switcherUrl, isAuthenticated }) => {
     event.preventDefault();
 
     try {
+      const csrfSelector = document.querySelector('meta[name="csrf-token"]');
+      const csrfToken = !!csrfSelector
+        ? csrfSelector.getAttribute("content")
+        : "";
+
       const response = await fetch("/users/sign_out", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          "X-CSRF-Token": document
-            .querySelector('meta[name="csrf-token"]')
-            .getAttribute("content"),
+          "X-CSRF-Token": csrfToken,
         },
       });
 

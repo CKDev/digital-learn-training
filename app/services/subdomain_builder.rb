@@ -17,7 +17,13 @@ class SubdomainBuilder
       subdomain_components << "training"
     end
 
-    subdomain_components << @organization&.subdomain
+    if @organization&.subdomain == "att"
+      # AT&T's subdomain is specific for some reason - training.att.digitallearn.org
+      subdomain_components << @organization&.subdomain
+    else
+      subdomain_components.prepend(@organization&.subdomain)
+    end
+
     subdomain_components.compact.join(".")
   end
 
