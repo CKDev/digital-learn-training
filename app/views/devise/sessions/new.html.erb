@@ -1,5 +1,5 @@
 <% if @use_ui_v2 %>
-  <%= react_component class: "sign-in", data: { props: { signInPath: new_user_session_path, forgotPasswordPath: new_user_password_path } } %>
+  <%= react_component class: "sign-in", data: { props: { signInPath: new_user_session_path, forgotPasswordPath: new_user_password_path, learnersSignInPath: new_learners_sessions_path } } %>
   <%= vite_javascript_tag 'sign-in.jsx' %>
 <% else %>
   <% if current_organization&.access_requests_enabled %>
