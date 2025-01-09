@@ -10,7 +10,7 @@ import {
   Grid2 as Grid,
 } from "@mui/material";
 
-const SignIn = ({ signInPath, forgotPasswordPath }) => {
+const SignIn = ({ signInPath, forgotPasswordPath, learnersSignInPath }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -95,6 +95,14 @@ const SignIn = ({ signInPath, forgotPasswordPath }) => {
           Sign In
         </Button>
         <Link href={forgotPasswordPath}>Forgot your Password?</Link>
+        <Button
+          href={learnersSignInPath}
+          variant="outlined"
+          fillWidth
+          sx={{ mt: 2 }}
+        >
+          Sign In with Learners Account
+        </Button>
       </Grid>
     </Box>
   );

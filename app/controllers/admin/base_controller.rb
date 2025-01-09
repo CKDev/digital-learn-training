@@ -5,7 +5,7 @@ module Admin
     before_action :enable_admin_sidebar
 
     def authorize_admin!
-      unless current_user.admin? || current_user.has_role(:organization_admin, current_organization)
+      unless current_user.admin? || current_user.has_role?(:organization_admin, current_organization)
         flash[:alert] = "You are not authorized to view this page."
         redirect_to root_path
       end

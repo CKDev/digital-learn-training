@@ -79,6 +79,8 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   config.hosts << /[a-z0-9]+\.lvh\.me/
+  config.hosts << "lvh.me:4000"
+  config.hosts << "tomreis.ngrok.io"
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.

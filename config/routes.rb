@@ -21,6 +21,11 @@ Rails.application.routes.draw do
   resources :contribute, only: [:index]
   resource :collaborator_warnings, only: [:destroy]
 
+  # SSO With Learners Site
+  resource :learners_sessions, only: [:new], path: "learners_sessions" do
+    get "/callback", to: "learners_sessions#callback", as: :oauth_callback
+  end
+
   namespace :admin do
     root "course_materials#index"
     resources :pages, except: [:destroy]

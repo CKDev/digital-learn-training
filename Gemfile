@@ -63,6 +63,9 @@ gem "date", "~> 3.4.1"
 
 gem "rolify"
 
+# OAuth2 client configuration
+gem "oauth2", "~> 2.0", ">= 2.0.9"
+
 group :development, :test do
   gem "pry"
   gem "pry-byebug"
