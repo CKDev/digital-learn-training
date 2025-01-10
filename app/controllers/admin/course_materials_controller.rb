@@ -7,6 +7,11 @@ module Admin
     end
 
     def new
+      if current_organization && current_organization.categories.empty?
+        flash[:alert] = "You must create at least one category before you can create a Course"
+        redirect_to admin_categories_path and return
+      end
+
       @course_material = CourseMaterial.new
       @categories = Category.where(organization: current_organization).order(:title)
       @course_material.course_material_files.build

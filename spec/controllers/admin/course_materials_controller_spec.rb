@@ -14,6 +14,17 @@ describe Admin::CourseMaterialsController do
       get :new
       expect(response).to redirect_to new_user_session_path
     end
+
+    it "redirects to categories page if categories are blank" do
+      org = create(:organization)
+      org_admin = create(:user)
+      org_admin.add_role(:organization_admin, org)
+      @request.host = "#{org.subdomain}.dltest.org"
+      sign_in org_admin
+
+      get :new
+      expect(response).to redirect_to(admin_categories_path)
+    end
   end
 
   describe "GET #index" do

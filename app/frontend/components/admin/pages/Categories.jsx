@@ -12,7 +12,8 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import CategoryForm from "../categories/CategoryForm";
 
 const Categories = ({ categories, categoryTags }) => {
-  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const initialCategory = categories.length == 0 ? null : categories[0];
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [categoriesList, setCategoriesList] = useState(categories);
 
   const handleCategorySelect = (category) => {
@@ -25,7 +26,7 @@ const Categories = ({ categories, categoryTags }) => {
       description: "",
       subcategories: [],
       tag: "Getting Started",
-      id: -categoriesList.length,
+      id: -(categoriesList.length + 1), // Subtract an extra 1 in case the list has length 0
     }; // Use non-conflicting ID that supports multiple new categories
     setCategoriesList([...categoriesList, newCategory]);
 
@@ -36,7 +37,7 @@ const Categories = ({ categories, categoryTags }) => {
     let newCategoriesList = categoriesList.filter(
       (category) => category.id !== idToRemove
     );
-    setSelectedCategory(categories[0]);
+    setSelectedCategory(initialCategory);
     setCategoriesList(newCategoriesList);
   };
 
