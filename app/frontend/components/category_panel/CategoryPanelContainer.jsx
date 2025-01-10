@@ -16,6 +16,8 @@ const CategoryPanelContainer = ({
     es: "Spanish",
   };
 
+  console.log(category);
+
   const languageGroupedMaterials = Object.groupBy(
     category.courseMaterials,
     ({ language }) => language

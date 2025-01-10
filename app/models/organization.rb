@@ -17,7 +17,6 @@ class Organization < ApplicationRecord
   end
 
   def can_import_courses?
-    return false # Turn off imports for now
-    #subdomain != "att" # For now, AT&T can't import
+    subdomain != "att" # For now, AT&T can't import
   end
 end
