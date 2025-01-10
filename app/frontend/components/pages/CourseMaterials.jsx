@@ -20,48 +20,33 @@ const NoMaterialsWidget = ({}) => (
 
 const CourseMaterials = ({
   categories,
-  initialCategoryId,
+  initialCategoryFriendlyId,
   initialLanguage,
 }) => {
   if (categories.length == 0) {
     return <NoMaterialsWidget />;
   } else {
-    const [selectedCategoryId, setSelectedCategoryId] = useState(
-      parseInt(initialCategoryId) || categories[0].id
-    );
+    const [selectedCategoryFriendlyId, setSelectedCategoryFriendlyId] =
+      useState(initialCategoryFriendlyId || categories[0].friendlyId);
     const [selectedLanguage, setSelectedLanguage] = useState(
       initialLanguage || "en"
     );
 
-    const handleChangeCategory = (_event, selectedCategoryId) => {
-      // Clear initial category selection from url
-      let params = new URLSearchParams(window.location.search);
-      params.delete("selected_category");
+    const updateWindowSearchParams = (key, value) => {
+      var searchParams = new URLSearchParams(window.location.search);
 
-      window.history.replaceState(
-        null,
-        "",
-        window.location.pathname +
-          (params.size > 0 ? "?" + params : "") +
-          window.location.hash
-      );
+      searchParams.set(key, value); // Add or update a parameter
+      const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+      history.replaceState(null, "", newUrl);
+    };
 
-      setSelectedCategoryId(selectedCategoryId);
+    const handleChangeCategory = (_event, selectedCategoryFriendlyId) => {
+      updateWindowSearchParams("category", selectedCategoryFriendlyId);
+      setSelectedCategoryFriendlyId(selectedCategoryFriendlyId);
     };
 
     const handleChangeLanguage = (selectedLanguage) => {
-      // Clear initial category selection from url
-      let params = new URLSearchParams(window.location.search);
-      params.delete("selected_language");
-
-      window.history.replaceState(
-        null,
-        "",
-        window.location.pathname +
-          (params.size > 0 ? "?" + params : "") +
-          window.location.hash
-      );
-
+      updateWindowSearchParams("language", selectedLanguage);
       setSelectedLanguage(selectedLanguage);
     };
 
@@ -85,7 +70,7 @@ const CourseMaterials = ({
         <Tabs
           orientation="vertical"
           variant="scrollable"
-          value={selectedCategoryId}
+          value={selectedCategoryFriendlyId}
           onChange={handleChangeCategory}
           aria-label="Course Material Category Tabs"
           sx={{
@@ -98,29 +83,28 @@ const CourseMaterials = ({
           {categories.map((category) => (
             <Tab
               label={category.title}
-              value={category.id}
-              {...a11yProps(category.id)}
-              key={"category-tab-" + category.id}
+              value={category.friendlyId}
+              {...a11yProps(category.friendlyId)}
+              key={"category-tab-" + category.friendlyId}
             />
           ))}
         </Tabs>
         {categories.map((category) => (
           <Box
             role="tabpanel"
-            hidden={selectedCategoryId !== category.id}
-            id={`category-tabpanel-${category.id}`}
-            aria-labelledby={`category-tab-${category.id}`}
-            key={`category-tab-${category.id}`}
+            hidden={selectedCategoryFriendlyId !== category.friendlyId}
+            id={`category-tabpanel-${category.friendlyId}`}
+            aria-labelledby={`category-tab-${category.friendlyId}`}
+            key={`category-tab-${category.friendlyId}`}
             sx={{ flexBasis: "66%" }}
           >
-            {selectedCategoryId === category.id && (
+            {selectedCategoryFriendlyId === category.friendlyId && (
               <CategoryPanelContainer
                 category={category}
-                selectedCategoryId={selectedCategoryId}
                 selectedLanguage={selectedLanguage}
-                panelIndex={category.id}
+                panelIndex={category.friendlyId}
                 onLanguageChange={handleChangeLanguage}
-                key={"category-tab-content-" + category.id}
+                key={"category-tab-content-" + category.friendlyId}
               />
             )}
           </Box>

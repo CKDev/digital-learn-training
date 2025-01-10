@@ -7,7 +7,7 @@ import CourseImages from "../course_material/CourseImages";
 
 const CourseMaterial = ({
   category,
-  categoryId,
+  categoryFriendlyId,
   files,
   images,
   videos,
@@ -17,7 +17,7 @@ const CourseMaterial = ({
   <Grid2>
     <ReturnToCategoryLink
       category={category}
-      categoryId={categoryId}
+      categoryFriendlyId={categoryFriendlyId}
       language={language}
     />
     <CourseHeader {...courseMaterialProps} />

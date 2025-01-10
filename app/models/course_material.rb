@@ -52,6 +52,7 @@ class CourseMaterial < ApplicationRecord
               language: language,
               category: category.title,
               categoryId: category.id,
+              categoryFriendlyId: category.friendly_id,
               subcategory: sub_category&.title,
               subcategoryId: sub_category&.id,
               status: pub_status,
