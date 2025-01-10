@@ -205,6 +205,7 @@ const CourseMaterials = ({ courseMaterials }) => {
               <TableRow key={`course-materials-row-${course.id}`}>
                 <TableCell>
                   <SortOrderInput
+                    enabled={filters["category"] !== ""}
                     key={`sort-order-input-${course.id}`}
                     course={course}
                     onSortOrderChange={handleSortOrderChange}

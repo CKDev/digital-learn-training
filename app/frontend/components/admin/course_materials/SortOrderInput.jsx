@@ -1,12 +1,12 @@
-import { Alert, Snackbar, TextField } from "@mui/material";
+import { Alert, Snackbar, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { updateCourseMaterial } from "@api/CourseMaterialsApi";
 
-const SortOrderInput = ({ course, onSortOrderChange }) => {
+const SortOrderInput = ({ enabled, course, onSortOrderChange }) => {
   const defaultSnackbarData = {
     open: false,
     message: "",
-    type: "info",
+    severity: "info",
   };
   const [sortOrder, setSortOrder] = useState(course.sortOrder);
   const [error, setError] = useState("");
@@ -24,13 +24,13 @@ const SortOrderInput = ({ course, onSortOrderChange }) => {
         setSnackbarData({
           open: true,
           message: "Sort Order Updated!",
-          type: "success",
+          severity: "success",
         });
       } else {
         setSnackbarData({
           open: true,
           message: response.message,
-          type: "error",
+          severity: "error",
         });
       }
     }
@@ -56,7 +56,18 @@ const SortOrderInput = ({ course, onSortOrderChange }) => {
   };
 
   const handleSnackbarClose = (_event, _reason) => {
-    setSnackbarData(defaultSnackbarData);
+    setSnackbarData({ ...snackbarData, open: false });
+  };
+
+  const handleSortOrderClick = () => {
+    if (enabled) {
+      return;
+    }
+    setSnackbarData({
+      open: true,
+      message: "Sort Order can only be changed while filtering by Category",
+      severity: "error",
+    });
   };
 
   return (
@@ -76,13 +87,18 @@ const SortOrderInput = ({ course, onSortOrderChange }) => {
           {snackbarData.message}
         </Alert>
       </Snackbar>
-      <TextField
-        value={sortOrder}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        onKeyDown={handleKeyDown}
-        error={error != ""}
-      />
+      {enabled ? (
+        <TextField
+          value={sortOrder}
+          disabled={!enabled}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          onKeyDown={handleKeyDown}
+          error={error != ""}
+        />
+      ) : (
+        <Typography onClick={handleSortOrderClick}>{sortOrder}</Typography>
+      )}
     </>
   );
 };
