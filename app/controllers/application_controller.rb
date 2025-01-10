@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_language_name
 
   def admin_signed_in?
-    user_signed_in? && current_user.admin?
+    user_signed_in? && (current_user.admin? || current_user.has_role(:organization_admin, current_organization))
   end
 
   def after_sign_in_path_for(user)

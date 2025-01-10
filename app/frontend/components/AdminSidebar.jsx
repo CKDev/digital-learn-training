@@ -1,7 +1,11 @@
 import { Tab, Tabs } from "@mui/material";
 import React from "react";
 
-const AdminSidebar = ({ currentPath, accessRequestsEnabled }) => {
+const AdminSidebar = ({
+  currentPath,
+  accessRequestsEnabled,
+  importsEnabled,
+}) => {
   const adminHttpRoutes = [
     {
       title: "Courses",
@@ -25,6 +29,14 @@ const AdminSidebar = ({ currentPath, accessRequestsEnabled }) => {
       path: "/users/edit",
     },
   ];
+
+  if (importsEnabled) {
+    const importRoute = {
+      title: "Import Courses",
+      path: "/admin/course_material_imports",
+    };
+    adminHttpRoutes.splice(2, 0, importRoute);
+  }
 
   if (accessRequestsEnabled) {
     // Only add this option if access requests are enabled

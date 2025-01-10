@@ -11,6 +11,7 @@ const EditCourseMaterial = ({ courseMaterial, categories }) => {
     contributor: courseMaterial.contributor,
     status: courseMaterial.status,
     categoryId: courseMaterial.categoryId,
+    subcategoryId: courseMaterial.subcategoryId,
     language: courseMaterial.language,
     files: courseMaterial.files,
     images: courseMaterial.images,

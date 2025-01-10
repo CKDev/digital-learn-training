@@ -78,6 +78,7 @@ const CourseMaterials = ({
           flexGrow: 1,
           bgcolor: "background.paper",
           display: "flex",
+          gap: "24px",
           height: "100%",
         }}
       >
@@ -87,7 +88,12 @@ const CourseMaterials = ({
           value={selectedCategoryId}
           onChange={handleChangeCategory}
           aria-label="Course Material Category Tabs"
-          sx={{ borderRight: 1, borderColor: "divider" }}
+          sx={{
+            borderRight: 1,
+            borderColor: "divider",
+            flexBasis: "33%",
+            maxWidth: "271px",
+          }}
         >
           {categories.map((category) => (
             <Tab
@@ -105,7 +111,7 @@ const CourseMaterials = ({
             id={`category-tabpanel-${category.id}`}
             aria-labelledby={`category-tab-${category.id}`}
             key={`category-tab-${category.id}`}
-            sx={{ flexGrow: 1 }}
+            sx={{ flexBasis: "66%" }}
           >
             {selectedCategoryId === category.id && (
               <CategoryPanelContainer

@@ -64,15 +64,17 @@ const Categories = ({ categories, categoryTags }) => {
           ))}
         </List>
       </Grid>
-      <Grid size={6} sx={{ py: 2 }}>
-        <CategoryForm
-          category={selectedCategory}
-          categoryTags={categoryTags}
-          key={selectedCategory.id}
-          isNewCategory={selectedCategory.id < 0}
-          onRemoveNewCategory={handleRemoveNewCategory}
-        />
-      </Grid>
+      {categoriesList.length > 0 && (
+        <Grid size={6} sx={{ py: 2 }}>
+          <CategoryForm
+            category={selectedCategory}
+            categoryTags={categoryTags}
+            key={selectedCategory.id}
+            isNewCategory={selectedCategory.id < 0}
+            onRemoveNewCategory={handleRemoveNewCategory}
+          />
+        </Grid>
+      )}
     </Grid>
   );
 };
