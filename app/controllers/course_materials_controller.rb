@@ -7,8 +7,8 @@ class CourseMaterialsController < ApplicationController
 
     @course_materials_data = {
       categories: @categories.map { |c| c.to_props(include_materials: true) },
-      initialCategoryId: params[:selected_category],
-      initialLanguage: params[:selected_language]
+      initialCategoryId: params[:category],
+      initialLanguage: params[:language]
     }
   end
 

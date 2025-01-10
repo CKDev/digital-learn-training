@@ -248,6 +248,15 @@ describe Admin::CourseMaterialsController do
         end.to change { course_material.reload.sort_order }.from(4).to(2)
       end
 
+      it "does not clear sub_category on sort" do
+        sub_category = create(:sub_category, category: course_material.category)
+        course_material.update(sub_category_id: sub_category.id)
+
+        expect do
+          put :update, params: { id: course_material.id, course_material: { sort_order: 2 } }, xhr: true, format: :json
+        end.not_to change(course_material, :sub_category_id)
+      end
+
       it "handles failed sort order update with appropriate error" do
         put :update, params: { id: course_material.id, course_material: { sort_order: "foobar" } }, xhr: true, format: :json
         expect(response).to have_http_status :unprocessable_entity

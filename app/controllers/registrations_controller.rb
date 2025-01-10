@@ -3,7 +3,8 @@ class RegistrationsController < Devise::RegistrationsController
   protect_from_forgery with: :null_session, if: -> { request.format.json? }
 
   def edit
-    @include_admin_sidebar = current_user&.admin?
+    org_admin = current_organization.present? && current_user&.has_role?(:organization_admin, current_organization)
+    @include_admin_sidebar = current_user&.admin? || org_admin
   end
 
   def update

@@ -22,6 +22,7 @@ class Category < ApplicationRecord
   def to_props(include_materials: false)
     props = {
       id: id,
+      friendlyId: friendly_id,
       title: title,
       tag: tag,
       description: description,

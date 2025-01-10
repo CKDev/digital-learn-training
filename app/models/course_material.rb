@@ -7,6 +7,8 @@ class CourseMaterial < ApplicationRecord
   has_many :course_material_files, dependent: :destroy
   has_many :course_material_medias, dependent: :destroy
   has_many :course_material_videos, dependent: :destroy
+  has_many :course_material_imports
+  has_many :organizations, through: :course_material_imports
 
   validates :title, length: { maximum: 90 }, presence: true
   validate :unique_title
@@ -50,7 +52,9 @@ class CourseMaterial < ApplicationRecord
               language: language,
               category: category.title,
               categoryId: category.id,
-              subCategory: sub_category&.title,
+              categoryFriendlyId: category.friendly_id,
+              subcategory: sub_category&.title,
+              subcategoryId: sub_category&.id,
               status: pub_status,
               contributor: contributor,
               sortOrder: sort_order,

@@ -75,7 +75,11 @@ module Admin
     private
 
     def course_material_params
-      params[:course_material][:sub_category_id] = "" if params[:course_material][:sub_category_id].blank? # Remove if not passed in.
+      unless request.format.json?
+        # Backwards compatibility with legacy form. We don't want this behavior moving forward
+        params[:course_material][:sub_category_id] = "" if params[:course_material][:sub_category_id].blank? # Remove if not passed in.
+      end
+
       params.require(:course_material).permit(
         :title,
         :contributor,
@@ -90,7 +94,7 @@ module Admin
         course_material_files_attributes: %i[id file _destroy],
         course_material_medias_attributes: %i[id media _destroy],
         course_material_videos_attributes: %i[id url _destroy]
-)
+      )
     end
 
     def categories_array

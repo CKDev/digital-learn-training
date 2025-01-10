@@ -1,11 +1,20 @@
 import React from "react";
 import CourseWidget from "../CourseWidget";
 import { Box, Grid2, Typography } from "@mui/material";
+import _ from "lodash";
 
 const CourseMaterialList = ({ courseMaterials }) => {
   const groupedMaterials = Object.groupBy(
     courseMaterials,
-    ({ subCategory }) => subCategory
+    ({ subcategory }) => subcategory
+  );
+
+  const nonSubcategoryMaterials = groupedMaterials[null];
+  const subcategoryMaterials = _.pickBy(
+    groupedMaterials,
+    (_materials, subcategory) => {
+      return subcategory !== "null";
+    }
   );
 
   return (
@@ -17,7 +26,10 @@ const CourseMaterialList = ({ courseMaterials }) => {
         direction="column"
         justifyContent="space-between"
       >
-        {Object.keys(groupedMaterials).map((subCategory, index) => {
+        {nonSubcategoryMaterials.map((material) => (
+          <CourseWidget {...material} key={"course-widget-" + material.id} />
+        ))}
+        {Object.keys(subcategoryMaterials).map((subcategory, index) => {
           return (
             <Box key={"sub-category-" + index}>
               <Grid2
@@ -27,10 +39,8 @@ const CourseMaterialList = ({ courseMaterials }) => {
                 direction="column"
                 justifyContent="space-between"
               >
-                {subCategory !== "null" && (
-                  <Typography>{subCategory}</Typography>
-                )}
-                {groupedMaterials[subCategory].map((material) => (
+                <Typography>{subcategory}</Typography>
+                {subcategoryMaterials[subcategory].map((material) => (
                   <CourseWidget
                     {...material}
                     key={"course-widget-" + material.id}

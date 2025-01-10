@@ -3,7 +3,13 @@ import React from "react";
 import { Box, Button, Grid2, Link, Typography } from "@mui/material";
 import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 
-const Footer = ({ pages, contactEmail, logoFile, logoLinkDestination }) => {
+const Footer = ({
+  pages,
+  contactEmail,
+  logoFile,
+  logoLinkDestination,
+  adminSignedIn,
+}) => {
   return (
     <Box>
       <Box sx={{ p: "20px", bgcolor: "info.dark", textAlign: "center" }}>
@@ -28,14 +34,20 @@ const Footer = ({ pages, contactEmail, logoFile, logoLinkDestination }) => {
             <Button variant="outlined" href={`mailto:${contactEmail}`}>
               Send us an Email
             </Button>
-            <Button
-              variant="text"
-              disableElevation
-              endIcon={<AccountBoxRoundedIcon />}
-              href="/users/sign_in"
-            >
-              Admin Sign In
-            </Button>
+            {adminSignedIn ? (
+              <Button variant="text" disableElevation href="/admin">
+                Admin Dashboard
+              </Button>
+            ) : (
+              <Button
+                variant="text"
+                disableElevation
+                endIcon={<AccountBoxRoundedIcon />}
+                href="/users/sign_in"
+              >
+                Admin Sign In
+              </Button>
+            )}
           </Grid2>
         </Grid2>
       </Box>

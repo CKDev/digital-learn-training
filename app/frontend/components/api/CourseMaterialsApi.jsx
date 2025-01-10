@@ -19,9 +19,22 @@ export async function updateCourseMaterial(
 }
 
 export async function createCourseMaterial(data) {
-  let path = `/admin/courses`;
+  let path = "/admin/courses";
 
   let body = data;
   let response = await sendRequest(path, "POST", body, {});
+  return response;
+}
+
+export async function importCourseMaterial(courseMaterialId) {
+  let path = "/admin/course_material_imports";
+  let body = JSON.stringify({ course_material_id: courseMaterialId });
+  let response = await sendRequest(path, "POST", body);
+  return response;
+}
+
+export async function unimportCourseMaterial(courseMaterialId) {
+  let path = `/admin/course_material_imports/${courseMaterialId}`;
+  let response = await sendRequest(path, "DELETE");
   return response;
 }

@@ -54,7 +54,7 @@ const SidebarTabs = ({
           color="primary"
           href={checklistDownloadPath}
           target="_blank"
-          sx={{ px: "10px", py: "4px" }}
+          sx={{ px: "10px", py: "4px", textAlign: "center" }}
         >
           Download Checklist (PDF)
         </Button>

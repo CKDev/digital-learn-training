@@ -22,8 +22,14 @@ const CourseMaterialForm = ({
   onSubmit,
   isNew = false,
 }) => {
+  const getCategoryById = (id) =>
+    categories.find((category) => category.id == id);
+
   const [formData, setFormData] = useState(initialData);
   const [isDirty, setIsDirty] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(
+    getCategoryById(initialData.categoryId)
+  );
   const [files, setFiles] = useState(initialData.files);
   const [images, setImages] = useState(initialData.images);
   const [filesToDelete, setFilesToDelete] = useState([]);
@@ -39,6 +45,12 @@ const CourseMaterialForm = ({
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name == "categoryId") {
+      setSelectedCategory(getCategoryById(value));
+      // Clear subcategory
+      setFormData((prev) => ({ ...prev, ["subcategoryId"]: null }));
+    }
   };
 
   const handleFileChange = (newFiles) => {
@@ -94,6 +106,7 @@ const CourseMaterialForm = ({
 
       data.append("course_material[category_id]", formData.categoryId);
       data.append("course_material[pub_status]", formData.status);
+      data.append("course_material[sub_category_id]", formData.subcategoryId);
 
       // Append course_material_files
       files.forEach((file, index) => {
@@ -255,7 +268,7 @@ const CourseMaterialForm = ({
           <InputLabel id="course-material-category-label">Category</InputLabel>
           <Select
             label="Category"
-            name="category"
+            name="categoryId"
             variant="outlined"
             value={formData.categoryId}
             onChange={handleInputChange}
@@ -270,6 +283,30 @@ const CourseMaterialForm = ({
             ))}
           </Select>
         </FormControl>
+        {selectedCategory.subcategories.length > 0 && (
+          <FormControl fullWidth>
+            <InputLabel id="course-material-subcategory-label">
+              Subcategory
+            </InputLabel>
+            <Select
+              label="Subcategory"
+              name="subcategoryId"
+              variant="outlined"
+              value={formData.subcategoryId || ""}
+              onChange={handleInputChange}
+            >
+              <MenuItem value={null}>None</MenuItem>
+              {selectedCategory.subcategories.map((subcategory) => (
+                <MenuItem
+                  value={subcategory.id}
+                  key={`subcategory-option-${subcategory.id}`}
+                >
+                  {subcategory.title}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
         <FormControl fullWidth>
           <InputLabel id="course-material-language-label">Language</InputLabel>
           <Select
@@ -304,7 +341,7 @@ const CourseMaterialForm = ({
             variant="contained"
             disabled={!(isNew || isDirty) || submitting}
           >
-            {submitting ? "Saving..." : "Save Category"}
+            {submitting ? "Saving..." : "Save Course"}
           </Button>
           {(isNew || isDirty) && (
             <Button variant="text" onClick={handleCancel}>

@@ -2,6 +2,8 @@ class Organization < ApplicationRecord
   resourcify
   has_many :categories, dependent: :destroy
   has_many :course_materials, through: :categories
+  has_many :course_material_imports
+  has_many :imported_course_materials, through: :course_material_imports, source: :course_material
 
   validates :title, presence: true
   store_accessor :settings, :access_requests_enabled, :access_request_emails, :authentication_required
@@ -12,5 +14,10 @@ class Organization < ApplicationRecord
       id: id,
       title: title
     }
+  end
+
+  def can_import_courses?
+    return false # Turn off imports for now
+    #subdomain != "att" # For now, AT&T can't import
   end
 end
