@@ -1,9 +1,8 @@
 FROM ruby:3.2.6-slim-bookworm
 
 # install rails dependencies
-RUN apt-get clean all && \
-  apt-get update -qq && \
-  apt-get install -qq -y \
+RUN apt-get update -qq && \
+  apt-get install -y --no-install-recommends \
   build-essential \
   libpq-dev \
   curl \
@@ -20,10 +19,10 @@ RUN apt-get clean all && \
   file \
   nodejs \
   npm \
-  vim
+  vim && \
+  rm -rf /var/lib/apt/lists/*
 
 # Set working directory
-RUN mkdir /rails-app
 WORKDIR /rails-app
 
 # Consume build args
@@ -31,21 +30,20 @@ ARG RAILS_ENV
 ARG RAILS_MASTER_KEY
 
 # Add gems
-COPY Gemfile Gemfile
-COPY Gemfile.lock Gemfile.lock
+COPY Gemfile Gemfile.lock ./
 
 # Install gems
-COPY install_gems.sh install_gems.sh
+COPY install_gems.sh ./
 RUN chmod u+x install_gems.sh && ./install_gems.sh
 
 # Install Node.js dependencies
-COPY package.json package-lock.json /rails-app/
+COPY package.json package-lock.json ./
 RUN npm install
 
-COPY . /rails-app
+COPY . .
 
 # Precompile assets (includes vite build via vite_rails gem)
-COPY precompile_assets.sh precompile_assets.sh
+COPY precompile_assets.sh ./
 RUN chmod u+x precompile_assets.sh && ./precompile_assets.sh
 
 # Add entrypoint script
