@@ -4,15 +4,20 @@ describe CourseMaterialsController do
   describe "GET #index" do
     describe "non-organization subdomain" do
       let(:org) { FactoryBot.create(:att) }
-      let!(:no_org_category) { FactoryBot.create(:category) }
+      let!(:category_with_published_courses) { FactoryBot.create(:category) }
 
       before do
         FactoryBot.create(:category, organization: org)
+        FactoryBot.create(:category)
+        unpublished_category = create(:category)
+        FactoryBot.create(:course_material, pub_status: "P", category: category_with_published_courses)
+        FactoryBot.create(:course_material, pub_status: "D", category: unpublished_category)
+        FactoryBot.create(:course_material, pub_status: "A", category: unpublished_category)
       end
 
-      it "sets all non-org courses" do
+      it "sets all non-org categories with courses" do
         get :index
-        expect(assigns(:categories)).to contain_exactly(no_org_category)
+        expect(assigns(:categories)).to contain_exactly(category_with_published_courses)
       end
     end
 
@@ -24,6 +29,8 @@ describe CourseMaterialsController do
 
       before do
         FactoryBot.create(:category)
+        FactoryBot.create(:course_material, pub_status: "P", category: att_sa_category)
+        FactoryBot.create(:course_material, pub_status: "P", category: att_jobs_category)
 
         @request.host = "#{org.subdomain}.dltest.org" # rubocop:disable RSpec/InstanceVariable
         sign_in user
@@ -36,14 +43,14 @@ describe CourseMaterialsController do
     end
 
     describe "organization subdomain" do
-      let(:org) { FactoryBot.create(:organization, subdomain: 'test') }
+      let(:org) { FactoryBot.create(:organization, subdomain: "test") }
       let(:user) { FactoryBot.create(:user) }
       let(:org_sa_category) { FactoryBot.create(:category, organization: org, title: "Software & Applications") }
       let(:org_jobs_category) { FactoryBot.create(:category, organization: org, title: "Jobs & Career") }
 
       before do
-        create(:course_material, category: org_sa_category)
-        create(:course_material, category: org_jobs_category)
+        create(:course_material, pub_status: "P", category: org_sa_category)
+        create(:course_material, pub_status: "P", category: org_jobs_category)
 
         @request.host = "#{org.subdomain}.dltest.org" # rubocop:disable RSpec/InstanceVariable
         sign_in user
