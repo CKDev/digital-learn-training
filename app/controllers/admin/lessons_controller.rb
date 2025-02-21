@@ -1,7 +1,7 @@
 module Admin
   class LessonsController < BaseController
-
     before_action :set_course, except: [:sort]
+    before_action :set_legacy_ui
 
     def show
 
@@ -47,12 +47,12 @@ module Admin
       @lesson = @course.lessons.friendly.find(params[:format])
       @lesson.story_line = nil
       @lesson.save
-      FileUtils.remove_dir "#{Rails.root}/public/storylines/#{@lesson.id}", true
+      FileUtils.remove_dir Rails.root.join("public/storylines/#{@lesson.id}").to_s, true
       render :edit, notice: "Story Line successfully removed, please upload a new story line .zip file."
     end
 
     def sort
-      params[:order].each { |_k, v| Lesson.find(v[:id]).update(lesson_order: v[:position]) }
+      params[:order].each_value { |v| Lesson.find(v[:id]).update(lesson_order: v[:position]) }
       respond_to do |format|
         format.json { render json: true, status: :ok }
       end
@@ -66,8 +66,12 @@ module Admin
 
     def lesson_params
       params.require(:lesson).permit(:title, :summary, :duration,
-        :story_line, :seo_page_title, :meta_desc,
-        :is_assessment, :lesson_order, :pub_status)
+                                     :story_line, :seo_page_title, :meta_desc,
+                                     :is_assessment, :lesson_order, :pub_status)
+    end
+
+    def set_legacy_ui
+      @legacy_page = true
     end
   end
 end

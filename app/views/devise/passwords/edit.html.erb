@@ -1,29 +1,33 @@
-<h2>Change your password</h2>
+<% if @use_ui_v2 %>
+  <%= react_component class: "set-new-password", data: { props: { resetPasswordToken: resource.reset_password_token, setNewPasswordPath: password_path(resource_name) } } %>
+  <%= vite_javascript_tag 'set-new-password.jsx' %>
+<% else %>
+  <h2>Change your password</h2>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= f.hidden_field :reset_password_token %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
+    <fieldset>
+      <div class="field">
+        <%= f.label :password, "New password" %><br />
+        <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %>
+        <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+      </div>
+    </fieldset>
 
-  <fieldset>
-    <div class="field">
-      <%= f.label :password, "New password" %><br />
-      <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %>
-      <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
-    </div>
-  </fieldset>
+    <fieldset>
+      <div class="field">
+        <%= f.label :password_confirmation, "Confirm new password" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+    </fieldset>
 
-  <fieldset>
-    <div class="field">
-      <%= f.label :password_confirmation, "Confirm new password" %>
-      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-    </div>
-  </fieldset>
+    <fieldset class="actions">
+      <%= f.submit "Change my password" %>
+    </fieldset>
+  <% end %>
 
-  <fieldset class="actions">
-    <%= f.submit "Change my password" %>
-  </fieldset>
+  <%= render "devise/shared/links" %>
 <% end %>
-
-<%= render "devise/shared/links" %>

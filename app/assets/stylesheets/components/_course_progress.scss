@@ -35,7 +35,7 @@
     $progress-meter-border-color: $action-color;
     $progress-meter-border: 1px solid darken($progress-meter-border-color, 15%);
     $progress-meter-color: $progress-meter-border-color;
-    $progress-background: darken($base-background-color, 5);
+    $progress-background: darken($base-background-color, 5%);
     $progress-animation-duration: 0.7s;
     $progress-color: $white;
 
@@ -53,7 +53,7 @@
       background-color: $progress-meter-color;
       background-repeat: repeat-x;
       background-size: 40px 40px;
-      border-radius: $base-border-radius /1.5;
+      border-radius: calc($base-border-radius /1.5);
       border-bottom-right-radius: 0;
       border-top-right-radius: 0;
       border: $progress-meter-border;

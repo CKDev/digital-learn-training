@@ -1,28 +1,33 @@
 <%= render "meta_description" %>
 
-<%= asl_iframe(@lesson) %>
+<% if @use_ui_v2 %>
+  <%= react_component class: "lesson", data: { props: { course: @course.to_props, lesson: @lesson.to_props } } %>
+  <%= vite_javascript_tag 'lesson.jsx' %>
+<% else %>
+  <%= asl_iframe(@lesson) %>
 
-<hr />
+  <hr />
 
-<div class="row">
-  <div class="six columns border-right">
-    <header class="lesson-listing min-header-height">
-      <h3><%= @course.title %></h3>
-      <div>
-        <i class="icon-book-open grey"></i>
-        <small class="padding-right"><%= @course.lessons.published.length %> Activities</small>
-        <i class="icon-clock grey"></i>
-        <small><%= @course.duration %></small>
-      </div>
-    </header>
-    <%= render partial: "shared/lessons/listing", locals: { course: @course, lesson: @lesson } %>
+  <div class="row">
+    <div class="six columns border-right">
+      <header class="lesson-listing min-header-height">
+        <h3><%= @course.title %></h3>
+        <div>
+          <i class="icon-book-open grey"></i>
+          <small class="padding-right"><%= @course.lessons.published.length %> Activities</small>
+          <i class="icon-clock grey"></i>
+          <small><%= @course.duration %></small>
+        </div>
+      </header>
+      <%= render partial: "shared/lessons/listing", locals: { course: @course, lesson: @lesson } %>
+    </div>
+
+    <div class="six columns">
+      <header class="min-header-height">
+        <%= render partial: "shared/lessons/supplemental_materials", locals: { course: @course } %>
+      </header>
+    </div>
   </div>
-
-  <div class="six columns">
-    <header class="min-header-height">
-      <%= render partial: "shared/lessons/supplemental_materials", locals: { course: @course } %>
-    </header>
-  </div>
-</div>
+<% end %>
 
 <%= hidden_field_tag :is_assessment, @lesson.is_assessment %>

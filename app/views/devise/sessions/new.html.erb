@@ -1,52 +1,55 @@
-<% if current_organization&.access_requests_enabled %>
-  <h2>Log in as Collaborator</h2>
+<% if @use_ui_v2 %>
+  <%= react_component class: "sign-in", data: { props: { signInPath: new_user_session_path, forgotPasswordPath: new_user_password_path, learnersSignInPath: new_learners_sessions_path } } %>
+  <%= vite_javascript_tag 'sign-in.jsx' %>
 <% else %>
-  <h2>Log in</h2>
-<% end %>
+  <% if current_organization&.access_requests_enabled %>
+    <h2>Log in as Collaborator</h2>
+  <% else %>
+    <h2>Log in</h2>
+  <% end %>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <fieldset>
-    <div class="field">
-      <%= f.label :email %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <div class="field">
-      <%= f.label :password %>
-      <%= f.password_field :password, autocomplete: "current-password" %>
-    </div>
-  </fieldset>
-
-  <% if devise_mapping.rememberable? %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <fieldset>
-      <div class="field inline-checkbox-row">
-        <%= f.check_box :remember_me %>
-        <%= f.label :remember_me %>
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
       </div>
+    </fieldset>
+
+    <fieldset>
+      <div class="field">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "current-password" %>
+      </div>
+    </fieldset>
+
+    <% if devise_mapping.rememberable? %>
+      <fieldset>
+        <div class="field inline-checkbox-row">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      </fieldset>
+    <% end %>
+
+    <fieldset class="actions">
+      <%= f.submit "Log In" %>
     </fieldset>
   <% end %>
 
-  <fieldset class="actions">
-    <%= f.submit "Log In" %>
-  </fieldset>
+  <%= render "devise/shared/links" %>
+
+  <% if current_organization&.access_requests_enabled %>
+    <br />
+    <div class='access-request-prompt'>
+      Don't have a collaborator account?
+      <%= link_to 'Request Access', new_access_request_path %>
+    </div>
+
+    <br />
+    <div class='access-request-prompt'>
+      Are you an AT&T Employee?
+      <%= link_to 'Login with AT&T SSO', new_saml_user_session_path %>
+    </div>
+  <% end %>
 <% end %>
-
-<%= render "devise/shared/links" %>
-
-<% if current_organization&.access_requests_enabled %>
-  <br />
-  <div class='access-request-prompt'>
-    Don't have a collaborator account?
-    <%= link_to 'Request Access', new_access_request_path %>
-  </div>
-
-  <br />
-  <div class='access-request-prompt'>
-    Are you an AT&T Employee?
-    <%= link_to 'Login with AT&T SSO', new_saml_user_session_path %>
-  </div>
-<% end %>
-
-

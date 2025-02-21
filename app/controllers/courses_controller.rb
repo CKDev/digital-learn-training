@@ -1,4 +1,5 @@
 class CoursesController < ApplicationController
+  before_action :include_user_sidebar, only: :index
 
   def index
     @courses = Course.includes(:lessons).published
@@ -18,10 +19,10 @@ class CoursesController < ApplicationController
       respond_to do |format|
         format.html do
           # Need to handle the change of course slug, which should 301 redirect.
-          if request.path != course_path(@course)
-            redirect_to @course, status: :moved_permanently
-          else
+          if request.path == course_path(@course)
             render :show
+          else
+            redirect_to @course, status: :moved_permanently
           end
         end
         format.json { render json: @course }
@@ -40,10 +41,10 @@ class CoursesController < ApplicationController
       format.html
       format.pdf do
         @pdf = render_to_string pdf: "file_name",
-               template: "courses/complete",
-               layout: "pdf",
-               orientation: "Landscape",
-               page_size: "Letter"
+                                template: "courses/complete",
+                                layout: "pdf",
+                                orientation: "Landscape",
+                                page_size: "Letter"
         send_data(@pdf, filename: "#{@course.title} completion certificate.pdf", type: "application/pdf")
       end
     end

@@ -3,11 +3,64 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   background-color: $white;
   color: $black;
   padding: 0;
   margin: 0;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.content {
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  padding-bottom: 2rem;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  flex-wrap: nowrap;
+
+  .user-sidebar {
+    flex-basis: 25%;
+    max-width: 271px;
+  }
+
+  .user-sidebar ~ .main-content {
+    flex-basis: 75%;
+  }
+
+  @media (max-width: $medium) {
+    .user-sidebar {
+      flex-basis: unset;
+    }
+  
+    .user-sidebar ~ .main-content {
+      flex-basis: unset;
+    }
+  }
+
+  .main-content {
+    width: 100%;
+  }
 }
 
 a {
@@ -23,7 +76,7 @@ a.inverted {
   color: $white;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5 {
   color: $teal;
 
   small {
@@ -51,10 +104,6 @@ h5 {
   font-size: 16px;
 }
 
-h6 {
-  font-size: 16px;
-}
-
 p {
   line-height: 1.5em;
   &.shorty {
@@ -68,7 +117,6 @@ small {
 }
 
 ul {
-
   li {
     line-height: 1.5em;
     padding-bottom: 5px;
@@ -130,17 +178,9 @@ hr {
 }
 
 button.image-button {
-  svg {
-    position: relative;
-    top: -10px;
-    left: -5px;
-  }
-
-  span {
-    display: inline-block;
-    position: relative;
-    top: -24px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 iframe {

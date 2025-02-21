@@ -33,7 +33,6 @@ Rails.application.configure do
   config.public_file_server.enabled = true
 
   # Compress CSS using a preprocessor.
-  config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -131,4 +130,7 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  # Learners site url host
+  config.learners_site_host = 'digitallearn.org'
 end

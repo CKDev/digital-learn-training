@@ -6,15 +6,15 @@ class Lesson < ApplicationRecord
   has_attached_file :story_line, Rails.configuration.storyline_paperclip_opts
   before_post_process :skip_for_zip
 
-  validates :title, length: { maximum: 90 }, presence: true, uniqueness: { scope: :course, message: "should be unique for the training" }
+  validates :title, length: { maximum: 90 }, presence: true, uniqueness: { scope: :course }
   validates :summary, length: { maximum: 156 }, presence: true
   validates :duration, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :lesson_order, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :seo_page_title, length: { maximum: 90 }
   validates :meta_desc, length: { maximum: 156 }
-  validates :pub_status, presence: true, inclusion: { in: %w(P D A), message: "%{value} is not a valid status" }
+  validates :pub_status, presence: true, inclusion: { in: %w(P D A) }
   validates_attachment :story_line, presence: true,
-    content_type: { content_type: ["application/zip", "application/x-zip"] }, size: { in: 0..100.megabytes }
+    content_type: { content_type: ["application/zip", "application/x-zip"] }, size: { in: 0..(100.megabytes) }
 
   before_save :remove_other_assessments
   before_destroy :delete_associated_asl_files
@@ -32,7 +32,7 @@ class Lesson < ApplicationRecord
   end
 
   def delete_associated_asl_files
-    FileUtils.remove_dir "#{Rails.root}/public/storylines/#{id}", true
+    FileUtils.remove_dir Rails.root.join("public/storylines/#{id}").to_s, true
   end
 
   def duration_str
@@ -57,7 +57,18 @@ class Lesson < ApplicationRecord
 
   def published_lesson_order
     return 0 unless self.published?
+
     self.course.lessons.published.map(&:id).index(self.id) + 1
   end
 
+  def to_props
+    { id: id,
+      title: title,
+      summary: summary,
+      duration: duration,
+      courseTitle: course.title,
+      coursePath: Rails.application.routes.url_helpers.course_path(course.friendly_id),
+      lessonPath: Rails.application.routes.url_helpers.course_lesson_path(course, id),
+      storylineUrl: "/storylines/#{id}/#{story_line_file_name.chomp(".zip")}/story.html" }
+  end
 end

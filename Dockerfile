@@ -1,4 +1,4 @@
-FROM ruby:2.7.7-slim-buster
+FROM ruby:3.2.6-slim-bookworm
 
 # install rails dependencies
 RUN apt-get clean all && \
@@ -19,7 +19,8 @@ RUN apt-get clean all && \
   imagemagick \
   file \
   nodejs \
-  yarn
+  npm \
+  vim
 
 # Set working directory
 RUN mkdir /rails-app
@@ -37,9 +38,13 @@ COPY Gemfile.lock Gemfile.lock
 COPY install_gems.sh install_gems.sh
 RUN chmod u+x install_gems.sh && ./install_gems.sh
 
+# Install Node.js dependencies
+COPY package.json package-lock.json /rails-app/
+RUN npm install
+
 COPY . /rails-app
 
-# Precompile assets
+# Precompile assets (includes vite build via vite_rails gem)
 COPY precompile_assets.sh precompile_assets.sh
 RUN chmod u+x precompile_assets.sh && ./precompile_assets.sh
 

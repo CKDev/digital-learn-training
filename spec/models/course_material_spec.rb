@@ -1,138 +1,151 @@
 require "rails_helper"
 
 describe CourseMaterial do
+  describe "validations" do
+    let(:course_material) { FactoryBot.create(:course_material) }
 
-  context "validations" do
-
-    before :each do
-      @course_material = FactoryBot.create(:course_material)
+    it "is valid" do
+      expect(course_material.valid?).to be true
     end
 
-    it "should initially be valid" do
-      expect(@course_material.valid?).to be true
+    it "requires a title" do
+      course_material.update(title: "")
+      expect(course_material.valid?).to be false
     end
 
-    it "should require a title" do
-      @course_material.update(title: "")
-      expect(@course_material.valid?).to be false
+    it "requires a pub_status" do
+      course_material.update(pub_status: "")
+      expect(course_material.valid?).to be false
     end
 
-    it "should require a pub_status" do
-      @course_material.update(pub_status: "")
-      expect(@course_material.valid?).to be false
+    it "requires the pub_status be in a specific list" do
+      course_material.update(pub_status: "X")
+      expect(course_material.valid?).to be false
+      expect(course_material.errors.full_messages).to contain_exactly('Publication Status "X" is not a valid status')
     end
 
-    it "should require the pub_status be in a specific list" do
-      @course_material.update(pub_status: "X")
-      expect(@course_material.valid?).to be false
+    it "requires the title to be unique" do
+      duplicate_title_material = FactoryBot.build(:course_material, title: course_material.title)
+      expect(duplicate_title_material.valid?).to be false
     end
 
-    it "should require the title to be unique" do
-      @course_material2 = FactoryBot.create(:course_material, title: "A New Page")
-      @course_material.update(title: "A New Page")
-      expect(@course_material.valid?).to be false
+    it "allows duplicate title across organizations" do
+      other_organization = FactoryBot.create(:organization)
+      other_org_category = FactoryBot.create(:category, organization: other_organization)
+      other_org_material = FactoryBot.build(:course_material, title: course_material.title, category: other_org_category)
+      expect(other_org_material.valid?).to be true
     end
 
-    it "should not allow the title to be more than 90 chars" do
+    it "does not allow the title to be more than 90 chars" do
       title = ""
       90.times { title << "a" }
-      @course_material.update(title: title)
-      expect(@course_material.valid?).to be true
+      course_material.update(title: title)
+      expect(course_material.valid?).to be true
 
-      @course_material.update(title: title + "a")
-      expect(@course_material.valid?).to be false
+      course_material.update(title: "#{title}a")
+      expect(course_material.valid?).to be false
     end
 
-    it "should require a contributor" do
-      @course_material.update(contributor: "")
-      expect(@course_material.valid?).to be false
+    it "requires a contributor" do
+      course_material.update(contributor: "")
+      expect(course_material.valid?).to be false
     end
 
-    it "should not allow the contributor to be more than 156 chars" do
+    it "does not allow the contributor to be more than 156 chars" do
       contributor = ""
       156.times { contributor << "a" }
-      @course_material.update(contributor: contributor)
-      expect(@course_material.valid?).to be true
+      course_material.update(contributor: contributor)
+      expect(course_material.valid?).to be true
 
-      @course_material.update(contributor: contributor + "a")
-      expect(@course_material.valid?).to be false
+      course_material.update(contributor: "#{contributor}a")
+      expect(course_material.valid?).to be false
     end
 
-    it "should not allow the summary to be more than 156 chars" do
+    it "does not allow the summary to be more than 156 chars" do
       summary = ""
       74.times { summary << "a" }
-      @course_material.update(summary: summary)
-      expect(@course_material.valid?).to be true
+      course_material.update(summary: summary)
+      expect(course_material.valid?).to be true
 
-      @course_material.update(summary: summary + "a")
-      expect(@course_material.valid?).to be false
+      course_material.update(summary: "#{summary}a")
+      expect(course_material.valid?).to be false
     end
 
-    it "shouldn't allow two file attachments to have the same file name" do
-      @course_material_file1 = FactoryBot.create(:course_material_file, course_material: @course_material)
-      expect(@course_material.valid?).to be true
+    it "does not allow two file attachments to have the same file name" do
+      FactoryBot.create(:course_material_file, course_material: course_material)
+      expect(course_material.valid?).to be true
 
       expect do
-        @course_material_file2 = FactoryBot.create(:course_material_file, course_material: @course_material)
+        FactoryBot.create(:course_material_file, course_material: course_material)
       end.to raise_error ActiveRecord::RecordInvalid
     end
 
-    it "shouldn't allow two media attachments to have the same file name" do
-      @course_material_media1 = FactoryBot.create(:course_material_media, course_material: @course_material)
-      expect(@course_material.valid?).to be true
+    it "does not allow two media attachments to have the same file name" do
+      FactoryBot.create(:course_material_media, course_material: course_material)
+      expect(course_material.valid?).to be true
 
       expect do
-        @course_material_media2 = FactoryBot.create(:course_material_media, course_material: @course_material)
+        FactoryBot.create(:course_material_media, course_material: course_material)
       end.to raise_error ActiveRecord::RecordInvalid
     end
 
-    it "should require the sort_order" do
-      @course_material.update(sort_order: "")
-      expect(@course_material.valid?).to be false
+    it "requires the sort_order" do
+      course_material.update(sort_order: "")
+      expect(course_material.valid?).to be false
     end
 
-    it "should require the sort_order to be greater than 0" do
-      @course_material.update(sort_order: 0)
-      expect(@course_material.valid?).to be false
+    it "requires the sort_order to be greater than 0" do
+      course_material.update(sort_order: 0)
+      expect(course_material.valid?).to be false
     end
-
   end
 
-  context "scopes" do
-
-    context "default scope" do
-
-      it "should return course_materials in sort_order order" do
-        @course_material1 = FactoryBot.create(:course_material, sort_order: 3)
-        @course_material2 = FactoryBot.create(:course_material, sort_order: 1)
-        @course_material3 = FactoryBot.create(:course_material, sort_order: 2)
-        expect(CourseMaterial.all).to eq [@course_material2, @course_material3, @course_material1]
+  describe "scopes" do
+    describe "default scope" do
+      it "returns course_materials in sort_order order" do
+        course_material1 = FactoryBot.create(:course_material, sort_order: 3)
+        course_material2 = FactoryBot.create(:course_material, sort_order: 1)
+        course_material3 = FactoryBot.create(:course_material, sort_order: 2)
+        expect(described_class.all).to eq [course_material2, course_material3, course_material1]
       end
-
     end
 
-    context ".archived" do
-
-      it "should return all course_materials that are archived" do
-        @course_material1 = FactoryBot.create(:course_material, pub_status: "D")
-        @course_material2 = FactoryBot.create(:course_material, pub_status: "P")
-        @course_material3 = FactoryBot.create(:course_material, pub_status: "A")
-        expect(CourseMaterial.archived).to contain_exactly(@course_material3)
+    describe ".archived" do
+      it "returns all course_materials that are archived" do
+        FactoryBot.create(:course_material, pub_status: "D")
+        FactoryBot.create(:course_material, pub_status: "P")
+        archived_course_material = FactoryBot.create(:course_material, pub_status: "A")
+        expect(described_class.archived).to contain_exactly(archived_course_material)
       end
-
     end
 
-    context ".not_archived" do
-
-      it "should return all course_materials that are not archived" do
-        @course_material1 = FactoryBot.create(:course_material, pub_status: "D")
-        @course_material2 = FactoryBot.create(:course_material, pub_status: "P")
-        @course_material3 = FactoryBot.create(:course_material, pub_status: "A")
-        expect(CourseMaterial.not_archived).to contain_exactly(@course_material1, @course_material2)
+    describe ".not_archived" do
+      it "returns all course_materials that are not archived" do
+        draft_course_material = FactoryBot.create(:course_material, pub_status: "D")
+        published_course_material = FactoryBot.create(:course_material, pub_status: "P")
+        FactoryBot.create(:course_material, pub_status: "A")
+        expect(described_class.not_archived).to contain_exactly(draft_course_material, published_course_material)
       end
-
     end
 
+    describe ".for_organization" do
+      let(:organization) { FactoryBot.create(:organization) }
+      let(:org_category) { FactoryBot.create(:category, organization: organization) }
+      let(:main_site_category) { FactoryBot.create(:category) }
+
+      it "returns all course_materials for a specific organization" do
+        org_course = FactoryBot.create(:course_material, category: org_category)
+        FactoryBot.create(:course_material, category: main_site_category)
+
+        expect(described_class.for_organization(organization)).to contain_exactly(org_course)
+      end
+
+      it "returns course_materials for no organization (main site)" do
+        main_site_course = FactoryBot.create(:course_material, category: main_site_category)
+        FactoryBot.create(:course_material, category: org_category)
+
+        expect(described_class.for_organization(nil)).to contain_exactly(main_site_course)
+      end
+    end
   end
-
 end

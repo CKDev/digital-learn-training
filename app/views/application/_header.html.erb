@@ -1,33 +1,3 @@
-<header class="site-header">
-  <div class="container header-grid">
-    <nav class="secondary-links">
-      <%= link_to "Tools for Learners", "https://www.digitallearn.org/" %>
-    </nav>
-    <%= link_to root_path, class: "logo-link" do %>
-      <div class="logo">
-        <div class="logo-icon">
-          <%= image_tag "dl_logo.png" %>
-        </div>
-      </div>
-    <% end %>
-    <% if admin_signed_in? %>
-      <nav class="home-links non-flex-links">
-        <span class="black">Hi Admin!</span><span class="divider">|</span>
-        <%= link_to "Admin Dashboard", admin_course_materials_path %><span class="divider">|</span>
-        <%= link_to "Sign Out", destroy_user_session_path, method: "delete" %>
-      </nav>
-    <% else %>
-      <nav class="home-links">
-        <div class="home-link-row">
-          <%= link_to "Course Materials", root_path(anchor: "course-materials"), class: "nav-link" %>
-          <%= link_to "Instructional Design Training", root_path(anchor: "instructional-design-training"), class: "nav-link" %>
-        </div>
-        <div class="home-link-row">
-          <%= link_to "Templates", root_path(anchor: "templates"), class: "nav-link" %>
-          <%= link_to "Contribute", root_path(anchor: "contribute"), class: "nav-link" %>
-          <%= link_to "Additional Resources", root_path(anchor: "additional-resources"), class: "nav-link" %>
-        </div>
-      </nav>
-    <% end %>
-  </div>
-</header>
+<% subdomain = SubdomainBuilder.new(current_organization).build_learners_subdomain %>
+<%= react_component class: "header header-placeholder", data: { props: { logoFile: image_url("dl_logo.png"), logoLinkUrl: root_path, switcherUrl: "https://#{subdomain}.#{Rails.application.config.learners_site_host}", isAuthenticated: current_user.present? } } %>
+<%= vite_javascript_tag 'header.jsx' %>

@@ -1,6 +1,7 @@
 .course-widget-grid {
   display: flex;
   flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .course-widget {
@@ -102,6 +103,11 @@ a.course-widget {
 
   &:hover {
     box-shadow: 0 0 10px $grey;
+    text-decoration: none;
+  }
+
+  &:active {
+    text-decoration: none;
   }
 }
 

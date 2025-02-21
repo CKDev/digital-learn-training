@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%= render "meta_tags" %>
+    <%= vite_client_tag %>
+
+    <%= vite_react_refresh_tag %>
+
+  </head>
+  <body class="<%= "#{current_organization&.subdomain} #{controller_name}-#{action_name}" %>">
+    <%= render "#{current_organization.subdomain}/header" %>
+    <div class="banner">
+      <div class="container row">
+        <div class="eight columns">
+          <% if content_for?(:callout) %>
+            <%= yield :callout %>
+          <% else %>
+            <h1 class="slogan"><%= t("banner.slogan.#{current_organization&.subdomain || 'default'}") %></h1>
+          <% end %>
+        </div>
+        <div class="four columns">
+          <% if content_for?(:course_progress) %>
+            <%= yield :course_progress %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <main class="container">
+      <%= render "flashes" %>
+      <%= render "collaborator_warning" %>
+      <%= yield %>
+    </main>
+    <%= render "#{current_organization.subdomain}/footer" %>
+    <%= render "google_analytics" if Rails.env.production? %>
+  </body>
+</html>

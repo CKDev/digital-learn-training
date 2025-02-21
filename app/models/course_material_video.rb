@@ -6,31 +6,31 @@ class CourseMaterialVideo < ApplicationRecord
 
   def parse_url
     return false if self.url.blank?
+
     self.url = parse_iframe || parse_embed_code
   end
 
   def parse_embed_code
     source = URI.parse(self.url).host
-    if source == "www.youtube.com" || source == "youtube.com" || source == "youtu.be" || source == "www.youtu.be"
+    if ["www.youtube.com", "youtube.com", "youtu.be", "www.youtu.be"].include?(source)
       path = URI.parse(self.url).path
       if path.match(/embed\/(.+)/)
-        return self.url
+        self.url
       else
-        youtube_id = self.url.match(/(?:.be\/|\/watch\?v=|\/(?=p\/))([\w\/\-]+)/)[1]
-        return "https://www.youtube.com/embed/#{youtube_id}"
+        youtube_id = self.url.match(/(?:.be\/|\/watch\?v=|\/(?=p\/))([\w\/-]+)/)[1]
+        "https://www.youtube.com/embed/#{youtube_id}"
       end
     else
       false
     end
-  rescue
-    return false
+  rescue StandardError
+    false
   end
 
   def parse_iframe
     parser = Nokogiri::HTML(self.url)
     parser.css("iframe").first["src"]
-  rescue
-    return false
+  rescue StandardError
+    false
   end
-
 end

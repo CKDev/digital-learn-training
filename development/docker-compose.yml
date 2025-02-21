@@ -29,6 +29,7 @@ services:
     volumes:
       - ../:/rails-app
       - bundle:/usr/local/bundle
+      - node_modules:/rails-app/node_modules
     ports:
       - "3000:3000"
     depends_on:
@@ -36,3 +37,4 @@ services:
 volumes:
   db:
   bundle:
+  node_modules:

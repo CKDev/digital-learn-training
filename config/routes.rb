@@ -12,11 +12,19 @@ Rails.application.routes.draw do
     end
   end
   resources :course_materials, only: [:index, :show], path: "courses" do
+    resources :course_attachments, only: [:index]
     resources :course_materials_files, only: [:index, :show]
     resources :course_materials_medias, only: [:index, :show]
   end
   resources :categories, only: [:show]
+  resources :templates, only: [:index]
+  resources :contribute, only: [:index]
   resource :collaborator_warnings, only: [:destroy]
+
+  # SSO With Learners Site
+  resource :learners_sessions, only: [:new], path: "learners_sessions" do
+    get "/callback", to: "learners_sessions#callback", as: :oauth_callback
+  end
 
   namespace :admin do
     root "course_materials#index"
@@ -33,6 +41,7 @@ Rails.application.routes.draw do
     resources :course_materials, except: [:destroy], path: "courses" do
       put :sort, on: :collection
     end
+    resources :course_material_imports, only: [:index, :create, :destroy]
     resources :course_materials_archive, only: [:index], path: "courses_archive"
     resources :categories, except: [:destroy]
     resources :attachments, only: [:destroy]

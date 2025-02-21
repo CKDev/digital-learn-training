@@ -16,12 +16,12 @@ describe Admin::LessonsController do
 
   describe "POST #create" do
 
-    before :each do
+    before do
       @course = FactoryBot.create(:course)
     end
 
     let(:storyline_file) do
-      fixture_file_upload(Rails.root.join("spec", "fixtures", "BasicSearch1.zip"), "application/zip")
+      fixture_file_upload(Rails.root.join("spec/fixtures/BasicSearch1.zip"), "application/zip")
     end
 
     let(:valid_attributes) do
@@ -69,10 +69,10 @@ describe Admin::LessonsController do
       expect(lesson.duration).to eq 135
       expect(lesson.course_id).to eq @course.id
       expect(lesson.summary).to eq "Lesson Summary"
-      expect(lesson.story_line.present?).to eq true
+      expect(lesson.story_line.present?).to be true
       expect(lesson.seo_page_title).to eq "SEO Page Title"
       expect(lesson.meta_desc).to eq "Meta Description"
-      expect(lesson.is_assessment).to eq false
+      expect(lesson.is_assessment).to be false
       expect(lesson.pub_status).to eq "P"
       expect(lesson.story_line_file_name).to eq "BasicSearch1.zip"
       expect(lesson.story_line_content_type).to eq "application/zip"
@@ -103,12 +103,12 @@ describe Admin::LessonsController do
 
   describe "PUT #update" do
 
-    before :each do
+    before do
       @course = FactoryBot.create(:course, :with_lessons)
     end
 
     let(:storyline_file) do
-      fixture_file_upload(Rails.root.join("spec", "fixtures", "BasicSearch1.zip"), "application/zip")
+      fixture_file_upload(Rails.root.join("spec/fixtures/BasicSearch1.zip"), "application/zip")
     end
 
     let(:valid_attributes) do
@@ -157,10 +157,10 @@ describe Admin::LessonsController do
       expect(@lesson.duration).to eq 135
       expect(@lesson.course_id).to eq @course.id
       expect(@lesson.summary).to eq "Updated Lesson Summary"
-      expect(@lesson.story_line.present?).to eq true
+      expect(@lesson.story_line.present?).to be true
       expect(@lesson.seo_page_title).to eq "Updated SEO Page Title"
       expect(@lesson.meta_desc).to eq "Updated Meta Description"
-      expect(@lesson.is_assessment).to eq false
+      expect(@lesson.is_assessment).to be false
       expect(@lesson.pub_status).to eq "A"
       expect(@lesson.story_line_file_name).to eq "BasicSearch1.zip"
       expect(@lesson.story_line_content_type).to eq "application/zip"
@@ -179,11 +179,11 @@ describe Admin::LessonsController do
 
   describe "PUT #sort" do
 
-    before :each do
+    before do
       @course = FactoryBot.create(:course, :with_lessons)
     end
 
-    it "should update to the given sort order" do
+    it "updates to the given sort order" do
       @admin = FactoryBot.create(:admin)
       sign_in @admin
 
@@ -192,9 +192,9 @@ describe Admin::LessonsController do
       third_id = @course.lessons.third.id
 
       order = {
-        "0": { "id": third_id, "position": "1" },
-        "1": { "id": first_id, "position": "2" },
-        "2": { "id": second_id, "position": "3" }
+        "0": { id: third_id, position: "1" },
+        "1": { id: first_id, position: "2" },
+        "2": { id: second_id, position: "3" }
       }
       put :sort, params: { course_id: @course.id, order: order }, format: :json
 

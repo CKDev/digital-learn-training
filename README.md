@@ -16,9 +16,9 @@
 
 - Docker
 
-### Start project
+### Start project for development
 
-`docker compose up --build`
+`./bin/dev`
 
 ## Testing
 

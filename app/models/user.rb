@@ -1,6 +1,7 @@
 class User < ApplicationRecord
-  has_one :collaborator_profile
-  accepts_nested_attributes_for :collaborator_profile  
+  rolify
+  has_one :collaborator_profile, dependent: :destroy
+  accepts_nested_attributes_for :collaborator_profile
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -24,7 +25,6 @@ class User < ApplicationRecord
   private
 
   def password_required?
-    provider != 'saml'
+    ["saml", "dl_sso"].exclude?(provider) && super
   end
-
 end

@@ -60,7 +60,4 @@ en:
     activity: "Activity"
     continue: "Continue"
     repeat_activity: "Repeat Activity"
-  activerecord:
-    attributes:
-      access_request:
-        phone: "Phone number"
+

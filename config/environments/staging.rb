@@ -27,7 +27,6 @@ Rails.application.configure do
   config.public_file_server.enabled = true
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
   # Fallback to assets pipeline if a precompiled asset is missed.
@@ -103,4 +102,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Learners site url host
+  config.learners_site_host = 'digitallearn.org'
 end

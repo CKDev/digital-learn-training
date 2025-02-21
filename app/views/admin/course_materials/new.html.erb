@@ -1,2 +1,7 @@
-<%= content_for(:callout) { %><h1>Add a New Course</h1><% } %>
-<%= render "form" %>
+<% if @use_ui_v2 %>
+  <%= react_component class: "admin-new-course-material", data: { props: { categories: @categories.map(&:to_props) } } %>
+  <%= vite_javascript_tag 'admin-new-course-material.jsx' %>
+<% else %>
+  <%= content_for(:callout) { %><h1>Add a New Course</h1><% } %>
+  <%= render "form" %>
+<% end %>

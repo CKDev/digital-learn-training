@@ -1,7 +1,7 @@
 module Admin
   class CoursesController < BaseController
-
-    before_action :set_course, only: [:show, :edit, :update, :destroy]
+    before_action :set_course, only: %i[show edit update]
+    before_action :set_legacy_ui
 
     def index
       @courses = Course.not_archived
@@ -46,7 +46,7 @@ module Admin
     end
 
     def sort
-      params[:order].each { |_k, v| Course.find(v[:id]).update(course_order: v[:position]) }
+      params[:order].each_value { |v| Course.find(v[:id]).update(course_order: v[:position]) }
       respond_to do |format|
         format.json { render json: true, status: :ok }
       end
@@ -72,9 +72,13 @@ module Admin
         :course_order,
         :pub_date,
         :new_course,
-        attachments_attributes: [:course_id, :document, :title, :doc_type, :file_description, :_destroy]
+        { attachments_attributes: %i[course_id document title doc_type file_description _destroy] }
       ]
       params.require(:course).permit(permitted_attributes)
+    end
+
+    def set_legacy_ui
+      @legacy_page = true
     end
   end
 end

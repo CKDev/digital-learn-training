@@ -1,15 +1,17 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 6.1"
+gem "rails", "~> 7.1.4"
 gem "pg"
 gem "puma"
-gem "sass-rails"
+gem "sassc-rails"
 gem "coffee-rails"
-gem "uglifier", ">= 1.3.0"
 gem "jquery-rails"
 gem "sidekiq", "< 8"
 gem "recaptcha", "~> 5.16"
 gem "net-http"
+
+# Front-end tooling
+gem "vite_rails"
 
 # Use Redis adapter to run Action Cable in production
 gem "redis"
@@ -19,7 +21,7 @@ gem "redis-namespace"
 gem "devise"
 
 # SAML authentication
-gem 'devise_saml_authenticatable', '~> 1.6.3'
+gem "devise_saml_authenticatable", "~> 1.9.1"
 
 # Bourbon for sass mixins, and neat for the grid framework
 # gem "bourbon", "4.3.4"
@@ -29,13 +31,9 @@ gem 'devise_saml_authenticatable', '~> 1.6.3'
 gem "rollbar"
 
 # File uploads
-gem "paperclip"
+gem "kt-paperclip"
 
 gem "rubyzip", require: "zip" # ASL files
-
-# API Requests and Caching
-gem "api_cache"
-gem "moneta"
 
 # PDF generation for completion certificate
 gem "wicked_pdf"
@@ -50,16 +48,23 @@ gem "cocoon" # Dynamic forms for has-many relationships
 gem "rack-attack" # Prevent botspam and allow white/blacklisting IPs, etc
 
 # AWS sdk for s3
-gem 'aws-sdk-s3', '~>1'
+gem "aws-sdk-s3", "~>1"
 
 # Rack::Proxy for S3 Proxy middleware
-gem 'rack-proxy'
+gem "rack-proxy"
 
 # Data migrations
-gem 'data_migrate', '~>9.2.0'
+gem "data_migrate", "~> 9.2.0"
 
 # Invitations
-gem 'devise_invitable', '~> 2.0.0'
+gem "devise_invitable", "~> 2.0.0"
+
+gem "date", "~> 3.4.1"
+
+gem "rolify"
+
+# OAuth2 client configuration
+gem "oauth2", "~> 2.0", ">= 2.0.9"
 
 group :development, :test do
   gem "pry"
@@ -73,6 +78,8 @@ end
 
 group :development do
   gem "rubocop", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rspec", require: false
   gem "brakeman", require: false
   gem "foreman", require: false
   gem "letter_opener"
@@ -84,11 +91,8 @@ group :test do
   gem "factory_bot_rails"
   gem "rails-controller-testing"
   gem "capybara"
-  gem "webdrivers"
-  gem "database_cleaner"
-  gem "launchy"
+  gem "selenium-webdriver", "~> 4.0"
   gem "mocha"
   gem "simplecov", require: false
   gem "timecop"
-  gem "webmock"
 end

@@ -1,7 +1,15 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+# inherit_gem:
+#   prettier: rubocop.yml
+
 inherit_from:
   - .rubocop_todo.yml
 
 AllCops:
+  NewCops: enable
   Exclude:
     - "bin/**/*"
     - "db/migrate/**/*"
@@ -21,22 +29,22 @@ Layout/EmptyLinesAroundMethodBody:
 Layout/EmptyLinesAroundBlockBody:
   Enabled: false
 
-Layout/AlignHash:
+Layout/HashAlignment:
   Enabled: false
 
-Layout/IndentHash:
+Layout/FirstHashElementIndentation:
   Enabled: false
 
-Layout/IndentArray:
+Layout/FirstArrayElementIndentation:
   Enabled: false
 
 Layout/ClosingParenthesisIndentation:
   Enabled: false
 
-Layout/AlignArray:
+Layout/ArrayAlignment:
   Enabled: false
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Enabled: false
 
 Layout/MultilineOperationIndentation:
@@ -48,6 +56,9 @@ Layout/EmptyLinesAroundModuleBody:
 Layout/MultilineMethodCallIndentation:
   Enabled: false
 
+Layout/LineLength:
+  Max: 250
+
 Metrics/ModuleLength:
   Max: 110
   Exclude:
@@ -55,9 +66,6 @@ Metrics/ModuleLength:
 
 Metrics/ClassLength:
   Max: 300
-
-Metrics/LineLength:
-  Max: 250
 
 Metrics/MethodLength:
   Max: 30
@@ -77,20 +85,11 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Max: 17
 
-Rails:
-  Enabled: true
+Rspec/MultipleExpectations:
+  Enabled: false
 
-Rails/HasAndBelongsToMany:
-  Exclude:
-
-Rails/Output:
-  Exclude:
-    - "db/seeds.rb"
-
-Rails/OutputSafety:
-  Exclude:
-    - "app/helpers/application_helper.rb"
-    - "app/controllers/pages_controller.rb"
+Rspec/ExampleLength:
+  Max: 25
 
 Style/AndOr:
   Enabled: false
@@ -131,10 +130,6 @@ Style/PercentLiteralDelimiters:
     - "app/models/course_material.rb"
     - "app/models/page.rb"
 
-Rails/FindBy:
-  Exclude:
-    - "app/models/course.rb" # I specifically want .where() here.
-
 Style/RegexpLiteral:
   Enabled: false
 
@@ -145,7 +140,4 @@ Style/IfUnlessModifier:
   Enabled: false
 
 Style/BlockComments:
-  Enabled: false
-
-Style/BracesAroundHashParameters:
   Enabled: false
