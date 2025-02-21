@@ -56,7 +56,7 @@ module "load_balancer" {
   vpc_id                    = module.vpc.vpc_id
   public_subnet_ids         = module.vpc.public_subnet_ids
   default_security_group_id = module.vpc.default_security_group_id
-  certificate_arn           = "arn:aws:acm:us-west-2:917415714855:certificate/43175785-ba14-4dfc-8c72-aa73e3096957"
+  certificate_arn           = "arn:aws:acm:us-west-2:917415714855:certificate/31d78714-ef47-4c9d-a29a-26663dde6907"
 }
 
 module "bastian" {
