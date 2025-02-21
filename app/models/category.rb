@@ -15,7 +15,7 @@ class Category < ApplicationRecord
   accepts_nested_attributes_for :sub_categories, reject_if: :all_blank, allow_destroy: true
   validates_associated :sub_categories
 
-  scope :with_published_course_materials, -> { joins(:course_materials).where(course_materials: { pub_status: "P" }) }
+  scope :with_published_course_materials, -> { joins(:course_materials).where(course_materials: { pub_status: "P" }).distinct }
 
   def self.select_options
     ALLOWED_TAGS.reject { |t| t == "Other" }.map { |t| [t, t] }
