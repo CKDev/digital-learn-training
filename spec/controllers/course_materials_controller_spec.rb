@@ -11,6 +11,7 @@ describe CourseMaterialsController do
         FactoryBot.create(:category)
         unpublished_category = create(:category)
         FactoryBot.create(:course_material, pub_status: "P", category: category_with_published_courses)
+        FactoryBot.create(:course_material, pub_status: "P", category: category_with_published_courses)
         FactoryBot.create(:course_material, pub_status: "D", category: unpublished_category)
         FactoryBot.create(:course_material, pub_status: "A", category: unpublished_category)
       end
