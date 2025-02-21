@@ -2,7 +2,7 @@ class Organization < ApplicationRecord
   resourcify
   has_many :categories, dependent: :destroy
   has_many :course_materials, through: :categories
-  has_many :course_material_imports
+  has_many :course_material_imports, dependent: :destroy
   has_many :imported_course_materials, through: :course_material_imports, source: :course_material
 
   validates :title, presence: true
