@@ -9,7 +9,7 @@ const CourseMaterialList = ({ courseMaterials }) => {
     ({ subcategory }) => subcategory
   );
 
-  const nonSubcategoryMaterials = groupedMaterials[null];
+  const nonSubcategoryMaterials = groupedMaterials[null] || [];
   const subcategoryMaterials = _.pickBy(
     groupedMaterials,
     (_materials, subcategory) => {
