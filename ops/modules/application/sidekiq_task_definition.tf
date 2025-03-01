@@ -3,11 +3,6 @@ resource "aws_ecs_task_definition" "sidekiq_service" {
   requires_compatibilities = ["EC2"]
   network_mode             = "bridge"
 
-  placement_constraints {
-    type       = "memberOf"
-    expression = "attribute:ecs.availability-zone in [${var.region}a, ${var.region}b]"
-  }
-
   container_definitions = jsonencode([
     {
       name              = "sidekiq",

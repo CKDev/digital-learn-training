@@ -69,6 +69,6 @@ class Lesson < ApplicationRecord
       courseTitle: course.title,
       coursePath: Rails.application.routes.url_helpers.course_path(course.friendly_id),
       lessonPath: Rails.application.routes.url_helpers.course_lesson_path(course, id),
-      storylineUrl: "/storylines/#{id}/#{story_line_file_name.chomp(".zip")}/story.html" }
+      storylineUrl: "/storylines/#{id}/#{story_line_file_name.chomp('.zip')}/story.html" }
   end
 end

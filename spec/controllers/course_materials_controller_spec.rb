@@ -70,7 +70,7 @@ describe CourseMaterialsController do
       it "includes imported courses in categories" do
         main_site_category = create(:category, title: "Getting Started")
         main_site_accounts = create(:course_material, title: "Accounts and Passwords", category: main_site_category)
-        main_site_os = create(:course_material, title: "Operating Systems")
+        create(:course_material, title: "Operating Systems")
 
         org.imported_course_materials << main_site_accounts
 

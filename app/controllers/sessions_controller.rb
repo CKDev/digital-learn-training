@@ -14,9 +14,9 @@ class SessionsController < Devise::SessionsController
       self.resource = warden.authenticate(scope: resource_name)
       if resource
         sign_in(resource_name, resource)
-        render json: { message: 'Signed in successfully', user: resource, redirectPath: after_sign_in_path_for(resource) }, status: :ok
+        render json: { message: "Signed in successfully", user: resource, redirectPath: after_sign_in_path_for(resource) }, status: :ok
       else
-        render json: { error: 'Invalid email or password' }, status: :unauthorized
+        render json: { error: "Invalid email or password" }, status: :unauthorized
       end
     else
       super
@@ -30,9 +30,9 @@ class SessionsController < Devise::SessionsController
     if request.format.json?
       signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
       if signed_out
-        render json: { message: 'Signed out successfully.' }, status: :ok
+        render json: { message: "Signed out successfully." }, status: :ok
       else
-        render json: { error: 'Could not sign out' }, status: :unprocessable_entity
+        render json: { error: "Could not sign out" }, status: :unprocessable_entity
       end
     else
       super

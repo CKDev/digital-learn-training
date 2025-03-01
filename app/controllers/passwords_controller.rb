@@ -8,9 +8,9 @@ class PasswordsController < Devise::PasswordsController
     if request.format.json?
       self.resource = resource_class.send_reset_password_instructions(resource_params)
       if resource
-        render json: { message: I18n.t('devise.passwords.send_instructions'), redirectPath: after_sending_reset_password_instructions_path_for(resource_name) }, status: :ok
+        render json: { message: I18n.t("devise.passwords.send_instructions"), redirectPath: after_sending_reset_password_instructions_path_for(resource_name) }, status: :ok
       else
-        render json: { error: resource.errors.full_messages.join(', ') }, status: :unauthorized
+        render json: { error: resource.errors.full_messages.join(", ") }, status: :unauthorized
       end
     else
       super
@@ -20,18 +20,18 @@ class PasswordsController < Devise::PasswordsController
   def update
     if request.format.json?
       self.resource = resource_class.reset_password_by_token(resource_params)
-  
+
       if resource.errors.empty?
         resource.unlock_access! if unlockable?(resource)
         if resource_class.sign_in_after_reset_password
           resource.after_database_authentication
           sign_in(resource_name, resource)
-          render json: { message: 'Password reset successfully', redirectPath: after_sign_in_path_for(resource) }, status: :ok
+          render json: { message: "Password reset successfully", redirectPath: after_sign_in_path_for(resource) }, status: :ok
         else
-          render json: { message: 'Password reset successfully' }, status: :ok
+          render json: { message: "Password reset successfully" }, status: :ok
         end
       else
-        render json: { message: resource.errors.full_messages.join(', ') }, status: :unprocessable_entity
+        render json: { message: resource.errors.full_messages.join(", ") }, status: :unprocessable_entity
       end
     else
       super
