@@ -80,9 +80,9 @@ module Admin
     private
 
     def course_material_params
-      unless request.format.json?
+      if !request.format.json? && params[:course_material][:sub_category_id].blank?
         # Backwards compatibility with legacy form. We don't want this behavior moving forward
-        params[:course_material][:sub_category_id] = "" if params[:course_material][:sub_category_id].blank? # Remove if not passed in.
+        params[:course_material][:sub_category_id] = "" # Remove if not passed in.
       end
 
       params.require(:course_material).permit(
