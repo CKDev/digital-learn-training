@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe AccessRequest do
-  context 'validations' do
+  describe 'validations' do
     let(:access_request) { FactoryBot.build(:access_request) }
 
     it 'is valid' do
@@ -47,19 +47,19 @@ describe AccessRequest do
     end
   end
 
-  context 'callbacks' do
+  describe 'callbacks' do
     let(:access_request) { FactoryBot.build(:access_request) }
 
     it 'calls admin notification mailer on create' do
       success_obj = stub(deliver_later: true)
       AdminMailer.expects(:new_access_request).once.with(instance_of(Integer)).returns(success_obj)
-      access_request.save
+      expect(access_request.save).to be true
     end
 
     it 'does not call admin mailer on update' do
       access_request.save
       AdminMailer.expects(:new_access_request).never
-      access_request.update(full_name: 'new name')
+      expect(access_request.update(full_name: 'new name')).to be true
     end
   end
 end

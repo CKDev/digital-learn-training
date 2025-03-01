@@ -61,13 +61,13 @@ feature 'Admins can manage course pages' do
   end
 
   scenario 'can edit an existing Course page' do
-    @course_material = create(:course_material)
-    create(:course_material_file, course_material: @course_material)
+    course_material = create(:course_material)
+    create(:course_material_file, course_material: course_material)
     visit admin_course_materials_path
     within 'main' do
-      click_link @course_material.title
+      click_link course_material.title
     end
-    expect(current_path).to eq edit_admin_course_material_path(@course_material)
+    expect(current_path).to eq edit_admin_course_material_path(course_material)
     find('#course_material_title').set('Updated Title')
     click_button 'Save Course'
     expect(current_path).to eq admin_course_materials_path

@@ -1,10 +1,10 @@
 require 'feature_helper'
 
 feature 'Admins can manage CMS pages' do
+  let(:admin) { create(:admin) }
 
   before do
-    @admin = create(:admin)
-    log_in @admin
+    log_in admin
   end
 
   scenario 'can view CMS page index' do
@@ -36,12 +36,12 @@ feature 'Admins can manage CMS pages' do
   end
 
   scenario 'can edit an existing CMS page' do
-    @page = create(:page)
+    page = create(:page)
     visit admin_pages_path
     within 'main' do
-      click_link @page.title
+      click_link page.title
     end
-    expect(current_path).to eq edit_admin_page_path(@page)
+    expect(current_path).to eq edit_admin_page_path(page)
     find('#page_title').set('Updated Title')
     click_button 'Save CMS Page'
     expect(current_path).to eq admin_pages_path
