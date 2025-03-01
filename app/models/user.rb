@@ -25,6 +25,6 @@ class User < ApplicationRecord
   private
 
   def password_required?
-    ["saml", "dl_sso"].exclude?(provider) && super
+    ['saml', 'dl_sso'].exclude?(provider) && super
   end
 end

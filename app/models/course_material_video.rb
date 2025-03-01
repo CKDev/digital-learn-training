@@ -12,7 +12,7 @@ class CourseMaterialVideo < ApplicationRecord
 
   def parse_embed_code
     source = URI.parse(self.url).host
-    if ["www.youtube.com", "youtube.com", "youtu.be", "www.youtu.be"].include?(source)
+    if ['www.youtube.com', 'youtube.com', 'youtu.be', 'www.youtu.be'].include?(source)
       path = URI.parse(self.url).path
       if path.match(/embed\/(.+)/)
         self.url
@@ -29,7 +29,7 @@ class CourseMaterialVideo < ApplicationRecord
 
   def parse_iframe
     parser = Nokogiri::HTML(self.url)
-    parser.css("iframe").first["src"]
+    parser.css('iframe').first['src']
   rescue StandardError
     false
   end

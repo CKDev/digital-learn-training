@@ -6,7 +6,7 @@ module Admin
 
     def authorize_admin!
       unless current_user.admin? || current_user.has_role?(:organization_admin, current_organization)
-        flash[:alert] = "You are not authorized to view this page."
+        flash[:alert] = 'You are not authorized to view this page.'
         redirect_to root_path
       end
     end

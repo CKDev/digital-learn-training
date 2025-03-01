@@ -3,7 +3,7 @@ class CourseMaterialsController < ApplicationController
 
   def index
     @categories = categories.with_published_course_materials
-    @blank_template = CourseMaterial.find_by(title: "Course Templates")
+    @blank_template = CourseMaterial.find_by(title: 'Course Templates')
 
     categories_data = @categories.map { |c| c.to_props(include_materials: true) }
 

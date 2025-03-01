@@ -1,12 +1,12 @@
-require "open-uri"
+require 'open-uri'
 
 class CourseMaterialsFilesController < ApplicationController
 
   def index
     @course_material = CourseMaterial.friendly.find(params[:course_material_id])
 
-    course_title = @course_material.title.parameterize(separator: "_")
-    file_options = { filename: "#{course_title}_file_archive.zip", disposition: "inline", x_sendfile: true }
+    course_title = @course_material.title.parameterize(separator: '_')
+    file_options = { filename: "#{course_title}_file_archive.zip", disposition: 'inline', x_sendfile: true }
 
     if Rails.application.config.s3_enabled
       send_file URI.parse(@course_material.file_archive.url).open, file_options
@@ -19,9 +19,9 @@ class CourseMaterialsFilesController < ApplicationController
     @course_material = CourseMaterial.friendly.find(params[:course_material_id])
     @file = @course_material.course_material_files.find(params[:id])
 
-    data = AttachmentReader.new(@file).read_attachment_data("file")
+    data = AttachmentReader.new(@file).read_attachment_data('file')
 
-    file_options = { filename: @file.file_file_name, disposition: "inline" }
+    file_options = { filename: @file.file_file_name, disposition: 'inline' }
     send_data data, file_options
   end
 

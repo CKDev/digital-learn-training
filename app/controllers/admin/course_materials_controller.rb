@@ -8,7 +8,7 @@ module Admin
 
     def new
       if current_organization && current_organization.categories.empty?
-        flash[:alert] = "You must create at least one category before you can create a Course"
+        flash[:alert] = 'You must create at least one category before you can create a Course'
         redirect_to admin_categories_path and return
       end
 
@@ -32,15 +32,15 @@ module Admin
       respond_to do |format|
         format.json do
           if @course_material.update(course_material_params)
-            render json: { message: "Course created successfully", course_material_id: @course_material.id }, status: :created
+            render json: { message: 'Course created successfully', course_material_id: @course_material.id }, status: :created
           else
-            render json: { error: @course_material.errors.full_messages.join(", ") }, status: :unprocessable_entity
+            render json: { error: @course_material.errors.full_messages.join(', ') }, status: :unprocessable_entity
           end
         end
 
         format.html do
           if @course_material.update(course_material_params)
-            redirect_to admin_course_materials_path, notice: "Course created successfully"
+            redirect_to admin_course_materials_path, notice: 'Course created successfully'
           else
             render :new
           end
@@ -53,15 +53,15 @@ module Admin
       respond_to do |format|
         format.json do
           if @course_material.update(course_material_params)
-            render json: { message: "Course updated successfully" }, status: :ok
+            render json: { message: 'Course updated successfully' }, status: :ok
           else
-            render json: { error: @course_material.errors.full_messages.join(", ") }, status: :unprocessable_entity
+            render json: { error: @course_material.errors.full_messages.join(', ') }, status: :unprocessable_entity
           end
         end
 
         format.html do
           if @course_material.update(course_material_params)
-            redirect_to admin_course_materials_path, notice: "Course updated successfully"
+            redirect_to admin_course_materials_path, notice: 'Course updated successfully'
           else
             render :edit
           end
@@ -82,7 +82,7 @@ module Admin
     def course_material_params
       if !request.format.json? && params[:course_material][:sub_category_id].blank?
         # Backwards compatibility with legacy form. We don't want this behavior moving forward
-        params[:course_material][:sub_category_id] = "" # Remove if not passed in.
+        params[:course_material][:sub_category_id] = '' # Remove if not passed in.
       end
 
       params.require(:course_material).permit(

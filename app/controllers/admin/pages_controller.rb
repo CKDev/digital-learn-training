@@ -18,7 +18,7 @@ module Admin
     def create
       @page = Page.new(page_params)
       if @page.save
-        flash[:notice] = "Successfully created page"
+        flash[:notice] = 'Successfully created page'
         redirect_to admin_pages_path
       else
         render :new
@@ -28,7 +28,7 @@ module Admin
     def update
       @page.slug = nil if @page.title != params[:page][:title] # Force regenerate if title changes.
       if @page.update(page_params)
-        flash[:notice] = "Successfully updated page"
+        flash[:notice] = 'Successfully updated page'
         redirect_to admin_pages_path
       else
         render :edit

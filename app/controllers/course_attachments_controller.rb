@@ -1,7 +1,7 @@
 class CourseAttachmentsController < ApplicationController
   def index
     @course_material = CourseMaterial.friendly.find(params[:course_material_id])
-    combined_file = Tempfile.new(["#{@course_title}_archive", ".zip"])
+    combined_file = Tempfile.new(["#{@course_title}_archive", '.zip'])
 
     begin
       ::Zip::File.open(combined_file.path, ::Zip::File::CREATE) do |zipfile|
@@ -9,8 +9,8 @@ class CourseAttachmentsController < ApplicationController
         add_files_to_zip(media_archive, zipfile) if @course_material.course_material_medias.present?
       end
 
-      course_title = @course_material.title.parameterize(separator: "_")
-      file_options = { filename: "#{course_title}_attachments_archive.zip", disposition: "inline", x_sendfile: true }
+      course_title = @course_material.title.parameterize(separator: '_')
+      file_options = { filename: "#{course_title}_attachments_archive.zip", disposition: 'inline', x_sendfile: true }
 
       send_file combined_file, file_options
       # ensure
