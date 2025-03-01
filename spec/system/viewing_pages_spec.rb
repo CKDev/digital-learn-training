@@ -8,16 +8,16 @@ feature 'Users can view CMS pages', type: :system do
         <script>alert("XSS!")</script>
       </p>
     BODY
-    page = FactoryBot.create(:page, body: html_body)
+    page = create(:page, body: html_body)
     visit page_path(page)
     expect(alert_present?).to be_falsey
   end
 
   scenario 'published pages should show in the footer' do
-    FactoryBot.create(:page, title: 'AAA')
-    FactoryBot.create(:page, title: 'BBB', pub_status: 'D')
-    FactoryBot.create(:page, title: 'CCC')
-    FactoryBot.create(:page, title: 'ZZZ')
+    create(:page, title: 'AAA')
+    create(:page, title: 'BBB', pub_status: 'D')
+    create(:page, title: 'CCC')
+    create(:page, title: 'ZZZ')
     visit root_path
     within 'footer' do
       expect(page).to have_content 'AAA'

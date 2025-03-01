@@ -5,7 +5,7 @@ describe CourseMaterialsMediasController do
   describe 'GET #show' do
 
     it 'assigns the requested instance course materials media' do
-      @course_material_media = FactoryBot.create(:course_material_media)
+      @course_material_media = create(:course_material_media)
       @course_material = @course_material_media.course_material
       get :show, params: { course_material_id: @course_material.id, id: @course_material_media.id }
       expect(response).to have_http_status(:success)
@@ -16,7 +16,7 @@ describe CourseMaterialsMediasController do
   describe 'GET #index' do
 
     it 'assigns all the requested instances of a course materials medias' do
-      course_material = FactoryBot.create(:course_material, :with_media_archive)
+      course_material = create(:course_material, :with_media_archive)
       get :index, params: { course_material_id: course_material.id }
       expect(response).to have_http_status(:success)
     end

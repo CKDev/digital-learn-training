@@ -3,7 +3,7 @@ require 'feature_helper'
 feature 'Admins can manage CMS pages' do
 
   before do
-    @admin = FactoryBot.create(:admin)
+    @admin = create(:admin)
     log_in @admin
   end
 
@@ -36,7 +36,7 @@ feature 'Admins can manage CMS pages' do
   end
 
   scenario 'can edit an existing CMS page' do
-    @page = FactoryBot.create(:page)
+    @page = create(:page)
     visit admin_pages_path
     within 'main' do
       click_link @page.title

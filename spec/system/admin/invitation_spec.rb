@@ -2,18 +2,18 @@ require 'feature_helper'
 
 feature 'Admins can send invitations' do
   it "doesn't allow non-admin user access" do
-    user = FactoryBot.create(:user)
+    user = create(:user)
     log_in user
     visit new_user_invitation_path
     expect(page).to have_current_path(root_path)
     expect(page).to have_content('You are not authorized to view this page.')
   end
 
-  context 'authenticated admin' do
-    let(:admin) { FactoryBot.create(:admin) }
+  context 'when authenticated admin' do
+    let(:admin) { create(:admin) }
 
     before do
-      FactoryBot.create(:att)
+      create(:att)
       log_in admin
       click_link 'Admin Dashboard'
     end
@@ -30,7 +30,7 @@ feature 'Admins can send invitations' do
     end
 
     it 'visits invitation page from email link' do
-      access_request = FactoryBot.create(:access_request)
+      access_request = create(:access_request)
       visit new_user_invitation_path(access_request_id: access_request.id)
       expect(page).to have_field('Email', with: access_request.email)
     end

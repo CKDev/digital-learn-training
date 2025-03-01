@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Course do
-  let(:course) { FactoryBot.create(:course) }
+  let(:course) { create(:course) }
 
   describe 'validations' do
     it 'is valid' do
@@ -22,7 +22,7 @@ describe Course do
 
   describe '#next_lesson_id' do
     context 'when course has no lessons' do
-      let(:course) { FactoryBot.create(:course) }
+      let(:course) { create(:course) }
 
       it 'raises an error' do
         expect do
@@ -32,7 +32,7 @@ describe Course do
     end
 
     context 'when course has lessons' do
-      let(:course) { FactoryBot.create(:course, :with_lessons) }
+      let(:course) { create(:course, :with_lessons) }
 
       it 'returns the id of the next lesson in order' do
         expect(course.next_lesson_id).to eq course.lessons.first.id
@@ -59,7 +59,7 @@ describe Course do
   end
 
   describe '#duration' do
-    let(:course) { FactoryBot.create(:course, :with_lessons) }
+    let(:course) { create(:course, :with_lessons) }
 
     it 'adds up the durations of all lessons' do
       expect(course.duration).to eq '4 mins' # 90 * 3 = 270 / 60 = 4.5 mins
@@ -72,7 +72,7 @@ describe Course do
   end
 
   describe '#update_pub_date' do
-    let(:course) { FactoryBot.create(:course, pub_status: 'D') }
+    let(:course) { create(:course, pub_status: 'D') }
 
     it 'sets the pub_date to the current timestamp the pub_status is now P' do
       expect(course.pub_date).to be_nil
@@ -91,13 +91,13 @@ describe Course do
   describe '#pub_date_str' do
     it 'print the published date in a nice format' do
       Timecop.freeze(Time.zone.local(2017, 9, 1, 12, 0, 0)) do
-        course = FactoryBot.create(:course)
+        course = create(:course)
         expect(course.pub_date_str).to eq '09/01/2017'
       end
     end
 
     it "prints N/A if the course isn't published" do
-      course = FactoryBot.create(:course, pub_status: 'D')
+      course = create(:course, pub_status: 'D')
       expect(course.pub_date_str).to eq 'N/A'
     end
   end

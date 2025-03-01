@@ -2,7 +2,7 @@ require 'feature_helper'
 
 feature 'User access request' do
   before do
-    FactoryBot.create(:att)
+    create(:att)
     switch_to_subdomain 'training.att'
   end
 
@@ -43,13 +43,15 @@ feature 'User access request' do
 
   scenario 'user accepts invitation' do
     email = 'test@example.com'
+    token = ''
+
     User.invite!(email: email) do |u|
       u.skip_invitation = true
       u.send(:generate_invitation_token)
-      @token = u.raw_invitation_token
+      token = u.raw_invitation_token
     end
 
-    visit accept_user_invitation_path(invitation_token: @token, subdomain: 'att')
+    visit accept_user_invitation_path(invitation_token: token, subdomain: 'att')
     expect(page).to have_content('Create Collaborator Account')
 
     expect(page).to have_field('Email Address', with: email, disabled: true)

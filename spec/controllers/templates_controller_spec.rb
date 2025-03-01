@@ -4,7 +4,7 @@ describe TemplatesController do
   describe 'GET #index' do
     context 'when template course material exists' do
       it 'returns a 200' do
-        FactoryBot.create(:course_material, title: 'Course Templates')
+        create(:course_material, title: 'Course Templates')
 
         get :index
         expect(response).to have_http_status(:ok)

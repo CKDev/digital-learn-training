@@ -4,7 +4,7 @@ describe Category do
   context 'validations' do
 
     before do
-      @category = FactoryBot.create(:sub_category)
+      @category = create(:sub_category)
     end
 
     it 'initiallies be valid' do

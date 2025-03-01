@@ -1,8 +1,8 @@
 require 'feature_helper'
 
 feature 'Users can view a course', :js do
-  let(:category) { FactoryBot.create(:category) }
-  let!(:course_material) { FactoryBot.create(:course_material, pub_status: 'P', category: category) }
+  let(:category) { create(:category) }
+  let!(:course_material) { create(:course_material, pub_status: 'P', category: category) }
 
   scenario 'published pages should show in the footer' do
     visit root_path

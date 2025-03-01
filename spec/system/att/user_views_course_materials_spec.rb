@@ -1,8 +1,8 @@
 require 'feature_helper'
 
 feature 'ATT User views course materials' do
-  let!(:att) { FactoryBot.create(:att) }
-  let(:user) { FactoryBot.create(:user, provider: :saml) }
+  let!(:att) { create(:att) }
+  let(:user) { create(:user, provider: :saml) }
 
   before do
     switch_to_subdomain 'training.att'
@@ -28,7 +28,7 @@ feature 'ATT User views course materials' do
   end
 
   context 'with categories' do
-    let!(:category) { FactoryBot.create(:category, organization: att) }
+    let!(:category) { create(:category, organization: att) }
 
     scenario 'via homepage' do
       visit root_path

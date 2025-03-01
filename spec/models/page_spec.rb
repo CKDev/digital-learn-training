@@ -5,7 +5,7 @@ describe Page do
   context 'validations' do
 
     before do
-      @page = FactoryBot.create(:page)
+      @page = create(:page)
     end
 
     it 'initiallies be valid' do
@@ -18,7 +18,7 @@ describe Page do
     end
 
     it 'requires the title to be unique' do
-      @page2 = FactoryBot.create(:page, title: 'A New Page')
+      @page2 = create(:page, title: 'A New Page')
       @page.update(title: 'A New Page')
       expect(@page.valid?).to be false
     end
@@ -88,14 +88,14 @@ describe Page do
   describe '#update_pub_at' do
 
     it 'sets the pub_date to the current timestamp the pub_status is now P' do
-      @page = FactoryBot.create(:page, pub_status: 'D')
+      @page = create(:page, pub_status: 'D')
       expect(@page.pub_at).to be_nil
       @page.update(pub_status: 'P')
       expect(@page.pub_at.present?).to be true
     end
 
     it 'sets the pub_date nil if the page is no longer published' do
-      @page = FactoryBot.create(:page, pub_status: 'P', pub_at: Time.zone.now)
+      @page = create(:page, pub_status: 'P', pub_at: Time.zone.now)
       expect(@page.pub_at.present?).to be true
       @page.update(pub_status: 'A')
       expect(@page.pub_at).to be_nil

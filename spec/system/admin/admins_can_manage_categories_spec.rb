@@ -1,11 +1,11 @@
 require 'feature_helper'
 
 feature 'Admins can manage categories pages' do
-  let!(:att_org) { FactoryBot.create(:att) }
-  let!(:category) { FactoryBot.create(:category) }
+  let!(:att_org) { create(:att) }
+  let!(:category) { create(:category) }
 
   before do
-    admin = FactoryBot.create(:admin)
+    admin = create(:admin)
     log_in admin
   end
 

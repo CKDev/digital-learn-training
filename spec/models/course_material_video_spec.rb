@@ -3,7 +3,7 @@ require 'rails_helper'
 describe CourseMaterialVideo do
 
   before do
-    @course_material_video = FactoryBot.create(:course_material_video)
+    @course_material_video = create(:course_material_video)
   end
 
   context 'validations' do

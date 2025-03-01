@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Category do
   describe 'validations' do
-    let(:category) { FactoryBot.create(:category) }
+    let(:category) { create(:category) }
 
     it 'is valid' do
       expect(category.valid?).to be true

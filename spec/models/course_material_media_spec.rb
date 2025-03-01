@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe CourseMaterialMedia do
   describe 'validations' do
-    let(:course_material_media) { FactoryBot.create(:course_material_media) }
+    let(:course_material_media) { create(:course_material_media) }
 
     it 'is valid' do
       expect(course_material_media.valid?).to be true

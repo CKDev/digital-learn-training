@@ -5,7 +5,7 @@ describe Admin::PagesController do
   describe 'GET #new' do
 
     it 'assigns a new instance of a page' do
-      @admin = FactoryBot.create(:admin)
+      @admin = create(:admin)
       sign_in @admin
       get :new
       expect(assigns(:page)).to be_an_instance_of(Page)
@@ -21,10 +21,10 @@ describe Admin::PagesController do
   describe 'GET #index' do
 
     it 'assigns all pages' do
-      @admin = FactoryBot.create(:admin)
+      @admin = create(:admin)
       sign_in @admin
-      @page1 = FactoryBot.create(:page)
-      @page2 = FactoryBot.create(:page)
+      @page1 = create(:page)
+      @page2 = create(:page)
       get :index
       expect(assigns(:pages)).to contain_exactly(@page1, @page2)
     end
@@ -58,7 +58,7 @@ describe Admin::PagesController do
     end
 
     it 'correctly assigns the passed in info' do
-      @admin = FactoryBot.create(:admin)
+      @admin = create(:admin)
       sign_in @admin
       post :create, params: { page: valid_attributes }
       page = Page.last
@@ -73,7 +73,7 @@ describe Admin::PagesController do
     end
 
     it 'renders the new view if there is missing information' do
-      @admin = FactoryBot.create(:admin)
+      @admin = create(:admin)
       sign_in @admin
       post :create, params: { page: invalid_attributes }
       expect(response).to render_template :new
@@ -89,9 +89,9 @@ describe Admin::PagesController do
   describe 'GET #edit' do
 
     it 'assigns the given instance of a page' do
-      @admin = FactoryBot.create(:admin)
+      @admin = create(:admin)
       sign_in @admin
-      @page = FactoryBot.create(:page)
+      @page = create(:page)
       get :edit, params: { id: @page.id }
       expect(assigns(:page)).to eq @page
     end
@@ -125,8 +125,8 @@ describe Admin::PagesController do
     end
 
     it 'correctly assigns the passed in info' do
-      @page = FactoryBot.create(:page)
-      @admin = FactoryBot.create(:admin)
+      @page = create(:page)
+      @admin = create(:admin)
       sign_in @admin
       put :update, params: { id: @page.id, page: valid_attributes }
       @page.reload
@@ -141,8 +141,8 @@ describe Admin::PagesController do
     end
 
     it 'renders the edit view if there is missing information' do
-      @page = FactoryBot.create(:page)
-      @admin = FactoryBot.create(:admin)
+      @page = create(:page)
+      @admin = create(:admin)
       sign_in @admin
       put :update, params: { id: @page.id, page: invalid_attributes }
       expect(response).to render_template :edit

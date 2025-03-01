@@ -1,18 +1,18 @@
 require 'feature_helper'
 
 feature 'Admins can manage course pages' do
-  let!(:category) { FactoryBot.create(:category) }
-  let(:admin) { FactoryBot.create(:admin) }
+  let!(:category) { create(:category) }
+  let(:admin) { create(:admin) }
 
   before do
     log_in admin
   end
 
   scenario 'can view course page index' do
-    att = FactoryBot.create(:att)
-    org_category = FactoryBot.create(:category, organization: att)
-    FactoryBot.create(:course_material, category: category)
-    FactoryBot.create(:course_material, category: org_category)
+    att = create(:att)
+    org_category = create(:category, organization: att)
+    create(:course_material, category: category)
+    create(:course_material, category: org_category)
     visit admin_root_path
     click_link 'Courses'
     expect(current_path).to eq(admin_course_materials_path)
@@ -45,9 +45,9 @@ feature 'Admins can manage course pages' do
   end
 
   scenario 'sees correct category options' do
-    att = FactoryBot.create(:att)
-    FactoryBot.create(:category, title: 'AT&T category', organization: att)
-    FactoryBot.create(:category, title: 'Non-org category')
+    att = create(:att)
+    create(:category, title: 'AT&T category', organization: att)
+    create(:category, title: 'Non-org category')
     visit admin_course_materials_path
     click_link 'Add New Course'
     expected_options = ['AT&T category (AT&T)', 'Non-org category']
@@ -61,8 +61,8 @@ feature 'Admins can manage course pages' do
   end
 
   scenario 'can edit an existing Course page' do
-    @course_material = FactoryBot.create(:course_material)
-    FactoryBot.create(:course_material_file, course_material: @course_material)
+    @course_material = create(:course_material)
+    create(:course_material_file, course_material: @course_material)
     visit admin_course_materials_path
     within 'main' do
       click_link @course_material.title

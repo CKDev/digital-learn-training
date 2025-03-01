@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Admin::CourseMaterialsController do
-  let(:admin) { FactoryBot.create(:admin) }
+  let(:admin) { create(:admin) }
 
   describe 'GET #new' do
     it 'assigns a new instance of a course_material' do
@@ -30,9 +30,9 @@ describe Admin::CourseMaterialsController do
   describe 'GET #index' do
     it 'assigns all course_materials' do
       sign_in admin
-      learning_computers = FactoryBot.create(:course_material)
-      web_browsers = FactoryBot.create(:course_material)
-      FactoryBot.create(:course_material, pub_status: 'A')
+      learning_computers = create(:course_material)
+      web_browsers = create(:course_material)
+      create(:course_material, pub_status: 'A')
       get :index
       expect(assigns(:course_materials)).to contain_exactly(learning_computers, web_browsers)
     end
@@ -45,7 +45,7 @@ describe Admin::CourseMaterialsController do
   end
 
   describe 'POST #create' do
-    let(:category) { FactoryBot.create(:category) }
+    let(:category) { create(:category) }
     let(:file_upload) do
       fixture_file_upload(Rails.root.join('spec/fixtures/test_upload.pdf'), 'application/pdf')
     end
@@ -146,7 +146,7 @@ describe Admin::CourseMaterialsController do
   describe 'GET #edit' do
     it 'assigns the given instance of a course_material' do
       sign_in admin
-      course_material = FactoryBot.create(:course_material)
+      course_material = create(:course_material)
       get :edit, params: { id: course_material.id }
       expect(assigns(:course_material)).to eq course_material
     end
@@ -158,7 +158,7 @@ describe Admin::CourseMaterialsController do
   end
 
   describe 'PUT #update' do
-    let(:category) { FactoryBot.create(:category) }
+    let(:category) { create(:category) }
     let(:valid_attributes) do
       {
         title: 'Updated Course Material',
@@ -178,7 +178,7 @@ describe Admin::CourseMaterialsController do
     end
 
     context 'when authenticated' do
-      let(:course_material) { FactoryBot.create(:course_material) }
+      let(:course_material) { create(:course_material) }
 
       before do
         sign_in admin
@@ -215,7 +215,7 @@ describe Admin::CourseMaterialsController do
       end
 
       it 'removes existing attachment' do
-        cm_file = FactoryBot.create(:course_material_file, course_material: course_material)
+        cm_file = create(:course_material_file, course_material: course_material)
 
         destroy_file_params = {
           course_material_files_attributes: {
@@ -277,9 +277,9 @@ describe Admin::CourseMaterialsController do
   end
 
   describe 'PUT #sort' do
-    let(:learning_computers) { FactoryBot.create(:course_material, title: 'Learning Computers') }
-    let(:web_browsers) { FactoryBot.create(:course_material, title: 'Web Browsers') }
-    let(:operating_systems) { FactoryBot.create(:course_material, title: 'Operating Systems') }
+    let(:learning_computers) { create(:course_material, title: 'Learning Computers') }
+    let(:web_browsers) { create(:course_material, title: 'Web Browsers') }
+    let(:operating_systems) { create(:course_material, title: 'Operating Systems') }
 
     before do
       sign_in admin

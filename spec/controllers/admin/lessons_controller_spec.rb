@@ -5,8 +5,8 @@ describe Admin::LessonsController do
   describe 'GET #new' do
 
     it 'assigns a new instance of a lesson' do
-      @course = FactoryBot.create(:course)
-      @admin = FactoryBot.create(:admin)
+      @course = create(:course)
+      @admin = create(:admin)
       sign_in @admin
       get :new, params: { course_id: @course.id }
       expect(assigns(:lesson)).to be_an_instance_of(Lesson)
@@ -17,7 +17,7 @@ describe Admin::LessonsController do
   describe 'POST #create' do
 
     before do
-      @course = FactoryBot.create(:course)
+      @course = create(:course)
     end
 
     let(:storyline_file) do
@@ -61,7 +61,7 @@ describe Admin::LessonsController do
     end
 
     it 'correctly assigns the passed in info' do
-      @admin = FactoryBot.create(:admin)
+      @admin = create(:admin)
       sign_in @admin
       post :create, params: { course_id: @course.id, lesson: valid_attributes }
       lesson = Lesson.last
@@ -80,8 +80,8 @@ describe Admin::LessonsController do
     end
 
     it 'renders the new view if there is missing information' do
-      @course = FactoryBot.create(:course)
-      @admin = FactoryBot.create(:admin)
+      @course = create(:course)
+      @admin = create(:admin)
       sign_in @admin
       post :create, params: { course_id: @course.id, lesson: invalid_attributes }
       expect(response).to render_template :new
@@ -92,9 +92,9 @@ describe Admin::LessonsController do
   describe 'GET #edit' do
 
     it 'assigns the given instance of a lesson' do
-      @admin = FactoryBot.create(:admin)
+      @admin = create(:admin)
       sign_in @admin
-      @course = FactoryBot.create(:course, :with_lessons)
+      @course = create(:course, :with_lessons)
       get :edit, params: { course_id: @course.id, id: @course.lessons.first.id }
       expect(assigns(:lesson)).to eq @course.lessons.first
     end
@@ -104,7 +104,7 @@ describe Admin::LessonsController do
   describe 'PUT #update' do
 
     before do
-      @course = FactoryBot.create(:course, :with_lessons)
+      @course = create(:course, :with_lessons)
     end
 
     let(:storyline_file) do
@@ -149,7 +149,7 @@ describe Admin::LessonsController do
 
     it 'correctly assigns the passed in info' do
       @lesson = @course.lessons.first
-      @admin = FactoryBot.create(:admin)
+      @admin = create(:admin)
       sign_in @admin
       put :update, params: { course_id: @course.id, id: @lesson.id, lesson: valid_attributes }
       @lesson.reload
@@ -169,7 +169,7 @@ describe Admin::LessonsController do
 
     it 'renders the edit view if there is missing information' do
       @lesson = @course.lessons.first
-      @admin = FactoryBot.create(:admin)
+      @admin = create(:admin)
       sign_in @admin
       put :update, params: { course_id: @course.id, id: @lesson.id, lesson: invalid_attributes }
       expect(response).to render_template :edit
@@ -180,11 +180,11 @@ describe Admin::LessonsController do
   describe 'PUT #sort' do
 
     before do
-      @course = FactoryBot.create(:course, :with_lessons)
+      @course = create(:course, :with_lessons)
     end
 
     it 'updates to the given sort order' do
-      @admin = FactoryBot.create(:admin)
+      @admin = create(:admin)
       sign_in @admin
 
       first_id = @course.lessons.first.id

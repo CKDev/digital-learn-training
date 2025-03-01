@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe Lesson do
   describe 'validations' do
-    let(:course) { FactoryBot.create(:course) }
-    let(:lesson) { FactoryBot.create(:lesson, course: course) }
+    let(:course) { create(:course) }
+    let(:lesson) { create(:lesson, course: course) }
 
     it 'is valid' do
       expect(lesson.valid?).to be true
@@ -15,7 +15,7 @@ describe Lesson do
     end
 
     it 'allows duplicate title for another course' do
-      new_course = FactoryBot.create(:course)
+      new_course = create(:course)
       new_course_lesson = FactoryBot.build(:lesson, course: new_course, title: lesson.title)
       expect(new_course_lesson).to be_valid
       expect(new_course_lesson.save).to be true
@@ -29,7 +29,7 @@ describe Lesson do
   end
 
   describe 'scopes' do
-    let(:course) { FactoryBot.create(:course, :with_lessons) }
+    let(:course) { create(:course, :with_lessons) }
 
     describe '.published' do
       it 'returns all published lessons' do
@@ -49,7 +49,7 @@ describe Lesson do
   end
 
   describe '#duration_str' do
-    let(:course) { FactoryBot.create(:course, :with_lessons) }
+    let(:course) { create(:course, :with_lessons) }
 
     it 'adds up the durations of all lessons' do
       expect(course.lessons.first.duration_str).to eq '01:30'
@@ -57,7 +57,7 @@ describe Lesson do
   end
 
   describe '#published_lesson_order' do
-    let(:course) { FactoryBot.create(:course, :with_lessons) }
+    let(:course) { create(:course, :with_lessons) }
 
     it 'returns the order of only published lessons' do
       course.lessons.second.update(pub_status: 'D')

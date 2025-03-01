@@ -46,7 +46,7 @@ RSpec.configure do |config|
   # Fixture file upload methods
   include ActionDispatch::TestProcess
 
-  # Use create() instead of FactoryBot.create()
+  # Use create() instead of create()
   config.include FactoryBot::Syntax::Methods
 
   # RSpec Rails can automatically mix in different behaviours to your tests

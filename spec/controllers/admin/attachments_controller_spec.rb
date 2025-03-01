@@ -5,10 +5,10 @@ describe Admin::AttachmentsController do
   describe '#destroy' do
 
     it 'removes the attachment' do
-      @admin = FactoryBot.create(:admin)
+      @admin = create(:admin)
       sign_in @admin
 
-      @attachment = FactoryBot.create(:attachment)
+      @attachment = create(:attachment)
       expect do
         delete :destroy, params: { id: @attachment.id }
       end.to change(Attachment, :count).by(-1)

@@ -86,7 +86,7 @@ describe Admin::CategoriesController do
 
     it 'assigns the given instance of a category' do
       sign_in admin
-      category = FactoryBot.create(:category)
+      category = create(:category)
       get :edit, params: { id: category.id }
       expect(assigns(:category)).to eq category
     end
@@ -133,7 +133,7 @@ describe Admin::CategoriesController do
       end
 
       it 'renders the edit view if there is missing information' do
-        category = FactoryBot.create(:category)
+        category = create(:category)
         put :update, params: { id: category.id, category: invalid_attributes }
         expect(response).to render_template :edit
       end

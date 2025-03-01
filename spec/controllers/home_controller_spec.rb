@@ -7,9 +7,9 @@ describe HomeController do
   end
 
   describe 'non-organization subdomain' do
-    let(:org) { FactoryBot.create(:att) }
-    let!(:no_org_category) { FactoryBot.create(:category) }
-    let!(:organization_category) { FactoryBot.create(:category, organization: org) }
+    let(:org) { create(:att) }
+    let!(:no_org_category) { create(:category) }
+    let!(:organization_category) { create(:category, organization: org) }
 
     it 'sets all non-org courses' do
       get :index
@@ -18,11 +18,11 @@ describe HomeController do
   end
 
   describe 'organization subdomain' do
-    let(:org) { FactoryBot.create(:att) }
-    let(:user) { FactoryBot.create(:user) }
-    let!(:att_category1) { FactoryBot.create(:category, organization: org) }
-    let!(:att_category2) { FactoryBot.create(:category, organization: org) }
-    let!(:non_att_category) { FactoryBot.create(:category) }
+    let(:org) { create(:att) }
+    let(:user) { create(:user) }
+    let!(:att_category1) { create(:category, organization: org) }
+    let!(:att_category2) { create(:category, organization: org) }
+    let!(:non_att_category) { create(:category) }
 
     before do
       @request.host = "#{org.subdomain}.dltest.org"
