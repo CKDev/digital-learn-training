@@ -1,0 +1,30 @@
+.legacy-footer {
+  margin-top: 2em;
+  padding: 2em;
+  min-height: 236px;
+  background-color: $teal;
+  color: $white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-logo-link {
+  width: auto;
+  max-height: 60px;
+  margin-bottom: 10px;
+}
+
+.cms_nav {
+  padding-left: 0px;
+  text-align: left;
+
+  h3 {
+    color: $white;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  a {
+    color: $white !important;
+  }
+}
