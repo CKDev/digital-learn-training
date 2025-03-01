@@ -16,10 +16,10 @@ class AccessRequest < ApplicationRecord
   def verify_phone_number
     return if phone.blank?
 
-    self.phone = phone.gsub(/\D/, "")
+    self.phone = phone.gsub(/\D/, '')
 
     unless phone.match(/^\d{10}$/)
-      errors.add(:phone, "must be 10 numeric digits")
+      errors.add(:phone, 'must be 10 numeric digits')
     end
   end
 

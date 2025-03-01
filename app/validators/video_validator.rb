@@ -7,14 +7,14 @@ class VideoValidator < ActiveModel::EachValidator
     return if value.blank?
 
     r = parse_iframe(value) || parse_embed_code(value)
-    record.errors.add(attribute, (options[:message] || "is not a valid video Link/URL")) unless r
+    record.errors.add(attribute, (options[:message] || 'is not a valid video Link/URL')) unless r
   end
 
   private
 
   def parse_embed_code(url)
     source = URI.parse(url).host
-    if ["www.youtube.com", "youtube.com", "youtu.be", "www.youtu.be"].include?(source)
+    if ['www.youtube.com', 'youtube.com', 'youtu.be', 'www.youtu.be'].include?(source)
       return true
     end
 
@@ -25,7 +25,7 @@ class VideoValidator < ActiveModel::EachValidator
 
   def parse_iframe(url)
     parser = Nokogiri::HTML(url)
-    parser.css("iframe").first["src"]
+    parser.css('iframe').first['src']
   rescue StandardError
     false
   end

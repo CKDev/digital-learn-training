@@ -23,7 +23,7 @@ module Admin
 
       if @lesson.save
         Unzipper.new(@lesson.story_line) unless Rails.application.config.s3_enabled
-        redirect_to edit_admin_course_lesson_path(@course, @lesson), notice: "Lesson was successfully created."
+        redirect_to edit_admin_course_lesson_path(@course, @lesson), notice: 'Lesson was successfully created.'
       else
         render :new
       end
@@ -37,9 +37,9 @@ module Admin
 
       if @lesson.update(@lesson_params)
         Unzipper.new(@lesson.story_line) if @lesson.story_line_updated_at.present? && !Rails.application.config.s3_enabled
-        redirect_to edit_admin_course_lesson_path, notice: "Lesson successfully updated."
+        redirect_to edit_admin_course_lesson_path, notice: 'Lesson successfully updated.'
       else
-        render :edit, notice: "Lesson failed to update."
+        render :edit, notice: 'Lesson failed to update.'
       end
     end
 
@@ -48,7 +48,7 @@ module Admin
       @lesson.story_line = nil
       @lesson.save
       FileUtils.remove_dir Rails.root.join("public/storylines/#{@lesson.id}").to_s, true
-      render :edit, notice: "Story Line successfully removed, please upload a new story line .zip file."
+      render :edit, notice: 'Story Line successfully removed, please upload a new story line .zip file.'
     end
 
     def sort

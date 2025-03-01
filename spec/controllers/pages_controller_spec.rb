@@ -1,18 +1,18 @@
-require "rails_helper"
+require 'rails_helper'
 
 describe PagesController do
 
-  describe "GET #show" do
+  describe 'GET #show' do
 
-    it "assigns the given instance of a page" do
-      @page = FactoryBot.create(:page, pub_status: "P")
+    it 'assigns the given instance of a page' do
+      @page = FactoryBot.create(:page, pub_status: 'P')
       get :show, params: { id: @page.slug }
       expect(assigns(:page)).to eq @page
     end
 
-    it "does not assign draft/archived pages" do
-      @page1 = FactoryBot.create(:page, pub_status: "D")
-      @page2 = FactoryBot.create(:page, pub_status: "A")
+    it 'does not assign draft/archived pages' do
+      @page1 = FactoryBot.create(:page, pub_status: 'D')
+      @page2 = FactoryBot.create(:page, pub_status: 'A')
 
       expect do
         get :show, params: { id: @page1.slug }
@@ -24,12 +24,12 @@ describe PagesController do
 
     end
 
-    it "assigns draft/archived pages, if logged in as admin" do
+    it 'assigns draft/archived pages, if logged in as admin' do
       @admin = FactoryBot.create(:admin)
       sign_in @admin
 
-      @page1 = FactoryBot.create(:page, pub_status: "D")
-      @page2 = FactoryBot.create(:page, pub_status: "A")
+      @page1 = FactoryBot.create(:page, pub_status: 'D')
+      @page2 = FactoryBot.create(:page, pub_status: 'A')
 
       get :show, params: { id: @page1.slug }
       expect(assigns(:page)).to eq @page1

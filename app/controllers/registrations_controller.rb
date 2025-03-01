@@ -18,7 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
         response_message = get_message_for_update(resource, prev_unconfirmed_email)
         render json: { message: response_message }, status: :ok
       else
-        render json: { message: resource.errors.full_messages.join(", ") }, status: :unprocessable_entity
+        render json: { message: resource.errors.full_messages.join(', ') }, status: :unprocessable_entity
       end
     else
       super

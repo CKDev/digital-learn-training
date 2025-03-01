@@ -1,14 +1,14 @@
-require "rails_helper"
-require "capybara/rails"
-require "capybara/rspec"
-require "selenium/webdriver"
+require 'rails_helper'
+require 'capybara/rails'
+require 'capybara/rspec'
+require 'selenium/webdriver'
 
 Capybara.register_driver :selenium_headless do |app|
   options = Selenium::WebDriver::Chrome::Options.new
-  options.add_argument("--headless")
-  options.add_argument("--disable-gpu")
-  options.add_argument("--no-sandbox")
-  options.add_argument("--window-size=1920,1400")
+  options.add_argument('--headless')
+  options.add_argument('--disable-gpu')
+  options.add_argument('--no-sandbox')
+  options.add_argument('--window-size=1920,1400')
 
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
@@ -31,20 +31,20 @@ end
 
 def log_in_with(email, password)
   visit new_session_path
-  find("#user_email").set(email)
-  find("#user_password").set(password)
+  find('#user_email').set(email)
+  find('#user_password').set(password)
   click_button "Let's Go!"
 end
 
 def log_in(user)
   visit new_user_session_path
-  find("#user_email", visible: false).set(user.email)
-  find("#user_password", visible: false).set(user.password)
-  click_button "Log In"
+  find('#user_email', visible: false).set(user.email)
+  find('#user_password', visible: false).set(user.password)
+  click_button 'Log In'
 end
 
 def log_out
-  click_link "Sign Out"
+  click_link 'Sign Out'
 end
 
 def alert_present?
@@ -56,7 +56,7 @@ end
 
 def switch_to_subdomain(subdomain, tld = nil)
   # lvh.me always resolves to 127.0.0.1
-  tld ||= "lvh.me"
+  tld ||= 'lvh.me'
   host = subdomain ? "#{subdomain}.#{tld}" : tld
   Capybara.app_host = "http://#{host}"
 end

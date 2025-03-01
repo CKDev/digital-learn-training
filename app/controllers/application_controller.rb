@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   def authenticate_inviter!
     # Limit invitations to admins only
     unless current_user.present? && current_user.admin?
-      flash[:alert] = "You are not authorized to view this page"
+      flash[:alert] = 'You are not authorized to view this page'
       redirect_to admin_root_path
     end
 
@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
   private
 
   def current_organization
-    if request.subdomains.last == "training"
+    if request.subdomains.last == 'training'
       subdomain = request.subdomains.first
     else
       # Legacy subdomain handling (AT&T)
@@ -68,13 +68,13 @@ class ApplicationController < ActionController::Base
 
   def set_layout
     organization = current_organization
-    return "application" if organization.blank?
+    return 'application' if organization.blank?
 
-    custom_org_layout_file = Rails.root.join "app", "views", "layouts", "#{organization.subdomain}.html.erb"
+    custom_org_layout_file = Rails.root.join 'app', 'views', 'layouts', "#{organization.subdomain}.html.erb"
     if File.exist? custom_org_layout_file
       current_organization.subdomain # Use subomain as layout file name
     else
-      "application"
+      'application'
     end
   end
 
@@ -83,7 +83,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_blank_templates
-    @blank_template = CourseMaterial.find_by(title: "Course Templates")
+    @blank_template = CourseMaterial.find_by(title: 'Course Templates')
   end
 
   def set_footer_links
@@ -101,18 +101,18 @@ class ApplicationController < ActionController::Base
   end
 
   def current_language
-    session[:locale] || "en"
+    session[:locale] || 'en'
   end
 
   def current_language_name
     case current_language
-    when "es" then "Spanish"
-    when "en" then "English"
+    when 'es' then 'Spanish'
+    when 'en' then 'English'
     end
   end
 
   def set_ui_v2
     # Use legacy UI for www and att subdomain
-    @use_ui_v2 = current_organization && current_organization.subdomain != "att"
+    @use_ui_v2 = current_organization && current_organization.subdomain != 'att'
   end
 end

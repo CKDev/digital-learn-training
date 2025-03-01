@@ -14,17 +14,17 @@ class Lesson < ApplicationRecord
   validates :meta_desc, length: { maximum: 156 }
   validates :pub_status, presence: true, inclusion: { in: %w(P D A) }
   validates_attachment :story_line, presence: true,
-    content_type: { content_type: ["application/zip", "application/x-zip"] }, size: { in: 0..(100.megabytes) }
+    content_type: { content_type: ['application/zip', 'application/x-zip'] }, size: { in: 0..(100.megabytes) }
 
   before_save :remove_other_assessments
   before_destroy :delete_associated_asl_files
 
-  default_scope { order("lesson_order") }
-  scope :published, -> { where(pub_status: "P") }
-  scope :not_archived, -> { where.not(pub_status: "A") }
+  default_scope { order('lesson_order') }
+  scope :published, -> { where(pub_status: 'P') }
+  scope :not_archived, -> { where.not(pub_status: 'A') }
 
   def published?
-    pub_status == "P"
+    pub_status == 'P'
   end
 
   def skip_for_zip
@@ -40,7 +40,7 @@ class Lesson < ApplicationRecord
   end
 
   def duration_to_int(duration_param)
-    if duration_param.include?(":")
+    if duration_param.include?(':')
       self.duration = Duration.duration_str_to_int(duration_param)
     else
       self.duration = duration_param.to_i
@@ -49,7 +49,7 @@ class Lesson < ApplicationRecord
 
   def remove_other_assessments
     if self.is_assessment
-      self.course.lessons.where("lessons.id <> ? AND lessons.is_assessment = ?", self.id, true).update(is_assessment: false)
+      self.course.lessons.where('lessons.id <> ? AND lessons.is_assessment = ?', self.id, true).update(is_assessment: false)
     else
       true
     end

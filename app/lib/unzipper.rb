@@ -5,7 +5,7 @@ class Unzipper
   end
 
   def package_prepper
-    file_name   = @file.instance.story_line_file_name.chomp(".zip")
+    file_name   = @file.instance.story_line_file_name.chomp('.zip')
     import_path = "public/system/lessons/storylines/#{@file.instance.id}"
     public_path = "public/storylines/#{@file.instance.id}"
     zip_file    = Rails.root.join("#{import_path}/original/#{file_name}.zip").to_s
