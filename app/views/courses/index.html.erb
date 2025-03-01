@@ -1,2 +1,14 @@
-<%= react_component class: "instructional-design-training-page", data: { props: { courses: @courses.map(&:to_props) }} %>
-<%= vite_javascript_tag 'instructional-design-training-page.jsx' %>
+<% if @use_ui_v2 %>
+  <%= react_component class: "instructional-design-training-page", data: { props: { courses: @courses.map(&:to_props) }} %>
+  <%= vite_javascript_tag 'instructional-design-training-page.jsx' %>
+<% else %>
+  <%= content_for(:callout) { %><h1>Available Instructional Design Training</h1><% } %>
+
+  <h2 class="screen-reader-text">All Available Training</h2>
+
+  <% if @courses.present? %>
+    <%= render "listing" %>
+  <% else %>
+    <p>There are currently no available courses.</p>
+  <% end %>
+<% end %>

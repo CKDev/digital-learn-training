@@ -15,6 +15,26 @@
       <% else %>
         <%= render "application/header" %>
       <% end %>
+
+      <% unless @use_ui_v2 %>
+        <div class="banner">
+          <div class="container row">
+            <div class="eight columns">
+              <% if content_for?(:callout) %>
+                <%= yield :callout %>
+              <% else %>
+                <h1 class="slogan"><%= t("banner.slogan.#{current_organization&.subdomain || 'default'}") %></h1>
+              <% end %>
+            </div>
+            <div class="four columns">
+              <% if content_for?(:course_progress) %>
+                <%= yield :course_progress %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
       <main class="content">
         <%= render "flashes" %>
         <div class="page-content">
