@@ -1,3 +1,23 @@
-<% page_links = @footer_links.map { |page| { label: page.title, path: page_path(page) } } %>
-<%= react_component class: "footer", data: { props: { pages: page_links, contactEmail: contact_email, logoFile: image_url('pla_logo_white.png'), logoLinkDestination: "http://www.ala.org/pla/", adminSignedIn: admin_signed_in? } } %>
-<%= vite_javascript_tag 'footer.jsx' %>
+<% if @use_ui_v2 %>
+  <% page_links = @footer_links.map { |page| { label: page.title, path: page_path(page) } } %>
+  <%= react_component class: "footer", data: { props: { pages: page_links, contactEmail: contact_email, logoFile: image_url('pla_logo_white.png'), logoLinkDestination: "http://www.ala.org/pla/", adminSignedIn: admin_signed_in? } } %>
+  <%= vite_javascript_tag 'footer.jsx' %>
+<% else %>
+  <footer class="legacy-footer">
+    <div class="footer-content">
+      <ul class="cms_nav unmarked">
+        <h3>Learn More</h3>
+        <% @footer_links.each do |page| %>
+          <li><%= link_to page.title, page_path(page) %></li>
+        <% end %>
+      </ul>
+      <ul class="cms_nav unmarked">
+        <li><%= mail_to contact_email, "Contact Us", subject: "Contact from DigitalLearn Training site" %></li>
+      </ul>
+    </div>
+    <div class="footer-content">
+      <%= render "logo_footer" %>
+      <p>This work is licensed under a Creative Commons BY-NC-SA License</p>
+    </div>
+  </footer>
+<% end %>

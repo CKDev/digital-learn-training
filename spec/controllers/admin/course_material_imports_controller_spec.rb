@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Admin::CourseMaterialImportsController do
-  let(:organization) { create(:organization, subdomain: 'test') }
+  let(:organization) { create(:organization, subdomain: "test") }
   let(:org_admin) { create(:user) }
   let!(:course_material) { create(:course_material) }
   let!(:imported_course_material) { create(:course_material) }

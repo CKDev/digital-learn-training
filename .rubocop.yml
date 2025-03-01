@@ -85,10 +85,10 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Max: 17
 
-Rspec/MultipleExpectations:
+RSpec/MultipleExpectations:
   Enabled: false
 
-Rspec/ExampleLength:
+RSpec/ExampleLength:
   Max: 25
 
 Style/AndOr:

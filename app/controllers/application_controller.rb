@@ -112,6 +112,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_ui_v2
-    @use_ui_v2 = current_organization&.subdomain != "att" # Use legacy UI for att subdomain
+    # Use legacy UI for www and att subdomain
+    @use_ui_v2 = current_organization && current_organization.subdomain != "att"
   end
 end

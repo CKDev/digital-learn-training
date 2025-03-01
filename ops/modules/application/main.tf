@@ -15,6 +15,11 @@ resource "aws_ecs_service" "app_service" {
     container_name   = "application"
     container_port   = 3000
   }
+
+  placement_constraints {
+    type       = "memberOf"
+    expression = "attribute:ecs.availability-zone in [${var.region}a, ${var.region}b]"
+  }
 }
 
 resource "aws_ecs_service" "sidekiq_service" {
@@ -22,6 +27,11 @@ resource "aws_ecs_service" "sidekiq_service" {
   cluster         = aws_ecs_cluster.ecs_cluster.id
   task_definition = aws_ecs_task_definition.sidekiq_service.arn
   desired_count   = var.desired_sidekiq_instance_count
+
+  placement_constraints {
+    type       = "memberOf"
+    expression = "attribute:ecs.availability-zone in [${var.region}a, ${var.region}b]"
+  }
 }
 
 data "aws_ami" "ecs_ami" {
