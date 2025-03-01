@@ -8,7 +8,7 @@ class AdminMailer < ApplicationMailer
     @organization_subdomain = @access_request.organization.subdomain # Logo prefix
     @mailer_subdomain = SubdomainBuilder.new(organization).build_subdomain # Link subdomain
 
-    subject = "New DigitalLearn Collaborator Access Request"
+    subject = 'New DigitalLearn Collaborator Access Request'
     mail(to: emails, subject: subject)
   end
 end

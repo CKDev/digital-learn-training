@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     email
-    password { "asdfasdf" }
+    password { 'asdfasdf' }
     confirmed_at { Time.zone.now.to_s }
     admin { false }
 

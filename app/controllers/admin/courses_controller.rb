@@ -18,10 +18,10 @@ module Admin
     def create
       @course = Course.new
       if @course.update(course_params)
-        if params[:commit] == "Save Course"
-          redirect_to edit_admin_course_path(@course), notice: "Course was successfully created."
+        if params[:commit] == 'Save Course'
+          redirect_to edit_admin_course_path(@course), notice: 'Course was successfully created.'
         else
-          redirect_to new_admin_course_lesson_path(@course), notice: "Course was successfully created. Now add some lessons."
+          redirect_to new_admin_course_lesson_path(@course), notice: 'Course was successfully created. Now add some lessons.'
         end
       else
         render :new
@@ -33,12 +33,12 @@ module Admin
       @course.slug = nil if @course.title != params[:course][:title]
       if @course.update(course_params)
         case params[:commit]
-        when "Save Course"
-          redirect_to edit_admin_course_path(@course), notice: "Course was successfully updated."
-        when "Save Course and Edit Lessons"
-          redirect_to edit_admin_course_lesson_path(@course, @course.lessons.first), notice: "Course was successfully updated."
+        when 'Save Course'
+          redirect_to edit_admin_course_path(@course), notice: 'Course was successfully updated.'
+        when 'Save Course and Edit Lessons'
+          redirect_to edit_admin_course_lesson_path(@course, @course.lessons.first), notice: 'Course was successfully updated.'
         else
-          redirect_to new_admin_course_lesson_path(@course), notice: "Course was successfully updated."
+          redirect_to new_admin_course_lesson_path(@course), notice: 'Course was successfully updated.'
         end
       else
         render :edit

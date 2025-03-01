@@ -1,13 +1,13 @@
 class AttachmentZipper
   def initialize(course_material_id, association_name, attachment_type)
     @course_material = CourseMaterial.find(course_material_id)
-    @course_title = @course_material.title.parameterize(separator: "_")
+    @course_title = @course_material.title.parameterize(separator: '_')
     @attachments = @course_material.send(association_name.to_sym)
     @attachment_type = attachment_type
   end
 
   def create_zip
-    @archive_tempfile = Tempfile.new(["#{@course_title}_archive", ".zip"])
+    @archive_tempfile = Tempfile.new(["#{@course_title}_archive", '.zip'])
 
     ::Zip::File.open(@archive_tempfile.path, ::Zip::File::CREATE) do |zipfile|
       @attachments.each do |attachment|

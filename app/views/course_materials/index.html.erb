@@ -1,6 +1,6 @@
 <% if @use_ui_v2 %>
   <%= react_component id: "course-materials", data: { props: @course_materials_data } %>
   <%= vite_javascript_tag 'course-materials.jsx' %>
-<% else %>
+<% elsif current_organization && lookup_context.exists?('courses/overview', [current_organization.subdomain], true) %>
   <%= render "#{current_organization.subdomain}/courses/overview" %>
 <% end %>

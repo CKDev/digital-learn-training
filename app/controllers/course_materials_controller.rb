@@ -2,8 +2,12 @@ class CourseMaterialsController < ApplicationController
   before_action :include_user_sidebar, only: :index
 
   def index
+    if current_organization.blank? && !@use_ui_v2
+      redirect_to root_path
+    end
+
     @categories = categories.with_published_course_materials
-    @blank_template = CourseMaterial.find_by(title: "Course Templates")
+    @blank_template = CourseMaterial.find_by(title: 'Course Templates')
 
     categories_data = @categories.map { |c| c.to_props(include_materials: true) }
 

@@ -29,17 +29,17 @@ class CourseMaterial < ApplicationRecord
   validates_associated :course_material_videos
 
   # Zipped attachments
-  has_attached_file :file_archive, url: "course_material_file_archives/:id/:basename.:extension"
-  has_attached_file :media_archive, url: "course_material_media_archives/:id/:basename.:extension"
+  has_attached_file :file_archive, url: 'course_material_file_archives/:id/:basename.:extension'
+  has_attached_file :media_archive, url: 'course_material_media_archives/:id/:basename.:extension'
 
-  validates_attachment :file_archive, content_type: { content_type: ["application/zip", "application/x-zip"] }
-  validates_attachment :media_archive, content_type: { content_type: ["application/zip", "application/x-zip"] }
+  validates_attachment :file_archive, content_type: { content_type: ['application/zip', 'application/x-zip'] }
+  validates_attachment :media_archive, content_type: { content_type: ['application/zip', 'application/x-zip'] }
 
-  default_scope { order("sort_order") }
+  default_scope { order('sort_order') }
   scope :in_category, ->(category_id) { joins(:category).where(categories: { id: category_id }) }
-  scope :published, -> { where(pub_status: "P") }
-  scope :archived, -> { where(pub_status: "A") }
-  scope :not_archived, -> { where.not(pub_status: "A") }
+  scope :published, -> { where(pub_status: 'P') }
+  scope :archived, -> { where(pub_status: 'A') }
+  scope :not_archived, -> { where.not(pub_status: 'A') }
   scope :not_self, ->(id) { where.not(id: id) }
   scope :for_organization, ->(organization) { joins(:category).where(categories: { organization_id: organization&.id }).references(:categories) }
   scope :in_language, ->(language) { where(language: language) }
@@ -86,7 +86,7 @@ class CourseMaterial < ApplicationRecord
     # welcome page, which is bad.
     PROTECTED_COURSE_MATERIALS.each do |t|
       if self.title_was == t && self.title != t
-        errors.add(:title, "This course is protected and cannot be changed.")
+        errors.add(:title, 'This course is protected and cannot be changed.')
       end
     end
 
@@ -94,6 +94,6 @@ class CourseMaterial < ApplicationRecord
 
   def unique_title
     scope = CourseMaterial.for_organization(category&.organization)
-    errors.add(:title, "has already been taken") if scope.where(title: title).where.not(id: id).exists?
+    errors.add(:title, 'has already been taken') if scope.where(title: title).where.not(id: id).exists?
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rack-proxy"
+require 'rack-proxy'
 
 class S3Proxy < Rack::Proxy
   def perform_request(env)
@@ -12,13 +12,13 @@ class S3Proxy < Rack::Proxy
 
       # most backends required host set properly, but rack-proxy doesn't set this for you automatically
       # even when a backend host is passed in via the options
-      env["HTTP_HOST"] = @backend.host
+      env['HTTP_HOST'] = @backend.host
 
       # This is the only path that needs to be set currently on Rails 5 & greater
-      env["PATH_INFO"] = request.fullpath
+      env['PATH_INFO'] = request.fullpath
 
       # don't send your sites cookies to target service, unless it is a trusted internal service that can parse all your cookies
-      env["HTTP_COOKIE"] = ""
+      env['HTTP_COOKIE'] = ''
 
       super
     else

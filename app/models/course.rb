@@ -17,56 +17,56 @@ class Course < ApplicationRecord
 
   before_save :update_pub_date
 
-  default_scope { order("course_order") }
-  scope :archived, -> { where(pub_status: "A") }
-  scope :not_archived, -> { where.not(pub_status: "A") }
-  scope :published, -> { where(pub_status: "P") }
+  default_scope { order('course_order') }
+  scope :archived, -> { where(pub_status: 'A') }
+  scope :not_archived, -> { where.not(pub_status: 'A') }
+  scope :published, -> { where(pub_status: 'P') }
   scope :alpha_order, -> { order(:title) }
 
   def next_lesson_id(current_lesson_id = 0)
-    raise StandardError, "There are no available lessons for this course." if lessons.published.count.zero?
+    raise StandardError, 'There are no available lessons for this course.' if lessons.published.count.zero?
 
     begin
       lesson_order = lessons.published.find(current_lesson_id).lesson_order
-      return lessons.order("lesson_order").last.id if lesson_order >= last_lesson_order
+      return lessons.order('lesson_order').last.id if lesson_order >= last_lesson_order
 
-      self.lessons.published.where("lesson_order > ?", lesson_order).first.id
+      self.lessons.published.where('lesson_order > ?', lesson_order).first.id
     rescue StandardError
-      lessons.published.order("lesson_order").first.id
+      lessons.published.order('lesson_order').first.id
     end
   end
 
   def last_lesson_order
-    raise StandardError, "There are no available lessons for this course." if lessons.count.zero?
+    raise StandardError, 'There are no available lessons for this course.' if lessons.count.zero?
 
-    lessons.maximum("lesson_order")
+    lessons.maximum('lesson_order')
   end
 
-  def duration(format = "mins")
+  def duration(format = 'mins')
     total = 0
     lessons.published.each { |l| total += l.duration }
     Duration.minutes_str(total, format)
   end
 
   def update_pub_date
-    pub_status == "P" ? self.pub_date = Time.zone.now : self.pub_date = nil
+    pub_status == 'P' ? self.pub_date = Time.zone.now : self.pub_date = nil
     true # Since this is used from a callback.
   end
 
   def pub_date_str
-    if pub_status == "P" && pub_date.present?
+    if pub_status == 'P' && pub_date.present?
       pub_date.strftime(DateFormats.month_day_year)
     else
-      "N/A"
+      'N/A'
     end
   end
 
   def post_course_attachments
-    self.attachments.where(doc_type: "post-course")
+    self.attachments.where(doc_type: 'post-course')
   end
 
   def supplemental_attachments
-    self.attachments.where(doc_type: "supplemental")
+    self.attachments.where(doc_type: 'supplemental')
   end
 
   def to_props

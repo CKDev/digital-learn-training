@@ -9,7 +9,7 @@ module Admin
     end
 
     def link_to_remove_child(name)
-      link_to(name, "javascript:remove_child", class: "remove_child")
+      link_to(name, 'javascript:remove_child', class: 'remove_child')
     end
   end
 end

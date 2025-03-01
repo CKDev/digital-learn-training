@@ -12,10 +12,10 @@ class HomeController < ApplicationController
 
     @courses = Course.published.limit(2)
     @categories = categories
-    @getting_started = @categories.where(tag: "Getting Started")
-    @hardware = @categories.where(tag: "Hardware")
-    @software_and_applications = @categories.where(tag: "Software & Applications")
-    @job_and_career = @categories.where(tag: "Job & Career")
+    @getting_started = @categories.where(tag: 'Getting Started')
+    @hardware = @categories.where(tag: 'Hardware')
+    @software_and_applications = @categories.where(tag: 'Software & Applications')
+    @job_and_career = @categories.where(tag: 'Job & Career')
   end
 
   def language_toggle
@@ -38,7 +38,7 @@ class HomeController < ApplicationController
   end
 
   def set_locale
-    requested_locale = params["lang"]
+    requested_locale = params['lang']
     whitelisted_locales = %w[en es]
     session[:locale] = requested_locale if whitelisted_locales.include?(requested_locale)
   end

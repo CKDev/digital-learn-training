@@ -4,7 +4,7 @@ class Category < ApplicationRecord
 
   belongs_to :organization, optional: true
 
-  ALLOWED_TAGS = ["Getting Started", "Hardware", "Software & Applications", "Job & Career", "Other"].freeze
+  ALLOWED_TAGS = ['Getting Started', 'Hardware', 'Software & Applications', 'Job & Career', 'Other'].freeze
   has_many :sub_categories, dependent: :destroy
 
   has_many :course_materials, dependent: :destroy
@@ -15,10 +15,10 @@ class Category < ApplicationRecord
   accepts_nested_attributes_for :sub_categories, reject_if: :all_blank, allow_destroy: true
   validates_associated :sub_categories
 
-  scope :with_published_course_materials, -> { joins(:course_materials).where(course_materials: { pub_status: "P" }).distinct }
+  scope :with_published_course_materials, -> { joins(:course_materials).where(course_materials: { pub_status: 'P' }).distinct }
 
   def self.select_options
-    ALLOWED_TAGS.reject { |t| t == "Other" }.map { |t| [t, t] }
+    ALLOWED_TAGS.reject { |t| t == 'Other' }.map { |t| [t, t] }
   end
 
   def to_props(include_materials: false)

@@ -13,11 +13,11 @@ class LessonsController < ApplicationController
   def show
     @lesson = @course.lessons.friendly.find(params[:id])
     case @lesson.pub_status
-    when "D"
-      redirect_to course_path(@course), notice: "The selected lesson is not currently avaliable."
-    when "A"
-      redirect_to root_path, notice: "The selected lesson is no longer avaliable."
-    when "P"
+    when 'D'
+      redirect_to course_path(@course), notice: 'The selected lesson is not currently avaliable.'
+    when 'A'
+      redirect_to root_path, notice: 'The selected lesson is no longer avaliable.'
+    when 'P'
       session[:lessons_done] = [] if session[:lessons_done].blank?
       session[:lessons_done] << @lesson.id unless session[:lessons_done].include?(@lesson.id)
       @next_lesson = @course.lessons.find(@course.next_lesson_id(@lesson.id))
