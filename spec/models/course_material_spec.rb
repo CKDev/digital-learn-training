@@ -148,4 +148,37 @@ describe CourseMaterial do
       end
     end
   end
+
+  describe '#to_props' do
+    let(:category) { create(:category) }
+    let(:course_material) { create(:course_material, title: 'Test Course', category: category) }
+
+    it 'includes expected props' do
+      expected_props = {
+        id: course_material.id,
+        title: course_material.title,
+        summary: course_material.summary,
+        description: course_material.description,
+        language: course_material.language,
+        category: course_material.category.title,
+        categoryId: course_material.category.id,
+        categoryFriendlyId: course_material.category.friendly_id,
+        subcategory: nil,
+        subcategoryId: nil,
+        status: course_material.pub_status,
+        contributor: course_material.contributor,
+        sortOrder: course_material.sort_order,
+        courseMaterialUrl: '/courses/test-course',
+        materialsDownloadUrl: '/courses/test-course/course_attachments',
+        fileCount: course_material.course_material_files.count,
+        imageCount: course_material.course_material_medias.count,
+        videoCount: course_material.course_material_videos.count,
+        providedByAtt: false,
+        friendlyId: course_material.friendly_id,
+        files: [],
+        images: []
+      }
+      expect(course_material.to_props).to eq(expected_props)
+    end
+  end
 end
