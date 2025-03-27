@@ -9,13 +9,15 @@ class CourseAttachmentsController < ApplicationController
         add_files_to_zip(media_archive, zipfile) if @course_material.course_material_medias.present?
       end
 
-      course_title = @course_material.title.parameterize(separator: '_')
-      file_options = { filename: "#{course_title}_attachments_archive.zip", disposition: 'inline', x_sendfile: true }
+      file_options = {
+        filename: "#{@course_material.title.parameterize(separator: '_')}_attachments_archive.zip",
+        disposition: 'inline'
+      }
 
-      send_data combined_file, file_options
-      # ensure
-      #   combined_file.close
-      #   combined_file.unlink
+      send_data File.binread(combined_file), file_options
+    ensure
+      combined_file.close
+      combined_file.unlink
     end
   end
 
@@ -30,16 +32,20 @@ class CourseAttachmentsController < ApplicationController
   end
 
   def add_files_to_zip(zip_content, zipfile)
-    if zip_content.is_a?(Tempfile) || zip_content.is_a?(File)
-      zip_content = StringIO.new(zip_content.read)
-    end
+    temp_file = Tempfile.new
+    temp_file.binmode
+    temp_file.write(zip_content)
+    temp_file.rewind
 
-    Zip::InputStream.open(zip_content) do |input_stream|
+    Zip::InputStream.open(temp_file.path) do |input_stream|
       while (entry = input_stream.get_next_entry)
         zipfile.get_output_stream(entry.name) do |f|
           f.write(input_stream.read)
         end
       end
     end
+
+    temp_file.close
+    temp_file.unlink
   end
 end
