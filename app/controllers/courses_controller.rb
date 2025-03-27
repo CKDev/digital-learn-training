@@ -55,7 +55,7 @@ class CoursesController < ApplicationController
     @file = @course.attachments.find(params[:attachment_id])
     extension = File.extname(@file.document_file_name)
 
-    data = AttachmentReader.new(@file).read_attachment_data('document')
+    data = AttachmentReader.new(@file.document).read_attachment_data
 
     if extension == '.pdf'
       file_options = { disposition: 'inline', filename: @file.document_file_name, type: 'application/pdf', x_sendfile: true }
