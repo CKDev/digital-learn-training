@@ -8,11 +8,11 @@ class AttachmentReader
       s3 = Aws::S3::Client.new
       response = s3.get_object({
         bucket: Rails.application.config.s3_bucket_name,
-        key: file.path
+        key: @file.path
       })
       response.body.read
     else
-      File.read(file.path)
+      File.read(@file.path)
     end
   end
 end
