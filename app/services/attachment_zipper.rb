@@ -14,8 +14,11 @@ class AttachmentZipper
         filename = attachment.send("#{@attachment_type}_file_name")
         file_data = Paperclip.io_adapters.for(attachment.send(@attachment_type)).read
 
+        # Ensure Windows compatiblel file names
+        filename = filename.encode('CP850', invalid: :replace, undef: :replace)
+
         zipfile.get_output_stream(filename) do |file|
-          file.puts file_data
+          file.write file_data
         end
       end
     end
