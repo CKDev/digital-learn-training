@@ -33,7 +33,7 @@ class Category < ApplicationRecord
     }
 
     if include_materials
-      props.merge!({ courseMaterials: course_materials.map(&:to_props) })
+      props.merge!({ courseMaterials: course_materials.published.map(&:to_props) })
     end
 
     props
