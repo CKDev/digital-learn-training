@@ -15,6 +15,24 @@ resource "aws_wafv2_web_acl" "waf" {
       managed_rule_group_statement {
         name        = "AWSManagedRulesCommonRuleSet"
         vendor_name = "AWS"
+
+        scope_down_statement {
+          not_statement {
+            statement {
+              byte_match_statement {
+                search_string = "/users/saml/auth"
+                field_to_match {
+                  uri_path {}
+                }
+                positional_constraint = "EXACTLY"
+                text_transformation {
+                  priority = 0
+                  type     = "NONE"
+                }
+              }
+            }
+          }
+        }
       }
     }
 
