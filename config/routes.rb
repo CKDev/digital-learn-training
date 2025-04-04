@@ -59,7 +59,13 @@ Rails.application.routes.draw do
     passwords: "passwords",
     saml_sessions: "saml_sessions",
     invitations: "invitations"
-  }
+  }, skip: [:registrations]
+
+  as :user do
+    get   'users/edit' => 'registrations#edit',   as: 'edit_user_registration'
+    patch 'users'      => 'registrations#update', as: 'user_registration'
+    put   'users'      => 'registrations#update'
+  end
 
   match "/404", to: "errors#error_404", via: [:all]
   match "/422", to: "errors#error_422", via: [:all]
