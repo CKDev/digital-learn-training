@@ -63,6 +63,29 @@ class Rack::Attack
       end
     end
 
+    # Throttle excessive POSTs to any endpoint
+    throttle("posts/ip", limit: 20, period: 1.minute) do |req|
+      req.ip if req.post?
+    end
+
+    # Block suspicious form submissions using old admin-style keys
+    blocklist("block legacy credential param attempts") do |req|
+      req.post? &&
+        req.form_data? &&
+        %w[cmd passwd user username].any? { |key| req.params.key?(key) }
+    end
+
+    # Block anyone that has hit honeypot trap
+    blocklist("honeypot trap") do |req|
+      req.path == "/admin/login"
+    end
+
+    # blocklist("suspicious user agents") do |req|
+    blocklist("suspicious user agents") do |req|
+      ua = req.user_agent.to_s.downcase
+      ua.include?("python") || ua.include?("curl") || ua.include?("httpclient")
+    end
+
     ### Prevent Wordpress attempts
 
     # These urls are never valid, and cause exceptions to be thrown within the app that chews up
