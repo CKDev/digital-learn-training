@@ -71,5 +71,8 @@ Rails.application.routes.draw do
   match "/422", to: "errors#error_422", via: [:all]
   match "/500", to: "errors#error_500", via: [:all]
 
+  # Honeypot route for bots/researchers
+  get "/admin/login", to: "errors#error_404"
+
   root to: "home#index"
 end
