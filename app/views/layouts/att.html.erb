@@ -28,7 +28,14 @@
     <main class="container">
       <%= render "flashes" %>
       <%= render "collaborator_warning" %>
-      <%= yield %>
+      <div class="page-content">
+        <% if @include_admin_sidebar %>
+          <%= render "admin_sidebar" %>
+        <% end %>
+        <div class="main-content">
+          <%= yield %>
+        </div>
+      </div>
     </main>
     <%= render "#{current_organization.subdomain}/footer" %>
     <%= render "google_analytics" if Rails.env.production? %>

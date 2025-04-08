@@ -1,7 +1,6 @@
 class Rack::Attack
 
   unless Rails.env.test?
-
     ### Configure Cache ###
 
     # If you don't want to use Rails.cache (Rack::Attack's default), then
@@ -72,7 +71,7 @@ class Rack::Attack
     blocklist("block legacy credential param attempts") do |req|
       req.post? &&
         req.form_data? &&
-        %w[cmd passwd user username].any? { |key| req.params.key?(key) }
+        %w[cmd passwd username].any? { |key| req.params.key?(key) }
     end
 
     # Block anyone that has hit honeypot trap
@@ -114,5 +113,10 @@ class Rack::Attack
     #    ['']] # body
     # end
 
+
+    ActiveSupport::Notifications.subscribe("rack.attack") do |name, start, finish, request_id, payload|
+      req = payload[:request]
+      Rails.logger.warn "🚫 Blocked by Rack::Attack: IP=#{req.ip}, Path=#{req.path}, Params=#{req.params.inspect}"
+    end
   end
 end
