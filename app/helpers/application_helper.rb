@@ -31,7 +31,7 @@ module ApplicationHelper
   end
 
   def contact_email
-    current_organization&.contact_email || 'support@digitallearn.org'
+    current_organization&.contact_email || HELP_EMAIL
   end
 
   def react_component(*args)
