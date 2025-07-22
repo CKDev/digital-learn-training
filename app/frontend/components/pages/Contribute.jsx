@@ -1,7 +1,7 @@
 import { Box, Link, Typography } from "@mui/material";
 import React from "react";
 
-const Contribute = ({}) => (
+const Contribute = ({ contactEmail }) => (
   <Box>
     <Typography variant="h6">Contribute to DigitalLearn</Typography>
     <Box sx={{ mt: 3, mb: 3 }}>
@@ -23,10 +23,12 @@ const Contribute = ({}) => (
         Send us an Email:{" "}
         <Link
           href={
-            "mailto:support@digitallearn.org?subject=Contact%20from%20DigitalLearn%20Training%20Site%20"
+            "mailto:" +
+            contactEmail +
+            "?subject=Contact%20from%20DigitalLearn%20Training%20Site%20"
           }
         >
-          support@digitallearn.org
+          {contactEmail}
         </Link>
       </Typography>
     </Box>

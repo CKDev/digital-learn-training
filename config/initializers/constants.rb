@@ -56,3 +56,5 @@ STATE_SELECT_OPTIONS = [
   ['Wisconsin', 'WI'],
   ['Wyoming', 'WY']
 ]
+
+HELP_EMAIL = 'digitallearnhelp@ala.org'.freeze

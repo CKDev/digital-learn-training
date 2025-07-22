@@ -6,10 +6,11 @@ import ThemedComponent from "../components/ThemedComponent";
 
 const container = document.querySelector(".contribute-page");
 if (container) {
+  const props = JSON.parse(container.dataset.props);
   const root = createRoot(container);
   root.render(
     <ThemedComponent>
-      <Contribute />
+      <Contribute contactEmail={props.contactEmail} />
     </ThemedComponent>
   );
 }
