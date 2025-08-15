@@ -20,6 +20,15 @@ resource "aws_ecs_service" "app_service" {
     type       = "memberOf"
     expression = "attribute:ecs.availability-zone in [${var.region}a, ${var.region}b]"
   }
+
+  lifecycle {
+    # Don't overwrite latest task definition revision
+    # WARNING: changing the task_definition will case ECS to use the latest
+    # sidekiq image, which is usually the one deployed to staging (sidekiq-latest tag)
+    # Sometimes, we want to update the task_definition, but it should be
+    # done with care to avoid releasing untested code to production sidekiq
+    ignore_changes = [task_definition]
+  }
 }
 
 resource "aws_ecs_service" "sidekiq_service" {
@@ -31,6 +40,15 @@ resource "aws_ecs_service" "sidekiq_service" {
   placement_constraints {
     type       = "memberOf"
     expression = "attribute:ecs.availability-zone in [${var.region}a, ${var.region}b]"
+  }
+
+  lifecycle {
+    # Don't overwrite latest task definition revision
+    # WARNING: changing the task_definition will case ECS to use the latest
+    # sidekiq image, which is usually the one deployed to staging (sidekiq-latest tag)
+    # Sometimes, we want to update the task_definition, but it should be
+    # done with care to avoid releasing untested code to production sidekiq
+    ignore_changes = [task_definition]
   }
 }
 
