@@ -20,6 +20,15 @@ resource "aws_ecs_service" "app_service" {
     type       = "memberOf"
     expression = "attribute:ecs.availability-zone in [${var.region}a, ${var.region}b]"
   }
+
+  lifecycle {
+    # Don't overwrite latest task definition revision
+    # WARNING: changing the task_definition will case ECS to use the latest
+    # sidekiq image, which is usually the one deployed to staging (sidekiq-latest tag)
+    # Sometimes, we want to update the task_definition, but it should be
+    # done with care to avoid releasing untested code to production sidekiq
+    ignore_changes = [task_definition]
+  }
 }
 
 resource "aws_ecs_service" "sidekiq_service" {
@@ -31,6 +40,15 @@ resource "aws_ecs_service" "sidekiq_service" {
   placement_constraints {
     type       = "memberOf"
     expression = "attribute:ecs.availability-zone in [${var.region}a, ${var.region}b]"
+  }
+
+  lifecycle {
+    # Don't overwrite latest task definition revision
+    # WARNING: changing the task_definition will case ECS to use the latest
+    # sidekiq image, which is usually the one deployed to staging (sidekiq-latest tag)
+    # Sometimes, we want to update the task_definition, but it should be
+    # done with care to avoid releasing untested code to production sidekiq
+    ignore_changes = [task_definition]
   }
 }
 
@@ -85,6 +103,18 @@ resource "aws_autoscaling_group" "asg" {
 
   health_check_grace_period = 300
   health_check_type         = "EC2"
+
+  tag {
+    key                 = "ecs_cluster"
+    value               = aws_ecs_cluster.ecs_cluster.name
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "Name"
+    value               = "${var.project_name} App Instance ${var.environment_name}"
+    propagate_at_launch = true
+  }
 
   lifecycle {
     create_before_destroy = true
