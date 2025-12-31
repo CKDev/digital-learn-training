@@ -27,10 +27,12 @@ WORKDIR /rails-app
 
 # Build args (injected from CodeBuild)
 ARG RAILS_ENV
+ARG RAILS_MASTER_KEY
 ARG ROLLBAR_ENV
 
 # Set ENV so Rails sees them during asset precompile
 ENV RAILS_ENV=${RAILS_ENV}
+ENV RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
 ENV ROLLBAR_ENV=${ROLLBAR_ENV}
 
 # Add gems
