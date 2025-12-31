@@ -33,24 +33,25 @@ ARG ROLLBAR_ENV
 ENV RAILS_ENV=${RAILS_ENV}
 ENV ROLLBAR_ENV=${ROLLBAR_ENV}
 
-# Add gems
-COPY Gemfile Gemfile.lock ./
-
 # Install gems
-COPY install_gems.sh ./
+COPY Gemfile Gemfile
+COPY Gemfile.lock Gemfile.lock
+
+COPY install_gems.sh install_gems.sh
 RUN chmod u+x install_gems.sh && ./install_gems.sh
 
 # Install Node.js dependencies
 COPY package.json package-lock.json ./
 RUN npm install
 
-COPY . .
+# Copy app code
+COPY . /rails-app
 
-# Precompile assets (includes vite build via vite_rails gem)
-COPY precompile_assets.sh ./
+# Precompile assets (this will load Rails & credentials)
+COPY precompile_assets.sh precompile_assets.sh
 RUN chmod u+x precompile_assets.sh && ./precompile_assets.sh
 
-# Add entrypoint script
+# Entrypoint
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 
