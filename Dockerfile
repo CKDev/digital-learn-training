@@ -1,4 +1,4 @@
-FROM ruby:3.2.6-slim-bookworm
+FROM ruby:3.2.9-slim-bookworm
 
 # install rails dependencies
 RUN apt-get update -qq && \
