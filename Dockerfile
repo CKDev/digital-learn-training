@@ -25,9 +25,13 @@ RUN apt-get update -qq && \
 # Set working directory
 WORKDIR /rails-app
 
-# Consume build args
+# Build args (injected from CodeBuild)
 ARG RAILS_ENV
-ARG RAILS_MASTER_KEY
+ARG ROLLBAR_ENV
+
+# Set ENV so Rails sees them during asset precompile
+ENV RAILS_ENV=${RAILS_ENV}
+ENV ROLLBAR_ENV=${ROLLBAR_ENV}
 
 # Add gems
 COPY Gemfile Gemfile.lock ./
