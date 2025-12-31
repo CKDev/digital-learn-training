@@ -20,7 +20,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Project     = "DigitalLearn Training"
+      Project     = var.project_name
       Environment = var.environment_name
     }
   }
@@ -158,5 +158,15 @@ module "waf" {
   web_acl_name     = "DLTrainingProductionWAFACL"
   alb_arn          = module.load_balancer.load_balancer_arn
   enable_shield    = false
+}
+
+moved {
+  from = module.application.aws_ecs_cluster.ecs_cluster
+  to   = module.ecs_cluster.aws_ecs_cluster.ecs_cluster
+}
+
+moved {
+  from = module.application.aws_ecs_service.sidekiq_service
+  to   = module.sidekiq.aws_ecs_service.sidekiq
 }
 

@@ -1,14 +1,15 @@
-resource "aws_ecs_cluster" "ecs_cluster" {
-  name = "${var.project_name}-cluster-${var.environment_name}"
-}
-
-resource "aws_ecs_service" "app_service" {
-  name                              = "${var.project_name}-${var.environment_name}-app-service"
-  cluster                           = aws_ecs_cluster.ecs_cluster.id
+resource "aws_ecs_service" "ecs_service" {
+  name                              = "${var.project_name}-${var.environment_name}-web-server"
+  cluster                           = var.ecs_cluster_id
   task_definition                   = aws_ecs_task_definition.app_service.arn
-  desired_count                     = var.desired_instance_count
-  iam_role                          = aws_iam_role.instance.name
+  desired_count                     = var.desired_task_count
   health_check_grace_period_seconds = 60
+
+  force_new_deployment = true
+  capacity_provider_strategy {
+    capacity_provider = aws_ecs_capacity_provider.app_capacity_provider.name
+    weight            = 1
+  }
 
   load_balancer {
     target_group_arn = var.lb_target_group_arn
@@ -21,102 +22,56 @@ resource "aws_ecs_service" "app_service" {
     expression = "attribute:ecs.availability-zone in [${var.region}a, ${var.region}b]"
   }
 
-  lifecycle {
-    # Don't overwrite latest task definition revision
-    # WARNING: changing the task_definition will case ECS to use the latest
-    # sidekiq image, which is usually the one deployed to staging (sidekiq-latest tag)
-    # Sometimes, we want to update the task_definition, but it should be
-    # done with care to avoid releasing untested code to production sidekiq
-    ignore_changes = [task_definition]
+  ordered_placement_strategy {
+    type  = "binpack"
+    field = "cpu"
   }
 }
 
-resource "aws_ecs_service" "sidekiq_service" {
-  name            = "${var.project_name}-${var.environment_name}-sidekiq-service"
-  cluster         = aws_ecs_cluster.ecs_cluster.id
-  task_definition = aws_ecs_task_definition.sidekiq_service.arn
-  desired_count   = var.desired_sidekiq_instance_count
-
-  placement_constraints {
-    type       = "memberOf"
-    expression = "attribute:ecs.availability-zone in [${var.region}a, ${var.region}b]"
-  }
-
-  lifecycle {
-    # Don't overwrite latest task definition revision
-    # WARNING: changing the task_definition will case ECS to use the latest
-    # sidekiq image, which is usually the one deployed to staging (sidekiq-latest tag)
-    # Sometimes, we want to update the task_definition, but it should be
-    # done with care to avoid releasing untested code to production sidekiq
-    ignore_changes = [task_definition]
-  }
+data "aws_ssm_parameter" "web_server_ami" {
+  name = "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id"
 }
 
-data "aws_ami" "ecs_ami" {
-  most_recent = true
-  owners      = ["amazon"]
+resource "aws_key_pair" "developer_encryption_key" {
+  key_name   = "developer-encryption-key-${var.project_name}-${var.environment_name}"
+  public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHhSagwW5vT7J/uu94PBAHkTXivaSxYFx2vBeMvzIcLq dl-learners-staging"
+}
 
-  filter {
-    name   = "name"
-    values = ["amzn-ami-*-amazon-ecs-optimized"]
+resource "aws_launch_template" "instance" {
+  name_prefix   = "${var.project_name}-lt-"
+  image_id      = data.aws_ssm_parameter.web_server_ami.value
+  instance_type = var.instance_type
+  key_name      = aws_key_pair.developer_encryption_key.key_name
+
+  iam_instance_profile {
+    name = aws_iam_instance_profile.ecs_instance.name
   }
-}
 
-resource "aws_key_pair" "app_instance_key" {
-  key_name   = "app-instance-key-${var.environment_name}"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCc4aJ32ODM+cgouELWfAA/AIVwiwHt+fO7+EGt/b9/slnUmxOUbD61s6haG4MAhSAZ4T5TRsu1YDhZOPj59I+Wui6CP8j0E8T4QVNZuk4iFn+wsR1Z5rMZ+23kz3npjW7hOKJZcHiCh4Lv0+7IAf4sYmC3aawF+9gn8cJPMqI2Cb7uOlVMybQsCqlrl/YaENiWfq0HyeF4EIEcOwBEfHwhFf9OHW7cIOrVeJSMq1bmXeGTRZBtNhP+zjb3K8Qv1oNS2QEI8Mv3hUNjedUXQ6wXMUGBxc/Etmnph74PzXzz8tzrq1lgUFHqjmj8tfRsYpWk48f8a5Oe6P9/0BwCq4U7"
-}
 
-resource "aws_launch_configuration" "instance" {
-  name_prefix                 = "${var.project_name}-instance-"
-  instance_type               = var.instance_type
-  image_id                    = data.aws_ami.ecs_ami.id
-  associate_public_ip_address = true
-  iam_instance_profile        = aws_iam_instance_profile.instance.name
-  key_name                    = aws_key_pair.app_instance_key.key_name
-  security_groups = [
-    var.default_security_group_id,
+  vpc_security_group_ids = [
     aws_security_group.application_sg.id,
     var.db_access_security_group_id,
     var.redis_access_security_group_id
   ]
 
-  user_data = <<-EOF
-                  #!/bin/bash
-                  echo ECS_CLUSTER=${aws_ecs_cluster.ecs_cluster.name} >> /etc/ecs/ecs.config
-                EOF
+  user_data = base64encode(<<-EOF
+    #!/bin/bash
+    set -euxo pipefail
 
-  lifecycle {
-    create_before_destroy = true
-  }
-}
+    mkdir -p /etc/ecs
+    cat >/etc/ecs/ecs.config <<CONFIG
+  ECS_CLUSTER=${var.ecs_cluster_name}
+  CONFIG
+  EOF
+  )
 
-resource "aws_autoscaling_group" "asg" {
-  name = "${var.project_name}-${var.environment_name}-asg"
 
-  launch_configuration = aws_launch_configuration.instance.name
-  termination_policies = ["OldestLaunchConfiguration", "Default"]
-  vpc_zone_identifier  = var.public_subnet_ids
-  target_group_arns    = [var.lb_target_group_arn]
-  max_size             = 3
-  min_size             = 1
+  tag_specifications {
+    resource_type = "instance"
 
-  health_check_grace_period = 300
-  health_check_type         = "EC2"
-
-  tag {
-    key                 = "ecs_cluster"
-    value               = aws_ecs_cluster.ecs_cluster.name
-    propagate_at_launch = true
-  }
-
-  tag {
-    key                 = "Name"
-    value               = "${var.project_name} App Instance ${var.environment_name}"
-    propagate_at_launch = true
-  }
-
-  lifecycle {
-    create_before_destroy = true
+    tags = {
+      Name        = "${var.project_name} App Instance ${var.environment_name}"
+      ecs_cluster = var.ecs_cluster_name
+    }
   }
 }
