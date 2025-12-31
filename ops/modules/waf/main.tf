@@ -4,11 +4,7 @@ resource "aws_wafv2_regex_pattern_set" "bypass_paths" {
   description = "Paths that bypass managed rule groups"
 
   regular_expression {
-    regex_string = "^/users/saml/auth/?$"
-  }
-
-  regular_expression {
-    regex_string = "^/admin(?:/|$)"
+    regex_string = "^/admin(?:/|$)" # Don't block on admin paths (yet)
   }
 }
 
@@ -68,24 +64,8 @@ resource "aws_wafv2_web_acl" "waf" {
     priority = 1
     statement {
       rate_based_statement {
-        limit              = 300     # per 5 min per IP; tune to baseline
+        limit              = var.rate_limiter_threshold
         aggregate_key_type = "IP"
-        scope_down_statement {
-          not_statement {
-            statement {
-              regex_pattern_set_reference_statement {
-                arn = aws_wafv2_regex_pattern_set.static_paths.arn
-                field_to_match {
-                  uri_path {}
-                }
-                text_transformation {
-                  priority = 0
-                  type = "NONE"
-                }
-              }
-            }
-          }
-        }
       }
     }
 
@@ -111,7 +91,6 @@ resource "aws_wafv2_web_acl" "waf" {
 
         scope_down_statement {
           and_statement {
-            # NOT (bypass paths: /admin/** and /users/saml/auth)
             statement {
               not_statement {
                 statement {
@@ -251,7 +230,7 @@ resource "aws_wafv2_web_acl" "waf" {
               }
             }
 
-            # NOT (multipart/form-data)
+            # NOT (multipart/form-data) to allow data uploads
             statement {
               not_statement {
                 statement {
