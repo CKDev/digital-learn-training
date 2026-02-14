@@ -67,7 +67,7 @@ module "load_balancer" {
   environment_name          = var.environment_name
   vpc_id                    = module.vpc.vpc_id
   public_subnet_ids         = module.vpc.public_subnet_ids
-  certificate_arn           = "arn:aws:acm:us-west-2:917415714855:certificate/1952e2ab-e00c-4248-8718-7b0469375fbf"
+  certificate_arn           = var.certificate_arn
 }
 
 module "database" {
@@ -85,7 +85,6 @@ module "database" {
   skip_final_snapshot = true
   monitoring_interval = 0
 }
-
 
 module "ecs_cluster" {
   source = "../modules/ecs_cluster"
@@ -115,13 +114,14 @@ module "application" {
   redis_host                     = module.redis.redis_endpoint
   redis_port                     = 6379
   public_subnet_ids              = module.vpc.public_subnet_ids
+  instance_type                  = "t3.small"
   max_instance_count             = 1
   desired_task_count             = 1
   min_task_count                 = 1
   max_task_count                 = 1
-  instance_type                  = "t3.small"
   service_memory                 = 512
   service_cpu                    = 512
+  log_retention_days             = 7
   lb_target_group_arn            = module.load_balancer.lb_target_group_arn
   rails_master_key_arn           = data.aws_secretsmanager_secret.rails_master_key.arn
   image                          = "${aws_ecr_repository.ecr_repo.repository_url}:${var.environment_name}"
@@ -160,8 +160,8 @@ module "sidekiq" {
   desired_task_count             = 1
   min_task_count                 = 1
   max_task_count                 = 2
-  task_cpu                       = 1600
-  memory_reservation             = 1600
+  task_cpu                       = 512
+  memory_reservation             = 512
 
   db_access_security_group_id    = module.database.db_access_security_group_id
   redis_access_security_group_id = module.redis.redis_access_security_group_id

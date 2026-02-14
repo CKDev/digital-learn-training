@@ -26,6 +26,9 @@ resource "aws_ecs_service" "ecs_service" {
     type  = "binpack"
     field = "cpu"
   }
+
+  force_delete          = true
+  wait_for_steady_state = false
 }
 
 data "aws_ssm_parameter" "web_server_ami" {
