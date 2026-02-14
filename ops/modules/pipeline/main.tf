@@ -22,9 +22,6 @@ locals {
     region             = var.region
     rails_env          = var.environment_name
     cluster_name       = var.ecs_cluster_name
-    rails_master_key   = var.rails_master_key
-    docker_username    = var.docker_username
-    docker_password    = var.docker_password
   })
 }
 
@@ -42,6 +39,26 @@ resource "aws_codebuild_project" "codebuild_project" {
     image           = "aws/codebuild/standard:5.0"
     type            = "LINUX_CONTAINER"
     privileged_mode = true
+
+    # Docker Hub username from Secrets Manager JSON key "username"
+    environment_variable {
+      name  = "DOCKER_USERNAME"
+      type  = "SECRETS_MANAGER"
+      value = "${var.dockerhub_secret_arn}:username"
+    }
+
+    # Docker Hub password from Secrets Manager JSON key "password"
+    environment_variable {
+      name  = "DOCKER_PASSWORD"
+      type  = "SECRETS_MANAGER"
+      value = "${var.dockerhub_secret_arn}:password"
+    }
+
+    environment_variable {
+      name  = "RAILS_MASTER_KEY"
+      type  = "SECRETS_MANAGER"
+      value = var.rails_master_key_arn  # secret whose value is the raw master key string
+    }
   }
 
   source {
@@ -49,3 +66,5 @@ resource "aws_codebuild_project" "codebuild_project" {
     buildspec = local.buildspec
   }
 }
+
+

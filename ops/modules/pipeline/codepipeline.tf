@@ -30,13 +30,13 @@ resource "aws_codepipeline" "pipeline" {
     name = "Build"
 
     action {
-      name             = "BuildApp"
+      name             = "Build"
       category         = "Build"
       owner            = "AWS"
       provider         = "CodeBuild"
       version          = "1"
       input_artifacts  = ["source"]
-      output_artifacts = ["appImagedefinition", "sidekiqImagedefinition"]
+      output_artifacts = ["build_output"]
 
       configuration = {
         ProjectName = aws_codebuild_project.codebuild_project.name
@@ -48,12 +48,13 @@ resource "aws_codepipeline" "pipeline" {
     name = "Deploy"
 
     action {
-      name            = "DeployApp"
+      name            = "DeployWeb"
       category        = "Deploy"
       owner           = "AWS"
       provider        = "ECS"
-      input_artifacts = ["appImagedefinition"]
       version         = "1"
+      input_artifacts = ["build_output"]
+      run_order       = 1
 
       configuration = {
         ClusterName = var.ecs_cluster_name
@@ -63,12 +64,13 @@ resource "aws_codepipeline" "pipeline" {
     }
 
     action {
-      name            = "DeploySidekiq"
-      category        = "Deploy"
-      owner           = "AWS"
-      provider        = "ECS"
-      input_artifacts = ["sidekiqImagedefinition"]
-      version         = "1"
+      name             = "DeploySidekiq"
+      category         = "Deploy"
+      owner            = "AWS"
+      provider         = "ECS"
+      version          = "1"
+      input_artifacts  = ["build_output"]
+      run_order        = 2
 
       configuration = {
         ClusterName = var.ecs_cluster_name

@@ -11,6 +11,5 @@ variable "ecr_project_uri" {}
 variable "github_owner" {}
 variable "github_repo" {}
 variable "branch" {}
-variable "rails_master_key" {}
-variable "docker_username" {}
-variable "docker_password" {}
+variable "dockerhub_secret_arn" {}
+variable "rails_master_key_arn" {}

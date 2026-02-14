@@ -1,122 +1,109 @@
+# frozen_string_literal: true
+
 class Rack::Attack
-
+  # In test, rack-attack can make request specs flaky/noisy.
   unless Rails.env.test?
-    ### Configure Cache ###
 
-    # If you don't want to use Rails.cache (Rack::Attack's default), then
-    # configure it here.
-    #
-    # Note: The store is only used for throttling (not blacklisting and
-    # whitelisting). It must implement .increment and .write like
-    # ActiveSupport::Cache::Store
+    # ----------------------------
+    # Helpers (safe / non-parsing)
+    # ----------------------------
 
-    # Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
+    BAD_ROUTES = %w[
+      /wp-login.php
+      /oneshotimage1
+      /clientaccesspolicy.xml
+      /mysql/admin
+      /recordings/theme/main.css
+    ].freeze
 
-    ### Throttle Spammy Clients ###
+    LEGACY_CRED_KEYS = %w[cmd passwd username].freeze
 
-    # If any single client IP is making tons of requests, then they're
-    # probably malicious or a poorly-configured scraper. Either way, they
-    # don't deserve to hog all of the app server's CPU. Cut them off!
-    #
-    # Note: If you're serving assets through rack, those requests may be
-    # counted by rack-attack and this throttle may be activated too
-    # quickly. If so, enable the condition to exclude them from tracking.
+    SUSPICIOUS_UA_SUBSTRINGS = %w[
+      python-requests
+      httpclient
+    ].freeze
 
-    # Throttle all requests by IP (60rpm)
-    #
-    # Key: "rack::attack:#{Time.now.to_i/:period}:req/ip:#{req.ip}"
-    throttle("req/ip", limit: 300, period: 5.minutes) do |req|
-      req.ip # unless req.path.start_with?('/assets')
+    def self.safe_params(req)
+      # Accessing req.params / req.POST can raise on malformed multipart requests.
+      # We only need params for a couple of checks; fail closed by returning {}.
+      req.params
+    rescue Rack::Multipart::EmptyContentError, Rack::Multipart::BoundaryError
+      {}
+    rescue => e
+      # Don't let unexpected parser errors take down middleware.
+      Rails.logger.warn("[Rack::Attack] params parse failed: #{e.class}: #{e.message}")
+      {}
     end
 
-    ### Prevent Brute-Force Login Attacks ###
+    def self.safe_login_email(req)
+      p = safe_params(req)
 
-    # The most common brute-force login attack is a brute-force password
-    # attack where an attacker simply tries a large number of emails and
-    # passwords to see if any credentials match.
-    #
-    # Another common method of attack is to use a swarm of computers with
-    # different IPs to try brute-forcing a password for a specific account.
+      # Devise common shapes:
+      # - params["email"]
+      # - params["user"]["email"]
+      email = p["email"] || p.dig("user", "email")
+      email.to_s.strip.downcase.presence
+    end
 
-    # Throttle POST requests to /login by IP address
-    #
-    # Key: "rack::attack:#{Time.now.to_i/:period}:logins/ip:#{req.ip}"
+    def self.form_key_present?(req, keys)
+      p = safe_params(req)
+      keys.any? { |k| p.key?(k) }
+    end
+
+    # ----------------------------
+    # Throttles
+    # ----------------------------
+
+    throttle("req/ip", limit: 300, period: 5.minutes) { |req| req.ip }
+
     throttle("logins/ip", limit: 5, period: 20.seconds) do |req|
-      if req.path == "/users/sign_in" && req.post?
-        req.ip
-      end
+      req.ip if req.post? && req.path == "/users/sign_in"
     end
 
-    # Throttle POST requests to /login by email param
-    #
-    # Key: "rack::attack:#{Time.now.to_i/:period}:logins/email:#{req.email}"
-    #
-    # Note: This creates a problem where a malicious user could intentionally
-    # throttle logins for another user and force their login requests to be
-    # denied, but that's not very common and shouldn't happen to you. (Knock
-    # on wood!)
     throttle("logins/email", limit: 5, period: 20.seconds) do |req|
-      if req.path == "/users/sign_in" && req.post?
-        # return the email if present, nil otherwise
-        req.params["email"].presence
-      end
+      safe_login_email(req) if req.post? && req.path == "/users/sign_in"
     end
 
-    # Throttle excessive POSTs to any endpoint
     throttle("posts/ip", limit: 20, period: 1.minute) do |req|
+      # Optional: skip known endpoints that legitimately post frequently (AJAX polling etc.)
       req.ip if req.post?
     end
 
-    # Block suspicious form submissions using old admin-style keys
-    blocklist("block legacy credential param attempts") do |req|
-      req.post? &&
-        req.form_data? &&
-        %w[cmd passwd username].any? { |key| req.params.key?(key) }
+    # ----------------------------
+    # Blocklists (explicit)
+    # ----------------------------
+
+    # Honeypot route for bots/researchers
+    blocklist("honeypot trap") { |req| req.path == "/admin/login" }
+
+    # Never-valid routes that generate noise (WordPress probes etc.)
+    blocklist("bad routes") { |req| BAD_ROUTES.include?(req.path) }
+
+    # Block suspicious "old admin panel" credential keys (without exploding on bad multipart)
+    blocklist("legacy credential param attempts") do |req|
+      req.post? && req.form_data? && form_key_present?(req, LEGACY_CRED_KEYS)
     end
 
-    # Block anyone that has hit honeypot trap
-    blocklist("honeypot trap") do |req|
-      req.path == "/admin/login"
-    end
-
-    # blocklist("suspicious user agents") do |req|
+    # User-Agent blocklist: keep it narrow to obvious automated tooling.
+    # NOTE: Blocking "curl" broadly can block legitimate internal checks.
     blocklist("suspicious user agents") do |req|
       ua = req.user_agent.to_s.downcase
-      ua.include?("python") || ua.include?("curl") || ua.include?("httpclient")
+      SUSPICIOUS_UA_SUBSTRINGS.any? { |s| ua.include?(s) }
     end
 
-    ### Prevent Wordpress attempts
+    # ----------------------------
+    # Logging / instrumentation
+    # ----------------------------
 
-    # These urls are never valid, and cause exceptions to be thrown within the app that chews up
-    # quota on exception tracking services.
-    throttle("bad_routes", limit: 0, period: 1.minute) do |req|
-      if req.path == "/wp-login.php" ||
-        req.path == "/oneshotimage1" ||
-        req.path == "/clientaccesspolicy.xml" ||
-        req.path == "/mysql/admin" ||
-        req.path == "/recordings/theme/main.css"
-        req.ip
-      end
-    end
-
-    ### Custom Throttle Response ###
-
-    # By default, Rack::Attack returns an HTTP 429 for throttled responses,
-    # which is just fine.
-    #
-    # If you want to return 503 so that the attacker might be fooled into
-    # believing that they've successfully broken your app (or you just want to
-    # customize the response), then uncomment these lines.
-    # self.throttled_response = lambda do |env|
-    #  [ 503,  # status
-    #    {},   # headers
-    #    ['']] # body
-    # end
-
-
-    ActiveSupport::Notifications.subscribe("rack.attack") do |name, start, finish, request_id, payload|
+    ActiveSupport::Notifications.subscribe("rack.attack") do |_name, _start, _finish, _request_id, payload|
       req = payload[:request]
-      Rails.logger.warn "🚫 Blocked by Rack::Attack: IP=#{req.ip}, Path=#{req.path}, Params=#{req.params.inspect}"
+      match_type = payload[:match_type] # :blocklist or :throttle
+      rule = payload[:matched]          # name of the matched rule
+
+      # Don't touch req.params here (can trigger multipart parsing + may log secrets)
+      Rails.logger.warn(
+        "[Rack::Attack] #{match_type} rule=#{rule.inspect} ip=#{req.ip} method=#{req.request_method} path=#{req.fullpath} ua=#{req.user_agent.to_s.tr("\n", " ")}"
+      )
     end
   end
 end

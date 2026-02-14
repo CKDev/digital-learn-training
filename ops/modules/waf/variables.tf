@@ -29,3 +29,23 @@ variable "enable_shield" {
   type        = bool
   default     = false
 }
+
+variable "rate_limiter_threshold" {
+  description = "Threshold for rate limiting requests per 5 minutes per IP"
+  type        = number
+  default     = 1000
+}
+
+variable "waf_upload_bypass_path_regexes" {
+  description = "List of regex strings for paths that should bypass body-size restrictions."
+  type        = list(string)
+
+  default = [
+    "^/admin/courses(?:/|$)",
+    "^/admin/courses/[^/]+(?:/|$)",
+    "^/admin/trainings(?:/|$)",
+    "^/admin/trainings/[^/]+(?:/|$)",
+    "^/admin/trainings/[^/]+/lessons(?:/|$)",
+    "^/admin/trainings/[^/]+/lessons/[^/]+(?:/|$)",
+  ]
+}
