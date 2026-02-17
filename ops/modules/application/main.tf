@@ -29,6 +29,11 @@ resource "aws_ecs_service" "ecs_service" {
 
   force_delete          = true
   wait_for_steady_state = false
+
+  lifecycle {
+    # Don't overwrite latest task definition revision
+    ignore_changes = [task_definition]
+  }
 }
 
 data "aws_ssm_parameter" "web_server_ami" {

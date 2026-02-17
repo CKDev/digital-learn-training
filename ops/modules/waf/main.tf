@@ -33,6 +33,18 @@ resource "aws_wafv2_regex_pattern_set" "upload_bypass_paths" {
   }
 }
 
+resource "aws_wafv2_regex_pattern_set" "saml_paths" {
+  name        = "${var.project_name}-waf-saml-paths-${var.environment_name}"
+  scope       = "REGIONAL"
+  description = "SAML endpoints that need relaxed body size checks"
+
+  regular_expression { regex_string = "^/users/saml(?:/|$)" }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 #############################
 # Web ACL
 #############################
@@ -133,12 +145,59 @@ resource "aws_wafv2_web_acl" "waf" {
   }
 
   ########################################
-  # 3) CommonRuleSet for allowlisted upload/form paths ONLY
+  # 3) Bypass SAML auth endpoints
+  ########################################
+  rule {
+    name     = "CommonRuleSetSamlBypass"
+    priority = 3
+
+    statement {
+      managed_rule_group_statement {
+        name        = "AWSManagedRulesCommonRuleSet"
+        vendor_name = "AWS"
+
+        # Only relax the specific sub-rule that is breaking SAML POSTs
+        rule_action_override {
+          name = "SizeRestrictions_BODY"
+          action_to_use {
+            count {}
+          }
+        }
+
+        scope_down_statement {
+          regex_pattern_set_reference_statement {
+            arn = aws_wafv2_regex_pattern_set.saml_paths.arn
+            field_to_match {
+              uri_path {}
+            }
+            text_transformation {
+              priority = 0
+              type     = "NONE"
+            }
+          }
+        }
+      }
+    }
+
+    override_action {
+      none {}
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "CommonRuleSetSamlBypass"
+      sampled_requests_enabled   = true
+    }
+  }
+
+
+  ########################################
+  # 4) CommonRuleSet for allowlisted upload/form paths ONLY
   #    - Excludes only SizeRestrictions_BODY
   ########################################
   rule {
     name     = "CommonRuleSetUploadBypass"
-    priority = 3
+    priority = 4
 
     statement {
       managed_rule_group_statement {
@@ -179,13 +238,13 @@ resource "aws_wafv2_web_acl" "waf" {
   }
 
   ########################################
-  # 4) CommonRuleSet for everything else
+  # 5) CommonRuleSet for everything else
   #    - Same protections as usual, INCLUDING SizeRestrictions_BODY
   #    - Excludes upload_bypass_paths and static assets
   ########################################
   rule {
     name     = "AWS-AWSManagedRulesCommonRuleSet"
-    priority = 4
+    priority = 5
 
     statement {
       managed_rule_group_statement {
@@ -247,13 +306,13 @@ resource "aws_wafv2_web_acl" "waf" {
   }
 
   ########################################
-  # 5) KnownBadInputsRuleSet
+  # 6) KnownBadInputsRuleSet
   #    - Applied broadly, excluding static assets
   #    - (No admin-wide bypass)
   ########################################
   rule {
     name     = "AWS-AWSManagedRulesKnownBadInputsRuleSet"
-    priority = 5
+    priority = 6
 
     statement {
       managed_rule_group_statement {
@@ -293,14 +352,14 @@ resource "aws_wafv2_web_acl" "waf" {
   }
 
   ########################################
-  # 6) SQLiRuleSet
+  # 7) SQLiRuleSet
   #    - Excludes multipart/form-data (your existing upload carve-out)
   #    - Excludes static assets
   #    - (No admin-wide bypass)
   ########################################
   rule {
     name     = "AWS-AWSManagedRulesSQLiRuleSet"
-    priority = 6
+    priority = 7
 
     statement {
       managed_rule_group_statement {
