@@ -162,7 +162,7 @@ module "sidekiq" {
   desired_task_count             = 1
   min_task_count                 = 1
   max_task_count                 = 2
-  task_cpu                       = 1600
+  task_cpu                       = 1024
   memory_reservation             = 1600
 
   db_access_security_group_id    = module.database.db_access_security_group_id
