@@ -92,4 +92,9 @@ resource "aws_ecs_service" "sidekiq" {
     Project     = var.project_name
     Environment = var.environment_name
   }
+
+  lifecycle {
+    # Don't overwrite latest task definition revision
+    ignore_changes = [task_definition]
+  }
 }
