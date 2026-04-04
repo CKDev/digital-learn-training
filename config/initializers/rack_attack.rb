@@ -14,20 +14,38 @@ class Rack::Attack
       /clientaccesspolicy.xml
       /mysql/admin
       /recordings/theme/main.css
+      /wp-admin
+      /wp-content
+      /wp-includes
+      /xmlrpc.php
+      /.env
+      /config.php
+      /setup.php
+      /servlet/
+      /invoker/
+      /jmx-console
+      /web-console
+      /manager/html
+      /shell
+      /cmd
+      /exec
+      /.git/
+      /.aws/
+      /.ssh/
+      /etc/passwd
+      /proc/self
+      /phpmyadmin
+      /pma
+      /myadmin
     ].freeze
 
     LEGACY_CRED_KEYS = %w[cmd passwd username].freeze
-
-    SUSPICIOUS_UA_SUBSTRINGS = %w[
-      python-requests
-      httpclient
-    ].freeze
 
     def self.safe_params(req)
       # Accessing req.params / req.POST can raise on malformed multipart requests.
       # We only need params for a couple of checks; fail closed by returning {}.
       req.params
-    rescue Rack::Multipart::EmptyContentError, Rack::Multipart::BoundaryError
+    rescue Rack::Multipart::EmptyContentError
       {}
     rescue => e
       # Don't let unexpected parser errors take down middleware.
@@ -77,18 +95,21 @@ class Rack::Attack
     blocklist("honeypot trap") { |req| req.path == "/admin/login" }
 
     # Never-valid routes that generate noise (WordPress probes etc.)
-    blocklist("bad routes") { |req| BAD_ROUTES.include?(req.path) }
+    blocklist("bad routes") { |req| BAD_ROUTES.any? { |r| req.path.start_with?(r) } }
 
     # Block suspicious "old admin panel" credential keys (without exploding on bad multipart)
     blocklist("legacy credential param attempts") do |req|
       req.post? && req.form_data? && form_key_present?(req, LEGACY_CRED_KEYS)
     end
 
-    # User-Agent blocklist: keep it narrow to obvious automated tooling.
-    # NOTE: Blocking "curl" broadly can block legitimate internal checks.
-    blocklist("suspicious user agents") do |req|
-      ua = req.user_agent.to_s.downcase
-      SUSPICIOUS_UA_SUBSTRINGS.any? { |s| ua.include?(s) }
+    # Block common attack vectors by file extension (without exploding on bad multipart)
+    blocklist("bad extensions") do |req|
+      req.path.end_with?(".php", ".asp", ".aspx", ".jsp", ".cgi", ".env")
+    end
+
+    # Real browsers should always have a user agent string.
+    blocklist("scanner user agents") do |req|
+      req.user_agent.nil?
     end
 
     # ----------------------------
