@@ -161,7 +161,7 @@ GEM
     docile (1.4.1)
     drb (2.2.3)
     dry-cli (1.2.0)
-    erb (6.0.2)
+    erb (6.0.4)
     erubi (1.13.1)
     execjs (2.10.0)
     factory_bot (6.5.0)
