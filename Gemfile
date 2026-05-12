@@ -6,7 +6,7 @@ gem 'puma'
 gem 'sassc-rails'
 gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'sidekiq', '< 8'
+gem 'sidekiq', '~> 8.0'
 gem 'recaptcha', '~> 5.16'
 gem 'net-http'
 

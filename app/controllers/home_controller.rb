@@ -32,7 +32,7 @@ class HomeController < ApplicationController
   end
 
   def redirect_unauthenticated_subdomain_user
-    if !current_user && current_organization&.authentication_required
+    if !current_user && current_organization&.authentication_required && current_organization.subdomain == 'att'
       redirect_to "/#{current_organization.subdomain}/login"
     end
   end
