@@ -27,7 +27,6 @@ resource "aws_launch_template" "instance" {
     set -euxo pipefail
     mkdir -p /etc/ecs
     echo "ECS_CLUSTER=${var.ecs_cluster_name}" > /etc/ecs/ecs.config
-    systemctl restart ecs
     EOF
   )
 
