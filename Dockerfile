@@ -18,9 +18,13 @@ RUN apt-get update -qq && \
   openssl \
   imagemagick \
   file \
-  nodejs \
-  npm \
   vim && \
+  rm -rf /var/lib/apt/lists/*
+
+# Install Node.js 22 LTS (npm 9 from Debian apt is incompatible with npm 11 lockfiles)
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+  apt-get install -y nodejs && \
+  npm install -g npm@11 && \
   rm -rf /var/lib/apt/lists/*
 
 # Set working directory
