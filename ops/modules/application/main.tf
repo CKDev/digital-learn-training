@@ -37,7 +37,7 @@ resource "aws_ecs_service" "ecs_service" {
 }
 
 data "aws_ssm_parameter" "web_server_ami" {
-  name = "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id"
+  name = "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended/image_id"
 }
 
 resource "aws_key_pair" "developer_encryption_key" {
@@ -62,15 +62,19 @@ resource "aws_launch_template" "instance" {
     var.redis_access_security_group_id
   ]
 
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 2
+  }
+
   user_data = base64encode(<<-EOF
     #!/bin/bash
     set -euxo pipefail
-
     mkdir -p /etc/ecs
-    cat >/etc/ecs/ecs.config <<CONFIG
-  ECS_CLUSTER=${var.ecs_cluster_name}
-  CONFIG
-  EOF
+    echo "ECS_CLUSTER=${var.ecs_cluster_name}" > /etc/ecs/ecs.config
+    systemctl restart ecs
+    EOF
   )
 
 
