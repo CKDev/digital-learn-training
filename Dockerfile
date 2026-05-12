@@ -21,11 +21,12 @@ RUN apt-get update -qq && \
   vim && \
   rm -rf /var/lib/apt/lists/*
 
-# Install Node.js 22 LTS (npm 9 from Debian apt is incompatible with npm 11 lockfiles)
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
-  apt-get install -y nodejs && \
-  npm install -g npm@11 && \
-  rm -rf /var/lib/apt/lists/*
+# Install Node.js 22 LTS directly from the official image (avoids NodeSource network dependency)
+COPY --from=node:22-bookworm-slim /usr/local/bin/node /usr/local/bin/node
+COPY --from=node:22-bookworm-slim /usr/local/lib/node_modules /usr/local/lib/node_modules
+RUN ln -sf /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && \
+  ln -sf /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx && \
+  npm install -g npm@11
 
 # Set working directory
 WORKDIR /rails-app
