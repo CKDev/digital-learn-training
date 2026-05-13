@@ -1,4 +1,6 @@
 class LearnersSessionsController < ApplicationController
+  skip_before_action :authenticate_user!
+
   def new
     learners_client = DigitalLearnOauthClient.dl_client(current_organization)
     redirect_to learners_client.auth_code.authorize_url(
