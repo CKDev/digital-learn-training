@@ -47,5 +47,6 @@ variable "waf_upload_bypass_path_regexes" {
     "^/admin/trainings/[^/]+(?:/|$)",
     "^/admin/trainings/[^/]+/lessons(?:/|$)",
     "^/admin/trainings/[^/]+/lessons/[^/]+(?:/|$)",
+    "^/admin/organization_settings(?:/|$)",
   ]
 }

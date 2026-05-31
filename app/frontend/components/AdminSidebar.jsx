@@ -28,6 +28,10 @@ const AdminSidebar = ({
       title: "Change Login Information",
       path: "/users/edit",
     },
+    {
+      title: "Organization Settings",
+      path: "/admin/organization_settings",
+    },
   ];
 
   if (importsEnabled) {

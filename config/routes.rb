@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     resources :course_materials_archive, only: [:index], path: "courses_archive"
     resources :categories, except: [:destroy]
     resources :attachments, only: [:destroy]
+    resource :organization_settings, only: [:show, :update]
   end
 
   namespace :att do
