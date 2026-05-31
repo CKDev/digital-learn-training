@@ -1,6 +1,11 @@
 <% if @use_ui_v2 %>
   <% page_links = @footer_links.map { |page| { label: page.title, path: page_path(page) } } %>
-  <%= react_component class: "footer", data: { props: { pages: page_links, contactEmail: contact_email, logoFile: image_url('pla_logo_white.png'), logoLinkDestination: "http://www.ala.org/pla/", adminSignedIn: admin_signed_in? } } %>
+  <% if current_organization&.footer_logo_file_name.present?
+       footer_logo = Rails.application.config.s3_enabled ? current_organization.footer_logo.url : "/#{current_organization.footer_logo.url}"
+     else
+       footer_logo = image_url('pla_logo_white.png')
+     end %>
+  <%= react_component class: "footer", data: { props: { pages: page_links, contactEmail: contact_email, logoFile: footer_logo, logoLinkDestination: "http://www.ala.org/pla/", adminSignedIn: admin_signed_in? } } %>
   <%= vite_javascript_tag 'footer.jsx' %>
 <% else %>
   <footer class="legacy-footer">
