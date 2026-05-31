@@ -9,6 +9,14 @@ class Organization < ApplicationRecord
   store_accessor :settings, :access_requests_enabled, :access_request_emails, :authentication_required
   store_accessor :theme_overrides, :palette
 
+  has_attached_file :header_logo, url: 'organizations/:id/header_logo/:basename.:extension'
+  validates_attachment_content_type :header_logo, content_type: Constants.course_material_media_types,
+    message: 'Only PNG, JPG, GIF and WebP files are allowed.'
+
+  has_attached_file :footer_logo, url: 'organizations/:id/footer_logo/:basename.:extension'
+  validates_attachment_content_type :footer_logo, content_type: Constants.course_material_media_types,
+    message: 'Only PNG, JPG, GIF and WebP files are allowed.'
+
   def to_props
     {
       id: id,
