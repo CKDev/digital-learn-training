@@ -1,14 +1,15 @@
 export async function sendRequest(path, method, body, headers = null) {
   try {
-    // Set default headers if needed
     if (headers == null) {
-      headers = {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      };
+      headers = {};
     }
 
-    // Add csrf token from document
+    headers["Accept"] = "application/json";
+
+    if (!(body instanceof FormData)) {
+      headers["Content-Type"] = "application/json";
+    }
+
     const csrfToken = document
       .querySelector('meta[name="csrf-token"]')
       .getAttribute("content");
