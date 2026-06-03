@@ -23,14 +23,19 @@ export async function sendRequest(path, method, body, headers = null) {
       body: body,
     });
 
-    if (!response.ok) {
-      const responseData = await response.json();
-      throw new Error(
-        responseData.error || responseData.message || "Unexpected Server Error"
-      );
+    const responseText = await response.text();
+    let responseData;
+    try {
+      responseData = JSON.parse(responseText);
+    } catch {
+      console.error(`Non-JSON response (HTTP ${response.status}):`, responseText.slice(0, 500));
+      throw new Error(`Server returned HTTP ${response.status} with non-JSON response`);
     }
-    const data = await response.json();
-    return { success: true, data: data };
+
+    if (!response.ok) {
+      throw new Error(responseData.error || responseData.message || "Unexpected Server Error");
+    }
+    return { success: true, data: responseData };
   } catch (err) {
     console.error("Error sending API request:", err);
     return { success: false, message: err.message };
