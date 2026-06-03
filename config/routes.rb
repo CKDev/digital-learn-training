@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   resources :categories, only: [:show]
   resources :templates, only: [:index]
   resources :contribute, only: [:index]
+  get 'terms_of_use', to: 'static_pages#terms_of_use'
+  get 'privacy_policy', to: 'static_pages#privacy_policy'
   resource :collaborator_warnings, only: [:destroy]
 
   # SSO With Learners Site

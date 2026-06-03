@@ -13,8 +13,35 @@ const Footer = ({
   return (
     <Box>
       <Box sx={{ p: "20px", bgcolor: "info.dark", textAlign: "center" }}>
-        <Typography sx={{ mb: "20px", color: "common.white" }}>
-          This work is licensed under a Creative Commons BY-NC-SA License
+        <Typography variant="body1" sx={{ mb: 1, color: "common.white" }}>
+          <Link
+            href="https://opensource.org/license/mit"
+            target="_blank"
+            rel="noopener noreferrer"
+            color="inherit"
+            underline="always"
+          >
+            Platform License: MIT
+          </Link>
+          {' | '}
+          <Link
+            href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode"
+            target="_blank"
+            rel="noopener noreferrer"
+            color="inherit"
+            underline="always"
+          >
+            Content License: CC BY-NC-SA 4.0
+          </Link>
+        </Typography>
+        <Typography variant="body2" sx={{ mb: "20px", color: "common.white" }}>
+          <Link href="/terms_of_use" color="inherit" underline="always">
+            Terms of Use
+          </Link>
+          {' | '}
+          <Link href="/privacy_policy" color="inherit" underline="always">
+            Privacy Policy
+          </Link>
         </Typography>
         <Link href={logoLinkDestination} target="_blank">
           <img src={logoFile} alt="Footer Logo" />
