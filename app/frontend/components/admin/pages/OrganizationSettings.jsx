@@ -37,7 +37,7 @@ const ColorField = ({ label, value, onChange }) => (
 );
 
 const LogoSection = ({ title, currentUrl, inputRef, onFileChange }) => (
-  <Box>
+  <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
     <Typography variant="subtitle1" gutterBottom fontWeight="medium">
       {title}
     </Typography>
