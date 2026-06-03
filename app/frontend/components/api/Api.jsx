@@ -1,14 +1,15 @@
 export async function sendRequest(path, method, body, headers = null) {
   try {
-    // Set default headers if needed
     if (headers == null) {
-      headers = {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      };
+      headers = {};
     }
 
-    // Add csrf token from document
+    headers["Accept"] = "application/json";
+
+    if (!(body instanceof FormData)) {
+      headers["Content-Type"] = "application/json";
+    }
+
     const csrfToken = document
       .querySelector('meta[name="csrf-token"]')
       .getAttribute("content");
@@ -22,14 +23,19 @@ export async function sendRequest(path, method, body, headers = null) {
       body: body,
     });
 
-    if (!response.ok) {
-      const responseData = await response.json();
-      throw new Error(
-        responseData.error || responseData.message || "Unexpected Server Error"
-      );
+    const responseText = await response.text();
+    let responseData;
+    try {
+      responseData = JSON.parse(responseText);
+    } catch {
+      console.error(`Non-JSON response (HTTP ${response.status}):`, responseText.slice(0, 500));
+      throw new Error(`Server returned HTTP ${response.status} with non-JSON response`);
     }
-    const data = await response.json();
-    return { success: true, data: data };
+
+    if (!response.ok) {
+      throw new Error(responseData.error || responseData.message || "Unexpected Server Error");
+    }
+    return { success: true, data: responseData };
   } catch (err) {
     console.error("Error sending API request:", err);
     return { success: false, message: err.message };

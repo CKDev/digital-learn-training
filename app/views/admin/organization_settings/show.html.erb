@@ -1,0 +1,18 @@
+<% if @use_ui_v2 %>
+  <% palette = @organization.palette || {} %>
+  <% if @organization.header_logo_file_name.present?
+       header_logo_url = Rails.application.config.s3_enabled ? @organization.header_logo.url : "/#{@organization.header_logo.url}"
+     else
+       header_logo_url = nil
+     end %>
+  <% if @organization.footer_logo_file_name.present?
+       footer_logo_url = Rails.application.config.s3_enabled ? @organization.footer_logo.url : "/#{@organization.footer_logo.url}"
+     else
+       footer_logo_url = nil
+     end %>
+  <%= react_component class: "admin-organization-settings",
+        data: { props: { palette: palette, headerLogoUrl: header_logo_url, footerLogoUrl: footer_logo_url } } %>
+  <%= vite_javascript_tag 'admin-organization-settings.jsx' %>
+<% else %>
+  <p>Organization settings are only available in the new UI.</p>
+<% end %>
