@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Rack::Attack.cache.store = ActiveSupport::Cache::RedisCacheStore.new(
+Rack::Attack.cache.store = Redis.new(
   url: "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}/1"
 ) if ENV['REDIS_HOST'].present?
 
