@@ -17,6 +17,69 @@ const DEFAULT_PALETTE = {
   iconColor: "rgba(0, 0, 0, 0.56)",
 };
 
+const ColorField = ({ label, value, onChange }) => (
+  <Stack direction="row" spacing={1.5} alignItems="center">
+    <input
+      type="color"
+      value={value.startsWith("#") ? value : "#000000"}
+      onChange={onChange}
+      style={{ width: 36, height: 36, cursor: "pointer", border: "none", padding: 0, background: "none" }}
+      title={label}
+    />
+    <TextField
+      label={label}
+      value={value}
+      onChange={onChange}
+      size="small"
+      sx={{ flex: 1 }}
+    />
+  </Stack>
+);
+
+const LogoSection = ({ title, currentUrl, inputRef, onFileChange }) => (
+  <Box>
+    <Typography variant="subtitle1" gutterBottom fontWeight="medium">
+      {title}
+    </Typography>
+    {currentUrl ? (
+      <Box
+        sx={{
+          mb: 1.5,
+          p: 1,
+          border: "1px solid",
+          borderColor: "divider",
+          borderRadius: 1,
+          display: "inline-block",
+        }}
+      >
+        <img
+          src={currentUrl}
+          alt={title}
+          style={{ maxHeight: 80, maxWidth: 220, display: "block" }}
+        />
+      </Box>
+    ) : (
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
+        No logo uploaded
+      </Typography>
+    )}
+    <input
+      type="file"
+      accept="image/png,image/jpeg,image/gif,image/webp"
+      ref={inputRef}
+      onChange={onFileChange}
+      style={{ display: "none" }}
+    />
+    <Button
+      variant="outlined"
+      size="small"
+      onClick={() => inputRef.current?.click()}
+    >
+      {currentUrl ? "Change Logo" : "Upload Logo"}
+    </Button>
+  </Box>
+);
+
 const OrganizationSettings = ({
   palette: initialPalette,
   headerLogoUrl: initialHeaderLogoUrl,
@@ -42,7 +105,6 @@ const OrganizationSettings = ({
   const [footerLogoFile, setFooterLogoFile] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
 
   const headerLogoInputRef = useRef(null);
   const footerLogoInputRef = useRef(null);
@@ -73,7 +135,6 @@ const OrganizationSettings = ({
     e.preventDefault();
     setSubmitting(true);
     setError(null);
-    setSuccess(false);
 
     const data = new FormData();
     data.append("organization[palette][primary][main]", palette.primary.main);
@@ -94,76 +155,12 @@ const OrganizationSettings = ({
     setSubmitting(false);
 
     if (response.success) {
-      setSuccess(true);
-      setHeaderLogoFile(null);
-      setFooterLogoFile(null);
+      window.location.reload();
     } else {
+      setSubmitting(false);
       setError(response.message);
     }
   };
-
-  const ColorField = ({ label, value, onChange }) => (
-    <Stack direction="row" spacing={1.5} alignItems="center">
-      <input
-        type="color"
-        value={value.startsWith("#") ? value : "#000000"}
-        onChange={onChange}
-        style={{ width: 36, height: 36, cursor: "pointer", border: "none", padding: 0, background: "none" }}
-        title={label}
-      />
-      <TextField
-        label={label}
-        value={value}
-        onChange={onChange}
-        size="small"
-        sx={{ flex: 1 }}
-      />
-    </Stack>
-  );
-
-  const LogoSection = ({ title, currentUrl, inputRef, onFileChange }) => (
-    <Box>
-      <Typography variant="subtitle1" gutterBottom fontWeight="medium">
-        {title}
-      </Typography>
-      {currentUrl ? (
-        <Box
-          sx={{
-            mb: 1.5,
-            p: 1,
-            border: "1px solid",
-            borderColor: "divider",
-            borderRadius: 1,
-            display: "inline-block",
-          }}
-        >
-          <img
-            src={currentUrl}
-            alt={title}
-            style={{ maxHeight: 80, maxWidth: 220, display: "block" }}
-          />
-        </Box>
-      ) : (
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
-          No logo uploaded
-        </Typography>
-      )}
-      <input
-        type="file"
-        accept="image/png,image/jpeg,image/gif,image/webp"
-        ref={inputRef}
-        onChange={onFileChange}
-        style={{ display: "none" }}
-      />
-      <Button
-        variant="outlined"
-        size="small"
-        onClick={() => inputRef.current?.click()}
-      >
-        {currentUrl ? "Change Logo" : "Upload Logo"}
-      </Button>
-    </Box>
-  );
 
   return (
     <Box component="form" onSubmit={handleSubmit}>
@@ -174,11 +171,6 @@ const OrganizationSettings = ({
       {error && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
-        </Alert>
-      )}
-      {success && (
-        <Alert severity="success" sx={{ mb: 2 }}>
-          Settings saved successfully.
         </Alert>
       )}
 
