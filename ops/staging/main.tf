@@ -126,7 +126,7 @@ module "application" {
   rails_master_key_arn           = data.aws_secretsmanager_secret.rails_master_key.arn
   image                          = "${aws_ecr_repository.ecr_repo.repository_url}:${var.environment_name}"
   s3_bucket_arns = [
-    "arn:aws:s3:::dl-uploads-${var.environment_name}",
+    "arn:aws:s3:::dl-training-uploads-${var.environment_name}",
     "arn:aws:s3:::dl-stageapp-lessons-zipped"
   ]
   task_execution_role_arn = module.ecs_cluster.ecs_task_execution_role_arn
