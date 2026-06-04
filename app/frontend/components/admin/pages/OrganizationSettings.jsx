@@ -36,7 +36,7 @@ const ColorField = ({ label, value, onChange }) => (
   </Stack>
 );
 
-const LogoSection = ({ title, currentUrl, inputRef, onFileChange }) => (
+const LogoSection = ({ title, currentUrl, inputRef, onFileChange, previewHeight = "3.125rem" }) => (
   <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
     <Typography variant="subtitle1" gutterBottom fontWeight="medium">
       {title}
@@ -55,7 +55,7 @@ const LogoSection = ({ title, currentUrl, inputRef, onFileChange }) => (
         <img
           src={currentUrl}
           alt={title}
-          style={{ maxHeight: 80, maxWidth: 220, display: "block" }}
+          style={{ height: previewHeight, width: "auto", display: "block" }}
         />
       </Box>
     ) : (
@@ -256,6 +256,7 @@ const OrganizationSettings = ({
                 currentUrl={footerLogoUrl}
                 inputRef={footerLogoInputRef}
                 onFileChange={handleFooterLogoChange}
+                previewHeight="3.5rem"
               />
             </Grid>
           </Grid>
