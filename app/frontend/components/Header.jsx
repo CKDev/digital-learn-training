@@ -41,7 +41,7 @@ const Header = ({ logoLinkUrl, logoFile, switcherUrl, isAuthenticated }) => {
       <SiteSwitcher switcherUrl={switcherUrl} />
       <Grid container justifyContent="space-between">
         <Link href={logoLinkUrl}>
-          <img src={logoFile} alt="Header Logo" />
+          <img src={logoFile} alt="Header Logo" style={{ height: "3.125rem", width: "auto" }} />
         </Link>
         {isAuthenticated && (
           <Button
