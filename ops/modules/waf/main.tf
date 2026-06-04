@@ -211,6 +211,35 @@ resource "aws_wafv2_web_acl" "waf" {
           }
         }
 
+        # Binary image content can match these body inspection rules — count instead of block
+        rule_action_override {
+          name = "CrossSiteScripting_BODY"
+          action_to_use {
+            count {}
+          }
+        }
+
+        rule_action_override {
+          name = "GenericLFI_BODY"
+          action_to_use {
+            count {}
+          }
+        }
+
+        rule_action_override {
+          name = "GenericRFI_BODY"
+          action_to_use {
+            count {}
+          }
+        }
+
+        rule_action_override {
+          name = "EC2MetaDataSSRF_BODY"
+          action_to_use {
+            count {}
+          }
+        }
+
         scope_down_statement {
           regex_pattern_set_reference_statement {
             arn = aws_wafv2_regex_pattern_set.upload_bypass_paths.arn

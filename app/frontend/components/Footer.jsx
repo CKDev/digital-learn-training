@@ -44,7 +44,7 @@ const Footer = ({
           </Link>
         </Typography>
         <Link href={logoLinkDestination} target="_blank">
-          <img src={logoFile} alt="Footer Logo" />
+          <img src={logoFile} alt="Footer Logo" style={{ height: "3.5rem", width: "auto" }} />
         </Link>
       </Box>
       <Box sx={{ p: "20px" }}>

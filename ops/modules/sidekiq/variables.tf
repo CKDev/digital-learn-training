@@ -36,3 +36,8 @@ variable "task_execution_role_arn" {
   type        = string
   description = "ARN of the ECS task execution role"
 }
+
+variable "s3_bucket_arns" {
+  type        = list(string)
+  description = "ARNs of S3 buckets Sidekiq workers need read/write access to"
+}

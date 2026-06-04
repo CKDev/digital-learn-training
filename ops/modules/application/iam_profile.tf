@@ -60,6 +60,7 @@ data "aws_iam_policy_document" "ecs_instance_inline" {
     actions = [
       "s3:GetObject",
       "s3:PutObject",
+      "s3:PutObjectAcl",
     ]
     resources = formatlist("%s/*", var.s3_bucket_arns)
   }
