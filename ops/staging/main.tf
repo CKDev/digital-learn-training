@@ -119,8 +119,8 @@ module "application" {
   desired_task_count             = 1
   min_task_count                 = 1
   max_task_count                 = 1
-  service_memory                 = 512
-  service_cpu                    = 512
+  service_memory                 = 1024
+  service_cpu                    = 1024
   log_retention_days             = 7
   lb_target_group_arn            = module.load_balancer.lb_target_group_arn
   rails_master_key_arn           = data.aws_secretsmanager_secret.rails_master_key.arn
