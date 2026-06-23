@@ -1,7 +1,7 @@
 module Admin
   class CourseMaterialImportsController < BaseController
     def index
-      @course_materials = CourseMaterial.for_organization(nil) # Only "main site" materials are currently importable
+      @course_materials = CourseMaterial.for_organization(nil).published # Only "main site" materials are currently importable
       @imported_course_materials = current_organization.imported_course_materials
     end
 
