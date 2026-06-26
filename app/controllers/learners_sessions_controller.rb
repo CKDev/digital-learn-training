@@ -22,10 +22,16 @@ class LearnersSessionsController < ApplicationController
     user.save!
     subdomain = user_info['organization_subdomain']
     org_admin = user_info['is_org_admin']
-    organization = Organization.find_by(subdomain: subdomain)
-    raise OrganizationNotFoundError, "Organization not found for subdomain: #{subdomain}" if organization.blank?
 
-    user.add_role(:organization_admin, organization) if org_admin
+    if subdomain == 'www'
+      user.update!(admin: true) if org_admin
+    else
+      organization = Organization.find_by(subdomain: subdomain)
+      raise OrganizationNotFoundError, "Organization not found for subdomain: #{subdomain}" if organization.blank?
+
+      user.add_role(:organization_admin, organization) if org_admin
+    end
+
     sign_in(user)
     redirect_to admin_root_path
   end
