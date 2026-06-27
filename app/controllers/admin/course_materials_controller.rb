@@ -85,6 +85,10 @@ module Admin
         params[:course_material][:sub_category_id] = '' # Remove if not passed in.
       end
 
+      if params[:course_material][:sub_category_id].to_i == 0
+        params[:course_material][:sub_category_id] = nil
+      end
+
       params.require(:course_material).permit(
         :title,
         :contributor,
