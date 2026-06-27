@@ -43,7 +43,7 @@ resource "aws_iam_policy" "sidekiq_s3" {
       {
         Sid      = "S3ObjectRW"
         Effect   = "Allow"
-        Action   = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"]
+        Action   = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject", "s3:PutObjectAcl"]
         Resource = [for arn in var.s3_bucket_arns : "${arn}/*"]
       }
     ]
