@@ -27,7 +27,7 @@
       </div>
       <% if @course_materials.present? %>
         <% @course_materials.group_by(&:category).each do |category, materials| %>
-          <h3><%= "#{category.title}#{category.organization.present? ? " - #{category.organization.title}" : ''}" %></h3>
+          <h3><%= category.organization.present? && category.organization != Organization.digital_learn ? "#{category.title} - #{category.organization.title}" : category.title %></h3>
           <ul class="objects sortable reorderable">
             <% materials.each do |course_material| %>
               <li class="sortable-item" data-id="<%= course_material.id %>">

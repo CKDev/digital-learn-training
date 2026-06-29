@@ -107,9 +107,10 @@ module Admin
     end
 
     def categories_array
+      national_org = Organization.digital_learn
       Category.order(:title).map do |c|
-        category_title = c.organization.present? ? "#{c.title} (#{c.organization.title})" : c.title
-        [category_title, c.id]
+        label = c.organization.present? && c.organization != national_org ? "#{c.title} (#{c.organization.title})" : c.title
+        [label, c.id]
       end
     end
 
