@@ -31,9 +31,7 @@ class CourseMaterialsController < ApplicationController
   private
 
   def categories
-    categories = current_organization ? Category.where(organization: current_organization) : Category.where(organization: nil)
-
-    categories.includes(sub_categories: :course_materials)
+    Category.where(organization: current_organization).includes(sub_categories: :course_materials)
   end
 
   def imported_categories_data
