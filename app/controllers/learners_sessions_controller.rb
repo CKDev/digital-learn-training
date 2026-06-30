@@ -32,7 +32,12 @@ class LearnersSessionsController < ApplicationController
     end
 
     sign_in(user)
-    redirect_to admin_root_path
+
+    if admin_signed_in?
+      redirect_to admin_root_path
+    else
+      redirect_to root_path
+    end
   end
 
   class OrganizationNotFoundError < StandardError
