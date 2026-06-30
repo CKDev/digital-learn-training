@@ -27,4 +27,8 @@ class Organization < ApplicationRecord
   def can_import_courses?
     subdomain != 'att' # For now, AT&T can't import
   end
+
+  def self.digital_learn
+    find_by(subdomain: 'www')
+  end
 end

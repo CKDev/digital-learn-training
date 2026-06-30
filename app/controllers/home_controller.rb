@@ -26,9 +26,7 @@ class HomeController < ApplicationController
   private
 
   def categories
-    org_categories = current_organization ? Category.where(organization: current_organization) : Category.where(organization: nil)
-
-    org_categories.includes(sub_categories: :course_materials)
+    Category.where(organization: current_organization).includes(sub_categories: :course_materials)
   end
 
   def redirect_unauthenticated_subdomain_user

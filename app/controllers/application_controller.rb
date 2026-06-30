@@ -58,12 +58,13 @@ class ApplicationController < ActionController::Base
   def current_organization
     if request.subdomains.last == 'training'
       subdomain = request.subdomains.first
+      subdomain = 'www' if subdomain == 'training'
     else
       # Legacy subdomain handling (AT&T)
       subdomain = request.subdomains.last
     end
 
-    @current_organization ||= Organization.find_by(subdomain: subdomain)
+    @current_organization ||= Organization.find_by(subdomain: subdomain) || Organization.digital_learn
   end
 
   def set_layout
@@ -112,7 +113,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_ui_v2
-    # Use legacy UI for www and att subdomain
     @use_ui_v2 = current_organization&.subdomain != 'att'
   end
 end
