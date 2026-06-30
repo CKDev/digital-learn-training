@@ -21,7 +21,7 @@ const CourseHeader = ({
   materialsDownloadUrl,
 }) => (
   <Card elevation={0}>
-    <Paper elevation={0} sx={{ bgcolor: "primary.light" }}>
+    <Paper elevation={0}>
       <CardHeader
         title={title}
         action={providedByAtt == true && <ContributorAttribution />}
@@ -42,7 +42,6 @@ const CourseHeader = ({
       <CardActions>
         {fileCount + imageCount + videoCount > 0 && (
           <Button
-            sx={{ bgcolor: "white" }}
             variant="outlined"
             href={materialsDownloadUrl}
             target="_blank"
