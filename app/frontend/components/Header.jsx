@@ -1,11 +1,11 @@
 import React from "react";
 
-import { Container, Button, Grid2 as Grid, Link } from "@mui/material";
+import { Container, Button, Grid2 as Grid, Link, Typography } from "@mui/material";
 import SiteSwitcher from "./SiteSwitcher";
 import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 import FlashMessage from "./FlashMessage";
 
-const Header = ({ logoLinkUrl, logoFile, switcherUrl, isAuthenticated }) => {
+const Header = ({ logoLinkUrl, logoFile, switcherUrl, isAuthenticated, currentUserEmail }) => {
   const handleSignOut = async (event) => {
     event.preventDefault();
 
@@ -44,14 +44,21 @@ const Header = ({ logoLinkUrl, logoFile, switcherUrl, isAuthenticated }) => {
           <img src={logoFile} alt="Header Logo" style={{ height: "3.125rem", width: "auto" }} />
         </Link>
         {isAuthenticated && (
-          <Button
-            variant="text"
-            disableElevation
-            endIcon={<AccountBoxRoundedIcon />}
-            onClick={handleSignOut}
-          >
-            Sign Out
-          </Button>
+          <Grid container alignItems="center" spacing={1}>
+            {currentUserEmail && (
+              <Typography variant="body2" color="text.secondary">
+                Signed in as {currentUserEmail}
+              </Typography>
+            )}
+            <Button
+              variant="text"
+              disableElevation
+              endIcon={<AccountBoxRoundedIcon />}
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </Button>
+          </Grid>
         )}
       </Grid>
       <FlashMessage />
