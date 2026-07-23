@@ -5,9 +5,21 @@ class SamlSessionsController < Devise::SamlSessionsController
   # attempt rather than letting it bubble up as a 500.
   rescue_from REXML::ParseException, Nokogiri::XML::SyntaxError, OpenSSL::OpenSSLError, with: :handle_invalid_saml_response
 
+  # ruby-saml assumes SAMLResponse is a String. Posting it as a multipart file
+  # field instead turns it into an ActionDispatch::Http::UploadedFile, which
+  # crashes deep inside the gem (e.g. UploadedFile doesn't respond to
+  # `bytesize`). Reject non-String values before they get anywhere near it.
+  before_action :validate_saml_response_type, only: :create
+
   after_action :store_winning_strategy, only: :create
 
   private
+
+  def validate_saml_response_type
+    return if params[:SAMLResponse].nil? || params[:SAMLResponse].is_a?(String)
+
+    handle_invalid_saml_response(TypeError.new("SAMLResponse param was #{params[:SAMLResponse].class}, expected String"))
+  end
 
   def handle_invalid_saml_response(exception)
     DeviseSamlAuthenticatable::Logger.send("Rejected malformed SAMLResponse: #{exception.class}: #{exception.message}")
