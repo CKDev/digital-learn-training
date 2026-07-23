@@ -36,6 +36,11 @@ variable "rate_limiter_threshold" {
   default     = 1000
 }
 
+variable "allowed_host_regexes" {
+  description = "RE2 patterns matching the Host header values this environment should accept. Anything else is blocked at the WAF before it reaches the ALB target group."
+  type        = list(string)
+}
+
 variable "waf_upload_bypass_path_regexes" {
   description = "List of regex strings for paths that should bypass body-size restrictions."
   type        = list(string)

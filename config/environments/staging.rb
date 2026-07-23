@@ -49,6 +49,13 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
+  # Reject requests with a Host header that doesn't match, preventing
+  # Host header injection (e.g. password reset link poisoning).
+  config.hosts << ".staging.training.digitallearn.org"
+  # AT&T's org subdomain doesn't follow the {org}.staging.training.digitallearn.org
+  # pattern (see SubdomainBuilder) - it's staging.training.att.digitallearn.org.
+  config.hosts << "staging.training.att.digitallearn.org"
+
   # Mailer configuration
   config.action_mailer.default_url_options = { host: "staging.training.digitallearn.org" }
   config.action_mailer.raise_delivery_errors = true

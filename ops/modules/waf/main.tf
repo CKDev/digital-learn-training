@@ -33,6 +33,23 @@ resource "aws_wafv2_regex_pattern_set" "upload_bypass_paths" {
   }
 }
 
+resource "aws_wafv2_regex_pattern_set" "allowed_hosts" {
+  name        = "${var.project_name}-waf-allowed-hosts-${var.environment_name}"
+  scope       = "REGIONAL"
+  description = "Host header values this environment is allowed to be reached at"
+
+  dynamic "regular_expression" {
+    for_each = var.allowed_host_regexes
+    content {
+      regex_string = regular_expression.value
+    }
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 resource "aws_wafv2_regex_pattern_set" "saml_paths" {
   name        = "${var.project_name}-waf-saml-paths-${var.environment_name}"
   scope       = "REGIONAL"
@@ -59,11 +76,50 @@ resource "aws_wafv2_web_acl" "waf" {
   }
 
   ########################################
-  # 0) Block large cookies (cookie overflow attack)
+  # 0) Block requests with an untrusted Host header
+  #    (prevents Host header injection / password-reset link poisoning -
+  #    see config.hosts in config/environments/*.rb for the app-level backstop)
+  ########################################
+  rule {
+    name     = "BlockInvalidHost"
+    priority = 0
+
+    statement {
+      not_statement {
+        statement {
+          regex_pattern_set_reference_statement {
+            arn = aws_wafv2_regex_pattern_set.allowed_hosts.arn
+            field_to_match {
+              single_header {
+                name = "host" # must be lowercase
+              }
+            }
+            text_transformation {
+              priority = 0
+              type     = "LOWERCASE"
+            }
+          }
+        }
+      }
+    }
+
+    action {
+      block {}
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "BlockInvalidHost"
+      sampled_requests_enabled   = true
+    }
+  }
+
+  ########################################
+  # 1) Block large cookies (cookie overflow attack)
   ########################################
   rule {
     name     = "BlockLargeCookie"
-    priority = 0
+    priority = 1
 
     statement {
       size_constraint_statement {
@@ -93,11 +149,11 @@ resource "aws_wafv2_web_acl" "waf" {
   }
 
   ########################################
-  # 1) Rate limiter
+  # 2) Rate limiter
   ########################################
   rule {
     name     = "RateLimitIP"
-    priority = 1
+    priority = 2
 
     statement {
       rate_based_statement {
@@ -118,12 +174,12 @@ resource "aws_wafv2_web_acl" "waf" {
   }
 
   ########################################
-  # 2) Anonymous IP List - AWS Managed Rules
+  # 3) Anonymous IP List - AWS Managed Rules
   #    - Tor, proxies, VPNs
   ########################################
   rule {
     name     = "AWS-AWSManagedRulesAnonymousIpList"
-    priority = 2
+    priority = 3
 
     statement {
       managed_rule_group_statement {
@@ -145,11 +201,11 @@ resource "aws_wafv2_web_acl" "waf" {
   }
 
   ########################################
-  # 3) Bypass SAML auth endpoints
+  # 4) Bypass SAML auth endpoints
   ########################################
   rule {
     name     = "CommonRuleSetSamlBypass"
-    priority = 3
+    priority = 4
 
     statement {
       managed_rule_group_statement {
@@ -192,12 +248,12 @@ resource "aws_wafv2_web_acl" "waf" {
 
 
   ########################################
-  # 4) CommonRuleSet for allowlisted upload/form paths ONLY
+  # 5) CommonRuleSet for allowlisted upload/form paths ONLY
   #    - Excludes only SizeRestrictions_BODY
   ########################################
   rule {
     name     = "CommonRuleSetUploadBypass"
-    priority = 4
+    priority = 5
 
     statement {
       managed_rule_group_statement {
@@ -267,13 +323,13 @@ resource "aws_wafv2_web_acl" "waf" {
   }
 
   ########################################
-  # 5) CommonRuleSet for everything else
+  # 6) CommonRuleSet for everything else
   #    - Same protections as usual, INCLUDING SizeRestrictions_BODY
   #    - Excludes upload_bypass_paths and static assets
   ########################################
   rule {
     name     = "AWS-AWSManagedRulesCommonRuleSet"
-    priority = 5
+    priority = 6
 
     statement {
       managed_rule_group_statement {
@@ -352,13 +408,13 @@ resource "aws_wafv2_web_acl" "waf" {
   }
 
   ########################################
-  # 6) KnownBadInputsRuleSet
+  # 7) KnownBadInputsRuleSet
   #    - Applied broadly, excluding static assets
   #    - (No admin-wide bypass)
   ########################################
   rule {
     name     = "AWS-AWSManagedRulesKnownBadInputsRuleSet"
-    priority = 6
+    priority = 7
 
     statement {
       managed_rule_group_statement {
@@ -398,14 +454,14 @@ resource "aws_wafv2_web_acl" "waf" {
   }
 
   ########################################
-  # 7) SQLiRuleSet
+  # 8) SQLiRuleSet
   #    - Excludes multipart/form-data (your existing upload carve-out)
   #    - Excludes static assets
   #    - (No admin-wide bypass)
   ########################################
   rule {
     name     = "AWS-AWSManagedRulesSQLiRuleSet"
-    priority = 7
+    priority = 8
 
     statement {
       managed_rule_group_statement {
