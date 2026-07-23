@@ -205,6 +205,11 @@ module "waf" {
   web_acl_name     = "DLTrainingProductionWAFACL"
   alb_arn          = module.load_balancer.load_balancer_arn
   enable_shield    = false
+
+  allowed_host_regexes = [
+    "^([a-z0-9-]+\\.)?training\\.digitallearn\\.org(:\\d+)?$",
+    "^training\\.att\\.digitallearn\\.org(:\\d+)?$",
+  ]
 }
 
 moved {
