@@ -356,5 +356,11 @@ Devise.setup do |config|
     settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
     settings.issuer                             = "#{base_url}/users/saml/metadata"
+
+    # Require the <Assertion> itself to carry a valid signature, not just
+    # anything referenced elsewhere in the response. ruby-saml already
+    # rejects responses with no signature at all, but this closes off
+    # signature-wrapping-style attacks by pinning down what must be signed.
+    settings.security[:want_assertions_signed] = true
   end
 end
