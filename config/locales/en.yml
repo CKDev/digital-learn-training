@@ -3,9 +3,7 @@ en:
   multiple_assessments_msg: "There can only be one assessment for a Course. If you are sure you want to replace it, please delete the existing one and try again. Otherwise, please edit the existing assessment for this course."
   error_header: "The following errors prohibited this record from being saved:"
   banner:
-    slogan:
-      default: "Tools and Resources for Trainers"
-      att: "Tools and Resources for Instructors"
+    slogan: "Tools and Resources for Trainers"
   home:
     att_course_attribution: "This module was made possible by AT&T"
     att_collaborator_warning: "I understand and agree that any unauthorized modification, alteration, or revision of the Content is strictly prohibited without the express written consent of AT&T. For permissions or inquiries, I understand that I should contact AT&T directly."
