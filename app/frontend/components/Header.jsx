@@ -1,11 +1,23 @@
 import React from "react";
 
-import { Container, Button, Grid2 as Grid, Link, Typography } from "@mui/material";
+import {
+  Container,
+  Button,
+  Grid2 as Grid,
+  Link,
+  Typography,
+} from "@mui/material";
 import SiteSwitcher from "./SiteSwitcher";
 import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 import FlashMessage from "./FlashMessage";
 
-const Header = ({ logoLinkUrl, logoFile, switcherUrl, isAuthenticated, currentUserEmail }) => {
+const Header = ({
+  logoLinkUrl,
+  logoFile,
+  switcherUrl,
+  isAuthenticated,
+  currentUserEmail,
+}) => {
   const handleSignOut = async (event) => {
     event.preventDefault();
 
@@ -41,7 +53,11 @@ const Header = ({ logoLinkUrl, logoFile, switcherUrl, isAuthenticated, currentUs
       <SiteSwitcher switcherUrl={switcherUrl} />
       <Grid container justifyContent="space-between">
         <Link href={logoLinkUrl}>
-          <img src={logoFile} alt="Header Logo" style={{ height: "3.125rem", width: "auto" }} />
+          <img
+            src={logoFile}
+            alt="Header Logo"
+            style={{ height: "3.125rem", width: "auto" }}
+          />
         </Link>
         {isAuthenticated && (
           <Grid container alignItems="center" spacing={1}>
