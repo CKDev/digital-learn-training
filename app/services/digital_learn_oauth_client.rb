@@ -7,9 +7,6 @@ class DigitalLearnOauthClient
       authorize_url: '/oauth/authorize',
       token_url: '/oauth/token',
       scopes: 'read write'
-    ) do |builder|
-      builder.response :logger, Rails.logger, bodies: true, headers: true
-      builder.adapter Faraday.default_adapter
-    end
+    )
   end
 end
