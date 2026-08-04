@@ -3,7 +3,12 @@ import CourseMaterialForm from "../course_materials/CourseMaterialForm";
 import { updateCourseMaterial } from "@api/CourseMaterialsApi";
 import { Box, Breadcrumbs, Link, Paper, Typography } from "@mui/material";
 
-const EditCourseMaterial = ({ courseMaterial, categories }) => {
+const EditCourseMaterial = ({
+  courseMaterial,
+  categories,
+  allowedFileTypes,
+  allowedMediaTypes,
+}) => {
   const initialFormData = {
     title: courseMaterial.title,
     summary: courseMaterial.summary,
@@ -49,6 +54,8 @@ const EditCourseMaterial = ({ courseMaterial, categories }) => {
       <CourseMaterialForm
         initialData={initialFormData}
         categories={categories}
+        allowedFileTypes={allowedFileTypes}
+        allowedMediaTypes={allowedMediaTypes}
         onSubmit={handleSubmit}
       />
     </Box>

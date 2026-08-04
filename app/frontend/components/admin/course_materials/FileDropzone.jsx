@@ -3,28 +3,12 @@ import { useDropzone } from "react-dropzone";
 import { Grid2 as Grid, Icon, Typography } from "@mui/material";
 import UploadFileRoundedIcon from "@mui/icons-material/UploadFileRounded";
 
-const allowedFileTypes = {
-  "application/pdf": [], // PDFs
-  "application/vnd.ms-excel": [], // Excel 97-2003
-  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [], // Modern Excel
-  "text/csv": [], // CSV
-  "application/vnd.ms-powerpoint": [], // PowerPoint 97-2003
-  "application/vnd.openxmlformats-officedocument.presentationml.presentation":
-    [], // Modern PowerPoint
-  "application/msword": [], // Word 97-2003
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [], // Modern Word
-  "application/zip": [], // ZIP
-  "application/x-iwork-numbers-sffnumbers": [], // iWork Numbers (older versions)
-  "application/x-iwork-pages-sffpages": [], // iWork Pages (older versions)
-  "application/vnd.apple.pages": [], // Modern iWork Pages
-  "application/vnd.apple.numbers": [], // Modern iWork Numbers
-};
-
-const FileDropzone = ({ onFileChange, onFilesRejected }) => {
+const FileDropzone = ({ allowedFileTypes, onFileChange, onFilesRejected }) => {
   const maxSize = 50 * 1024 * 1024; // 50 MB
+  const accept = Object.fromEntries(allowedFileTypes.map((type) => [type, []]));
 
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
-    allowedFileTypes,
+    accept,
     maxSize,
     onDrop: (acceptedFiles) => {
       onFileChange(acceptedFiles);

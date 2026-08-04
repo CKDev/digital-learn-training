@@ -1,5 +1,5 @@
 <% if @use_ui_v2 %>
-  <%= react_component class: "admin-new-course-material", data: { props: { categories: @categories.map(&:to_props) } } %>
+  <%= react_component class: "admin-new-course-material", data: { props: { categories: @categories.map(&:to_props), allowedFileTypes: @allowed_file_types, allowedMediaTypes: @allowed_media_types } } %>
   <%= vite_javascript_tag 'admin-new-course-material.jsx' %>
 <% else %>
   <%= content_for(:callout) { %><h1>Add a New Course</h1><% } %>

@@ -17,12 +17,16 @@ module Admin
       @course_material.course_material_files.build
       @course_material.course_material_medias.build
       @course_material.course_material_videos.build
+      @allowed_file_types = Constants.course_material_file_types
+      @allowed_media_types = Constants.course_material_media_types
     end
 
     def edit
       @course_material = CourseMaterial.friendly.find(params[:id])
       @categories = Category.where(organization: current_organization).order(:title)
       @readonly = @course_material.title.in? PROTECTED_COURSE_MATERIALS
+      @allowed_file_types = Constants.course_material_file_types
+      @allowed_media_types = Constants.course_material_media_types
     end
 
     def create
