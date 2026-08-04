@@ -9,8 +9,10 @@ class Constants
       'application/zip',
       'application/x-iwork-numbers-sffnumbers',
       'application/x-iwork-pages-sffpages',
+      'application/x-iwork-keynote-sffkey',
       'application/vnd.apple.pages',
-      'application/vnd.apple.numbers'
+      'application/vnd.apple.numbers',
+      'application/vnd.apple.keynote'
     ]
   end
 
