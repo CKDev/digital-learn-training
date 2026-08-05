@@ -19,6 +19,8 @@ import _ from "lodash";
 const CourseMaterialForm = ({
   initialData,
   categories,
+  allowedFileTypes,
+  allowedMediaTypes,
   onSubmit,
   isNew = false,
 }) => {
@@ -329,6 +331,8 @@ const CourseMaterialForm = ({
         <ContentUploadTabs
           files={files}
           images={images}
+          allowedFileTypes={allowedFileTypes}
+          allowedMediaTypes={allowedMediaTypes}
           onFileChange={handleFileChange}
           onImageChange={handleImageChange}
           onFileDelete={handleFileDelete}

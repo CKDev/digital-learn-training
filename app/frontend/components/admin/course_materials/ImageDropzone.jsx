@@ -3,18 +3,14 @@ import { useDropzone } from "react-dropzone";
 import { Grid2 as Grid, Icon, Typography } from "@mui/material";
 import UploadFileRoundedIcon from "@mui/icons-material/UploadFileRounded";
 
-const allowedImageTypes = {
-  "image/png": [],
-  "image/jpeg": [],
-  "image/gif": [],
-  "image/webp": [],
-};
-
-const ImageDropzone = ({ onImageChange }) => {
+const ImageDropzone = ({ allowedImageTypes, onImageChange }) => {
   const maxSize = 100 * 1024 * 1024; // 100 MB
+  const accept = Object.fromEntries(
+    allowedImageTypes.map((type) => [type, []])
+  );
 
   const { getRootProps, getInputProps } = useDropzone({
-    allowedImageTypes,
+    accept,
     maxSize,
     onDrop: (acceptedFiles) => {
       onImageChange(acceptedFiles);

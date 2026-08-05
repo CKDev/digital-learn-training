@@ -10,6 +10,8 @@ import { getHumanReadableFileType } from "@utils/mime_translator";
 const ContentUploadTabs = ({
   files,
   images,
+  allowedFileTypes,
+  allowedMediaTypes,
   onFileChange,
   onImageChange,
   onFileDelete,
@@ -86,6 +88,7 @@ const ContentUploadTabs = ({
       >
         <Box sx={{ mb: 2 }}>
           <FileDropzone
+            allowedFileTypes={allowedFileTypes}
             onFileChange={handleFileChange}
             onFilesRejected={setRejectedFiles}
           />
@@ -115,7 +118,10 @@ const ContentUploadTabs = ({
         sx={{ py: 2, flexGrow: 1 }}
       >
         <Box sx={{ mb: 2 }}>
-          <ImageDropzone onImageChange={handleImageChange} />
+          <ImageDropzone
+            allowedImageTypes={allowedMediaTypes}
+            onImageChange={handleImageChange}
+          />
         </Box>
         <Grid container direction="column" gap={2}>
           {images.map((image, index) => (
