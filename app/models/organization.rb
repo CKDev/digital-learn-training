@@ -6,7 +6,8 @@ class Organization < ApplicationRecord
   has_many :imported_course_materials, through: :course_material_imports, source: :course_material
 
   validates :title, presence: true
-  store_accessor :settings, :access_requests_enabled, :access_request_emails, :authentication_required
+  store_accessor :settings, :access_requests_enabled, :access_request_emails, :authentication_required,
+    :trainers_only
   store_accessor :theme_overrides, :palette
 
   has_attached_file :header_logo, url: 'organizations/:id/header_logo/:basename.:extension'
