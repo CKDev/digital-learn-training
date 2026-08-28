@@ -23,7 +23,7 @@ class SamlSessionsController < Devise::SamlSessionsController
 
   def handle_invalid_saml_response(exception)
     DeviseSamlAuthenticatable::Logger.send("Rejected malformed SAMLResponse: #{exception.class}: #{exception.message}")
-    redirect_to (request.subdomains.last == 'att' ? att_login_path : new_user_session_path),
+    redirect_to new_user_session_path,
                 alert: I18n.t('devise.failure.invalid', authentication_keys: 'email')
   end
 

@@ -50,10 +50,6 @@ Rails.application.routes.draw do
     resource :organization_settings, only: [:show, :update]
   end
 
-  namespace :att do
-    get 'login'
-  end
-
   resources :access_requests, only: [:new, :create]
 
   devise_for :users, controllers: {

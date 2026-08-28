@@ -1,24 +1,29 @@
-<h2><%= t "devise.invitations.new.header" %></h2>
+<% if @use_ui_v2 %>
+  <%= react_component class: "invitation-new", data: { props: { invitationPath: invitation_path(resource_name), prefillEmail: resource.email } } %>
+  <%= vite_javascript_tag 'invitation-new.jsx' %>
+<% else %>
+  <h2><%= t "devise.invitations.new.header" %></h2>
 
-<p>
-  <em>
-    This feature currently applies to the AT&T training subdomain only.
-  </em>
-</p>
+  <p>
+    <em>
+      This feature currently applies to the AT&T training subdomain only.
+    </em>
+  </p>
 
-<%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-  <fieldset>
-    <% resource.class.invite_key_fields.each do |field| -%>
-      <div class="field">
-        <%= f.label field %>
-        <%= f.text_field field %>
-      </div>
-    <% end -%>
-  </fieldset>
+    <fieldset>
+      <% resource.class.invite_key_fields.each do |field| -%>
+        <div class="field">
+          <%= f.label field %>
+          <%= f.text_field field %>
+        </div>
+      <% end -%>
+    </fieldset>
 
-  <fieldset class="actions">
-    <%= f.submit t("devise.invitations.new.submit_button") %>
-  </fieldset>
+    <fieldset class="actions">
+      <%= f.submit t("devise.invitations.new.submit_button") %>
+    </fieldset>
+  <% end %>
 <% end %>
