@@ -2,7 +2,7 @@ require 'feature_helper'
 
 feature 'User access request' do
   before do
-    create(:att)
+    create(:att, settings: { access_requests_enabled: true, authentication_required: true })
     switch_to_subdomain 'training.att'
   end
 
@@ -10,12 +10,11 @@ feature 'User access request' do
     reset_subdomain
   end
 
-  scenario 'user requests access' do
+  scenario 'user requests access', :js do
     visit '/'
-    click_link('Login as Collaborator')
 
-    # Log in page
-    expect(page).to have_content('Log in')
+    # Unauthenticated visit to any page redirects straight to the sign-in page
+    expect(page).to have_content('Sign In')
     expect(page).to have_content("Don't have a collaborator account?")
     click_link_or_button('Request Access')
 
@@ -32,7 +31,7 @@ feature 'User access request' do
     fill_in 'Point of Contact First Name', with: 'Some Contact'
     fill_in 'Point of Contact Email address', with: 'poc@att.com'
     fill_in 'Please provide a brief explanation for requesting access to materials', with: 'I would like to help design content'
-    click_link_or_button 'Submit Access Request'
+    click_button 'Submit Access Request'
     expect(page).to have_current_path(new_user_session_path)
     expect(page).to have_content 'Your request for access has been submitted. If approved, you will receive an email invitation to set up your account.'
   end
@@ -41,7 +40,7 @@ feature 'User access request' do
     skip 'Need to write this test'
   end
 
-  scenario 'user accepts invitation' do
+  scenario 'user accepts invitation', :js do
     email = 'test@example.com'
     token = ''
 
@@ -68,7 +67,7 @@ feature 'User access request' do
     expect(page).to have_content 'By accessing these materials, data, and documents ("Content") contained herein,'
     check 'I accept these Terms and Conditions'
     click_button 'Create Account'
-    expect(page).to have_current_path(root_path)
+    expect(page).to have_current_path(course_materials_path, ignore_query: true)
     expect(page).to have_content('Your account has been created. You are now signed in.')
     expect(page).to have_content('I understand and agree that any unauthorized modification, alteration')
     click_link 'Dismiss'

@@ -18,7 +18,7 @@ feature 'Admins can send invitations' do
       click_link 'Admin Dashboard'
     end
 
-    it 'visits invitation page from admin portal' do
+    it 'visits invitation page from admin portal', :js do
       click_link 'Invite Collaborator'
       expect(page).to have_current_path(new_user_invitation_path)
       expect(page).to have_content('Invite Collaborator to DigitalLearn')
@@ -29,7 +29,7 @@ feature 'Admins can send invitations' do
       expect(page).to have_content('An invitation email has been sent to test_user@example.com.')
     end
 
-    it 'visits invitation page from email link' do
+    it 'visits invitation page from email link', :js do
       access_request = create(:access_request)
       visit new_user_invitation_path(access_request_id: access_request.id)
       expect(page).to have_field('Email', with: access_request.email)

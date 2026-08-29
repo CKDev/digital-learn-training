@@ -113,6 +113,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_ui_v2
-    @use_ui_v2 = current_organization&.subdomain != 'att'
+    @use_ui_v2 = true
   end
 end
