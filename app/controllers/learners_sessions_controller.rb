@@ -1,6 +1,8 @@
 class LearnersSessionsController < ApplicationController
   skip_before_action :authenticate_user!
 
+  ORGANIZATION_ROLES = %i[organization_admin trainer user].freeze
+
   def new
     learners_client = DigitalLearnOauthClient.dl_client(current_organization)
     redirect_to learners_client.auth_code.authorize_url(
@@ -24,7 +26,7 @@ class LearnersSessionsController < ApplicationController
     organization = Organization.find_by(subdomain: subdomain)
     raise OrganizationNotFoundError, "Organization not found for subdomain: #{subdomain}" if organization.blank?
 
-    if organization.trainers_only && !org_admin && !trainer
+    if organization.trainers_only? && !org_admin && !trainer
       redirect_to root_path, alert: 'Your account does not have access to training materials for this organization.'
       return
     end
@@ -33,10 +35,8 @@ class LearnersSessionsController < ApplicationController
     user.provider = 'dl_sso'
     user.save!
 
-    if org_admin
-      user.update!(admin: true) if subdomain == 'www'
-      user.add_role(:organization_admin, organization)
-    end
+    user.update!(admin: true) if org_admin && subdomain == 'www'
+    assign_organization_role(user, organization, org_admin: org_admin, trainer: trainer)
 
     sign_in(user)
 
@@ -48,5 +48,23 @@ class LearnersSessionsController < ApplicationController
   end
 
   class OrganizationNotFoundError < StandardError
+  end
+
+  private
+
+  # Every Learners Session sign-in records which organization the user belongs
+  # to and in what capacity, regardless of that organization's trainers_only
+  # setting, so access can be re-verified on every request afterward.
+  def assign_organization_role(user, organization, org_admin:, trainer:)
+    target_role = if org_admin
+                    :organization_admin
+                  elsif trainer
+                    :trainer
+                  else
+                    :user
+                  end
+
+    (ORGANIZATION_ROLES - [target_role]).each { |role| user.remove_role(role, organization) }
+    user.add_role(target_role, organization)
   end
 end
