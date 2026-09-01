@@ -48,6 +48,24 @@ describe LearnersSessionsController do
         expect(controller.current_user.email).to eq('learner@example.com')
         expect(response).to redirect_to(root_path)
       end
+
+      it 'grants the user role for the organization' do
+        get :callback, params: { code: 'abc123' }
+
+        user = User.find_by(email: 'learner@example.com')
+        expect(user.has_role?(:user, organization)).to be true
+      end
+
+      it 'removes a stale trainer role when a previously-trainer person signs in as a plain user' do
+        existing_user = create(:user, email: 'learner@example.com')
+        existing_user.add_role(:trainer, organization)
+
+        get :callback, params: { code: 'abc123' }
+
+        existing_user.reload
+        expect(existing_user.has_role?(:trainer, organization)).to be false
+        expect(existing_user.has_role?(:user, organization)).to be true
+      end
     end
 
     context 'when the organization is not found' do
@@ -92,10 +110,13 @@ describe LearnersSessionsController do
           }
         end
 
-        it 'signs the user in' do
+        it 'signs the user in and grants the trainer role' do
           get :callback, params: { code: 'abc123' }
 
           expect(controller.current_user.email).to eq('trainer@example.com')
+
+          user = User.find_by(email: 'trainer@example.com')
+          expect(user.has_role?(:trainer, organization)).to be true
         end
       end
 
