@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_action :set_ui_v2
 
   before_action :authenticate_user!, if: :authentication_required?
+  before_action :enforce_trainers_only_access!
 
   helper_method :admin_signed_in?
   helper_method :current_organization
@@ -99,6 +100,21 @@ class ApplicationController < ActionController::Base
 
   def authentication_required?
     current_organization&.authentication_required
+  end
+
+  # Re-checked on every request (not just at sign-in) so that a session that
+  # was already valid before an organization turned trainers_only on, or that
+  # was established through a login path other than the Learners Session SSO
+  # flow, can't keep accessing the site once it no longer qualifies.
+  def enforce_trainers_only_access!
+    return unless user_signed_in?
+    return unless current_organization&.trainers_only?
+    return if current_user.admin?
+    return if current_user.has_role?(:organization_admin, current_organization)
+    return if current_user.has_role?(:trainer, current_organization)
+
+    sign_out(current_user)
+    redirect_to root_path, alert: 'Your account does not have access to training materials for this organization.'
   end
 
   def current_language

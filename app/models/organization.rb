@@ -29,6 +29,10 @@ class Organization < ApplicationRecord
     subdomain != 'att' # For now, AT&T can't import
   end
 
+  def trainers_only?
+    ActiveModel::Type::Boolean.new.cast(trainers_only)
+  end
+
   def self.digital_learn
     find_by(subdomain: 'www')
   end
