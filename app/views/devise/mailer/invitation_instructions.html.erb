@@ -1,6 +1,8 @@
 <p><%= t("devise.mailer.invitation_instructions.hello", name_or_email: @resource.collaborator_profile&.first_name || @resource.email) %></p>
 
-<p><%= t("devise.mailer.invitation_instructions.someone_invited_you", url: root_url) %></p>
+<%= simple_format(t("devise.mailer.invitation_instructions.someone_invited_you_html.#{@organization&.subdomain || 'default'}",
+      default: :"devise.mailer.invitation_instructions.someone_invited_you_html.default"),
+      sanitize: false) %>
 
 <p><%= link_to t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, invitation_token: @token, subdomain: @mailer_subdomain), class: "button" %></p>
 
@@ -8,4 +10,5 @@
   <p><%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %></p>
 <% end %>
 
-<p><%= t("devise.mailer.invitation_instructions.ignore") %></p>
+<p><%= t("devise.mailer.invitation_instructions.ignore.#{@organization&.subdomain || 'default'}",
+      default: :"devise.mailer.invitation_instructions.ignore.default") %></p>

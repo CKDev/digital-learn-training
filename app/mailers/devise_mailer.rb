@@ -1,11 +1,11 @@
 class DeviseMailer < Devise::Mailer
   def invitation_instructions(record, token, opts = {})
-    # We need a User <-> Organization relation
-    # This is a hack for now, because the feature is only for AT&T
-    att = Organization.find_by(subdomain: 'att')
-    @organization_subdomain = 'att' # Logo subdomain
-    @mailer_subdomain = SubdomainBuilder.new(att).build_subdomain # Link subdomain
-    super
+    @organization = opts.delete(:organization)
+    @organization_subdomain = @organization&.subdomain # Logo subdomain
+    @mailer_subdomain = SubdomainBuilder.new(@organization).build_subdomain # Link subdomain
+    opts[:subject] = I18n.t("devise.mailer.invitation_instructions.subject.#{@organization_subdomain || 'default'}",
+      default: :"devise.mailer.invitation_instructions.subject.default")
+    super(record, token, opts)
   end
 
   def reset_password_instructions(record, token, opts = {})
