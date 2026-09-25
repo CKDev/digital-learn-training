@@ -70,6 +70,10 @@ class InvitationsController < Devise::InvitationsController
 
   protected
 
+  def invite_resource(&block)
+    resource_class.invite!(invite_params, current_inviter, { organization: current_organization }, &block)
+  end
+
   def configure_update_params
     update_keys = [
       :password,
