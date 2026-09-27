@@ -17,12 +17,26 @@ en:
         submit_button: "Create Account"
     mailer:
       invitation_instructions:
-        subject: "Invitation instructions"
+        subject:
+          default: "Invitation instructions"
+          att: "Invitation: AT&T Tools and Resources for Trainers"
         hello: "Hello %{name_or_email},"
-        someone_invited_you: "You have been invited to join the AT&T DigitalLearn Tools and Resources for Instructors as a collaborator. You can accept this invitation through the link below."
+        someone_invited_you_html:
+          default: |
+            You have been invited to join the DigitalLearn Tools and Resources for Instructors as a collaborator. You can accept this invitation through the link below.
+          att: |
+            Thank you for your partnership in advancing digital literacy.
+
+            You have been invited to join the <a href="https://att.training.digitallearn.org" target="_blank">AT&T Digital Literacy Tools and Resources for Trainers</a> site as a collaborator.
+
+            Accepting this invitation will give you access to resources designed to help support digital literacy training and learning opportunities in your communities.
+
+            To get started, please select the link below:
         accept: "Accept invitation"
         accept_until: "This invitation will expire %{due_date}."
-        ignore: "If you don't want to accept the invitation, please ignore this email. Your account won't be created until you access the link above and set your password."
+        ignore:
+          default: "If you don't want to accept the invitation, please ignore this email. Your account won't be created until you access the link above and set your password."
+          att: "If you do not wish to participate at this time, no action is needed. Your account will not be created unless you accept the invitation and complete the account setup process."
   time:
     formats:
       devise:

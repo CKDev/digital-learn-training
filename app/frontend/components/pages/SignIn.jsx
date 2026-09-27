@@ -10,7 +10,14 @@ import {
   Grid2 as Grid,
 } from "@mui/material";
 
-const SignIn = ({ signInPath, forgotPasswordPath, learnersSignInPath }) => {
+const SignIn = ({
+  signInPath,
+  forgotPasswordPath,
+  learnersSignInPath,
+  accessRequestsEnabled,
+  newAccessRequestPath,
+  newSamlSessionPath,
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -103,6 +110,18 @@ const SignIn = ({ signInPath, forgotPasswordPath, learnersSignInPath }) => {
         >
           Sign In with Learners Account
         </Button>
+        {accessRequestsEnabled && (
+          <>
+            <Typography variant="body2" textAlign="center">
+              Don't have a collaborator account?{" "}
+              <Link href={newAccessRequestPath}>Request Access</Link>
+            </Typography>
+            <Typography variant="body2" textAlign="center">
+              Are you an AT&T Employee?{" "}
+              <Link href={newSamlSessionPath}>Login with AT&T SSO</Link>
+            </Typography>
+          </>
+        )}
       </Grid>
     </Box>
   );

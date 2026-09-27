@@ -34,6 +34,10 @@ module ApplicationHelper
     current_organization&.contact_email || HELP_EMAIL
   end
 
+  def recaptcha_site_key
+    Rails.application.credentials.dig(Rails.env.to_sym, :recaptcha_site_key)
+  end
+
   def react_component(*args)
     content_tag :div, '', *args do
       render 'shared/loading'
