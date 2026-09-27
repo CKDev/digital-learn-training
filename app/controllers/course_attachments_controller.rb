@@ -4,7 +4,7 @@ class CourseAttachmentsController < ApplicationController
     combined_file = Tempfile.new(["#{@course_title}_archive", '.zip'])
 
     begin
-      ::Zip::File.open(combined_file.path, ::Zip::File::CREATE) do |zipfile|
+      ::Zip::File.open(combined_file.path, create: true) do |zipfile|
         add_files_to_zip(file_archive, zipfile) if @course_material.course_material_files.present? && @course_material.file_archive.present?
         add_files_to_zip(media_archive, zipfile) if @course_material.course_material_medias.present? && @course_material.media_archive.present?
       end
