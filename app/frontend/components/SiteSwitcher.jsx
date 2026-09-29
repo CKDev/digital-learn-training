@@ -8,9 +8,8 @@ const SiteSwitcher = ({ switcherUrl }) => (
     <Grid2 container display="flex" justifyContent="space-between">
       <Grid2 display="flex" alignItems="baseline" container gap={1}>
         <Typography variant="overline" display="inline">
-          Current Site:{" "}
+          Tools and Resources for Trainers
         </Typography>
-        <Typography display="inline">Trainers</Typography>
       </Grid2>
       <Button
         size="small"
