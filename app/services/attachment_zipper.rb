@@ -9,7 +9,7 @@ class AttachmentZipper
   def create_zip
     @archive_tempfile = Tempfile.new(["#{@course_title}_archive", '.zip'])
 
-    ::Zip::File.open(@archive_tempfile.path, ::Zip::File::CREATE) do |zipfile|
+    ::Zip::File.open(@archive_tempfile.path, create: true) do |zipfile|
       @attachments.each do |attachment|
         filename = attachment.send("#{@attachment_type}_file_name")
         file_data = Paperclip.io_adapters.for(attachment.send(@attachment_type)).read

@@ -56,7 +56,7 @@ const Header = ({
           <img
             src={logoFile}
             alt="Header Logo"
-            style={{ height: "3.125rem", width: "auto" }}
+            style={{ height: "72px", width: "auto" }}
           />
         </Link>
         {isAuthenticated && (
