@@ -9,8 +9,7 @@ class DeviseMailer < Devise::Mailer
   end
 
   def reset_password_instructions(record, token, opts = {})
-    organization = record.roles.where(name: 'organization_admin').first&.resource
-    @mailer_subdomain = SubdomainBuilder.new(organization).build_subdomain
+    @mailer_subdomain = SubdomainBuilder.new(record.mailer_organization).build_subdomain
     super
   end
 end

@@ -22,6 +22,14 @@ class User < ApplicationRecord
     collaborator_profile.present?
   end
 
+  # Organization whose subdomain should be used for links in account emails.
+  # Falls back to the organization access was requested through, for users who
+  # have not accepted their invitation yet.
+  def mailer_organization
+    roles.where(name: %w[organization_admin collaborator]).first&.resource ||
+      AccessRequest.where('LOWER(email) = ?', email.downcase).order(created_at: :desc).first&.organization
+  end
+
   private
 
   def password_required?

@@ -23,7 +23,7 @@
 
       <fieldset>
         <%= f.label :phone, 'Phone Number', required: true %>
-        <%= f.text_field :phone, required: true, maxlength: 10 %>
+        <%= f.telephone_field :phone, required: true, autocomplete: "tel" %>
       </fieldset>
 
       <fieldset>

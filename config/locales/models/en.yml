@@ -3,6 +3,10 @@ en:
     attributes:
       access_request:
         phone: "Phone number"
+      collaborator_profile:
+        phone: "Phone number"
+      user/collaborator_profile:
+        phone: "Phone number"
       course:
         title: "Training Title"
         description: "Training Description"

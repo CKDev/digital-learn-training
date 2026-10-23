@@ -91,12 +91,14 @@ const AccessRequestNew = ({ accessRequestsPath, recaptchaSiteKey }) => {
         />
         <TextField
           label="Phone Number"
+          type="tel"
           variant="outlined"
           fullWidth
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
+          autoComplete="tel"
+          helperText="10-digit phone number, e.g. 555-123-4567"
           required
-          slotProps={{ htmlInput: { maxLength: 10 } }}
         />
         <TextField
           label="Please provide a brief explanation for requesting access to materials"

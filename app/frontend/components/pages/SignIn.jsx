@@ -49,6 +49,9 @@ const SignIn = ({
 
       const data = await response.json();
       console.log("Sign-in success:", data);
+      if (!data.redirectPath) {
+        throw new Error("Sign-in failed");
+      }
       window.location = data.redirectPath;
     } catch (err) {
       setError(err.message);

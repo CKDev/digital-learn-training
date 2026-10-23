@@ -93,6 +93,7 @@ const InvitationEdit = ({
               variant="outlined"
               fullWidth
               value={email}
+              autoComplete="username"
               disabled
             />
             <TextField
@@ -102,6 +103,7 @@ const InvitationEdit = ({
               fullWidth
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete="new-password"
               required
             />
             <TextField
@@ -111,6 +113,7 @@ const InvitationEdit = ({
               fullWidth
               value={passwordConfirmation}
               onChange={(e) => setPasswordConfirmation(e.target.value)}
+              autoComplete="new-password"
               required
             />
           </>
@@ -133,13 +136,15 @@ const InvitationEdit = ({
           required
         />
         <TextField
-          label="Phone"
+          label="Phone Number"
+          type="tel"
           variant="outlined"
           fullWidth
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
+          autoComplete="tel"
+          helperText="10-digit phone number, e.g. 555-123-4567"
           required
-          slotProps={{ htmlInput: { maxLength: 10 } }}
         />
         <TextField
           label="Organization Name"
