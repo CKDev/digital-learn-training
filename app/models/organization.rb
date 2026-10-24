@@ -8,7 +8,7 @@ class Organization < ApplicationRecord
   validates :title, presence: true
   store_accessor :settings, :access_requests_enabled, :access_request_emails, :authentication_required,
     :trainers_only
-  store_accessor :theme_overrides, :palette
+  store_accessor :theme_overrides, :palette, :buttons
 
   has_attached_file :header_logo, url: 'organizations/:id/header_logo/:basename.:extension'
   validates_attachment_content_type :header_logo, content_type: Constants.course_material_media_types,

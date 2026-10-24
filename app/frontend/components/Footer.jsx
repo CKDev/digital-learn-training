@@ -23,7 +23,7 @@ const Footer = ({
           >
             Platform License: MIT
           </Link>
-          {' | '}
+          {" | "}
           <Link
             href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode"
             target="_blank"
@@ -38,13 +38,17 @@ const Footer = ({
           <Link href="/terms_of_use" color="inherit" underline="always">
             Terms of Use
           </Link>
-          {' | '}
+          {" | "}
           <Link href="/privacy_policy" color="inherit" underline="always">
             Privacy Policy
           </Link>
         </Typography>
         <Link href={logoLinkDestination} target="_blank">
-          <img src={logoFile} alt="Footer Logo" style={{ height: "3.5rem", width: "auto" }} />
+          <img
+            src={logoFile}
+            alt="Footer Logo"
+            style={{ height: "32px", width: "auto" }}
+          />
         </Link>
       </Box>
       <Box sx={{ p: "20px" }}>

@@ -3,6 +3,7 @@ import {
   CircularProgress,
   CssBaseline,
   ThemeProvider,
+  alpha,
   createTheme,
 } from "@mui/material";
 import "@fontsource/nunito/300.css";
@@ -43,9 +44,54 @@ const defaultThemeData = {
   },
 };
 
+// Org-level button customizations. Color only applies to primary contained
+// (filled) and outlined buttons, so links, icons, and text buttons keep using
+// the primary palette color.
+const buttonOverrides = (theme, { color, shape } = {}) => {
+  const buttonColor = color
+    ? theme.palette.augmentColor({ color: { main: color, contrastText: "#FFFFFF" } })
+    : null;
+
+  return {
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: ({ ownerState }) => {
+            const styles = {};
+            if (shape === "rounded") {
+              styles.borderRadius = 9999;
+            }
+            if (buttonColor && ownerState.color === "primary") {
+              if (ownerState.variant === "contained") {
+                Object.assign(styles, {
+                  backgroundColor: buttonColor.main,
+                  color: buttonColor.contrastText,
+                  "&:hover": { backgroundColor: buttonColor.dark },
+                });
+              } else if (ownerState.variant === "outlined") {
+                Object.assign(styles, {
+                  color: buttonColor.main,
+                  borderColor: buttonColor.main,
+                  "&:hover": {
+                    borderColor: buttonColor.dark,
+                    backgroundColor: alpha(buttonColor.main, theme.palette.action.hoverOpacity),
+                  },
+                });
+              }
+            }
+            return styles;
+          },
+        },
+      },
+    },
+  };
+};
+
 const ThemedComponent = ({ children }) => {
-  const themeData = { ...defaultThemeData, ...window.orgThemeOverrides };
-  const theme = createTheme(themeData);
+  const { buttons, ...overrides } = window.orgThemeOverrides || {};
+  const themeData = { ...defaultThemeData, ...overrides };
+  const baseTheme = createTheme(themeData);
+  const theme = createTheme(baseTheme, buttonOverrides(baseTheme, buttons));
 
   return (
     <React.StrictMode>
