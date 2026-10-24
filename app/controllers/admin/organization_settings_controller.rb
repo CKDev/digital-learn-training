@@ -30,7 +30,18 @@ module Admin
         result['palette'] = extract_palette(params[:organization][:palette])
       end
 
+      if params.dig(:organization, :buttons).present?
+        result['buttons'] = extract_buttons(params[:organization][:buttons])
+      end
+
       result
+    end
+
+    def extract_buttons(raw)
+      {
+        'color' => raw[:color].presence,
+        'shape' => raw[:shape].in?(%w[standard rounded]) ? raw[:shape] : 'standard',
+      }.compact
     end
 
     def extract_palette(raw)
