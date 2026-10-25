@@ -59,7 +59,17 @@ const buttonOverrides = (theme, { color, shape } = {}) => {
           root: ({ ownerState }) => {
             const styles = {};
             if (shape === "rounded") {
-              styles.borderRadius = 9999;
+              // Nunito's line box reserves more space below the baseline than
+              // its caps use, so uppercase labels sit slightly high. That's
+              // noticeable against symmetric pill ends, so shift the label
+              // down 1px while keeping MUI's total vertical padding per size.
+              const basePadding = { small: 4, medium: 6, large: 8 }[ownerState.size] ?? 6;
+              const padding = ownerState.variant === "outlined" ? basePadding - 1 : basePadding;
+              Object.assign(styles, {
+                borderRadius: 9999,
+                paddingTop: padding + 1,
+                paddingBottom: padding - 1,
+              });
             }
             if (buttonColor && ownerState.color === "primary") {
               if (ownerState.variant === "contained") {
