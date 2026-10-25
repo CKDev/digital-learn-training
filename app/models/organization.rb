@@ -6,6 +6,7 @@ class Organization < ApplicationRecord
   has_many :imported_course_materials, through: :course_material_imports, source: :course_material
 
   validates :title, presence: true
+  validate :button_color_is_hex
   store_accessor :settings, :access_requests_enabled, :access_request_emails, :authentication_required,
     :trainers_only
   store_accessor :theme_overrides, :palette, :buttons
@@ -35,5 +36,14 @@ class Organization < ApplicationRecord
 
   def self.digital_learn
     find_by(subdomain: 'www')
+  end
+
+  private
+
+  def button_color_is_hex
+    color = buttons&.dig('color')
+    return if color.blank? || color.match?(/\A#(\h{3}|\h{6})\z/)
+
+    errors.add(:base, 'Button color must be a hex color code (e.g. #01579B)')
   end
 end

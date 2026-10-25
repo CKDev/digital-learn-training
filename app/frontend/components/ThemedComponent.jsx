@@ -48,9 +48,15 @@ const defaultThemeData = {
 // (filled) and outlined buttons, so links, icons, and text buttons keep using
 // the primary palette color.
 const buttonOverrides = (theme, { color, shape } = {}) => {
-  const buttonColor = color
-    ? theme.palette.augmentColor({ color: { main: color, contrastText: "#FFFFFF" } })
-    : null;
+  let buttonColor = null;
+  if (color) {
+    try {
+      buttonColor = theme.palette.augmentColor({ color: { main: color, contrastText: "#FFFFFF" } });
+    } catch (e) {
+      // An unparseable color would otherwise break the whole theme; fall back to the primary color.
+      console.error(`Invalid button color "${color}":`, e);
+    }
+  }
 
   return {
     components: {
