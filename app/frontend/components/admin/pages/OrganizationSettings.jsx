@@ -258,14 +258,13 @@ const OrganizationSettings = ({
               <Typography variant="subtitle2" color="text.secondary" gutterBottom>
                 Button Color
               </Typography>
-              <Stack direction="row" spacing={1} alignItems="flex-start">
+              <Stack direction="row" spacing={1} alignItems="center">
                 <Box sx={{ flex: 1 }}>
                   <ColorField
                     label="Button Color"
                     value={buttons.color}
                     fallback={palette.primary.main}
                     placeholder={palette.primary.main}
-                    helperText="Filled and outlined buttons only. Leave blank to use the primary color."
                     onChange={(e) =>
                       setButtons((prev) => ({ ...prev, color: e.target.value }))
                     }
@@ -275,13 +274,15 @@ const OrganizationSettings = ({
                   <Button
                     variant="text"
                     size="small"
-                    sx={{ mt: 0.5 }}
                     onClick={() => setButtons((prev) => ({ ...prev, color: "" }))}
                   >
                     Clear
                   </Button>
                 )}
               </Stack>
+              <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: 1 }}>
+                Applies to filled and outlined buttons only. Leave blank to use the primary color.
+              </Typography>
             </Grid>
             <Grid size={6}>
               <Typography variant="subtitle2" color="text.secondary" gutterBottom>
