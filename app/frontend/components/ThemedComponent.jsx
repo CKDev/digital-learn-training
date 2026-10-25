@@ -6,6 +6,7 @@ import {
   alpha,
   createTheme,
 } from "@mui/material";
+import { isValidColor, sanitizePalette } from "@utils/colors";
 import "@fontsource/nunito/300.css";
 import "@fontsource/nunito/400.css";
 import "@fontsource/nunito/500.css";
@@ -49,7 +50,9 @@ const defaultThemeData = {
 // the primary palette color.
 const buttonOverrides = (theme, { color, shape } = {}) => {
   let buttonColor = null;
-  if (color) {
+  if (color && !isValidColor(color)) {
+    console.error(`Ignoring invalid button color:`, color);
+  } else if (color) {
     try {
       buttonColor = theme.palette.augmentColor({ color: { main: color, contrastText: "#FFFFFF" } });
     } catch (e) {
@@ -103,11 +106,26 @@ const buttonOverrides = (theme, { color, shape } = {}) => {
   };
 };
 
+const buildTheme = () => {
+  const { buttons, palette, ...overrides } = window.orgThemeOverrides || {};
+  const themeData = {
+    ...defaultThemeData,
+    ...overrides,
+    palette: sanitizePalette(defaultThemeData.palette, palette),
+  };
+
+  try {
+    const baseTheme = createTheme(themeData);
+    return createTheme(baseTheme, buttonOverrides(baseTheme, buttons));
+  } catch (e) {
+    // Last resort: never let org overrides take the whole site down.
+    console.error("Failed to build org theme, using defaults:", e);
+    return createTheme(defaultThemeData);
+  }
+};
+
 const ThemedComponent = ({ children }) => {
-  const { buttons, ...overrides } = window.orgThemeOverrides || {};
-  const themeData = { ...defaultThemeData, ...overrides };
-  const baseTheme = createTheme(themeData);
-  const theme = createTheme(baseTheme, buttonOverrides(baseTheme, buttons));
+  const theme = buildTheme();
 
   return (
     <React.StrictMode>
