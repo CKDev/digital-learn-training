@@ -20,6 +20,8 @@ const DEFAULT_PALETTE = {
   iconColor: "rgba(0, 0, 0, 0.56)",
 };
 
+const HEX_COLOR_REGEX = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
+
 const ColorField = ({ label, value, onChange, fallback = "#000000", ...textFieldProps }) => (
   <Stack direction="row" spacing={1.5} alignItems="center">
     <input
@@ -108,6 +110,8 @@ const OrganizationSettings = ({
     color: initialButtons?.color ?? "",
     shape: initialButtons?.shape ?? "standard",
   });
+
+  const buttonColorInvalid = !!buttons.color && !HEX_COLOR_REGEX.test(buttons.color);
 
   const [headerLogoUrl, setHeaderLogoUrl] = useState(initialHeaderLogoUrl);
   const [footerLogoUrl, setFooterLogoUrl] = useState(initialFooterLogoUrl);
@@ -265,6 +269,7 @@ const OrganizationSettings = ({
                     value={buttons.color}
                     fallback={palette.primary.main}
                     placeholder={palette.primary.main}
+                    error={buttonColorInvalid}
                     onChange={(e) =>
                       setButtons((prev) => ({ ...prev, color: e.target.value }))
                     }
@@ -280,8 +285,15 @@ const OrganizationSettings = ({
                   </Button>
                 )}
               </Stack>
-              <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: 1 }}>
-                Applies to filled and outlined buttons only. Leave blank to use the primary color.
+              <Typography
+                variant="caption"
+                color={buttonColorInvalid ? "error" : "text.secondary"}
+                component="p"
+                sx={{ mt: 1 }}
+              >
+                {buttonColorInvalid
+                  ? "Enter a hex color code, e.g. #01579B."
+                  : "Applies to filled and outlined buttons only. Leave blank to use the primary color."}
               </Typography>
             </Grid>
             <Grid size={6}>
@@ -328,7 +340,7 @@ const OrganizationSettings = ({
         </Paper>
 
         <Box>
-          <Button type="submit" variant="contained" disabled={submitting}>
+          <Button type="submit" variant="contained" disabled={submitting || buttonColorInvalid}>
             {submitting ? "Saving…" : "Save Settings"}
           </Button>
         </Box>
