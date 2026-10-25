@@ -13,14 +13,13 @@ import {
   Typography,
 } from "@mui/material";
 import { updateOrganizationSettings } from "@api/OrganizationSettingsApi";
+import { COLOR_FORMAT_HINT, isValidColor } from "@utils/colors";
 
 const DEFAULT_PALETTE = {
   primary: { main: "#01579B", light: "#29B6F6" },
   info: { main: "#548687", dark: "#006064", contrastText: "#FFFFFF" },
   iconColor: "rgba(0, 0, 0, 0.56)",
 };
-
-const HEX_COLOR_REGEX = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
 
 const ColorField = ({ label, value, onChange, fallback = "#000000", ...textFieldProps }) => (
   <Stack direction="row" spacing={1.5} alignItems="center">
@@ -111,7 +110,16 @@ const OrganizationSettings = ({
     shape: initialButtons?.shape ?? "standard",
   });
 
-  const buttonColorInvalid = !!buttons.color && !HEX_COLOR_REGEX.test(buttons.color);
+  const buttonColorInvalid = !!buttons.color && !isValidColor(buttons.color);
+  const paletteColors = [
+    palette.primary.main,
+    palette.primary.light,
+    palette.info.main,
+    palette.info.dark,
+    palette.info.contrastText,
+    palette.iconColor,
+  ];
+  const paletteInvalid = paletteColors.some((color) => !isValidColor(color));
 
   const [headerLogoUrl, setHeaderLogoUrl] = useState(initialHeaderLogoUrl);
   const [footerLogoUrl, setFooterLogoUrl] = useState(initialFooterLogoUrl);
@@ -204,11 +212,13 @@ const OrganizationSettings = ({
                 <ColorField
                   label="Primary (Main)"
                   value={palette.primary.main}
+                  error={!isValidColor(palette.primary.main)}
                   onChange={setNestedColor("primary", "main")}
                 />
                 <ColorField
                   label="Primary (Light)"
                   value={palette.primary.light}
+                  error={!isValidColor(palette.primary.light)}
                   onChange={setNestedColor("primary", "light")}
                 />
               </Stack>
@@ -221,16 +231,19 @@ const OrganizationSettings = ({
                 <ColorField
                   label="Info (Main)"
                   value={palette.info.main}
+                  error={!isValidColor(palette.info.main)}
                   onChange={setNestedColor("info", "main")}
                 />
                 <ColorField
                   label="Info (Dark)"
                   value={palette.info.dark}
+                  error={!isValidColor(palette.info.dark)}
                   onChange={setNestedColor("info", "dark")}
                 />
                 <ColorField
                   label="Info (Contrast Text)"
                   value={palette.info.contrastText}
+                  error={!isValidColor(palette.info.contrastText)}
                   onChange={setNestedColor("info", "contrastText")}
                 />
               </Stack>
@@ -246,11 +259,17 @@ const OrganizationSettings = ({
                   setPalette((prev) => ({ ...prev, iconColor: e.target.value }))
                 }
                 size="small"
+                error={!isValidColor(palette.iconColor)}
                 helperText="Accepts hex or rgba values (e.g. rgba(0, 0, 0, 0.56))"
                 sx={{ width: 320 }}
               />
             </Grid>
           </Grid>
+          {paletteInvalid && (
+            <Typography variant="caption" color="error" component="p" sx={{ mt: 2 }}>
+              Fix the highlighted colors. {COLOR_FORMAT_HINT}
+            </Typography>
+          )}
         </Paper>
 
         <Paper elevation={0} variant="outlined" sx={{ p: 3 }}>
@@ -292,7 +311,7 @@ const OrganizationSettings = ({
                 sx={{ mt: 1 }}
               >
                 {buttonColorInvalid
-                  ? "Enter a hex color code, e.g. #01579B."
+                  ? COLOR_FORMAT_HINT
                   : "Applies to filled and outlined buttons only. Leave blank to use the primary color."}
               </Typography>
             </Grid>
@@ -340,7 +359,7 @@ const OrganizationSettings = ({
         </Paper>
 
         <Box>
-          <Button type="submit" variant="contained" disabled={submitting || buttonColorInvalid}>
+          <Button type="submit" variant="contained" disabled={submitting || buttonColorInvalid || paletteInvalid}>
             {submitting ? "Saving…" : "Save Settings"}
           </Button>
         </Box>
