@@ -1,4 +1,6 @@
 class InvitationsController < Devise::InvitationsController
+  include JsonRequireNoAuthentication
+
   before_action :configure_update_params, only: :update
 
   respond_to :html, :json
@@ -69,6 +71,13 @@ class InvitationsController < Devise::InvitationsController
   end
 
   protected
+
+  def accept_resource
+    resource = super
+    # Record which organization the collaborator belongs to
+    resource.add_role(:collaborator, current_organization) if resource.errors.empty? && resource.collaborator?
+    resource
+  end
 
   def invite_resource(&block)
     resource_class.invite!(invite_params, current_inviter, { organization: current_organization }, &block)

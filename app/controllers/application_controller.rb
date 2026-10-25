@@ -47,8 +47,13 @@ class ApplicationController < ActionController::Base
   def authenticate_inviter!
     # Limit invitations to admins only
     unless current_user.present? && current_user.admin?
-      flash[:alert] = 'You are not authorized to view this page'
-      redirect_to admin_root_path
+      message = 'You are not authorized to view this page'
+      if request.format.json?
+        render json: { error: message }, status: :forbidden
+      else
+        flash[:alert] = message
+        redirect_to admin_root_path
+      end
     end
 
     current_user
@@ -114,7 +119,12 @@ class ApplicationController < ActionController::Base
     return if current_user.has_role?(:trainer, current_organization)
 
     sign_out(current_user)
-    redirect_to root_path, alert: 'Your account does not have access to training materials for this organization.'
+    message = 'Your account does not have access to training materials for this organization.'
+    if request.format.json?
+      render json: { error: message }, status: :forbidden
+    else
+      redirect_to root_path, alert: message
+    end
   end
 
   def current_language

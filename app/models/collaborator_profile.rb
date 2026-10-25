@@ -20,7 +20,7 @@ class CollaboratorProfile < ApplicationRecord
     self.phone = phone.gsub(/\D/, '')
 
     unless phone.match(/^\d{10}$/)
-      errors.add(:phone, 'must be 10 numeric digits')
+      errors.add(:phone, 'must be 10 digits, e.g. 555-123-4567')
     end
   end
 end

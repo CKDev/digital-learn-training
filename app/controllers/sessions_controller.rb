@@ -1,4 +1,6 @@
 class SessionsController < Devise::SessionsController
+  include JsonRequireNoAuthentication
+
   layout 'application'
 
   respond_to :html, :json

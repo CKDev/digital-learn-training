@@ -7,4 +7,10 @@ class CustomFailure < Devise::FailureApp
       redirect
     end
   end
+
+  # JSON is a navigational format in the Devise config, which would otherwise
+  # redirect JSON requests to the sign-in page instead of returning a 401
+  def http_auth?
+    request.format.json? || super
+  end
 end

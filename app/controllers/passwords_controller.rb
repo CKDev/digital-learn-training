@@ -1,4 +1,6 @@
 class PasswordsController < Devise::PasswordsController
+  include JsonRequireNoAuthentication
+
   before_action :fix_admin_layout
 
   respond_to :html, :json

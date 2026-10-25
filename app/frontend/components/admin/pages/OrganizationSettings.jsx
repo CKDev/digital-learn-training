@@ -3,8 +3,11 @@ import {
   Alert,
   Box,
   Button,
+  FormControlLabel,
   Grid2 as Grid,
   Paper,
+  Radio,
+  RadioGroup,
   Stack,
   TextField,
   Typography,
@@ -17,11 +20,11 @@ const DEFAULT_PALETTE = {
   iconColor: "rgba(0, 0, 0, 0.56)",
 };
 
-const ColorField = ({ label, value, onChange }) => (
+const ColorField = ({ label, value, onChange, fallback = "#000000", ...textFieldProps }) => (
   <Stack direction="row" spacing={1.5} alignItems="center">
     <input
       type="color"
-      value={value.startsWith("#") ? value : "#000000"}
+      value={value.startsWith("#") ? value : fallback}
       onChange={onChange}
       style={{ width: 36, height: 36, cursor: "pointer", border: "none", padding: 0, background: "none" }}
       title={label}
@@ -32,6 +35,7 @@ const ColorField = ({ label, value, onChange }) => (
       onChange={onChange}
       size="small"
       sx={{ flex: 1 }}
+      {...textFieldProps}
     />
   </Stack>
 );
@@ -82,6 +86,7 @@ const LogoSection = ({ title, currentUrl, inputRef, onFileChange, previewHeight 
 
 const OrganizationSettings = ({
   palette: initialPalette,
+  buttons: initialButtons,
   headerLogoUrl: initialHeaderLogoUrl,
   footerLogoUrl: initialFooterLogoUrl,
 }) => {
@@ -97,6 +102,11 @@ const OrganizationSettings = ({
       contrastText: stored.info?.contrastText ?? DEFAULT_PALETTE.info.contrastText,
     },
     iconColor: stored.iconColor ?? DEFAULT_PALETTE.iconColor,
+  });
+
+  const [buttons, setButtons] = useState({
+    color: initialButtons?.color ?? "",
+    shape: initialButtons?.shape ?? "standard",
   });
 
   const [headerLogoUrl, setHeaderLogoUrl] = useState(initialHeaderLogoUrl);
@@ -143,6 +153,8 @@ const OrganizationSettings = ({
     data.append("organization[palette][info][dark]", palette.info.dark);
     data.append("organization[palette][info][contrastText]", palette.info.contrastText);
     data.append("organization[palette][iconColor]", palette.iconColor);
+    data.append("organization[buttons][color]", buttons.color);
+    data.append("organization[buttons][shape]", buttons.shape);
 
     if (headerLogoFile) {
       data.append("organization[header_logo]", headerLogoFile, headerLogoFile.name);
@@ -233,6 +245,59 @@ const OrganizationSettings = ({
                 helperText="Accepts hex or rgba values (e.g. rgba(0, 0, 0, 0.56))"
                 sx={{ width: 320 }}
               />
+            </Grid>
+          </Grid>
+        </Paper>
+
+        <Paper elevation={0} variant="outlined" sx={{ p: 3 }}>
+          <Typography variant="h6" gutterBottom>
+            Buttons
+          </Typography>
+          <Grid container spacing={3}>
+            <Grid size={6}>
+              <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                Button Color
+              </Typography>
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Box sx={{ flex: 1 }}>
+                  <ColorField
+                    label="Button Color"
+                    value={buttons.color}
+                    fallback={palette.primary.main}
+                    placeholder={palette.primary.main}
+                    onChange={(e) =>
+                      setButtons((prev) => ({ ...prev, color: e.target.value }))
+                    }
+                  />
+                </Box>
+                {buttons.color && (
+                  <Button
+                    variant="text"
+                    size="small"
+                    onClick={() => setButtons((prev) => ({ ...prev, color: "" }))}
+                  >
+                    Clear
+                  </Button>
+                )}
+              </Stack>
+              <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: 1 }}>
+                Applies to filled and outlined buttons only. Leave blank to use the primary color.
+              </Typography>
+            </Grid>
+            <Grid size={6}>
+              <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                Button Shape
+              </Typography>
+              <RadioGroup
+                row
+                value={buttons.shape}
+                onChange={(e) =>
+                  setButtons((prev) => ({ ...prev, shape: e.target.value }))
+                }
+              >
+                <FormControlLabel value="standard" control={<Radio />} label="Standard" />
+                <FormControlLabel value="rounded" control={<Radio />} label="Rounded (pill)" />
+              </RadioGroup>
             </Grid>
           </Grid>
         </Paper>

@@ -63,7 +63,7 @@
 
         <fieldset>
           <%= profile_fields.label :phone, "Phone Number" %>
-          <%= profile_fields.text_field :phone, required: true, maxlength: 10 %>
+          <%= profile_fields.telephone_field :phone, required: true, autocomplete: "tel" %>
         </fieldset>
 
         <fieldset>
