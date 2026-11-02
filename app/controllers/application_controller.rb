@@ -111,12 +111,16 @@ class ApplicationController < ActionController::Base
   # was already valid before an organization turned trainers_only on, or that
   # was established through a login path other than the Learners Session SSO
   # flow, can't keep accessing the site once it no longer qualifies.
+  #
+  # Collaborators invited directly to this organization are allowed through;
+  # trainers_only only restricts which Learners Site accounts can get in.
   def enforce_trainers_only_access!
     return unless user_signed_in?
     return unless current_organization&.trainers_only?
     return if current_user.admin?
     return if current_user.has_role?(:organization_admin, current_organization)
     return if current_user.has_role?(:trainer, current_organization)
+    return if current_user.has_role?(:collaborator, current_organization)
 
     sign_out(current_user)
     message = 'Your account does not have access to training materials for this organization.'

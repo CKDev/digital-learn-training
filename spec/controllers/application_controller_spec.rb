@@ -79,6 +79,38 @@ describe ApplicationController do
       end
     end
 
+    context 'when a signed-in user is a collaborator for the organization' do
+      let(:user) { create(:user, :with_collaborator_profile) }
+
+      before do
+        user.add_role(:collaborator, organization)
+        sign_in user
+      end
+
+      it 'allows the request through' do
+        get :index
+
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when a signed-in user is a collaborator for a different organization' do
+      let(:other_organization) { create(:organization, subdomain: 'other') }
+      let(:user) { create(:user, :with_collaborator_profile) }
+
+      before do
+        user.add_role(:collaborator, other_organization)
+        sign_in user
+      end
+
+      it 'signs the user out and redirects away' do
+        get :index
+
+        expect(response).to redirect_to(root_path)
+        expect(controller.current_user).to be_nil
+      end
+    end
+
     context 'when a signed-in user only has a role for a different organization' do
       let(:other_organization) { create(:organization, subdomain: 'other') }
       let(:user) { create(:user) }
